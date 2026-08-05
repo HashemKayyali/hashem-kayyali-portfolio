@@ -25,8 +25,8 @@ const SectionWrapper: React.FC<SectionWrapperProps> = ({
   }[variant];
 
   return (
-    <section id={id} className={`content-section relative scroll-mt-6 px-5 py-16 sm:px-8 sm:py-20 lg:px-10 xl:px-12 xl:py-20 2xl:px-16 2xl:py-24 ${variantClasses} ${className}`}>
-      <div className="mx-auto max-w-[1180px] 2xl:max-w-[1240px]">
+    <section id={id} className={`content-section relative max-w-full overflow-x-clip scroll-mt-6 px-4 py-16 sm:px-8 sm:py-20 lg:px-10 xl:px-12 xl:py-20 2xl:px-16 2xl:py-24 ${variantClasses} ${className}`}>
+      <div className="mx-auto w-full max-w-[1180px] min-w-0 2xl:max-w-[1240px]">
         {(title || subtitle) && (
           <motion.header
             initial={{ opacity: 0, y: 24 }}

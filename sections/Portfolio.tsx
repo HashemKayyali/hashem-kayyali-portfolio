@@ -44,16 +44,15 @@ const Portfolio: React.FC = () => {
           ))}
         </div>
 
-        <motion.div layout className="grid items-stretch gap-5 md:grid-cols-2 2xl:grid-cols-3 2xl:gap-6">
+        <motion.div className="grid min-w-0 grid-cols-1 items-stretch gap-5 md:grid-cols-2 2xl:grid-cols-3 2xl:gap-6">
           {visibleProjects.map((project, index) => (
             <motion.div
               key={project.slug}
-              layout
               initial={{ opacity: 0, y: 22 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: (index % 3) * 0.06 }}
-              className="h-full"
+              className="h-full min-w-0 max-w-full"
             >
               <FeatureShaderCard
                 index={index}

@@ -33,12 +33,12 @@ const FeatureShaderCard: React.FC<FeatureShaderCardProps> = ({
 
   return (
     <article
-      className="project-card-content group relative isolate h-full overflow-hidden rounded-[1.65rem] border border-[rgba(77,13,28,0.18)] bg-white ring-1 ring-[rgba(77,13,28,0.08)] shadow-[0_0_0_1px_rgba(77,13,28,0.08),0_0_20px_rgba(77,13,28,0.14)] transition-[transform,box-shadow,border-color] duration-300 before:pointer-events-none before:absolute before:inset-[1px] before:z-30 before:rounded-[calc(1.65rem-1px)] before:border before:border-white/45 before:content-[''] hover:-translate-y-1.5 hover:border-[rgba(77,13,28,0.25)] hover:shadow-[0_0_0_1px_rgba(77,13,28,0.12),0_0_29px_rgba(77,13,28,0.22)]"
+      className="project-card-content group relative isolate h-full w-full min-w-0 max-w-full overflow-hidden rounded-[1.65rem] border border-[rgba(77,13,28,0.18)] bg-white ring-1 ring-[rgba(77,13,28,0.08)] shadow-[0_0_0_1px_rgba(77,13,28,0.08),0_0_20px_rgba(77,13,28,0.14)] transition-[transform,box-shadow,border-color] duration-300 before:pointer-events-none before:absolute before:inset-[1px] before:z-30 before:rounded-[calc(1.65rem-1px)] before:border before:border-white/45 before:content-[''] hover:-translate-y-1.5 hover:border-[rgba(77,13,28,0.25)] hover:shadow-[0_0_0_1px_rgba(77,13,28,0.12),0_0_29px_rgba(77,13,28,0.22)]"
     >
       <button
         type="button"
         onClick={onClick}
-        className="focus-ring flex h-full w-full flex-col text-left"
+        className="focus-ring flex h-full w-full min-w-0 max-w-full flex-col text-left"
         aria-label={`View ${title} case study`}
       >
         <div className="relative shrink-0 overflow-hidden bg-primary">
@@ -57,7 +57,7 @@ const FeatureShaderCard: React.FC<FeatureShaderCardProps> = ({
           </div>
         </div>
 
-        <div className="relative isolate flex min-h-[20rem] flex-1 flex-col overflow-hidden bg-[#300510] p-5 text-white 2xl:min-h-[21rem] 2xl:p-6">
+        <div className="relative isolate flex min-h-[20rem] min-w-0 flex-1 flex-col overflow-hidden bg-[#300510] p-5 text-white 2xl:min-h-[21rem] 2xl:p-6">
           <BurgundyWarpBackground
             index={index}
             className="-z-30"
@@ -75,7 +75,7 @@ const FeatureShaderCard: React.FC<FeatureShaderCardProps> = ({
             {description}
           </p>
 
-          <div className="mt-5 flex flex-wrap gap-2">
+          <div className="mt-5 flex min-w-0 flex-wrap gap-2">
             {tech.slice(0, 4).map((item) => (
               <span
                 key={item}
@@ -86,8 +86,8 @@ const FeatureShaderCard: React.FC<FeatureShaderCardProps> = ({
             ))}
           </div>
 
-          <div className="mt-auto flex min-h-[3.35rem] shrink-0 items-end justify-between border-t border-white/55 pt-4 2xl:mt-6">
-            <span className="max-w-[62%] text-xs font-semibold leading-5 text-white/62">{status}</span>
+          <div className="mt-auto flex min-h-[3.35rem] min-w-0 shrink-0 items-end justify-between gap-3 border-t border-white/55 pt-4 2xl:mt-6">
+            <span className="min-w-0 max-w-[62%] text-xs font-semibold leading-5 text-white/62">{status}</span>
             <span className="inline-flex items-center gap-2 whitespace-nowrap text-sm font-extrabold text-white">
               View project
               <MoveUpRight
