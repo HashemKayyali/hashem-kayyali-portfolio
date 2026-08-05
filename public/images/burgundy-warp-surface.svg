@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="base" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#65132d"/>
+      <stop offset="0.42" stop-color="#420918"/>
+      <stop offset="1" stop-color="#170106"/>
+    </linearGradient>
+    <linearGradient id="foldA" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#8c254a" stop-opacity="0.62"/>
+      <stop offset="0.43" stop-color="#5b102a" stop-opacity="0.42"/>
+      <stop offset="1" stop-color="#24030d" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="foldB" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#7c1c3d" stop-opacity="0.56"/>
+      <stop offset="0.56" stop-color="#390713" stop-opacity="0.34"/>
+      <stop offset="1" stop-color="#130005" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="edge" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#b84b73" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#a73861" stop-opacity="0.17"/>
+      <stop offset="1" stop-color="#f2b4c9" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="glowA" cx="26%" cy="18%" r="68%">
+      <stop offset="0" stop-color="#9b3157" stop-opacity="0.36"/>
+      <stop offset="0.56" stop-color="#6d1835" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#25030d" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowB" cx="76%" cy="72%" r="72%">
+      <stop offset="0" stop-color="#751b3a" stop-opacity="0.3"/>
+      <stop offset="0.58" stop-color="#3b0715" stop-opacity="0.1"/>
+      <stop offset="1" stop-color="#160106" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft" x="-25%" y="-25%" width="150%" height="150%">
+      <feGaussianBlur stdDeviation="24"/>
+    </filter>
+    <filter id="softer" x="-25%" y="-25%" width="150%" height="150%">
+      <feGaussianBlur stdDeviation="44"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="1000" fill="url(#base)"/>
+  <rect width="1600" height="1000" fill="url(#glowA)"/>
+  <rect width="1600" height="1000" fill="url(#glowB)"/>
+
+  <path d="M-220 1010C-30 760 18 522 212 392c214-143 385-86 505-266 116-175 153-298 389-363 215-59 419-11 681-122v1310H-220Z" fill="url(#foldA)" filter="url(#softer)" opacity="0.94"/>
+  <path d="M-164 1118C64 847 77 636 280 508c183-116 397-83 548-286 132-176 247-227 429-273 164-42 271-104 474-214v1357H-164Z" fill="#160106" opacity="0.47" filter="url(#soft)"/>
+  <path d="M-121 1082C111 843 127 642 307 538c194-112 407-79 568-285 119-152 221-222 413-277 142-41 277-109 472-232" fill="none" stroke="url(#edge)" stroke-width="30" opacity="0.38" filter="url(#soft)"/>
+
+  <path d="M1331-179c-67 188-37 340-176 442-144 105-309 53-391 226-79 166 22 293-120 437-128 130-318 130-473 302" fill="none" stroke="url(#foldB)" stroke-width="170" stroke-linecap="round" filter="url(#softer)" opacity="0.82"/>
+  <path d="M1625 56c-206 66-312 174-392 326-84 159-77 294-219 385-123 79-270 40-385 168-87 97-106 188-189 279" fill="none" stroke="#8c254a" stroke-opacity="0.18" stroke-width="96" stroke-linecap="round" filter="url(#soft)"/>
+  <path d="M-94 698c181-133 313-166 451-116 153 55 247 183 413 174 167-9 238-157 402-199 140-37 279 12 500 148" fill="none" stroke="#791c3a" stroke-opacity="0.22" stroke-width="112" stroke-linecap="round" filter="url(#softer)"/>
+
+  <rect width="1600" height="1000" fill="url(#glowA)" opacity="0.42"/>
+</svg>
