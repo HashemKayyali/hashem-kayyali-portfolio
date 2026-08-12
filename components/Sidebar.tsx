@@ -98,13 +98,29 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
 
   return (
     <>
-      <button onClick={() => setIsOpen(true)} className="fixed right-4 top-4 z-[70] rounded-full bg-white p-3 text-primary shadow-panel xl:hidden" aria-label="Open navigation"><Menu size={23} /></button>
-
       <AnimatePresence>
         {isOpen && (
           <>
-            <motion.button aria-label="Close navigation" onClick={() => setIsOpen(false)} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-40 bg-primary/80 backdrop-blur-sm xl:hidden" />
-            <motion.aside initial={{ x: '-100%' }} animate={{ x: 0 }} exit={{ x: '-100%' }} transition={{ type: 'spring', damping: 27, stiffness: 240 }} className="fixed inset-y-0 left-0 z-50 w-[min(286px,88vw)] overflow-hidden bg-white shadow-panel xl:hidden">{content}</motion.aside>
+            <motion.button
+              aria-label="Close navigation"
+              onClick={() => setIsOpen(false)}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              style={{ zIndex: 70 }}
+              className="fixed inset-0 bg-primary/80 backdrop-blur-sm xl:hidden"
+            />
+            <motion.aside
+              initial={{ x: '-100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '-100%' }}
+              transition={{ type: 'spring', damping: 27, stiffness: 240 }}
+              style={{ zIndex: 80 }}
+              aria-label="Mobile navigation"
+              className="fixed inset-y-0 left-0 w-[min(286px,88vw)] overflow-hidden bg-white shadow-panel xl:hidden"
+            >
+              {content}
+            </motion.aside>
           </>
         )}
       </AnimatePresence>
@@ -113,6 +129,32 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
     </>
   );
 };
+
+/** Sticky mobile/tablet header. Replaces the old hamburger that floated over content. */
+export const MobileNav: React.FC<{ onOpen: () => void; isOpen: boolean }> = ({ onOpen, isOpen }) => (
+  // Kept in flow while the drawer is open (no layout shift) but visually and
+  // programmatically inert, so the hamburger never sits behind the drawer.
+  <header className={`mobile-nav${isOpen ? ' mobile-nav--inert' : ''}`} aria-hidden={isOpen}>
+    <div className="mobile-nav__brand">
+      <div className="mobile-nav__avatar">
+        <img src="/images/hashem-profile.webp" alt="" />
+      </div>
+      <div className="mobile-nav__text">
+        <p className="mobile-nav__name">{profile.name}</p>
+        <span className="mobile-nav__role">{profile.role}</span>
+      </div>
+    </div>
+    <button
+      type="button"
+      onClick={onOpen}
+      className="mobile-nav__menu"
+      aria-label="Open navigation"
+      tabIndex={isOpen ? -1 : undefined}
+    >
+      <Menu size={21} />
+    </button>
+  </header>
+);
 
 const Social = ({ href, label, children }: { href: string; label: string; children: React.ReactNode }) => (
   <a href={href} target="_blank" rel="noopener noreferrer" aria-label={label} className="rounded-full border border-primary/15 p-2 text-primary transition hover:bg-primary hover:text-white">{children}</a>

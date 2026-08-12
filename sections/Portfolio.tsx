@@ -1,5 +1,5 @@
-import React, { Suspense, lazy, useMemo, useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { Suspense, lazy, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import SectionWrapper from '../components/SectionWrapper';
 import FeatureShaderCard from '../components/ui/feature-shader-cards';
 import { projects } from '../data/profile';
@@ -7,9 +7,73 @@ import { Project } from '../types';
 
 const ProjectModal = lazy(() => import('../components/ProjectModal'));
 
+const MIN_SCALE = 0.92;
+const MAX_DIM = 0.6;
+
+/**
+ * Geometry of the sticky stack, measured on layout changes only.
+ * Cards are uniform, so card i pins at `stackTop + i * step - top`.
+ */
+interface StackMetrics {
+  stackTop: number;
+  step: number;
+  cardHeight: number;
+  top: number;
+}
+
+interface StackItemProps {
+  project: Project;
+  index: number;
+  total: number;
+  metrics: StackMetrics | null;
+  onOpen: () => void;
+}
+
+const StackItem: React.FC<StackItemProps> = ({ project, index, total, metrics, onOpen }) => {
+  const reduceMotion = useReducedMotion();
+  const { scrollY } = useScroll();
+  const hasNext = index < total - 1;
+  const recedes = hasNext && Boolean(metrics) && !reduceMotion;
+
+  // The next card covers this one over exactly one card height of scrolling,
+  // ending the moment it reaches its own pinned position.
+  const end = metrics ? metrics.stackTop + (index + 1) * metrics.step - metrics.top : 1;
+  const start = metrics ? end - metrics.cardHeight : 0;
+
+  const scale = useTransform(scrollY, [start, end], recedes ? [1, MIN_SCALE] : [1, 1], {
+    clamp: true,
+  });
+  const dim = useTransform(scrollY, [start, end], recedes ? [0, MAX_DIM] : [0, 0], {
+    clamp: true,
+  });
+
+  return (
+    <div className="project-stack__item" style={{ zIndex: index + 1 }}>
+      {/* No entrance animation: card visibility must never depend on JS running. */}
+      <motion.div className="project-stack__inner" style={{ scale }}>
+        <FeatureShaderCard
+          index={index}
+          total={total}
+          title={project.title}
+          category={project.category}
+          description={project.description}
+          status={project.status}
+          image={project.image}
+          tech={project.tech}
+          dimOpacity={dim}
+          onClick={onOpen}
+        />
+      </motion.div>
+    </div>
+  );
+};
+
 const Portfolio: React.FC = () => {
   const [filter, setFilter] = useState('All');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [metrics, setMetrics] = useState<StackMetrics | null>(null);
+  const stackRef = useRef<HTMLDivElement>(null);
+
   const filters = useMemo(
     () => ['All', ...Array.from(new Set(projects.map((project) => project.category)))],
     [],
@@ -19,6 +83,62 @@ const Portfolio: React.FC = () => {
     [filter],
   );
 
+  // A shorter filtered list can leave the viewport past the section, taking the
+  // controls off screen right after the user clicked one. Pull back to the top
+  // of the stack so the filters stay where the user just used them.
+  const isInitialRender = useRef(true);
+  useLayoutEffect(() => {
+    if (isInitialRender.current) {
+      isInitialRender.current = false;
+      return;
+    }
+    const stack = stackRef.current;
+    if (!stack) return;
+    const rect = stack.getBoundingClientRect();
+    if (rect.top >= 0) return;
+    const item = stack.querySelector<HTMLElement>('.project-stack__item');
+    const offset = item ? parseFloat(getComputedStyle(item).top) || 0 : 0;
+    // Instant: a smooth jump across the whole stack would be disorienting.
+    window.scrollTo({ top: rect.top + window.scrollY - offset, behavior: 'instant' });
+  }, [visibleProjects]);
+
+  useEffect(() => {
+    const stack = stackRef.current;
+    if (!stack) return;
+
+    const measure = () => {
+      const items = stack.querySelectorAll<HTMLElement>('.project-stack__item');
+      if (items.length < 2) {
+        setMetrics(null);
+        return;
+      }
+      const first = items[0];
+      const styles = getComputedStyle(first);
+      const cardHeight = first.getBoundingClientRect().height;
+      const gap = parseFloat(styles.marginBottom) || 0;
+      const top = parseFloat(styles.top) || 0;
+      // The stack container is static, so its page offset stays correct even
+      // while its children are pinned.
+      const stackTop = stack.getBoundingClientRect().top + window.scrollY;
+      setMetrics({ stackTop, step: cardHeight + gap, cardHeight, top });
+    };
+
+    measure();
+
+    if (typeof ResizeObserver === 'undefined') {
+      window.addEventListener('resize', measure);
+      return () => window.removeEventListener('resize', measure);
+    }
+
+    const observer = new ResizeObserver(measure);
+    observer.observe(stack);
+    window.addEventListener('resize', measure);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('resize', measure);
+    };
+  }, [visibleProjects]);
+
   return (
     <>
       <SectionWrapper
@@ -26,48 +146,37 @@ const Portfolio: React.FC = () => {
         title="Selected Projects"
         subtitle="Digital platforms, business systems, automation tools, computer vision, and R&D / IoT products designed and developed end to end."
         variant="white"
+        stickyControls={
+          <div className="portfolio-filters" aria-label="Project filters">
+            {filters.map((item) => (
+              <button
+                key={item}
+                type="button"
+                onClick={() => setFilter(item)}
+                className={`rounded-full px-4 py-2 text-sm font-bold transition ${
+                  filter === item
+                    ? 'bg-primary text-white shadow-soft'
+                    : 'border border-primary/15 bg-white text-primary hover:border-primary hover:bg-mist'
+                }`}
+              >
+                {item}
+              </button>
+            ))}
+          </div>
+        }
       >
-        <div className="mb-8 flex flex-wrap gap-2 2xl:mb-10" aria-label="Project filters">
-          {filters.map((item) => (
-            <button
-              key={item}
-              type="button"
-              onClick={() => setFilter(item)}
-              className={`rounded-full px-4 py-2 text-sm font-bold transition ${
-                filter === item
-                  ? 'bg-primary text-white shadow-soft'
-                  : 'border border-primary/15 bg-white text-primary hover:border-primary hover:bg-mist'
-              }`}
-            >
-              {item}
-            </button>
+        <div className="project-stack" ref={stackRef}>
+          {visibleProjects.map((project, index) => (
+            <StackItem
+              key={project.slug}
+              project={project}
+              index={index}
+              total={visibleProjects.length}
+              metrics={metrics}
+              onOpen={() => setSelectedProject(project)}
+            />
           ))}
         </div>
-
-        <motion.div className="grid min-w-0 grid-cols-1 items-stretch gap-5 md:grid-cols-2 2xl:grid-cols-3 2xl:gap-6">
-          {visibleProjects.map((project, index) => (
-            <motion.div
-              key={project.slug}
-              initial={{ opacity: 0, y: 22 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: (index % 3) * 0.06 }}
-              className="h-full min-w-0 max-w-full"
-            >
-              <FeatureShaderCard
-                index={index}
-                title={project.title}
-                category={project.category}
-                description={project.description}
-                status={project.status}
-                image={project.image}
-                tech={project.tech}
-                liveUrl={project.liveUrl}
-                onClick={() => setSelectedProject(project)}
-              />
-            </motion.div>
-          ))}
-        </motion.div>
       </SectionWrapper>
       {selectedProject && (
         <Suspense fallback={null}>
