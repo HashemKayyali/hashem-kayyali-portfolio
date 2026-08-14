@@ -3091,12 +3091,18 @@ section {
   /* Opaque fallback for the glass surfaces; the @supports blocks below swap
      in the real material where backdrop-filter exists. */
   --pd-surface: rgba(46, 6, 20, 0.94);
-  --pd-stage: rgba(10, 2, 5, 0.72);
+  /* The exact surface .project-card__media sits on, so opening a card reads
+     as the same object enlarged rather than a new, darker one. */
+  --pd-stage: #1a060f;
+  /* Burgundy-tinted scrim for controls. The site has no neutral black. */
+  --pd-scrim: rgba(26, 6, 15, 0.66);
   --pd-line: var(--glass-prism-border);
   --pd-line-strong: var(--glass-dark-edge);
   --pd-text: rgba(255, 255, 255, 0.76);
   --pd-muted: rgba(255, 255, 255, 0.5);
-  --pd-accent: #e3a9b8;
+  /* White is the site's only accent - the palette is white over burgundy and
+     nothing else. */
+  --pd-accent: #ffffff;
 }
 
 /* Above --z-drawer (80): the sheet is a portal over the whole app. */
@@ -3107,7 +3113,7 @@ section {
   display: grid;
   place-items: center;
   padding: clamp(0.5rem, 2vw, 2rem);
-  background: rgba(12, 2, 6, 0.84);
+  background: rgba(24, 4, 13, 0.84);
   backdrop-filter: blur(10px) saturate(var(--glass-saturate));
   -webkit-backdrop-filter: blur(10px) saturate(var(--glass-saturate));
 }
@@ -3260,18 +3266,22 @@ section {
   touch-action: pan-y;
 }
 
-/* Blurred copy of the same asset turns the letterboxing of mixed source
-   ratios (1.33 to 1.79 across the gallery) into a deliberate surface. */
+/* Blurred copy of the same asset fills whatever `contain` leaves over, so the
+   box never shows dead bars. Same recipe as .project-card__media-fill -
+   scaled past the edges because a blur samples transparent pixels outside its
+   own bounds and would otherwise fade at the rim. */
 .project-stage__wash {
   position: absolute;
   z-index: -1;
-  inset: -8%;
-  width: 116%;
-  height: 116%;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   max-width: none;
   object-fit: cover;
-  filter: blur(34px) saturate(1.25) brightness(0.6);
-  opacity: 0.5;
+  object-position: center;
+  transform: scale(1.18);
+  filter: blur(18px) saturate(1.25) brightness(0.42);
+  opacity: 0.85;
   pointer-events: none;
 }
 
@@ -3307,7 +3317,7 @@ section {
   padding: 0.34rem 0.62rem;
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 999px;
-  background: rgba(10, 2, 5, 0.66);
+  background: var(--pd-scrim);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   color: rgba(255, 255, 255, 0.88);
@@ -3347,7 +3357,7 @@ section {
   transform: translateY(-50%);
   border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 999px;
-  background: rgba(10, 2, 5, 0.62);
+  background: var(--pd-scrim);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   color: #ffffff;
@@ -3444,7 +3454,7 @@ section {
   padding: 0.75rem clamp(0.75rem, 3vw, 1.5rem)
     calc(0.75rem + env(safe-area-inset-bottom));
   border-top: 1px solid var(--pd-line);
-  background: rgba(8, 1, 4, 0.6);
+  background: rgba(26, 6, 15, 0.62);
 }
 
 /* ---- Narrative column ---------------------------------------------------- */
@@ -3473,10 +3483,12 @@ section {
   line-height: 1.7;
 }
 
+/* Matches the section-label pattern used across About, Resume, and the cards:
+   0.62rem at 0.62 alpha. */
 .project-detail__block h4 {
   margin: 0 0 0.7rem;
-  color: var(--pd-muted);
-  font-size: 0.64rem;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.62rem;
   font-weight: 800;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -3550,19 +3562,22 @@ section {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.8rem 1.35rem;
+  /* Same primary action as .hero__cta--primary: white pill, burgundy label,
+     lifts 2px on hover. */
+  padding: 0.68rem 1.1rem;
+  border: 1px solid transparent;
   border-radius: 999px;
   background: #ffffff;
   color: var(--burgundy);
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 800;
   text-decoration: none;
-  transition: transform 200ms var(--motion-ease), box-shadow 200ms var(--motion-ease);
+  white-space: nowrap;
+  transition: transform 200ms var(--motion-ease);
 }
 
 .project-detail__cta:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
+  transform: translateY(-2px);
 }
 
 .project-detail__private {
@@ -3583,7 +3598,7 @@ section {
   grid-template-rows: auto minmax(0, 1fr) auto;
   /* Deliberately near-opaque, unlike the sheet: a frosted backdrop behind a
      screenshot competes with the thing the viewer exists to show. */
-  background: rgba(6, 1, 3, 0.96);
+  background: rgba(26, 6, 15, 0.97);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
 }
@@ -3651,7 +3666,7 @@ section {
      control would disappear into them. */
   border: 1px solid rgba(255, 255, 255, 0.28);
   border-radius: 999px;
-  background: rgba(10, 2, 5, 0.62);
+  background: var(--pd-scrim);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   color: #ffffff;
