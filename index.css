@@ -1,4 +1,7 @@
 :root {
+  /* Display face. Overrides the frozen Tailwind build's --font-heading
+     (Manrope), which index.css is loaded after. Body copy stays Inter. */
+  --font-heading: 'Roboto Slab', Georgia, 'Times New Roman', serif;
   color-scheme: light;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -28,10 +31,78 @@ img { display: block; max-width: 100%; }
 ::-webkit-scrollbar-track { background: #ffffff; }
 ::-webkit-scrollbar-thumb { background: var(--burgundy); border: 2px solid #ffffff; border-radius: 999px; }
 
+/* Desktop sidebar: dark frosted Burgundy. It always sits over the animated
+   environment, so it takes the dark material and light type. */
 .glass-panel {
-  background: rgba(255, 255, 255, 0.97);
-  border: 1px solid rgba(255, 255, 255, 0.72);
-  box-shadow: 0 24px 70px rgba(38, 2, 12, 0.26);
+  background: var(--glass-dark-solid);
+  border: 1px solid var(--glass-dark-border);
+  box-shadow: var(--glass-dark-shadow);
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .glass-panel {
+    -webkit-backdrop-filter: blur(var(--glass-dark-blur)) saturate(var(--glass-saturate));
+    backdrop-filter: blur(var(--glass-dark-blur)) saturate(var(--glass-saturate));
+    background: var(--glass-dark);
+  }
+}
+
+/* Edge light: thin highlight that reads as glass thickness. */
+.glass-panel::before {
+  content: '';
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  border-radius: inherit;
+  border-top: 1px solid var(--glass-dark-edge);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  pointer-events: none;
+}
+
+/* Type tone for the dark sidebar material (desktop only; the drawer keeps the
+   neutral frost and its Burgundy type). */
+.glass-panel .sidebar-surface {
+  color: #ffffff;
+}
+
+.glass-panel .sidebar-surface p {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.glass-panel .sidebar-surface div.rounded-full {
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.glass-panel .sidebar-surface a[aria-label] {
+  border-color: rgba(255, 255, 255, 0.26);
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.glass-panel .sidebar-surface a[aria-label]:hover {
+  border-color: #ffffff;
+  background: #ffffff;
+  color: var(--burgundy);
+}
+
+.glass-panel nav button {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.glass-panel nav button:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+
+/* The active item carries the animated Burgundy surface: keep it full white. */
+.glass-panel nav button:has(canvas) {
+  color: #ffffff;
+}
+
+/* Drawer close button — only rendered below the sidebar breakpoint. */
+.glass-panel .sidebar-surface button[aria-label='Close navigation'] {
+  border-color: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
 }
 .custom-scrollbar { scrollbar-width: thin; scrollbar-color: var(--burgundy) transparent; }
 .focus-ring:focus-visible,
@@ -113,176 +184,6 @@ section {
    height to the intrinsic estimate and clipped the real content. The section-level
    containment above already provides the paint savings. */
 
-/* Animated experience timeline with replaceable photo tiles. */
-.experience-timeline {
-  position: relative;
-  padding-top: 0.25rem;
-}
-
-.experience-timeline__line {
-  position: absolute;
-  top: 1.9rem;
-  bottom: 2.25rem;
-  left: 2rem;
-  width: 2px;
-  transform-origin: top;
-  border-radius: 999px;
-  background: linear-gradient(
-    to bottom,
-    rgba(77, 13, 28, 0.78),
-    rgba(77, 13, 28, 0.28) 72%,
-    rgba(77, 13, 28, 0.04)
-  );
-}
-
-.experience-entry {
-  position: relative;
-  min-width: 0;
-  padding: 0 0 3.35rem 5.75rem;
-}
-
-.experience-entry:last-child {
-  padding-bottom: 0;
-}
-
-.experience-entry__media {
-  position: absolute;
-  z-index: 2;
-  top: 0;
-  left: 0;
-  width: 4.05rem;
-  height: 4.05rem;
-  overflow: hidden;
-  border: 3px solid #ffffff;
-  border-radius: 1rem;
-  background: #f7f2f4;
-  box-shadow:
-    0 0 0 2px rgba(77, 13, 28, 0.72),
-    0 12px 28px rgba(54, 5, 19, 0.18);
-}
-
-.experience-entry__media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.experience-entry__body {
-  min-width: 0;
-  padding-top: 0.1rem;
-}
-
-.experience-entry__heading {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.65rem 1rem;
-}
-
-.experience-entry__heading h4 {
-  margin: 0;
-  color: var(--burgundy);
-  font-family: 'Montserrat', Inter, sans-serif;
-  font-size: clamp(1.18rem, 1.5vw, 1.45rem);
-  font-weight: 800;
-  line-height: 1.2;
-}
-
-.experience-entry__period {
-  display: inline-flex;
-  align-items: center;
-  min-height: 1.9rem;
-  padding: 0.38rem 0.78rem;
-  border-radius: 999px;
-  background: var(--burgundy);
-  color: #ffffff;
-  font-size: 0.75rem;
-  font-weight: 800;
-  white-space: nowrap;
-}
-
-.experience-entry__location {
-  display: flex;
-  align-items: center;
-  gap: 0.45rem;
-  margin: 0.65rem 0 0;
-  color: rgba(77, 13, 28, 0.58);
-  font-size: 0.9rem;
-  font-weight: 650;
-}
-
-.experience-progression {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.75rem;
-  margin-top: 1.15rem;
-}
-
-.experience-progression__role {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  min-width: 0;
-  padding: 0.9rem 1rem;
-  border: 1px solid rgba(77, 13, 28, 0.12);
-  border-radius: 1rem;
-  background: rgba(255, 255, 255, 0.82);
-  box-shadow: 0 10px 26px rgba(42, 3, 15, 0.06);
-}
-
-.experience-progression__index {
-  display: grid;
-  flex: none;
-  width: 2rem;
-  height: 2rem;
-  place-items: center;
-  border-radius: 0.7rem;
-  background: rgba(77, 13, 28, 0.08);
-  color: var(--burgundy);
-  font-size: 0.68rem;
-  font-weight: 900;
-  letter-spacing: 0.08em;
-}
-
-.experience-progression__role p {
-  margin: 0;
-  color: var(--burgundy);
-  font-size: 0.9rem;
-  font-weight: 800;
-  line-height: 1.35;
-}
-
-.experience-progression__role div > span {
-  display: block;
-  margin-top: 0.18rem;
-  color: rgba(77, 13, 28, 0.52);
-  font-size: 0.75rem;
-  font-weight: 700;
-}
-
-.experience-entry__details {
-  display: grid;
-  gap: 0.72rem;
-  margin: 1.15rem 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.experience-entry__details li {
-  display: flex;
-  gap: 0.8rem;
-  color: rgba(77, 13, 28, 0.7);
-  line-height: 1.72;
-}
-
-.experience-entry__details li > span {
-  flex: none;
-  width: 0.38rem;
-  height: 0.38rem;
-  margin-top: 0.7rem;
-  border-radius: 999px;
-  background: var(--burgundy);
-}
 
 /* Compact professional footer using the shared animated burgundy surface. */
 .site-footer {
@@ -325,7 +226,7 @@ section {
   max-width: 42rem;
   margin: 0.85rem 0 0;
   color: #ffffff;
-  font-family: 'Montserrat', Inter, sans-serif;
+  font-family: Inter, sans-serif;
   font-size: clamp(1.65rem, 3vw, 2.8rem);
   font-weight: 850;
   line-height: 1.1;
@@ -431,10 +332,6 @@ section {
 }
 
 @media (max-width: 1023px) {
-  .experience-progression {
-    grid-template-columns: 1fr;
-  }
-
   .site-footer__main {
     grid-template-columns: minmax(0, 1fr) minmax(10rem, 0.65fr);
   }
@@ -445,30 +342,6 @@ section {
 }
 
 @media (max-width: 767px) {
-  .experience-timeline__line {
-    left: 1.55rem;
-  }
-
-  .experience-entry {
-    padding-left: 4.55rem;
-    padding-bottom: 2.75rem;
-  }
-
-  .experience-entry__media {
-    width: 3.2rem;
-    height: 3.2rem;
-    border-radius: 0.85rem;
-  }
-
-  .experience-entry__heading {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
-  .experience-entry__period {
-    min-height: 1.75rem;
-  }
-
   .site-footer__main {
     grid-template-columns: 1fr;
     gap: 2.25rem;
@@ -540,15 +413,39 @@ section {
 }
 
 /* White-to-transparent fade: invisible at rest, softens cards passing under. */
-.section-sticky::after {
-  content: '';
-  position: absolute;
-  top: 100%;
-  right: 0;
-  left: 0;
-  height: var(--stack-gap);
-  background: linear-gradient(to bottom, #ffffff, rgba(255, 255, 255, 0));
+/* Zero-cost marker at the header's resting position. SectionWrapper observes it
+   to know when the header is pinned; it must not affect layout. */
+.section-sticky__sentinel {
+  height: 1px;
+  margin-bottom: -1px;
   pointer-events: none;
+}
+
+/* A pinned header casts a real shadow instead of sitting on a painted band.
+   Earlier attempts used a full-width gradient strip, which ended in hard
+   vertical edges where it met the background and read as a rendering artefact
+   rather than depth.
+
+   A box-shadow follows the card's rounded silhouette for free, and one
+   declaration covers both directions: the ambient layer (no offset, positive
+   spread) darkens the strip above the card left by its float gap under the
+   navbar, and the directional layer darkens content sliding beneath it.
+
+   It also never becomes the card's own backdrop, which matters: the card's
+   backdrop-filter samples whatever is painted behind it, so an overlay there
+   would flatten the glass into an opaque panel and kill the Burgundy
+   transmission.
+
+   Only the pinned state carries it, so nothing is darkened while the header is
+   not actually covering anything. Every sticky section header inherits this. */
+.section-sticky {
+  transition: box-shadow 220ms ease;
+}
+
+.section-sticky--pinned {
+  box-shadow:
+    0 0 18px 7px rgba(38, 2, 12, 0.16),
+    0 18px 34px -12px rgba(38, 2, 12, 0.34);
 }
 
 .section-sticky__heading {
@@ -567,6 +464,43 @@ section {
   flex-wrap: wrap;
   gap: 0.5rem;
   margin-bottom: 1.1rem;
+}
+
+/* Below the desktop split the six filters ride one scrollable rail. Wrapping
+   them cost three rows; this costs one. The mask tells the reader there is
+   more to the right without spending a row on a scrollbar. */
+@media (max-width: 899px) {
+  .portfolio-filters {
+    flex-wrap: nowrap;
+    gap: 0.35rem;
+    margin-right: -0.8rem;
+    margin-bottom: 0;
+    margin-left: -0.8rem;
+    padding-right: 0.8rem;
+    padding-left: 0.8rem;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      #000 0.8rem,
+      #000 calc(100% - 1.6rem),
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      #000 0.8rem,
+      #000 calc(100% - 1.6rem),
+      transparent 100%
+    );
+    -ms-overflow-style: none;
+  }
+
+  .portfolio-filters::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 /* --------------------------------------------------------------------------
@@ -635,10 +569,10 @@ section {
   gap: 1rem;
   height: var(--mobile-nav-height);
   padding: 0 clamp(0.9rem, 3vw, 1.5rem);
-  border-bottom: 1px solid rgba(77, 13, 28, 0.12);
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(12px);
-  box-shadow: 0 6px 20px rgba(38, 2, 12, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(48, 7, 22, 0.94);
+  backdrop-filter: blur(8.5px);
+  box-shadow: 0 12px 30px rgba(12, 0, 5, 0.28);
 }
 
 @media (min-width: 1280px) {
@@ -683,7 +617,7 @@ section {
   margin: 0;
   overflow: hidden;
   color: var(--burgundy);
-  font-family: 'Montserrat', Inter, sans-serif;
+  font-family: var(--font-heading);
   font-size: 0.92rem;
   font-weight: 800;
   line-height: 1.2;
@@ -750,7 +684,10 @@ section {
   top: calc(var(--sticky-top-base) + var(--section-controls-height, 0px) + var(--stack-gap));
   width: min(100%, 58.5rem);
   min-width: 0;
-  margin: 0 auto clamp(1.75rem, 4vw, 3.5rem);
+  /* The gap is the scroll distance between one card pinning and the next
+     covering it, so a wider gap also slows the stacking and lets each card be
+     read on its own before the next arrives. */
+  margin: 0 auto clamp(3rem, 7vw, 6rem);
 }
 
 .project-stack__item:last-child {
@@ -766,24 +703,40 @@ section {
 /* --------------------------------------------------------------------------
    Project card: image left, content right, one cohesive surface.
    -------------------------------------------------------------------------- */
+/* The card sits on the animated Burgundy environment now, so it needs a
+   surface of its own — a transparent card would read as a hole in the page.
+   Glass for the material, neumorphic inner lighting for the volume: a lit top
+   edge, a shaded bottom edge, and a soft outer depth shadow. */
 .project-card {
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  border: 1px solid rgba(77, 13, 28, 0.14);
+  border: 1px solid var(--glass-prism-border);
   border-radius: 20px;
-  background: #17080d;
+  background: var(--glass-prism-solid);
   box-shadow:
-    0 4px 12px rgba(25, 0, 7, 0.08),
-    0 16px 40px rgba(25, 0, 7, 0.16);
-  transition: border-color 300ms ease, box-shadow 300ms ease;
+    inset 0 1px 0 rgba(255, 255, 255, 0.26),
+    inset 0 -1px 0 rgba(12, 0, 5, 0.4),
+    0 18px 40px rgba(12, 0, 5, 0.34);
+  transition: border-color 300ms ease, box-shadow 300ms ease, transform 300ms ease;
 }
 
-.project-card:hover {
-  border-color: rgba(77, 13, 28, 0.28);
-  box-shadow:
-    0 6px 14px rgba(25, 0, 7, 0.1),
-    0 22px 52px rgba(25, 0, 7, 0.22);
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .project-card {
+    -webkit-backdrop-filter: blur(var(--glass-prism-blur)) saturate(var(--glass-saturate));
+    backdrop-filter: blur(var(--glass-prism-blur)) saturate(var(--glass-saturate));
+    background: var(--glass-prism);
+  }
+}
+
+@media (hover: hover) {
+  .project-card:hover {
+    border-color: rgba(255, 255, 255, 0.42);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.34),
+      inset 0 -1px 0 rgba(12, 0, 5, 0.4),
+      0 26px 56px rgba(12, 0, 5, 0.44);
+  }
 }
 
 /* Inner hairline highlight keeps the edge crisp without a second border. */
@@ -817,15 +770,17 @@ section {
   outline-offset: -5px;
 }
 
-/* The media BOX drives the image size; the asset never drives the box. */
+/* The media BOX keeps every card the same height — the sticky stack measures
+   one card and assumes the rest match. 16/10 is the modal ratio of the actual
+   covers (six of ten), so most fill it exactly and the rest lose nothing. */
 .project-card__media {
   position: relative;
   grid-row: 1;
   grid-column: 1;
   overflow: hidden;
   min-width: 0;
-  aspect-ratio: 16 / 9;
-  background: #17080d;
+  aspect-ratio: 16 / 10;
+  background: #1a060f;
 }
 
 .project-card__media img {
@@ -836,13 +791,31 @@ section {
   height: 100%;
   min-width: 0;
   max-width: none;
-  object-fit: cover;
+}
+
+/* Whole cover, never cropped. */
+.project-card__media-main {
+  z-index: 1;
+  object-fit: contain;
   object-position: center;
   transition: transform 600ms ease;
 }
 
-.project-card:hover .project-card__media img {
-  transform: scale(1.025);
+/* Fills whatever `contain` leaves over, so the box never shows dead bars.
+   Scaled past the edges because a blur samples transparent pixels outside its
+   own bounds and would otherwise fade at the rim. */
+.project-card__media-fill {
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1.18);
+  filter: blur(18px) saturate(1.25) brightness(0.42);
+  opacity: 0.85;
+}
+
+@media (hover: hover) {
+  .project-card:hover .project-card__media-main {
+    transform: scale(1.025);
+  }
 }
 
 .project-card__body {
@@ -856,10 +829,6 @@ section {
   overflow: hidden;
   padding: clamp(1.15rem, 2.1vw, 1.7rem);
   color: #ffffff;
-}
-
-.project-card__warp {
-  z-index: -2;
 }
 
 /* Hairline divider at the media/content boundary, fading out at both ends. */
@@ -914,7 +883,7 @@ section {
 
 .project-card__title {
   margin: 0.8rem 0 0;
-  font-family: 'Montserrat', Inter, sans-serif;
+  font-family: Inter, sans-serif;
   font-size: clamp(1.15rem, 1.7vw, 1.5rem);
   font-weight: 850;
   line-height: 1.18;
@@ -1005,12 +974,12 @@ section {
     grid-template-columns: 3fr 2fr;
   }
 
-  /* Media ratio drives card height, so the card keeps ~2.35:1 at every width
-     instead of a fixed min-height that only lands at one viewport. */
+  /* Same ratio as the stacked layout: one rule governs the crop everywhere, and
+     7/5 was cutting 21% off the sides of the widest covers. */
   .project-card__media {
     grid-row: 1;
     grid-column: 1;
-    aspect-ratio: 7 / 5;
+    aspect-ratio: 16 / 10;
   }
 
   .project-card__body {
@@ -1034,5 +1003,2737 @@ section {
       rgba(255, 255, 255, 0.1) 82%,
       transparent
     );
+  }
+}
+
+/* ==========================================================================
+   Hero (Phase 1) — identity row on phones, two-area composition from 768px.
+   Tailwind is frozen in this repo, so the Hero is styled entirely here.
+   ========================================================================== */
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 1.15rem 1.25rem 1.35rem;
+  color: #ffffff;
+  background: transparent;
+}
+
+.hero__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    'headline figure'
+    'role     figure'
+    'summary  summary'
+    'actions  actions'
+    'meta     meta';
+  align-content: start;
+  width: 100%;
+  /* No cap: every section below runs to the section padding, so a 1180px cap
+     left the Hero 297px narrower and 148px further inset than About on a
+     1900px screen, which is what made it read as small and compressed. */
+  margin: 0 auto;
+  row-gap: 0;
+  column-gap: 1rem;
+}
+
+/* Base state is fully visible: if the animation never runs, nothing is hidden. */
+.hero__figure {
+  grid-area: figure;
+  align-self: start;
+  justify-self: end;
+  width: 104px;
+  margin: 0;
+  overflow: hidden;
+  border: 4px solid #ffffff;
+  border-radius: 1.15rem;
+  background: #ffffff;
+  box-shadow: 0 18px 42px rgba(20, 0, 6, 0.34);
+}
+
+.hero__figure img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.hero__headline {
+  grid-area: headline;
+  margin: 0;
+  font-family: var(--font-heading);
+  /* Sized to the column beside the portrait, not to the viewport: the headline
+     is 63 characters, so a viewport-scaled size broke it over 7 lines here. */
+  font-size: clamp(1.05rem, 4.5vw, 1.92rem);
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  line-height: 1.09;
+  text-wrap: balance;
+}
+
+.hero__role {
+  grid-area: role;
+  margin: 0.7rem 0 0;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.hero__summary {
+  grid-area: summary;
+  margin: 0.5rem 0 0;
+  max-width: 42rem;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.92rem;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.hero__actions {
+  grid-area: actions;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.85rem;
+}
+
+.hero__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  border-radius: 999px;
+  font-weight: 800;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: transform 200ms ease, background 200ms ease, color 200ms ease, border-color 200ms ease;
+}
+
+/* Sized so primary + secondary stay on one row at 375px. The transparent
+   border matches the secondary's border box so both sit on the same baseline. */
+.hero__cta--primary {
+  padding: 0.68rem 0.95rem;
+  border: 1px solid transparent;
+  background: #ffffff;
+  color: var(--burgundy);
+  font-size: 0.82rem;
+}
+
+.hero__cta--secondary {
+  padding: 0.68rem 0.85rem;
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  color: #ffffff;
+  font-size: 0.82rem;
+}
+
+/* Quiet tertiary action: text weight, its own line on phones, but still a
+   comfortable tap target. */
+.hero__cta--tertiary {
+  flex-basis: 100%;
+  min-height: 2.4rem;
+  padding: 0.3rem 0;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+
+.hero__cta--primary:hover {
+  transform: translateY(-2px);
+}
+
+.hero__cta--secondary:hover {
+  border-color: #ffffff;
+  background: #ffffff;
+  color: var(--burgundy);
+}
+
+.hero__cta--tertiary:hover {
+  color: #ffffff;
+}
+
+.hero__meta {
+  grid-area: meta;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem 1.05rem;
+  margin-top: 0.85rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.72rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+/* Very small phones: keep the action row and metadata from spilling. */
+@media (max-width: 359px) {
+  .hero {
+    padding-inline: 1.05rem;
+  }
+
+  .hero__cta--primary {
+    padding: 0.62rem 0.7rem;
+    font-size: 0.76rem;
+  }
+
+  .hero__cta--secondary {
+    padding: 0.62rem 0.62rem;
+    font-size: 0.76rem;
+  }
+
+  .hero__meta {
+    gap: 0.15rem 0.8rem;
+    font-size: 0.68rem;
+  }
+}
+
+/* Slightly larger portrait as phone width allows, still portrait-scale. The
+   headline column keeps first claim on the extra width. */
+@media (min-width: 390px) {
+  .hero__figure {
+    width: 112px;
+  }
+}
+
+@media (min-width: 430px) {
+  .hero__figure {
+    width: 124px;
+  }
+}
+
+@media (min-width: 520px) {
+  .hero__figure {
+    width: 140px;
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   768px+: deliberate two-area composition. The portrait sits beside the upper
+   Hero content, never as a block underneath it.
+   -------------------------------------------------------------------------- */
+@media (min-width: 768px) {
+  .hero {
+    display: flex;
+    align-items: center;
+    /* Sized to the composition, not to the screen: at 680px the 356px content
+       left 162px of dead space under it, which read as a hole before About.
+       The tablet composition is only 356px tall, so it needs the least. */
+    min-height: 500px;
+    padding: 2.25rem 2rem;
+  }
+
+  .hero__inner {
+    grid-template-rows: none;
+    grid-template-columns: minmax(0, 1.06fr) minmax(210px, 0.58fr);
+    grid-template-areas:
+      'headline figure'
+      'role     figure'
+      'summary  figure'
+      'actions  figure'
+      'meta     meta';
+    column-gap: 2.25rem;
+  }
+
+  .hero__figure {
+    width: 100%;
+    max-width: 260px;
+    border-width: 6px;
+    border-radius: 1.5rem;
+  }
+
+  .hero__headline {
+    margin-top: 0;
+    font-size: clamp(2.15rem, 4.4vw, 2.75rem);
+  }
+
+  .hero__role {
+    font-size: 1.05rem;
+  }
+
+  .hero__summary {
+    font-size: 1rem;
+  }
+
+  .hero__cta--tertiary {
+    flex-basis: auto;
+    margin-left: 0.35rem;
+    padding: 0.72rem 0.6rem;
+  }
+
+  .hero__meta {
+    gap: 0.3rem 1.6rem;
+    font-size: 0.76rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero {
+    /* Capped: a full 100svh reserve left ~190px of dead space below the last
+       hero line on a 900px viewport, which read as a hole before About. The cap
+       keeps the landing proportions and lets the next section signal itself. */
+    min-height: min(calc(100svh - 2rem), 42rem);
+    padding: 2.5rem 2.5rem;
+  }
+
+  .hero__inner {
+    column-gap: 3rem;
+  }
+
+  .hero__figure {
+    max-width: 320px;
+  }
+
+  .hero__headline {
+    font-size: clamp(2.6rem, 3.9vw, 3.5rem);
+  }
+}
+
+@media (min-width: 1280px) {
+  .hero {
+    padding: 2.5rem 3rem;
+  }
+
+  .hero__figure {
+    max-width: 360px;
+  }
+}
+
+/* Large screens: match the sections' own inset (px-16) and let the composition
+   grow with the extra width, instead of holding laptop-sized type and portrait
+   in the middle of a much wider column. */
+@media (min-width: 1536px) {
+  .hero {
+    min-height: min(calc(100svh - 2rem), 46rem);
+    padding: 3rem 4rem;
+  }
+
+  .hero__inner {
+    column-gap: 4rem;
+  }
+
+  .hero__headline {
+    font-size: clamp(3.2rem, 3.4vw, 4.1rem);
+  }
+
+  .hero__role {
+    font-size: 1.2rem;
+  }
+
+  .hero__summary {
+    max-width: 46rem;
+    font-size: 1.1rem;
+  }
+
+  .hero__figure {
+    max-width: 430px;
+  }
+
+  .hero__meta {
+    font-size: 0.86rem;
+  }
+}
+
+/* ==========================================================================
+   PHASE 2.7 - one Burgundy frosted-glass family.
+   Every surface is the same material at a different brightness: low-alpha
+   Burgundy tint + blur + restrained saturation + edge light + floating shadow.
+   White appears only as the highlight, never as the body of the glass.
+   Blur is ~30% below Phase 2.5 across the board: less fog, more of the
+   animated environment recognisable through the surface. Fallbacks (no
+   backdrop-filter) carry the alpha instead, so type stays readable.
+   ========================================================================== */
+:root {
+  /* Dark frost - surfaces that always sit over the environment. */
+  --glass-dark: linear-gradient(150deg, rgba(78, 13, 36, 0.40), rgba(28, 3, 13, 0.26));
+  --glass-dark-solid: rgba(46, 6, 20, 0.72);
+  --glass-dark-border: rgba(255, 255, 255, 0.24);
+  --glass-dark-edge: rgba(255, 255, 255, 0.40);
+  --glass-dark-shadow: 0 26px 60px rgba(12, 0, 5, 0.42);
+  --glass-dark-blur: 12.5px;
+
+  /* Prismatic frost - supporting cards. Burgundy transmits; the white is a
+     highlight only, so the environment stays legible through the card. */
+  --glass-prism: linear-gradient(140deg, rgba(126, 28, 62, 0.30), rgba(44, 6, 21, 0.19));
+  --glass-prism-solid: linear-gradient(140deg, rgba(84, 14, 40, 0.74), rgba(40, 5, 19, 0.66));
+  --glass-prism-border: rgba(255, 255, 255, 0.26);
+  --glass-prism-shadow: 0 16px 34px rgba(12, 0, 5, 0.28);
+  --glass-prism-blur: 14px;
+
+  /* Same material one step lighter, for large sheets (the About story). */
+  --glass-sheet: linear-gradient(150deg, rgba(146, 36, 78, 0.26), rgba(52, 8, 25, 0.17));
+  --glass-sheet-solid: linear-gradient(150deg, rgba(88, 16, 43, 0.74), rgba(42, 6, 20, 0.66));
+
+  /* Drawer + navbar. The drawer rides its own dark scrim, so it stays thin.
+     The navbar crosses white sections with nothing behind it, so it keeps more
+     body - that is what buys its type 4.5:1 over every section it passes. */
+  --glass-drawer: linear-gradient(150deg, rgba(70, 10, 32, 0.36), rgba(30, 3, 15, 0.22));
+  --glass-drawer-solid: rgba(44, 6, 20, 0.88);
+  --glass-drawer-blur: 15.5px;
+  --glass-navbar: linear-gradient(150deg, rgba(64, 10, 30, 0.74), rgba(34, 4, 17, 0.66));
+  --glass-navbar-solid: rgba(48, 7, 22, 0.94);
+  --glass-navbar-blur: 11px;
+
+  --glass-saturate: 1.4;
+}
+
+/* --------------------------------------------------------------------------
+   Sidebar + drawer surfaces
+   -------------------------------------------------------------------------- */
+.sidebar-surface {
+  background: transparent;
+}
+
+/* The drawer carries `glass-panel` too, so it inherits the desktop sidebar's
+   dark material and its light type wholesale. Only the differences live here. */
+.mobile-drawer {
+  border-right: 1px solid var(--glass-dark-border);
+  border-radius: 0;
+  background: var(--glass-drawer-solid);
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .mobile-drawer {
+    -webkit-backdrop-filter: blur(var(--glass-drawer-blur)) saturate(var(--glass-saturate));
+    backdrop-filter: blur(var(--glass-drawer-blur)) saturate(var(--glass-saturate));
+    background: var(--glass-drawer);
+  }
+}
+
+/* Scrim behind the drawer. Was Tailwind's backdrop-blur-sm (8px). */
+.drawer-scrim {
+  -webkit-backdrop-filter: blur(5.5px);
+  backdrop-filter: blur(5.5px);
+}
+
+/* Mobile navbar: same family, more body. It is the one glass surface with no
+   guaranteed dark backdrop, so its alpha is set by the contrast it owes its
+   own type over the white sections it scrolls across. */
+.mobile-nav {
+  background: var(--glass-navbar-solid);
+  border-bottom: 1px solid var(--glass-dark-border);
+  box-shadow: 0 12px 30px rgba(12, 0, 5, 0.28);
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .mobile-nav {
+    -webkit-backdrop-filter: blur(var(--glass-navbar-blur)) saturate(var(--glass-saturate));
+    backdrop-filter: blur(var(--glass-navbar-blur)) saturate(var(--glass-saturate));
+    background: var(--glass-navbar);
+  }
+}
+
+/* Foreground flipped to light: the bar is dark Burgundy in every position now. */
+.mobile-nav__name {
+  color: #ffffff;
+  text-shadow: 0 1px 2px rgba(12, 0, 5, 0.35);
+}
+
+.mobile-nav__role {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.mobile-nav__avatar {
+  border-color: rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.mobile-nav__menu {
+  border-color: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.mobile-nav__menu:hover {
+  border-color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+/* --------------------------------------------------------------------------
+   Section sticky header — glass variant for sections over Burgundy.
+   The white variant used by Projects is untouched.
+   -------------------------------------------------------------------------- */
+.section-sticky--glass {
+  background: var(--glass-dark-solid);
+  border-bottom: 1px solid var(--glass-dark-border);
+  box-shadow: 0 18px 40px rgba(12, 0, 5, 0.28);
+}
+
+/* Edge light gives the header glass thickness. */
+.section-sticky--glass::before {
+  content: '';
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  border-top: 1px solid var(--glass-dark-edge);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  pointer-events: none;
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .section-sticky--glass {
+    -webkit-backdrop-filter: blur(var(--glass-dark-blur)) saturate(var(--glass-saturate));
+    backdrop-filter: blur(var(--glass-dark-blur)) saturate(var(--glass-saturate));
+    background: var(--glass-dark);
+  }
+}
+
+.section-sticky--glass.section-sticky--pinned {
+  box-shadow:
+    /* Ambient layer carries the strip above the card, so its alpha is set by
+       what shows through that ~6px float gap, not by taste. */
+    0 0 20px 10px rgba(14, 2, 8, 0.74),
+    0 16px 26px -6px rgba(14, 2, 8, 0.72),
+    0 34px 60px -18px rgba(14, 2, 8, 0.7);
+}
+
+/* Compact heading: a rule, a title, and a full description — no header slab.
+   Sized here and nowhere else, so nothing downstream can put the height back. */
+.section-sticky--glass .section-sticky__heading {
+  margin-bottom: 0.35rem;
+}
+
+/* The glass sticky header is a floating card, not a band. Shared by every
+   Burgundy section that pins its heading (About, Resume).
+   It was reading as one block with the story card because `.section-sticky` is
+   a full-bleed strip: square corners, no bottom padding, no bottom margin, and
+   a next sibling (`.about`) whose row-gap only applies *between* rows — so
+   `story.top === header.bottom` exactly. Its only edges were two hairlines
+   spanning the full column width, which read as section dividers, and its
+   `::after` painted a dark gradient 13.5px *over* the story card, smearing even
+   that zero boundary. Geometry is fixed here; nothing above is changed, so the
+   white Projects variant keeps its band treatment. */
+.section-sticky--glass {
+  /* Spans the whole composition: capping it short left the card's right edge
+     floating inside the content below it. The description keeps its own
+     max-width so the reading measure stays right. */
+  width: 100%;
+  /* The gap belongs to the header, not to a spacer element. */
+  margin-bottom: 0.8rem;
+  padding: 0.4rem 0.8rem 0.45rem;
+  border: 1px solid var(--glass-dark-border);
+  border-radius: 1.05rem;
+  box-shadow: 0 12px 30px rgba(12, 0, 5, 0.22);
+}
+
+/* The card's inner width reflows the description to a third line, so the
+   heading's own rhythm is tightened to pay for it. */
+.section-sticky--glass .section-sticky__heading > div {
+  margin-top: 0.3rem;
+}
+
+.section-sticky--glass .section-sticky__heading p {
+  margin-top: 0.25rem;
+}
+
+/* Edge light follows the silhouette instead of ruling across the section. */
+.section-sticky--glass::before {
+  border: 1px solid var(--glass-dark-edge);
+  border-radius: inherit;
+  opacity: 0.55;
+}
+
+/* Padding now owns the inner spacing; this margin would double it. */
+.section-sticky--glass .section-sticky__heading {
+  margin-bottom: 0;
+}
+
+/* Pinned, it should still float clear of the navbar rather than dock onto it. */
+@media (max-width: 1279px) {
+  .section-sticky--glass {
+    top: calc(var(--sticky-top-base) + 0.4rem);
+  }
+}
+
+.section-sticky--glass .section-sticky__heading h2 {
+  font-size: clamp(1.3rem, 2.1vw, 1.7rem);
+  line-height: 1.15;
+}
+
+.section-sticky--glass .section-sticky__heading > div {
+  width: 2.25rem;
+  height: 2px;
+  margin-top: 0.45rem;
+}
+
+/* Always the full description: shown at every height, never clipped, never
+   ellipsised. It is kept to two lines by type size, not by truncation. */
+.section-sticky--glass .section-sticky__heading p {
+  display: block;
+  overflow: visible;
+  margin-top: 0.35rem;
+  max-width: 46rem;
+  font-size: 0.74rem;
+  line-height: 1.38;
+}
+
+@media (min-width: 900px) {
+  .section-sticky--glass .section-sticky__heading {
+    margin-bottom: 0.5rem;
+  }
+
+  .section-sticky--glass .section-sticky__heading p {
+    margin-top: 0.5rem;
+    font-size: 0.84rem;
+    line-height: 1.5;
+  }
+}
+
+
+/* ==========================================================================
+   PHASE 2.6 — navigation affordance + About composition
+   ========================================================================== */
+
+/* True circle: the frozen Tailwind build has w-20 but no h-20, so the old
+   avatar box had a width and no height. Sized here instead. */
+.nav-avatar {
+  width: 4.75rem;
+  height: 4.75rem;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
+  overflow: hidden;
+  border: 3px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 10px 26px rgba(12, 0, 5, 0.34);
+}
+
+.nav-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 22%;
+}
+
+@media (min-width: 1280px) {
+  .nav-avatar {
+    width: 4.25rem;
+    height: 4.25rem;
+  }
+}
+
+/* Inactive nav item */
+.nav-item {
+  border: 1px solid transparent;
+}
+
+.nav-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Active item + Resume button: keep the animated Burgundy, add a real button
+   boundary so they read as controls rather than artefacts. */
+.nav-item--active,
+.nav-resume {
+  border: 1px solid rgba(255, 255, 255, 0.34);
+  background: #300510;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    0 10px 24px rgba(12, 0, 5, 0.38);
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+@media (hover: hover) {
+  .nav-item--active:hover,
+  .nav-resume:hover {
+    transform: translateY(-1px);
+    border-color: rgba(255, 255, 255, 0.55);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.36),
+      0 16px 32px rgba(12, 0, 5, 0.46);
+  }
+}
+
+.nav-item--active:active,
+.nav-resume:active {
+  transform: translateY(1px);
+  box-shadow:
+    inset 0 2px 5px rgba(0, 0, 0, 0.34),
+    0 4px 12px rgba(12, 0, 5, 0.3);
+}
+
+.nav-item--active:focus-visible,
+.nav-resume:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   PHASE 2.7 - About: one compact composition, not a stack of blocks.
+   Two glass sheets side by side from tablet up, a two-column toolkit at every
+   width, and a thin metadata rail. Nothing here owns a background of its own -
+   the global animated Burgundy is what shows through all of it.
+   ========================================================================== */
+
+/* About is deliberately denser than the shared section rhythm. The header now
+   carries its own top clearance as a floating card, so the section needs less. */
+#about {
+  padding-top: 1.4rem;
+  padding-bottom: 2.2rem;
+}
+
+@media (min-width: 768px) {
+  #about {
+    padding-top: 2rem;
+    padding-bottom: 3.5rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  #about {
+    padding-top: 2.25rem;
+    padding-bottom: 4.25rem;
+  }
+}
+
+.about {
+  display: grid;
+  gap: 0.5rem;
+}
+
+/* Story ~48% / toolkit ~52%, side by side from tablet so neither column has to
+   grow downwards to fit. */
+@media (min-width: 768px) {
+  .about {
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+    gap: 0.9rem;
+    /* Both columns run to the same baseline so the pair reads as one
+       composition instead of two blocks ending at different heights. */
+    align-items: stretch;
+  }
+
+  .about__story {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Story text stays at the top; the roles run settles on the bottom edge. */
+  .about__roles {
+    margin-top: auto;
+  }
+}
+
+@media (min-width: 1024px) {
+  .about {
+    gap: 1.15rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Story: a sheet of Burgundy-transmitting glass, one step lighter than the
+   toolkit cards but the same material.
+   -------------------------------------------------------------------------- */
+.about__story {
+  position: relative;
+  min-width: 0;
+  padding: 0.7rem 0.7rem 0.8rem;
+  border: 1px solid var(--glass-prism-border);
+  border-radius: 1.15rem;
+  background: var(--glass-sheet-solid);
+  color: #ffffff;
+  box-shadow: var(--glass-prism-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.26);
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .about__story {
+    -webkit-backdrop-filter: blur(var(--glass-prism-blur)) saturate(var(--glass-saturate));
+    backdrop-filter: blur(var(--glass-prism-blur)) saturate(var(--glass-saturate));
+    background: var(--glass-sheet);
+  }
+}
+
+@media (min-width: 1024px) {
+  .about__story {
+    padding: 1.3rem 1.35rem 1.4rem;
+  }
+}
+
+.about__story-body {
+  display: grid;
+  gap: 0.42rem;
+}
+
+.about__story-body p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 0.86rem;
+  line-height: 1.5;
+}
+
+@media (min-width: 1024px) {
+  .about__story-body p {
+    font-size: 0.9rem;
+    line-height: 1.64;
+  }
+}
+
+/* Target roles: an inline run, never five cards. Two rows at 375, one at
+   desktop. */
+.about__roles {
+  margin-top: 0.65rem;
+  padding-top: 0.52rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.about__roles-label {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* Separators are tightened rather than the labels shrunk: the gap is what was
+   pushing this run onto a third row at 375. */
+.about__roles-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.05rem 0.24rem;
+  margin-top: 0.35rem;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 0.7rem;
+  font-weight: 650;
+  line-height: 1.45;
+}
+
+.about__roles-list span + span::before {
+  content: '\00b7';
+  margin-right: 0.24rem;
+  color: rgba(255, 255, 255, 0.38);
+}
+
+/* The 320px viewport has enough total inline room for two role lines, but the
+   normal inner padding makes the final role wrap alone. Let only this short
+   label run use the card's full width; type size and source order stay intact. */
+@media (max-width: 359px) {
+  .about__roles-list {
+    margin-right: -0.62rem;
+    margin-left: -0.62rem;
+    column-gap: 0.05rem;
+  }
+
+  .about__roles-list span + span::before {
+    margin-right: 0.1rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Technical toolkit
+   -------------------------------------------------------------------------- */
+.about__toolkit-head h3 {
+  margin: 0;
+  color: #ffffff;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.about__toolkit-head p {
+  margin: 0.25rem 0 0;
+  max-width: 34rem;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.77rem;
+  line-height: 1.45;
+}
+
+/* Below 1024px the toolkit is one glass matrix. At 768px the former two-column
+   cards measured only 185px wide; at 1024px they reach a readable 248px, so
+   that measured threshold restores the approved desktop card composition. */
+.about__toolkit {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+  overflow: hidden;
+  margin-top: 0.52rem;
+  border: 1px solid var(--glass-prism-border);
+  border-radius: 1rem;
+  background: var(--glass-prism-solid);
+  box-shadow: var(--glass-prism-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.24);
+}
+
+.about__toolkit .toolkit-card:last-child {
+  grid-column: auto;
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .about__toolkit {
+    -webkit-backdrop-filter: blur(var(--glass-prism-blur)) saturate(var(--glass-saturate));
+    backdrop-filter: blur(var(--glass-prism-blur)) saturate(var(--glass-saturate));
+    background: var(--glass-prism);
+  }
+}
+
+.toolkit-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.62rem minmax(0, 1fr);
+  grid-template-areas:
+    'icon heading'
+    'icon items';
+  gap: 0.18rem 0.48rem;
+  min-width: 0;
+  padding: 0.32rem 0.65rem 0.36rem;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.toolkit-card + .toolkit-card {
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+/* Desktop keeps the same single panel, just breathing wider. The old 2+2+1
+   card grid was replaced because a five-item set never fills a two-column grid
+   evenly: the fifth had to span, and paired cards were force-matched to the
+   taller neighbour, which is what made the block read as ragged. */
+@media (min-width: 1024px) {
+  .about__toolkit {
+    margin-top: 0.75rem;
+    border-radius: 1.15rem;
+  }
+
+  .toolkit-card {
+    grid-template-columns: 1.85rem minmax(0, 1fr);
+    gap: 0.24rem 0.6rem;
+    padding: 0.62rem 0.95rem 0.66rem;
+  }
+
+  .toolkit-card__icon {
+    width: 1.85rem;
+    height: 1.85rem;
+    border-radius: 0.58rem;
+  }
+
+  .toolkit-card__head h4 {
+    font-size: 0.86rem;
+  }
+}
+
+/* A row highlights in place. Lifting it, as the old cards did, would tear a row
+   out of the surface it belongs to. */
+@media (hover: hover) {
+  .toolkit-card {
+    transition: background 200ms ease;
+  }
+
+  .toolkit-card:hover {
+    background: rgba(255, 255, 255, 0.06);
+  }
+}
+
+.toolkit-card__head {
+  display: contents;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.toolkit-card__icon {
+  grid-area: icon;
+  display: grid;
+  flex: none;
+  width: 1.62rem;
+  height: 1.62rem;
+  place-items: center;
+  border-radius: 0.52rem;
+  background: var(--burgundy);
+  color: #ffffff;
+  box-shadow: 0 5px 12px rgba(77, 13, 28, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.toolkit-card__head h4 {
+  grid-area: heading;
+  align-self: center;
+  margin: 0;
+  color: #ffffff;
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+/* Technologies read as a quiet list, not pills. All of them, wrapping freely. */
+.toolkit-card__items {
+  grid-area: items;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 0.34rem;
+  margin: 0;
+  padding: 0;
+  border-top: 0;
+  list-style: none;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: max(0.82rem, 12px);
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.toolkit-card__items li + li::before {
+  content: '\00b7';
+  margin-right: 0.34rem;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+
+/* --------------------------------------------------------------------------
+   Metadata: a thin rail, 2x2 on phones and four columns from desktop.
+   -------------------------------------------------------------------------- */
+.about__meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.35rem 0.9rem;
+  margin-top: 0.62rem;
+}
+
+@media (min-width: 1024px) {
+  .about__meta {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0 1.25rem;
+    margin-top: 1.1rem;
+  }
+}
+
+.about__meta-item {
+  min-width: 0;
+  padding: 0.38rem 0 0.38rem 0.7rem;
+  border-left: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+.about__meta-item p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.about__meta-item a,
+.about__meta-item span {
+  display: block;
+  margin-top: 0.15rem;
+  overflow-wrap: anywhere;
+  color: #ffffff;
+  font-size: 0.78rem;
+  font-weight: 650;
+  line-height: 1.35;
+  text-decoration: none;
+}
+
+.about__meta-item a:hover {
+  color: var(--silver);
+}
+
+/* ==========================================================================
+   RESUME
+   Three surface tiers so the section reads as designed, not repeated:
+     primary  — the profile sheet and the journey cards (Burgundy glass)
+     feature  — download card + lead metric (animated Burgundy shows through)
+     support  — education / strengths (soft neumorphic, no blur of their own)
+   The global animated Burgundy stays the environment; nothing here paints an
+   opaque white field over it.
+   ========================================================================== */
+#resume {
+  padding-top: 1.4rem;
+  padding-bottom: 2.4rem;
+}
+
+@media (min-width: 768px) {
+  #resume {
+    padding-top: 2rem;
+    padding-bottom: 3.25rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  #resume {
+    padding-top: 2.25rem;
+    padding-bottom: 4rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Primary sheet: profile + metrics
+   -------------------------------------------------------------------------- */
+.resume-profile {
+  display: grid;
+  gap: 0.85rem;
+  padding: 0.95rem 0.9rem 1rem;
+  border: 1px solid var(--glass-prism-border);
+  border-radius: 1.15rem;
+  background: var(--glass-sheet-solid);
+  color: #ffffff;
+  box-shadow: var(--glass-prism-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.26);
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .resume-profile {
+    -webkit-backdrop-filter: blur(var(--glass-prism-blur)) saturate(var(--glass-saturate));
+    backdrop-filter: blur(var(--glass-prism-blur)) saturate(var(--glass-saturate));
+    background: var(--glass-sheet);
+  }
+}
+
+@media (min-width: 900px) {
+  .resume-profile {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.3rem 1.4rem;
+  }
+}
+
+.resume-profile__eyebrow {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.resume-profile__headline {
+  margin: 0.4rem 0 0;
+  max-width: 34rem;
+  font-family: var(--font-heading);
+  font-size: clamp(1.1rem, 3.2vw, 1.5rem);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.resume-profile__summary {
+  margin: 0.55rem 0 0;
+  max-width: 46rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+@media (min-width: 1024px) {
+  .resume-profile__summary {
+    font-size: 0.89rem;
+    line-height: 1.64;
+  }
+}
+
+/* Two tiles, deliberately unequal: the lead one carries the animation. */
+.resume-profile__metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
+@media (min-width: 900px) {
+  .resume-profile__metrics {
+    grid-template-columns: minmax(9.5rem, 1fr);
+    gap: 0.6rem;
+  }
+}
+
+.resume-metric {
+  position: relative;
+  min-width: 0;
+  padding: 0.7rem 0.85rem 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0.9rem;
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+.resume-metric--feature {
+  isolation: isolate;
+  overflow: hidden;
+  border-color: rgba(255, 255, 255, 0.34);
+  background: #300510;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    0 10px 24px rgba(12, 0, 5, 0.34);
+}
+
+.resume-metric__value {
+  margin: 0;
+  color: #ffffff;
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.resume-metric__label {
+  margin: 0.3rem 0 0;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+/* --------------------------------------------------------------------------
+   Section layout: journey + support column
+   -------------------------------------------------------------------------- */
+.resume-layout {
+  display: grid;
+  gap: 1.1rem;
+  margin-top: 0.9rem;
+}
+
+@media (min-width: 1024px) {
+  .resume-layout {
+    grid-template-columns: minmax(0, 1fr) minmax(15rem, 19rem);
+    gap: 1.15rem;
+    align-items: start;
+  }
+}
+
+.resume-layout__main {
+  min-width: 0;
+}
+
+.resume-layout__aside {
+  display: grid;
+  gap: 0.7rem;
+  min-width: 0;
+}
+
+/* Phones and tablets: the support cards pair up instead of stacking, so the
+   section does not end in a column of full-width blocks. */
+@media (min-width: 560px) and (max-width: 1023px) {
+  .resume-layout__aside {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .resume-download {
+    grid-column: 1 / -1;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Professional journey
+   -------------------------------------------------------------------------- */
+.journey__head {
+  margin: 0 0 0.7rem;
+}
+
+.journey__head h3 {
+  margin: 0;
+  color: #ffffff;
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+
+.journey__head p {
+  margin: 0.22rem 0 0;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.journey {
+  display: grid;
+  gap: 0.7rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.journey-entry {
+  position: relative;
+  min-width: 0;
+}
+
+/* The logo rides the card edge on phones: a rail plus a node costs ~4.5rem of
+   inline space, which the bullets cannot spare at 320px. */
+.journey-entry__node {
+  position: absolute;
+  z-index: 2;
+  top: 0.75rem;
+  left: 0.8rem;
+  width: 2.3rem;
+  height: 2.3rem;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 0.7rem;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 18px rgba(12, 0, 5, 0.34);
+}
+
+.journey-entry__node img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.journey-entry__card {
+  position: relative;
+  min-width: 0;
+  /* Left inset clears the absolutely placed logo. */
+  padding: 0.8rem 0.85rem 0.9rem 3.55rem;
+  border: 1px solid var(--glass-prism-border);
+  border-radius: 1.05rem;
+  background: var(--glass-prism-solid);
+  box-shadow: var(--glass-prism-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .journey-entry__card {
+    -webkit-backdrop-filter: blur(var(--glass-prism-blur)) saturate(var(--glass-saturate));
+    backdrop-filter: blur(var(--glass-prism-blur)) saturate(var(--glass-saturate));
+    background: var(--glass-prism);
+  }
+}
+
+/* The active role is the one card that reads brighter, with a lit left edge. */
+.journey-entry--current .journey-entry__card {
+  border-color: rgba(255, 255, 255, 0.4);
+  background: var(--glass-sheet-solid);
+  box-shadow:
+    var(--glass-prism-shadow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    inset 3px 0 0 rgba(255, 255, 255, 0.42);
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .journey-entry--current .journey-entry__card {
+    background: var(--glass-sheet);
+  }
+}
+
+.journey-entry__top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.2rem 0.6rem;
+  min-height: 1.4rem;
+}
+
+.journey-entry__company {
+  margin: 0;
+  color: #ffffff;
+  font-family: var(--font-heading);
+  font-size: 0.97rem;
+  font-weight: 800;
+  letter-spacing: -0.005em;
+  line-height: 1.2;
+}
+
+/* Date chip: quiet, monospaced-feeling, never competing with the company. */
+.journey-entry__period {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.68rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.journey-entry__role {
+  margin: 0.3rem 0 0;
+  color: rgba(255, 255, 255, 0.94);
+  font-size: 0.83rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.journey-entry__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.5rem;
+  margin: 0.4rem 0 0;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.journey-entry__meta svg {
+  flex: none;
+}
+
+.journey-entry__mode,
+.journey-entry__badge {
+  padding: 0.12rem 0.45rem;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 999px;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.journey-entry__badge {
+  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+}
+
+/* Role progression: a compact ladder, not four more cards. */
+.journey-entry__roles {
+  display: grid;
+  gap: 0.28rem;
+  margin: 0.6rem 0 0;
+  padding: 0.55rem 0 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+  counter-reset: step;
+  list-style: none;
+}
+
+.journey-entry__roles li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.15rem 0.5rem;
+  counter-increment: step;
+}
+
+.journey-entry__roles li::before {
+  content: counter(step, decimal-leading-zero);
+  color: rgba(255, 255, 255, 0.42);
+  font-size: 0.62rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 800;
+}
+
+.journey-entry__roles-title {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.journey-entry__roles-period {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.66rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+.journey-entry__points {
+  display: grid;
+  gap: 0.32rem;
+  margin: 0.6rem 0 0;
+  padding: 0.55rem 0 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+  list-style: none;
+}
+
+.journey-entry__points li {
+  position: relative;
+  padding-left: 0.8rem;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+.journey-entry__points li::before {
+  content: '';
+  position: absolute;
+  top: 0.52em;
+  left: 0;
+  width: 4px;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.45);
+}
+
+/* From 768px there is room for a real rail: the node leaves the card and sits
+   on a continuous glass line, so the entries read as one timeline. */
+@media (min-width: 768px) {
+  .journey {
+    position: relative;
+    gap: 0.85rem;
+    padding-left: 3.6rem;
+  }
+
+  .journey::before {
+    content: '';
+    position: absolute;
+    top: 1.2rem;
+    bottom: 1.2rem;
+    left: 1.4rem;
+    width: 2px;
+    border-radius: 999px;
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.42),
+      rgba(255, 255, 255, 0.16) 70%,
+      rgba(255, 255, 255, 0.02)
+    );
+  }
+
+  .journey-entry__node {
+    top: 0.65rem;
+    left: -3.6rem;
+    width: 2.8rem;
+    height: 2.8rem;
+    border-radius: 0.85rem;
+  }
+
+  .journey-entry__card {
+    padding: 0.95rem 1.1rem 1.05rem;
+  }
+
+  .journey-entry__company {
+    font-size: 1.05rem;
+  }
+
+  .journey-entry__role {
+    font-size: 0.88rem;
+  }
+
+  .journey-entry__points li {
+    font-size: 0.81rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .journey-entry__roles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.28rem 1.1rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Feature card: download
+   -------------------------------------------------------------------------- */
+.resume-download {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-width: 0;
+  padding: 1rem 1rem 1.05rem;
+  border: 1px solid rgba(255, 255, 255, 0.34);
+  border-radius: 1.15rem;
+  background: #300510;
+  color: #ffffff;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    0 16px 34px rgba(12, 0, 5, 0.36);
+}
+
+.resume-download__icon {
+  display: grid;
+  width: 2.2rem;
+  height: 2.2rem;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 0.7rem;
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.24);
+}
+
+.resume-download h3 {
+  margin: 0.7rem 0 0;
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+
+.resume-download p {
+  margin: 0.4rem 0 0;
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 0.79rem;
+  line-height: 1.5;
+}
+
+.resume-download__actions {
+  display: grid;
+  gap: 0.45rem;
+  margin-top: 0.85rem;
+}
+
+.resume-download__note {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.35rem;
+  margin-top: 0.7rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.68rem;
+  line-height: 1.4;
+}
+
+.resume-download__note svg {
+  flex: none;
+  margin-top: 0.1rem;
+}
+
+/* Buttons read as buttons: a solid primary, a bordered secondary, both with
+   pressed and focus states. */
+.resume-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  min-height: 2.75rem;
+  padding: 0.6rem 0.9rem;
+  border: 1px solid transparent;
+  border-radius: 0.8rem;
+  font-size: 0.81rem;
+  font-weight: 800;
+  text-decoration: none;
+  transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+}
+
+.resume-btn--primary {
+  border-color: rgba(255, 255, 255, 0.85);
+  background: #ffffff;
+  color: var(--burgundy);
+  box-shadow: 0 8px 20px rgba(12, 0, 5, 0.3);
+}
+
+.resume-btn--ghost {
+  border-color: rgba(255, 255, 255, 0.38);
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+@media (hover: hover) {
+  .resume-btn--primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 14px 26px rgba(12, 0, 5, 0.4);
+  }
+
+  .resume-btn--ghost:hover {
+    background: rgba(255, 255, 255, 0.18);
+    transform: translateY(-1px);
+  }
+}
+
+.resume-btn:active {
+  transform: translateY(1px);
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.28);
+}
+
+.resume-btn:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   Support cards: softer, no blur of their own, so they sit behind the feature
+   card in the hierarchy instead of competing with it.
+   -------------------------------------------------------------------------- */
+.resume-card {
+  min-width: 0;
+  padding: 0.85rem 0.9rem 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 1.05rem;
+  background: rgba(255, 255, 255, 0.07);
+  color: #ffffff;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 0 rgba(12, 0, 5, 0.2),
+    0 10px 22px rgba(12, 0, 5, 0.18);
+}
+
+.resume-card__head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.resume-card__icon {
+  display: grid;
+  flex: none;
+  width: 1.75rem;
+  height: 1.75rem;
+  place-items: center;
+  border-radius: 0.55rem;
+  background: var(--burgundy);
+  color: #ffffff;
+  box-shadow: 0 5px 12px rgba(77, 13, 28, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.resume-card h3 {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: 0.92rem;
+  font-weight: 800;
+}
+
+.resume-card__eyebrow {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.resume-card__lead {
+  margin: 0.6rem 0 0;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.resume-card__note {
+  margin: 0.2rem 0 0;
+  color: rgba(255, 255, 255, 0.64);
+  font-size: 0.75rem;
+  line-height: 1.45;
+}
+
+/* Strengths read as a quiet list, matching the toolkit language in About. */
+.resume-strengths {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.05rem 0.42rem;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  list-style: none;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.resume-strengths li + li::before {
+  content: '\00b7';
+  margin-right: 0.42rem;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* ==========================================================================
+   MOTION SYSTEM
+   One vocabulary for Hero, About and Resume. Elements move in depth, not just
+   up: every reveal is a 3D swing (translate + rotateX + scale) around a
+   perspective, which is what makes it read as motion rather than a fade.
+
+   Tiers are assigned by an element's role, and travel/rotation/duration all
+   scale together, so weight in the layout and weight in the motion agree.
+
+   Speed is a hard constraint: no single element runs past 560ms and no section
+   finishes later than ~800ms including stagger. The easing does the work —
+   a near-expo curve covers most of the distance in the first third, so a large
+   movement still feels immediate.
+
+   Two triggers, one language: the Hero is above the fold and plays on load
+   (`animation`); everything else plays on scroll (`transition`, flipped by one
+   IntersectionObserver per group via `useReveal`). No scroll listeners, no
+   rAF, no per-scroll React state.
+
+   Persistent UI — the sticky section headers — is excluded on purpose. It must
+   never depend on a frame having run to be visible.
+   ========================================================================== */
+:root {
+  /* Fast out of the gate, long settle. */
+  --motion-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  /* A little overshoot, for things that should land with weight. */
+  --motion-ease-back: cubic-bezier(0.34, 1.42, 0.64, 1);
+  --motion-detail: 340ms;
+  --motion-support: 420ms;
+  --motion-primary: 480ms;
+  --motion-lead: 560ms;
+}
+
+/* --------------------------------------------------------------------------
+   Scroll-triggered reveal.
+   The start state lives inside `prefers-reduced-motion: no-preference`, so a
+   reader who asks for less motion is never served hidden content — there is no
+   frame to wait for and nothing to fail open from.
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  /* `data-reveal` is released by a revealed ancestor; `data-reveal-self`
+     carries its own observer and is released only by itself. Items in a long
+     list need the second kind — released by their container they would play
+     while still far below the fold, and the reader would never see them. */
+  [data-reveal],
+  [data-reveal-self] {
+    opacity: 0;
+    transform: perspective(1100px) translate3d(var(--reveal-x, 0px), var(--reveal-y, 24px), 0)
+      rotateX(var(--reveal-rx, 8deg)) scale(var(--reveal-scale, 0.975));
+    transform-origin: center top;
+    transition:
+      opacity var(--reveal-duration, var(--motion-primary)) var(--motion-ease)
+        var(--reveal-delay, 0ms),
+      transform var(--reveal-duration, var(--motion-primary))
+        var(--reveal-ease, var(--motion-ease)) var(--reveal-delay, 0ms);
+  }
+
+  [data-revealed='true'] [data-reveal],
+  [data-reveal][data-revealed='true'],
+  [data-reveal-self][data-revealed='true'] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Tiers. Only these set travel, rotation and duration; nothing else should. */
+.m-lead {
+  --reveal-y: 34px;
+  --reveal-rx: 12deg;
+  --reveal-scale: 0.955;
+  --reveal-duration: var(--motion-lead);
+}
+
+.m-primary {
+  --reveal-y: 28px;
+  --reveal-rx: 9deg;
+  --reveal-scale: 0.972;
+  --reveal-duration: var(--motion-primary);
+}
+
+/* Support surfaces arrive from the side, so they read as joining the main
+   column rather than repeating its move. */
+.m-support {
+  --reveal-x: 26px;
+  --reveal-y: 10px;
+  --reveal-rx: 0deg;
+  --reveal-scale: 0.985;
+  --reveal-duration: var(--motion-support);
+}
+
+.m-detail {
+  --reveal-y: 16px;
+  --reveal-rx: 0deg;
+  --reveal-scale: 1;
+  --reveal-duration: var(--motion-detail);
+}
+
+/* A target, not a sentence: it lands with a little weight. */
+.m-target {
+  --reveal-y: 18px;
+  --reveal-rx: 0deg;
+  --reveal-scale: 0.9;
+  --reveal-duration: 520ms;
+  --reveal-ease: var(--motion-ease-back);
+}
+
+/* Journey entries connect to the rail, so they swing in from it. */
+.m-connect {
+  --reveal-x: -32px;
+  --reveal-y: 12px;
+  --reveal-rx: 0deg;
+  --reveal-scale: 0.98;
+  --reveal-duration: var(--motion-primary);
+}
+
+/* --------------------------------------------------------------------------
+   Hero — plays on load, in reading order.
+   -------------------------------------------------------------------------- */
+@keyframes motion-rise {
+  from {
+    opacity: 0;
+    transform: perspective(1100px) translate3d(var(--reveal-x, 0px), var(--reveal-y, 24px), 0)
+      rotateX(var(--reveal-rx, 0deg)) scale(var(--reveal-scale, 1));
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* The portrait uncovers itself instead of sliding: a wipe plus a settle reads
+   as a photograph being revealed rather than a box moving. */
+@keyframes motion-uncover {
+  from {
+    opacity: 0;
+    clip-path: inset(0 0 100% 0 round var(--uncover-radius, 1.15rem));
+    transform: scale(1.06);
+  }
+  to {
+    opacity: 1;
+    clip-path: inset(0 0 0 0 round var(--uncover-radius, 1.15rem));
+    transform: none;
+  }
+}
+
+/* Each word swings up from flat, hinged at its own baseline. This is the
+   section's signature move, so it is the only place character-level motion is
+   used at all. */
+@keyframes motion-word {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 0.62em, 0) rotateX(-78deg);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Not in the frozen Tailwind build, so it is defined here. Carries the intact
+   headline for assistive tech while the visible copy is split into words. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.hero__headline {
+  perspective: 700px;
+}
+
+.hero__word {
+  display: inline-block;
+  transform-origin: 50% 100%;
+  /* 34ms apart: eleven words still finish inside 800ms. */
+  animation: motion-word 520ms var(--motion-ease) both;
+  animation-delay: calc(120ms + var(--word-index) * 34ms);
+  /* The space between words is collapsed by inline-block, so it is restored
+     here rather than with a literal space node. */
+  margin-right: 0.26em;
+}
+
+.hero__figure {
+  --uncover-radius: 1.15rem;
+  animation: motion-uncover var(--motion-lead) var(--motion-ease) 40ms both;
+}
+
+@media (min-width: 768px) {
+  .hero__figure {
+    --uncover-radius: 1.5rem;
+  }
+}
+
+.hero__role,
+.hero__summary,
+.hero__actions,
+.hero__meta {
+  animation: motion-rise var(--motion-primary) var(--motion-ease) both;
+}
+
+.hero__role {
+  --reveal-y: 20px;
+  animation-delay: 420ms;
+}
+
+.hero__summary {
+  --reveal-y: 20px;
+  animation-delay: 480ms;
+}
+
+.hero__actions {
+  --reveal-y: 16px;
+  --reveal-scale: 0.94;
+  animation-duration: var(--motion-support);
+  animation-timing-function: var(--motion-ease-back);
+  animation-delay: 540ms;
+}
+
+.hero__meta {
+  --reveal-y: 12px;
+  animation-duration: var(--motion-detail);
+  animation-delay: 620ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__word,
+  .hero__figure,
+  .hero__role,
+  .hero__summary,
+  .hero__actions,
+  .hero__meta {
+    animation: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Journey rail: draws down once, quickly, as the first entry arrives. A slow
+   line-draw is the classic timeline cliché; at 420ms it reads as the spine
+   snapping into place instead.
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) and (min-width: 768px) {
+  .journey::before {
+    transform: scaleY(0);
+    transform-origin: 50% 0;
+    transition: transform 420ms var(--motion-ease) 60ms;
+  }
+
+  [data-revealed='true'] .journey::before {
+    transform: scaleY(1);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Rows inside a single surface: the panel has already arrived, so its contents
+   slide in from the edge rather than repeating the panel's own move.
+   -------------------------------------------------------------------------- */
+@keyframes motion-row {
+  from {
+    opacity: 0;
+    transform: translate3d(-14px, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-revealed='true'] .toolkit-card {
+    animation: motion-row var(--motion-detail) var(--motion-ease) both;
+  }
+
+  [data-revealed='true'] .toolkit-card:nth-child(1) { animation-delay: 180ms; }
+  [data-revealed='true'] .toolkit-card:nth-child(2) { animation-delay: 235ms; }
+  [data-revealed='true'] .toolkit-card:nth-child(3) { animation-delay: 290ms; }
+  [data-revealed='true'] .toolkit-card:nth-child(4) { animation-delay: 345ms; }
+  [data-revealed='true'] .toolkit-card:nth-child(5) { animation-delay: 400ms; }
+}
+
+/* The badge on the current role is the one thing worth pointing at, so it
+   arrives after its card has landed. */
+@keyframes motion-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-reveal-self][data-revealed='true'] .journey-entry__badge {
+    animation: motion-pop 380ms var(--motion-ease-back) 300ms both;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Projects: filter chips.
+   The section moved onto the Burgundy environment, so the old white/burgundy
+   chips no longer belong to it. Same glass family as the rest of the site.
+   -------------------------------------------------------------------------- */
+.portfolio-filter {
+  position: relative;
+  flex: none;
+  min-height: 30px;
+  padding: 0.3rem 0.68rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.72rem;
+  font-weight: 700;
+  white-space: nowrap;
+  scroll-snap-align: start;
+  cursor: pointer;
+  transition: background 200ms ease, border-color 200ms ease, color 200ms ease;
+}
+
+/* The tap target is 44px without the chip being 44px tall. Six 44px chips cost
+   three wrapped rows and 143px of a 742px screen; the hit area is expanded off
+   the visual bounds instead, which is the documented way to meet the minimum
+   without paying for it in layout. */
+.portfolio-filter::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 0;
+  left: 0;
+  height: 44px;
+  transform: translateY(-50%);
+}
+
+@media (hover: hover) {
+  .portfolio-filter:hover {
+    border-color: rgba(255, 255, 255, 0.42);
+    background: rgba(255, 255, 255, 0.14);
+    color: #ffffff;
+  }
+}
+
+/* Selected state is carried by fill and border weight, not colour alone. */
+.portfolio-filter--active {
+  border-color: rgba(255, 255, 255, 0.82);
+  background: #ffffff;
+  color: var(--burgundy);
+  box-shadow: 0 8px 18px rgba(12, 0, 5, 0.3);
+}
+
+.portfolio-filter:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
+/* Projects follows the same section rhythm as About and Resume. */
+#portfolio {
+  padding-top: 1.4rem;
+  padding-bottom: 2.4rem;
+}
+
+@media (min-width: 768px) {
+  #portfolio {
+    padding-top: 2rem;
+    padding-bottom: 3.25rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  #portfolio {
+    padding-top: 2.25rem;
+    padding-bottom: 4rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Project case study: a dark editorial sheet that continues the card language,
+   plus the full-screen image viewer it opens into. Written as plain CSS on
+   purpose - public/tailwind.generated.css is a committed artifact with no
+   build step, so new utility classes would never be emitted.
+   -------------------------------------------------------------------------- */
+.project-detail,
+.project-viewer {
+  /* Opaque fallback for the glass surfaces; the @supports blocks below swap
+     in the real material where backdrop-filter exists. */
+  --pd-surface: rgba(46, 6, 20, 0.94);
+  --pd-stage: rgba(10, 2, 5, 0.72);
+  --pd-line: var(--glass-prism-border);
+  --pd-line-strong: var(--glass-dark-edge);
+  --pd-text: rgba(255, 255, 255, 0.76);
+  --pd-muted: rgba(255, 255, 255, 0.5);
+  --pd-accent: #e3a9b8;
+}
+
+/* Above --z-drawer (80): the sheet is a portal over the whole app. */
+.project-detail {
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: clamp(0.5rem, 2vw, 2rem);
+  background: rgba(12, 2, 6, 0.84);
+  backdrop-filter: blur(10px) saturate(var(--glass-saturate));
+  -webkit-backdrop-filter: blur(10px) saturate(var(--glass-saturate));
+}
+
+/* The sheet is the heaviest surface in the system, so it takes the dark
+   frost rather than the lighter prism the cards use. */
+.project-detail__panel {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  width: min(100%, 76rem);
+  min-height: 0;
+  max-height: min(94svh, 58rem);
+  overflow: hidden;
+  border: 1px solid var(--glass-dark-border);
+  border-radius: 20px;
+  background: var(--glass-dark-solid);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.26),
+    inset 0 -1px 0 rgba(12, 0, 5, 0.4),
+    var(--glass-dark-shadow);
+  color: #ffffff;
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .project-detail__panel {
+    -webkit-backdrop-filter: blur(var(--glass-dark-blur))
+      saturate(var(--glass-saturate));
+    backdrop-filter: blur(var(--glass-dark-blur)) saturate(var(--glass-saturate));
+    background: var(--glass-dark);
+  }
+}
+
+/* ---- Header -------------------------------------------------------------- */
+.project-detail__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: clamp(1rem, 2.4vw, 1.6rem) clamp(1rem, 2.6vw, 2rem);
+  border-bottom: 1px solid var(--pd-line);
+  /* Tint only - an opaque fill here would block the panel's frost. */
+  background:
+    radial-gradient(125% 190% at 0% 0%, rgba(146, 36, 78, 0.42), transparent 62%),
+    linear-gradient(rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0));
+}
+
+.project-detail__identity {
+  min-width: 0;
+}
+
+.project-detail__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.3rem 0.66rem;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.07);
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* 800 is the heaviest weight loaded for Roboto Slab, and font-synthesis is
+   off globally, so anything heavier would silently render lighter. */
+.project-detail__title {
+  margin: 0.7rem 0 0;
+  font-family: var(--font-heading);
+  font-size: clamp(1.3rem, 2.6vw, 2rem);
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  line-height: 1.14;
+}
+
+.project-detail__status {
+  margin: 0.5rem 0 0;
+  color: var(--pd-muted);
+  font-size: 0.78rem;
+  font-weight: 650;
+  line-height: 1.5;
+}
+
+.project-detail__close,
+.project-viewer__close {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  padding: 0;
+  border: 1px solid var(--pd-line-strong);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
+  cursor: pointer;
+  transition: background 200ms var(--motion-ease), color 200ms var(--motion-ease);
+}
+
+.project-detail__close:hover,
+.project-viewer__close:hover {
+  background: #ffffff;
+  color: var(--burgundy);
+}
+
+/* ---- Body split ---------------------------------------------------------- */
+.project-detail__body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
+}
+
+.project-detail__body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.project-detail__body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.project-detail__body::-webkit-scrollbar-thumb {
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.22);
+  background-clip: padding-box;
+}
+
+.project-detail__gallery {
+  min-width: 0;
+  padding: clamp(1rem, 2.4vw, 1.6rem) clamp(1rem, 2.6vw, 2rem);
+  border-bottom: 1px solid var(--pd-line);
+}
+
+/* ---- Stage: the box is fixed, the image is never cropped ----------------- */
+.project-stage {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  aspect-ratio: 16 / 10;
+  max-height: 62svh;
+  min-height: 0;
+  overflow: hidden;
+  border: 1px solid var(--pd-line);
+  border-radius: 16px;
+  background: var(--pd-stage);
+  touch-action: pan-y;
+}
+
+/* Blurred copy of the same asset turns the letterboxing of mixed source
+   ratios (1.33 to 1.79 across the gallery) into a deliberate surface. */
+.project-stage__wash {
+  position: absolute;
+  z-index: -1;
+  inset: -8%;
+  width: 116%;
+  height: 116%;
+  max-width: none;
+  object-fit: cover;
+  filter: blur(34px) saturate(1.25) brightness(0.6);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Absolutely filling the stage is what makes the trigger's height DEFINITE.
+   The image then FILLS that box and relies on object-fit rather than a
+   percentage max-height, which does not resolve for a centred grid item and
+   let tall screenshots overflow and get clipped. */
+.project-stage__trigger {
+  position: absolute;
+  inset: 0;
+  display: block;
+  padding: clamp(0.5rem, 1.4vw, 1rem);
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+}
+
+.project-stage__image {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: contain;
+  object-position: center;
+}
+
+.project-stage__hint,
+.project-stage__count {
+  position: absolute;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.34rem 0.62rem;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  background: rgba(10, 2, 5, 0.66);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+.project-stage__hint {
+  top: 0.7rem;
+  left: 0.7rem;
+  opacity: 0;
+  transition: opacity 220ms var(--motion-ease);
+}
+
+.project-stage:hover .project-stage__hint,
+.project-stage__trigger:focus-visible ~ .project-stage__hint {
+  opacity: 1;
+}
+
+.project-stage__count {
+  right: 0.7rem;
+  bottom: 0.7rem;
+}
+
+.project-stage__nav {
+  position: absolute;
+  z-index: 3;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  padding: 0;
+  transform: translateY(-50%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  background: rgba(10, 2, 5, 0.62);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: #ffffff;
+  cursor: pointer;
+  transition: background 200ms var(--motion-ease), color 200ms var(--motion-ease);
+}
+
+.project-stage__nav:hover {
+  background: #ffffff;
+  color: var(--burgundy);
+}
+
+.project-stage__nav--previous {
+  left: 0.65rem;
+}
+
+.project-stage__nav--next {
+  right: 0.65rem;
+}
+
+.project-stage--empty {
+  place-items: center;
+  padding: 1.5rem;
+  color: var(--pd-muted);
+  font-size: 0.85rem;
+  font-weight: 650;
+  text-align: center;
+}
+
+/* ---- Thumbnail strip, shared by the sheet and the viewer ----------------- */
+.project-thumbs {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.28) transparent;
+}
+
+.project-thumbs::-webkit-scrollbar {
+  height: 6px;
+}
+
+.project-thumbs::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.project-thumbs::-webkit-scrollbar-thumb {
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.24);
+}
+
+.project-thumbs__item {
+  position: relative;
+  flex: 0 0 auto;
+  width: clamp(4.4rem, 8.5vw, 5.9rem);
+  aspect-ratio: 16 / 10;
+  padding: 0;
+  overflow: hidden;
+  scroll-snap-align: center;
+  border: 1px solid var(--pd-line);
+  border-radius: 10px;
+  background: var(--pd-stage);
+  opacity: 0.55;
+  cursor: pointer;
+  transition: opacity 200ms var(--motion-ease), border-color 200ms var(--motion-ease);
+}
+
+.project-thumbs__item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.project-thumbs__item:hover {
+  opacity: 0.85;
+}
+
+.project-thumbs__item.is-active {
+  opacity: 1;
+  border-color: var(--pd-accent);
+  box-shadow: 0 0 0 1px var(--pd-accent);
+}
+
+.project-thumbs--panel {
+  margin-top: 0.75rem;
+  padding-bottom: 0.35rem;
+}
+
+.project-thumbs--viewer {
+  justify-content: safe center;
+  padding: 0.75rem clamp(0.75rem, 3vw, 1.5rem)
+    calc(0.75rem + env(safe-area-inset-bottom));
+  border-top: 1px solid var(--pd-line);
+  background: rgba(8, 1, 4, 0.6);
+}
+
+/* ---- Narrative column ---------------------------------------------------- */
+.project-detail__content {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.1rem, 2vw, 1.5rem);
+  min-width: 0;
+  padding: clamp(1.15rem, 2.6vw, 2rem);
+}
+
+.project-detail__lede {
+  margin: 0;
+  color: var(--pd-text);
+  font-size: clamp(0.92rem, 1.05vw, 1rem);
+  line-height: 1.75;
+}
+
+.project-detail__value {
+  margin: 0;
+  padding-left: 1.1rem;
+  border-left: 2px solid var(--pd-accent);
+  color: #ffffff;
+  font-size: 0.93rem;
+  font-weight: 650;
+  line-height: 1.7;
+}
+
+.project-detail__block h4 {
+  margin: 0 0 0.7rem;
+  color: var(--pd-muted);
+  font-size: 0.64rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.project-detail__block p {
+  margin: 0;
+  color: var(--pd-text);
+  font-size: 0.9rem;
+  line-height: 1.72;
+}
+
+.project-detail__features {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.project-detail__features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  padding: 0.62rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  color: var(--pd-text);
+  font-size: 0.87rem;
+  line-height: 1.6;
+}
+
+.project-detail__features li:last-child {
+  border-bottom: 0;
+}
+
+.project-detail__features li > span {
+  flex: none;
+  width: 0.34rem;
+  height: 0.34rem;
+  margin-top: 0.58rem;
+  border-radius: 999px;
+  background: var(--pd-accent);
+}
+
+.project-detail__tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.project-detail__tech span {
+  padding: 0.34rem 0.7rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.project-detail__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  margin-top: auto;
+  padding-top: clamp(0.9rem, 2vw, 1.25rem);
+  border-top: 1px solid var(--pd-line);
+}
+
+.project-detail__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.35rem;
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--burgundy);
+  font-size: 0.85rem;
+  font-weight: 800;
+  text-decoration: none;
+  transition: transform 200ms var(--motion-ease), box-shadow 200ms var(--motion-ease);
+}
+
+.project-detail__cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
+}
+
+.project-detail__private {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--pd-muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+/* ---- Full-screen viewer -------------------------------------------------- */
+.project-viewer {
+  position: fixed;
+  z-index: 110;
+  inset: 0;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  /* Deliberately near-opaque, unlike the sheet: a frosted backdrop behind a
+     screenshot competes with the thing the viewer exists to show. */
+  background: rgba(6, 1, 3, 0.96);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.project-viewer__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: calc(0.75rem + env(safe-area-inset-top)) clamp(0.75rem, 3vw, 1.5rem)
+    0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.project-viewer__caption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.3rem 0.75rem;
+  min-width: 0;
+  color: #ffffff;
+}
+
+.project-viewer__caption span:first-child {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 800;
+}
+
+.project-viewer__caption span + span {
+  color: var(--pd-muted);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+.project-viewer__stage {
+  position: relative;
+  display: block;
+  min-height: 0;
+  padding: clamp(0.6rem, 2.5vw, 1.75rem);
+  touch-action: pan-y;
+}
+
+/* Same rule as the stage: fill the definite box, let object-fit letterbox. */
+.project-viewer__image {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: contain;
+  object-position: center;
+}
+
+.project-viewer__nav {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  padding: 0;
+  transform: translateY(-50%);
+  /* Dark, not translucent white: screenshots are often light and a white
+     control would disappear into them. */
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+  background: rgba(10, 2, 5, 0.62);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #ffffff;
+  cursor: pointer;
+  transition: background 200ms var(--motion-ease), color 200ms var(--motion-ease);
+}
+
+.project-viewer__nav:hover {
+  background: #ffffff;
+  color: var(--burgundy);
+}
+
+.project-viewer__nav--previous {
+  left: clamp(0.4rem, 2vw, 1.5rem);
+}
+
+.project-viewer__nav--next {
+  right: clamp(0.4rem, 2vw, 1.5rem);
+}
+
+/* ---- Responsive ---------------------------------------------------------- */
+/* Touch devices never fire hover, so the expand affordance stays visible. */
+@media (hover: none) {
+  .project-stage__hint {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 640px) {
+  .project-detail {
+    padding: 0;
+  }
+
+  .project-detail__panel {
+    width: 100%;
+    height: 100svh;
+    max-height: 100svh;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .project-stage {
+    max-height: 42svh;
+  }
+
+  .project-detail__content {
+    padding-bottom: calc(1.15rem + env(safe-area-inset-bottom));
+  }
+
+  .project-viewer__nav {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .project-thumbs__item {
+    width: 4.4rem;
+  }
+}
+
+/* Short landscape phones: the stage must not eat the whole sheet. */
+@media (max-height: 560px) {
+  .project-stage {
+    max-height: 46svh;
+  }
+}
+
+@media (min-width: 1024px) {
+  .project-detail__body {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  }
+
+  /* Sticky, so the gallery stays put while the case study scrolls. The
+     divider lives on the taller content column so it runs the full height
+     instead of stopping where the short gallery box ends. */
+  .project-detail__gallery {
+    position: sticky;
+    top: 0;
+    align-self: start;
+    border-bottom: 0;
+  }
+
+  .project-detail__content {
+    border-left: 1px solid var(--pd-line);
   }
 }

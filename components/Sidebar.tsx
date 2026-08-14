@@ -21,15 +21,27 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
     { id: 'contact', label: 'Contact', icon: Mail },
   ];
 
+  // A ratio threshold can never be met by sections taller than the observation
+  // band, which left About/Resume/Projects permanently inactive. Instead watch a
+  // thin band near the top and take the first section crossing it.
   useEffect(() => {
+    const ids = navItems.map((item) => item.id);
+    const elements = ids
+      .map((id) => document.getElementById(id))
+      .filter((element): element is HTMLElement => Boolean(element));
+    if (!elements.length) return;
+
+    const crossing = new Map<string, boolean>();
     const observer = new IntersectionObserver(
-      (entries) => entries.forEach((entry) => entry.isIntersecting && setActiveSection(entry.target.id)),
-      { threshold: 0.28, rootMargin: '-15% 0px -55% 0px' },
+      (entries) => {
+        entries.forEach((entry) => crossing.set(entry.target.id, entry.isIntersecting));
+        const active = ids.find((id) => crossing.get(id));
+        if (active) setActiveSection(active);
+      },
+      { threshold: 0, rootMargin: '-24% 0px -70% 0px' },
     );
-    navItems.forEach((item) => {
-      const element = document.getElementById(item.id);
-      if (element) observer.observe(element);
-    });
+
+    elements.forEach((element) => observer.observe(element));
     return () => observer.disconnect();
   }, []);
 
@@ -39,14 +51,14 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
   };
 
   const content = (
-    <div className="flex h-full flex-col bg-white text-primary">
+    <div className="sidebar-surface flex h-full flex-col text-primary">
       <div className="flex justify-end p-3 xl:hidden">
         <button onClick={() => setIsOpen(false)} className="rounded-full border border-primary/15 p-2.5" aria-label="Close navigation"><X size={21} /></button>
       </div>
 
       <div className="px-4 pb-4 pt-4 text-center xl:pt-5">
-        <div className="mx-auto h-20 w-20 overflow-hidden rounded-full border-[3px] border-primary bg-mist shadow-soft xl:h-16 xl:w-16 2xl:h-[4.5rem] 2xl:w-[4.5rem]">
-          <img src="/images/hashem-profile.webp" alt="Hashem Kayyali" className="h-full w-full object-cover" />
+        <div className="nav-avatar">
+          <img src="/images/hashem-profile.webp" alt="Hashem Kayyali" />
         </div>
         <h1 className="mt-3 font-heading text-lg font-extrabold 2xl:text-xl">{profile.name}</h1>
         <p className="mx-auto mt-1.5 max-w-[190px] text-[9px] font-semibold uppercase leading-4 tracking-[0.13em] text-primary/65 2xl:text-[10px]">{profile.role}</p>
@@ -66,7 +78,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
               <li key={item.id}>
                 <button
                   onClick={() => goTo(item.id)}
-                  className={`relative isolate flex w-full items-center gap-2.5 overflow-hidden rounded-xl px-3 py-2.5 text-left text-[13px] font-semibold transition ${active ? 'bg-[#300510] text-white shadow-soft' : 'text-primary/65 hover:bg-mist hover:text-primary'}`}
+                  className={`relative isolate flex w-full items-center gap-2.5 overflow-hidden rounded-xl px-3 py-2.5 text-left text-[13px] font-semibold transition ${active ? 'nav-item--active text-white' : 'nav-item text-primary/65'}`}
                 >
                   {active && (
                     <BurgundyWarpBackground
@@ -86,7 +98,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
       </nav>
 
       <div className="p-3.5 2xl:p-4">
-        <a href="/resume/hashem-kayyali-resume.pdf" download className="relative isolate flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl bg-[#300510] px-3 py-2.5 text-[13px] font-bold text-white transition hover:-translate-y-0.5 hover:shadow-soft">
+        <a href="/resume/hashem-kayyali-resume.pdf" download className="nav-resume relative isolate flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl px-3 py-2.5 text-[13px] font-bold text-white">
           <BurgundyWarpBackground index={30} className="-z-10" overlayOpacity={0.14} rootMargin="0px" />
           <Download size={17} className="relative z-10" />
           <span className="relative z-10">Download Resume</span>
@@ -108,7 +120,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               style={{ zIndex: 70 }}
-              className="fixed inset-0 bg-primary/80 backdrop-blur-sm xl:hidden"
+              className="drawer-scrim fixed inset-0 bg-primary/80 xl:hidden"
             />
             <motion.aside
               initial={{ x: '-100%' }}
@@ -117,7 +129,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
               transition={{ type: 'spring', damping: 27, stiffness: 240 }}
               style={{ zIndex: 80 }}
               aria-label="Mobile navigation"
-              className="fixed inset-y-0 left-0 w-[min(286px,88vw)] overflow-hidden bg-white shadow-panel xl:hidden"
+              className="glass-panel mobile-drawer fixed inset-y-0 left-0 w-[min(286px,88vw)] overflow-hidden xl:hidden"
             >
               {content}
             </motion.aside>

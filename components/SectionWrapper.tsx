@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 
 interface SectionWrapperProps {
@@ -14,6 +14,8 @@ interface SectionWrapperProps {
    * `--section-controls-height` so sticky content below can offset itself.
    */
   stickyControls?: React.ReactNode;
+  /** Makes the title + description sticky for sections without extra controls. */
+  stickyHeader?: boolean;
 }
 
 const SectionWrapper: React.FC<SectionWrapperProps> = ({
@@ -24,10 +26,44 @@ const SectionWrapper: React.FC<SectionWrapperProps> = ({
   className = '',
   variant = 'white',
   stickyControls,
+  stickyHeader = false,
 }) => {
   const sectionRef = useRef<HTMLElement>(null);
   const controlsRef = useRef<HTMLDivElement>(null);
-  const hasStickyControls = Boolean(stickyControls);
+  const sentinelRef = useRef<HTMLDivElement>(null);
+  const hasStickyControls = Boolean(stickyControls) || stickyHeader;
+  const [pinned, setPinned] = useState(false);
+
+  // A pinned header must not blend into the content sliding under it, so it
+  // publishes its own pinned state and CSS fades a scrim in beneath it. Driven
+  // by a 1px sentinel at the header's resting position — no scroll listener.
+  useEffect(() => {
+    if (!hasStickyControls) return;
+    const sentinel = sentinelRef.current;
+    const controls = controlsRef.current;
+    if (!sentinel || !controls) return;
+
+    let observer: IntersectionObserver | null = null;
+
+    // The stick offset changes at the desktop breakpoint, so the root margin is
+    // re-read rather than assumed.
+    const attach = () => {
+      observer?.disconnect();
+      const stickyTop = Number.parseFloat(getComputedStyle(controls).top) || 0;
+      observer = new IntersectionObserver(
+        ([entry]) => setPinned(!entry.isIntersecting),
+        { rootMargin: `-${Math.max(stickyTop, 0) + 1}px 0px 0px 0px`, threshold: 0 },
+      );
+      observer.observe(sentinel);
+    };
+
+    attach();
+    window.addEventListener('resize', attach);
+    return () => {
+      observer?.disconnect();
+      window.removeEventListener('resize', attach);
+    };
+  }, [hasStickyControls]);
 
   // Filter chips wrap differently per viewport, so the offset comes from the
   // real rendered height. Observed, never polled on scroll.
@@ -80,10 +116,18 @@ const SectionWrapper: React.FC<SectionWrapperProps> = ({
         {hasStickyControls ? (
           // No entrance animation: this block is persistent UI, so it must never
           // depend on animation frames to be visible.
-          <div ref={controlsRef} className="section-sticky">
+          <>
+          <div ref={sentinelRef} className="section-sticky__sentinel" aria-hidden="true" />
+          <div
+            ref={controlsRef}
+            className={`section-sticky${variant === 'burgundy' ? ' section-sticky--glass' : ''}${
+              pinned ? ' section-sticky--pinned' : ''
+            }`}
+          >
             {(title || subtitle) && <header className="section-sticky__heading">{heading}</header>}
             {stickyControls}
           </div>
+          </>
         ) : (
           (title || subtitle) && (
             <motion.header

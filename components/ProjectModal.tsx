@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
@@ -6,8 +6,8 @@ import {
   ChevronRight,
   ExternalLink,
   LockKeyhole,
+  Maximize2,
   X,
-  ZoomIn,
 } from 'lucide-react';
 import { Project } from '../types';
 
@@ -15,6 +15,18 @@ interface ProjectModalProps {
   project: Project | null;
   onClose: () => void;
 }
+
+const SWIPE_THRESHOLD = 45;
+
+/* Mirrors the CSS motion tokens (--motion-ease / --motion-detail /
+   --motion-support). Framer Motion cannot read custom properties, so the
+   values are duplicated here and must move together with index.css. */
+const EASE = [0.16, 1, 0.3, 1] as const;
+const DURATION_DETAIL = 0.34;
+const DURATION_SUPPORT = 0.42;
+/* Content swap, not surface motion: arrowing through a gallery has to feel
+   immediate, so it stays well under the token scale. */
+const DURATION_IMAGE_SWAP = 0.18;
 
 const buildProjectImages = (project: Project | null): string[] => {
   if (!project) return [];
@@ -26,17 +38,88 @@ const thumbnailFor = (image: string): string =>
     ? image.replace(/\/([^/]+)$/, '/thumbs/$1')
     : image;
 
+interface ThumbStripProps {
+  images: string[];
+  activeIndex: number;
+  variant: 'panel' | 'viewer';
+  onSelect: (index: number) => void;
+}
+
+/** One strip, two surfaces: the panel gallery and the full-screen viewer. */
+const ThumbStrip: React.FC<ThumbStripProps> = ({
+  images,
+  activeIndex,
+  variant,
+  onSelect,
+}) => {
+  const stripRef = useRef<HTMLDivElement>(null);
+
+  // Long galleries (11 shots) scroll out of the strip, so the active thumb is
+  // pulled back into view whenever the selection moves by arrow key or swipe.
+  useEffect(() => {
+    const active = stripRef.current?.querySelector<HTMLElement>(
+      '[data-active="true"]',
+    );
+    active?.scrollIntoView({
+      block: 'nearest',
+      inline: 'center',
+      behavior: 'smooth',
+    });
+  }, [activeIndex]);
+
+  return (
+    <div
+      ref={stripRef}
+      className={`project-thumbs project-thumbs--${variant}`}
+      role="tablist"
+      aria-label="Project screenshots"
+    >
+      {images.map((image, index) => (
+        <button
+          type="button"
+          key={image}
+          role="tab"
+          data-active={activeIndex === index ? 'true' : undefined}
+          aria-selected={activeIndex === index}
+          className={`project-thumbs__item${
+            activeIndex === index ? ' is-active' : ''
+          }`}
+          onClick={() => onSelect(index)}
+          aria-label={`Show image ${index + 1} of ${images.length}`}
+        >
+          <img
+            src={thumbnailFor(image)}
+            alt=""
+            loading="lazy"
+            decoding="async"
+            onError={(event) => {
+              const thumbnail = event.currentTarget;
+              if (thumbnail.dataset.fallbackApplied === 'true') {
+                thumbnail.style.visibility = 'hidden';
+                return;
+              }
+              thumbnail.dataset.fallbackApplied = 'true';
+              thumbnail.src = image;
+            }}
+          />
+        </button>
+      ))}
+    </div>
+  );
+};
+
 const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
   const candidateImages = useMemo(() => buildProjectImages(project), [project]);
   const [availableImages, setAvailableImages] = useState<string[]>(candidateImages);
   const [activeImage, setActiveImage] = useState(0);
-  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
-  const lightboxCloseButtonRef = useRef<HTMLButtonElement>(null);
+  const [isViewerOpen, setIsViewerOpen] = useState(false);
+  const viewerCloseButtonRef = useRef<HTMLButtonElement>(null);
+  const swipeOriginRef = useRef<number | null>(null);
 
   useEffect(() => {
     setAvailableImages(candidateImages);
     setActiveImage(0);
-    setIsLightboxOpen(false);
+    setIsViewerOpen(false);
   }, [candidateImages]);
 
   useEffect(() => {
@@ -45,9 +128,21 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
     }
 
     if (availableImages.length === 0) {
-      setIsLightboxOpen(false);
+      setIsViewerOpen(false);
     }
   }, [activeImage, availableImages.length]);
+
+  const imageCount = availableImages.length;
+
+  const showPreviousImage = useCallback(() => {
+    if (imageCount <= 1) return;
+    setActiveImage((value) => (value - 1 + imageCount) % imageCount);
+  }, [imageCount]);
+
+  const showNextImage = useCallback(() => {
+    if (imageCount <= 1) return;
+    setActiveImage((value) => (value + 1) % imageCount);
+  }, [imageCount]);
 
   useEffect(() => {
     if (!project) return;
@@ -56,25 +151,16 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
 
     const onKey = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
-        if (isLightboxOpen) {
-          setIsLightboxOpen(false);
+        if (isViewerOpen) {
+          setIsViewerOpen(false);
         } else {
           onClose();
         }
         return;
       }
 
-      if (availableImages.length <= 1) return;
-
-      if (event.key === 'ArrowRight') {
-        setActiveImage((value) => (value + 1) % availableImages.length);
-      }
-
-      if (event.key === 'ArrowLeft') {
-        setActiveImage((value) =>
-          (value - 1 + availableImages.length) % availableImages.length,
-        );
-      }
+      if (event.key === 'ArrowRight') showNextImage();
+      if (event.key === 'ArrowLeft') showPreviousImage();
     };
 
     document.body.style.overflow = 'hidden';
@@ -84,12 +170,12 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
       document.body.style.overflow = previousOverflow;
       window.removeEventListener('keydown', onKey);
     };
-  }, [project, onClose, availableImages.length, isLightboxOpen]);
+  }, [project, onClose, isViewerOpen, showNextImage, showPreviousImage]);
 
   useEffect(() => {
-    if (!isLightboxOpen) return;
-    lightboxCloseButtonRef.current?.focus();
-  }, [isLightboxOpen]);
+    if (!isViewerOpen) return;
+    viewerCloseButtonRef.current?.focus();
+  }, [isViewerOpen]);
 
   useEffect(() => {
     if (availableImages.length <= 1) return;
@@ -111,106 +197,124 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
     );
   };
 
-  const showPreviousImage = () => {
-    if (availableImages.length <= 1) return;
-    setActiveImage((value) =>
-      (value - 1 + availableImages.length) % availableImages.length,
-    );
+  const onSwipeStart = (event: React.TouchEvent) => {
+    swipeOriginRef.current = event.changedTouches[0].clientX;
   };
 
-  const showNextImage = () => {
-    if (availableImages.length <= 1) return;
-    setActiveImage((value) => (value + 1) % availableImages.length);
+  const onSwipeEnd = (event: React.TouchEvent) => {
+    const origin = swipeOriginRef.current;
+    swipeOriginRef.current = null;
+    if (origin === null) return;
+
+    const distance = event.changedTouches[0].clientX - origin;
+    if (Math.abs(distance) < SWIPE_THRESHOLD) return;
+
+    if (distance < 0) showNextImage();
+    else showPreviousImage();
   };
 
   const currentImage = availableImages[activeImage];
+  const hasMultiple = imageCount > 1;
 
   const modal = (
     <>
       <AnimatePresence>
         {project && (
           <motion.div
-            className="fixed inset-0 z-[1000] flex items-center justify-center bg-primary/85 p-3 backdrop-blur-sm md:p-6 2xl:p-8"
+            className="project-detail"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={{ duration: DURATION_DETAIL, ease: EASE }}
             onMouseDown={(event) =>
               event.target === event.currentTarget && onClose()
             }
             role="dialog"
             aria-modal="true"
-            aria-label={`${project.title} project details`}
+            aria-label={`${project.title} case study`}
           >
             <motion.article
-              initial={{ opacity: 0, y: 30, scale: 0.98 }}
+              className="project-detail__panel"
+              initial={{ opacity: 0, y: 26, scale: 0.985 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 20, scale: 0.98 }}
-              transition={{ duration: 0.25 }}
-              className="custom-scrollbar max-h-[94svh] w-full max-w-[1120px] overflow-y-auto rounded-[1.5rem] bg-white shadow-panel 2xl:max-w-6xl 2xl:rounded-[1.75rem]"
+              exit={{ opacity: 0, y: 16, scale: 0.985 }}
+              transition={{ duration: DURATION_SUPPORT, ease: EASE }}
             >
-              <div className="sticky top-0 z-20 flex items-center justify-between border-b border-silver/35 bg-white/95 px-4 py-3 backdrop-blur sm:px-6 sm:py-4 2xl:px-8">
-                <div>
-                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-silver">
+              <header className="project-detail__head">
+                <div className="project-detail__identity">
+                  <span className="project-detail__eyebrow">
                     {project.category}
-                  </p>
-                  <h3 className="mt-1 font-heading text-xl font-extrabold text-primary md:text-2xl">
-                    {project.title}
-                  </h3>
+                  </span>
+                  <h3 className="project-detail__title">{project.title}</h3>
+                  <p className="project-detail__status">{project.status}</p>
                 </div>
                 <button
                   type="button"
                   onClick={onClose}
-                  className="rounded-full border border-primary/20 p-3 text-primary transition hover:bg-primary hover:text-white"
+                  className="project-detail__close"
                   aria-label="Close project details"
                 >
-                  <X size={20} />
+                  <X size={19} />
                 </button>
-              </div>
+              </header>
 
-              <div className="grid items-start xl:grid-cols-[1.04fr_0.96fr]">
-                <div className="self-start bg-mist p-4 sm:p-6 2xl:p-8">
+              <div className="project-detail__body">
+                <section className="project-detail__gallery">
                   {currentImage ? (
                     <>
-                      <div className="relative overflow-hidden rounded-2xl bg-primary shadow-soft">
+                      <div
+                        className="project-stage"
+                        onTouchStart={onSwipeStart}
+                        onTouchEnd={onSwipeEnd}
+                      >
+                        {/* Blurred fill turns the letterboxing of mixed image
+                            ratios into a deliberate surface. */}
+                        <img
+                          className="project-stage__wash"
+                          src={currentImage}
+                          alt=""
+                          aria-hidden="true"
+                          decoding="async"
+                        />
                         <button
                           type="button"
-                          className="project-modal__image-trigger"
-                          onClick={() => setIsLightboxOpen(true)}
-                          aria-label={`Open ${project.title} image ${activeImage + 1} in full screen`}
+                          className="project-stage__trigger"
+                          onClick={() => setIsViewerOpen(true)}
+                          aria-label={`Open image ${activeImage + 1} full screen`}
                         >
                           <img
+                            className="project-stage__image"
                             src={currentImage}
-                            alt={`${project.title} project image ${activeImage + 1}`}
-                            className="aspect-[16/10] w-full object-cover"
+                            alt={`${project.title} screenshot ${activeImage + 1}`}
                             decoding="async"
                             fetchPriority="high"
                             onError={() => removeMissingImage(currentImage)}
                           />
-                          <span className="project-modal__zoom-hint" aria-hidden="true">
-                            <ZoomIn size={19} />
-                            View full image
-                          </span>
                         </button>
 
-                        <div className="absolute bottom-3 right-3 rounded-full bg-white/92 px-3 py-1.5 text-xs font-bold text-primary shadow-soft backdrop-blur-sm">
+                        <span className="project-stage__hint" aria-hidden="true">
+                          <Maximize2 size={14} />
+                          Expand
+                        </span>
+                        <span className="project-stage__count" aria-live="polite">
                           {activeImage + 1} / {availableImages.length}
-                        </div>
+                        </span>
 
-                        {availableImages.length > 1 && (
+                        {hasMultiple && (
                           <>
                             <button
                               type="button"
+                              className="project-stage__nav project-stage__nav--previous"
                               onClick={showPreviousImage}
-                              className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-white/95 p-3 text-primary shadow-soft transition hover:scale-105 hover:bg-white"
-                              aria-label="Previous project image"
+                              aria-label="Previous image"
                             >
                               <ChevronLeft size={20} />
                             </button>
                             <button
                               type="button"
+                              className="project-stage__nav project-stage__nav--next"
                               onClick={showNextImage}
-                              className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-white/95 p-3 text-primary shadow-soft transition hover:scale-105 hover:bg-white"
-                              aria-label="Next project image"
+                              aria-label="Next image"
                             >
                               <ChevronRight size={20} />
                             </button>
@@ -218,115 +322,72 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
                         )}
                       </div>
 
-                      <div className="mt-4 grid grid-cols-4 gap-2.5 sm:grid-cols-5 sm:gap-3">
-                        {availableImages.map((image, index) => (
-                          <button
-                            type="button"
-                            key={image}
-                            onClick={() => setActiveImage(index)}
-                            className={`relative overflow-hidden rounded-xl border-2 bg-white shadow-sm transition ${
-                              activeImage === index
-                                ? 'border-primary opacity-100'
-                                : 'border-transparent opacity-65 hover:opacity-100'
-                            }`}
-                            aria-label={`Show project image ${index + 1}`}
-                            aria-current={activeImage === index ? 'true' : undefined}
-                          >
-                            <img
-                              src={thumbnailFor(image)}
-                              alt=""
-                              loading="lazy"
-                              decoding="async"
-                              className="aspect-video w-full object-cover"
-                              onError={(event) => {
-                                const thumbnail = event.currentTarget;
-                                if (
-                                  thumbnail.dataset.fallbackApplied === 'true'
-                                ) {
-                                  thumbnail.style.display = 'none';
-                                  return;
-                                }
-                                thumbnail.dataset.fallbackApplied = 'true';
-                                thumbnail.src = image;
-                              }}
-                            />
-                          </button>
-                        ))}
-                      </div>
+                      {hasMultiple && (
+                        <ThumbStrip
+                          images={availableImages}
+                          activeIndex={activeImage}
+                          variant="panel"
+                          onSelect={setActiveImage}
+                        />
+                      )}
                     </>
                   ) : (
-                    <div className="flex aspect-[16/10] items-center justify-center rounded-2xl border border-primary/15 bg-white text-sm font-semibold text-primary/55">
+                    <div className="project-stage project-stage--empty">
                       Add cover.webp or screenshot-01.webp to this project folder.
                     </div>
                   )}
-                </div>
+                </section>
 
-                <div className="space-y-6 p-5 sm:p-7 2xl:space-y-8 2xl:p-10">
-                  <div>
-                    <p className="text-base leading-7 text-primary/75 2xl:text-lg 2xl:leading-8">
-                      {project.longDescription}
-                    </p>
-                    <p className="mt-5 border-l-4 border-primary pl-5 font-semibold leading-7 text-primary">
-                      {project.stakeholderValue}
-                    </p>
+                <section className="project-detail__content">
+                  <p className="project-detail__lede">{project.longDescription}</p>
+
+                  <p className="project-detail__value">
+                    {project.stakeholderValue}
+                  </p>
+
+                  <div className="project-detail__block">
+                    <h4>My role</h4>
+                    <p>{project.role}</p>
                   </div>
 
-                  <div>
-                    <h4 className="font-heading text-lg font-extrabold text-primary">
-                      My role
-                    </h4>
-                    <p className="mt-3 leading-7 text-primary/70">
-                      {project.role}
-                    </p>
-                  </div>
-
-                  <div>
-                    <h4 className="font-heading text-lg font-extrabold text-primary">
-                      Key features
-                    </h4>
-                    <ul className="mt-3 grid gap-2 text-sm text-primary/75 sm:grid-cols-2">
+                  <div className="project-detail__block">
+                    <h4>Key features</h4>
+                    <ul className="project-detail__features">
                       {project.features.map((feature) => (
-                        <li
-                          key={feature}
-                          className="border-b border-silver/35 py-2"
-                        >
+                        <li key={feature}>
+                          <span aria-hidden="true" />
                           {feature}
                         </li>
                       ))}
                     </ul>
                   </div>
 
-                  <div className="flex flex-wrap gap-2">
-                    {project.tech.map((item) => (
-                      <span
-                        key={item}
-                        className="rounded-full bg-primary px-3 py-1.5 text-xs font-semibold text-white"
-                      >
-                        {item}
-                      </span>
-                    ))}
+                  <div className="project-detail__block">
+                    <h4>Stack</h4>
+                    <div className="project-detail__tech">
+                      {project.tech.map((item) => (
+                        <span key={item}>{item}</span>
+                      ))}
+                    </div>
                   </div>
 
-                  <div className="flex flex-wrap items-center gap-4 border-t border-silver/35 pt-6">
-                    <span className="text-sm font-semibold text-primary/60">
-                      {project.status}
-                    </span>
+                  <div className="project-detail__actions">
                     {project.liveUrl ? (
                       <a
                         href={project.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-3 font-bold text-white transition hover:bg-primary-deep"
+                        className="project-detail__cta"
                       >
-                        Visit live project <ExternalLink size={17} />
+                        Visit live project <ExternalLink size={16} />
                       </a>
                     ) : (
-                      <span className="inline-flex items-center gap-2 text-sm font-semibold text-primary/60">
-                        <LockKeyhole size={17} /> Private source code
+                      <span className="project-detail__private">
+                        <LockKeyhole size={15} /> Private source code
                       </span>
                     )}
                   </div>
-                </div>
+                </section>
               </div>
             </motion.article>
           </motion.div>
@@ -334,72 +395,85 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
       </AnimatePresence>
 
       <AnimatePresence>
-        {project && isLightboxOpen && currentImage && (
+        {project && isViewerOpen && currentImage && (
           <motion.div
-            className="project-lightbox"
+            className="project-viewer"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            onMouseDown={(event) =>
-              event.target === event.currentTarget && setIsLightboxOpen(false)
-            }
+            transition={{ duration: DURATION_DETAIL, ease: EASE }}
             role="dialog"
             aria-modal="true"
             aria-label={`${project.title} image viewer`}
           >
-            <button
-              ref={lightboxCloseButtonRef}
-              type="button"
-              className="project-lightbox__close"
-              onClick={() => setIsLightboxOpen(false)}
-              aria-label="Close image viewer"
-            >
-              <X size={24} />
-            </button>
-
-            {availableImages.length > 1 && (
-              <button
-                type="button"
-                className="project-lightbox__nav project-lightbox__nav--previous"
-                onClick={showPreviousImage}
-                aria-label="Previous project image"
-              >
-                <ChevronLeft size={30} />
-              </button>
-            )}
-
-            <motion.figure
-              key={currentImage}
-              className="project-lightbox__figure"
-              initial={{ opacity: 0, scale: 0.96 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.96 }}
-              transition={{ duration: 0.18 }}
-            >
-              <img
-                src={currentImage}
-                alt={`${project.title} project image ${activeImage + 1} of ${availableImages.length}`}
-                decoding="async"
-                onError={() => removeMissingImage(currentImage)}
-              />
-              <figcaption>
+            <header className="project-viewer__bar">
+              <div className="project-viewer__caption">
                 <span>{project.title}</span>
                 <span>
                   {activeImage + 1} / {availableImages.length}
                 </span>
-              </figcaption>
-            </motion.figure>
-
-            {availableImages.length > 1 && (
+              </div>
               <button
+                ref={viewerCloseButtonRef}
                 type="button"
-                className="project-lightbox__nav project-lightbox__nav--next"
-                onClick={showNextImage}
-                aria-label="Next project image"
+                className="project-viewer__close"
+                onClick={() => setIsViewerOpen(false)}
+                aria-label="Close image viewer"
               >
-                <ChevronRight size={30} />
+                <X size={20} />
               </button>
+            </header>
+
+            <div
+              className="project-viewer__stage"
+              onMouseDown={(event) =>
+                event.target === event.currentTarget && setIsViewerOpen(false)
+              }
+              onTouchStart={onSwipeStart}
+              onTouchEnd={onSwipeEnd}
+            >
+              {hasMultiple && (
+                <button
+                  type="button"
+                  className="project-viewer__nav project-viewer__nav--previous"
+                  onClick={showPreviousImage}
+                  aria-label="Previous image"
+                >
+                  <ChevronLeft size={26} />
+                </button>
+              )}
+
+              <motion.img
+                key={currentImage}
+                className="project-viewer__image"
+                src={currentImage}
+                alt={`${project.title} screenshot ${activeImage + 1} of ${availableImages.length}`}
+                decoding="async"
+                initial={{ opacity: 0, scale: 0.985 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: DURATION_IMAGE_SWAP, ease: EASE }}
+                onError={() => removeMissingImage(currentImage)}
+              />
+
+              {hasMultiple && (
+                <button
+                  type="button"
+                  className="project-viewer__nav project-viewer__nav--next"
+                  onClick={showNextImage}
+                  aria-label="Next image"
+                >
+                  <ChevronRight size={26} />
+                </button>
+              )}
+            </div>
+
+            {hasMultiple && (
+              <ThumbStrip
+                images={availableImages}
+                activeIndex={activeImage}
+                variant="viewer"
+                onSelect={setActiveImage}
+              />
             )}
           </motion.div>
         )}

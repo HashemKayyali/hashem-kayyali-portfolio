@@ -1,61 +1,97 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import { Code2, Cpu, Database, Layers3, Smartphone } from 'lucide-react';
 import SectionWrapper from '../components/SectionWrapper';
-import BurgundyWarpBackground from '../components/ui/burgundy-warp-background';
+import { useReveal } from '../components/useReveal';
 import { profile, skillGroups } from '../data/profile';
 
 const iconMap = [Code2, Smartphone, Database, Cpu, Layers3];
 
-const About: React.FC = () => (
-  <SectionWrapper id="about" title="About Me" subtitle="A product-minded engineer combining software, connected systems, technical operations, and real-world product delivery." variant="white">
-    <div className="grid gap-8 lg:grid-cols-[0.92fr_1.08fr] lg:gap-10 2xl:gap-14">
-      <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="relative isolate overflow-hidden rounded-3xl bg-[#300510] p-6 text-white shadow-soft sm:p-8 2xl:p-10">
-        <BurgundyWarpBackground index={8} className="-z-10" overlayOpacity={0.2} />
-        <p className="text-base leading-7 text-white/82 sm:text-lg sm:leading-8 2xl:text-xl 2xl:leading-9">{profile.aboutParagraph}</p>
-        <div className="mt-6 border-t border-white/20 pt-5 2xl:mt-8 2xl:pt-6">
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-silver">Target roles</p>
-          <div className="mt-4 flex flex-wrap gap-2">
-            {profile.targetRoles.map((role) => <span key={role} className="rounded-full border border-white/30 px-3 py-1.5 text-sm text-white">{role}</span>)}
+// Two beats instead of three: the same sentences, regrouped so the story reads
+// as a denser block. Nothing is added, removed, or reworded.
+const sentences = profile.aboutParagraph.split(/(?<=\.)\s+/).filter(Boolean);
+const narrative = [sentences.slice(0, 2).join(' '), sentences.slice(2).join(' ')].filter(Boolean);
+
+const About: React.FC = () => {
+  const revealRef = useReveal<HTMLDivElement>();
+  const metaRef = useReveal<HTMLDivElement>();
+
+  return (
+  <SectionWrapper
+    id="about"
+    title="About Me"
+    subtitle="Product-minded engineer across software, connected systems, technical operations, and real-world product delivery."
+    variant="burgundy"
+    stickyHeader
+  >
+    <div className="about" ref={revealRef}>
+      {/* Glass sheet: the global animated Burgundy shows through it, so this
+          card carries no background of its own. */}
+      <article className="about__story m-primary" data-reveal>
+        <div className="about__story-body">
+          {narrative.map((paragraph) => (
+            <p key={paragraph.slice(0, 24)}>{paragraph}</p>
+          ))}
+        </div>
+        <div className="about__roles">
+          <p className="about__roles-label">Target roles</p>
+          <div className="about__roles-list">
+            {profile.targetRoles.map((role) => (
+              <span key={role}>{role}</span>
+            ))}
           </div>
         </div>
-      </motion.div>
+      </article>
 
-      <div>
-        <h3 className="font-heading text-xl font-extrabold text-primary sm:text-2xl">Technical toolkit</h3>
-        <p className="mt-3 max-w-2xl leading-7 text-primary/65">Most of my project work uses Next.js, React Native, and Flutter, supported by backend, automation, and embedded technologies.</p>
-        <div className="mt-6 grid gap-3 sm:grid-cols-2 2xl:mt-8 2xl:gap-4">
+      <div
+        className="about__toolkit-col m-support"
+        data-reveal
+        style={{ '--reveal-delay': '90ms' } as React.CSSProperties}
+      >
+        <div className="about__toolkit-head">
+          <h3>Technical toolkit</h3>
+          <p>
+            Mostly Next.js, React Native, and Flutter, supported by backend, automation, and
+            embedded technologies.
+          </p>
+        </div>
+
+        <div className="about__toolkit" aria-label="Technical toolkit matrix">
           {skillGroups.map((group, index) => {
             const Icon = iconMap[index] ?? Layers3;
             return (
-              <motion.div key={group.category} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.05 }} className="rounded-2xl border border-primary/12 bg-mist p-5 transition hover:border-primary/30 hover:shadow-soft 2xl:p-6">
-                <div className="flex items-center gap-3">
-                  <span className="rounded-xl bg-primary p-2.5 text-white"><Icon size={19} /></span>
-                  <h4 className="font-heading font-extrabold text-primary">{group.category}</h4>
+              <section key={group.category} className="toolkit-card">
+                <div className="toolkit-card__head">
+                  <span className="toolkit-card__icon" aria-hidden="true">
+                    <Icon size={15} />
+                  </span>
+                  <h4>{group.category}</h4>
                 </div>
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {group.items.map((item) => <span key={item} className="rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-primary shadow-sm">{item}</span>)}
-                </div>
-              </motion.div>
+                <ul className="toolkit-card__items">
+                  {group.items.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </section>
             );
           })}
         </div>
       </div>
     </div>
 
-    <div className="mt-12 grid gap-4 border-t border-silver/35 pt-8 sm:grid-cols-2 lg:grid-cols-4 2xl:mt-16 2xl:pt-10">
+    <div className="about__meta m-detail" ref={metaRef} data-reveal>
       <Info label="Location" value={profile.location} />
       <Info label="Email" value={profile.email} href={profile.social.email} />
       <Info label="Phone" value={profile.phone} href={`tel:${profile.whatsapp}`} />
       <Info label="Status" value={profile.freelanceStatus} />
     </div>
   </SectionWrapper>
-);
+  );
+};
 
 const Info = ({ label, value, href }: { label: string; value: string; href?: string }) => (
-  <div className="border-l-2 border-primary pl-4">
-    <p className="text-xs font-bold uppercase tracking-[0.16em] text-silver">{label}</p>
-    {href ? <a href={href} className="mt-2 block break-words font-semibold text-primary transition hover:opacity-65">{value}</a> : <p className="mt-2 font-semibold text-primary">{value}</p>}
+  <div className="about__meta-item">
+    <p>{label}</p>
+    {href ? <a href={href}>{value}</a> : <span>{value}</span>}
   </div>
 );
 

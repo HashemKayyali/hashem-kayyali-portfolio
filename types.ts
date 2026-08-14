@@ -31,12 +31,20 @@ export interface ExperienceRole {
 }
 
 export interface ExperienceItem {
+  /** Employer or venture. Was previously folded into `title`/`location`. */
+  company: string;
+  /** Role held at the end of the engagement. */
   title: string;
   period: string;
   location: string;
+  /** Work mode where it is part of the record: Hybrid, Part-time, On-site. */
+  mode?: string;
+  /** Marks the active role so the journey can feature it. */
+  current?: boolean;
   details: string[];
   image: string;
   imageAlt: string;
+  /** Role progression inside one company, oldest first. */
   roles?: ExperienceRole[];
 }
 

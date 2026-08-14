@@ -7,8 +7,12 @@ import { Project } from '../types';
 
 const ProjectModal = lazy(() => import('../components/ProjectModal'));
 
-const MIN_SCALE = 0.92;
-const MAX_DIM = 0.6;
+/* Depth of the receding card. Scale and dim carry most of it; the lift is what
+   turns "shrinking" into "moving away" — a receding object drifts toward the
+   vanishing point, so the card rises slightly as it shrinks. */
+const MIN_SCALE = 0.86;
+const MAX_DIM = 0.78;
+const MAX_LIFT = -22;
 
 /**
  * Geometry of the sticky stack, measured on layout changes only.
@@ -46,11 +50,14 @@ const StackItem: React.FC<StackItemProps> = ({ project, index, total, metrics, o
   const dim = useTransform(scrollY, [start, end], recedes ? [0, MAX_DIM] : [0, 0], {
     clamp: true,
   });
+  const lift = useTransform(scrollY, [start, end], recedes ? [0, MAX_LIFT] : [0, 0], {
+    clamp: true,
+  });
 
   return (
     <div className="project-stack__item" style={{ zIndex: index + 1 }}>
       {/* No entrance animation: card visibility must never depend on JS running. */}
-      <motion.div className="project-stack__inner" style={{ scale }}>
+      <motion.div className="project-stack__inner" style={{ scale, y: lift }}>
         <FeatureShaderCard
           index={index}
           total={total}
@@ -145,7 +152,7 @@ const Portfolio: React.FC = () => {
         id="portfolio"
         title="Selected Projects"
         subtitle="Digital platforms, business systems, automation tools, computer vision, and R&D / IoT products designed and developed end to end."
-        variant="white"
+        variant="burgundy"
         stickyControls={
           <div className="portfolio-filters" aria-label="Project filters">
             {filters.map((item) => (
@@ -153,10 +160,9 @@ const Portfolio: React.FC = () => {
                 key={item}
                 type="button"
                 onClick={() => setFilter(item)}
-                className={`rounded-full px-4 py-2 text-sm font-bold transition ${
-                  filter === item
-                    ? 'bg-primary text-white shadow-soft'
-                    : 'border border-primary/15 bg-white text-primary hover:border-primary hover:bg-mist'
+                aria-pressed={filter === item}
+                className={`portfolio-filter${
+                  filter === item ? ' portfolio-filter--active' : ''
                 }`}
               >
                 {item}
