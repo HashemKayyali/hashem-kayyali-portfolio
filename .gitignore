@@ -29,3 +29,17 @@ dist-ssr
 desktop.ini
 .vercel
 .env*
+
+# QA run artifacts: screenshots, traces, and console logs from browser checks.
+# 48MB and regenerated on every run - never part of a release.
+output/
+.playwright-mcp/
+.playwright-cli/
+
+# Scratch copy of the app kept for a past bug repro. It has no imports that
+# resolve, so committing it would break `tsc --noEmit` for everyone.
+data/mobile_overflow_fix_modified/
+
+# Local agent tooling and skills, not part of the product.
+.agents/
+.claude/

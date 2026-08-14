@@ -18,7 +18,7 @@ const App: React.FC = () => {
       <Sidebar isOpen={mobileMenuOpen} setIsOpen={setMobileMenuOpen} />
 
       <main className="relative z-10 w-full max-w-full p-0 transition-all xl:py-4 xl:pl-[268px] xl:pr-4 2xl:pl-[280px]">
-        <div className="min-h-screen max-w-full overflow-x-clip overflow-y-visible bg-transparent shadow-panel xl:min-h-[calc(100svh-2rem)] xl:rounded-[2rem]">
+        <div className="min-h-screen max-w-full overflow-x-clip overflow-y-visible bg-transparent xl:min-h-[calc(100svh-2rem)] xl:rounded-[2rem]">
           <MobileNav onOpen={() => setMobileMenuOpen(true)} isOpen={mobileMenuOpen} />
           <Hero />
           <About />
