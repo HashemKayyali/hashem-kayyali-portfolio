@@ -3708,10 +3708,6 @@ section {
     border-radius: 0;
   }
 
-  .project-stage {
-    max-height: 42svh;
-  }
-
   .project-detail__content {
     padding-bottom: calc(1.15rem + env(safe-area-inset-bottom));
   }
@@ -3726,6 +3722,14 @@ section {
   }
 }
 
+/* Stacked only. Full width goes to the stage here, so it needs a hard cap or
+   a 16/10 box eats the sheet before a word of the case study is visible. */
+@media (max-width: 767px) {
+  .project-stage {
+    max-height: 42svh;
+  }
+}
+
 /* Short landscape phones: the stage must not eat the whole sheet. */
 @media (max-height: 560px) {
   .project-stage {
@@ -3733,9 +3737,12 @@ section {
   }
 }
 
-@media (min-width: 1024px) {
+/* The split is the intended layout, so it starts at tablet portrait rather
+   than desktop - an iPad held upright is 768-834px and has room for both
+   columns. Stacking is the narrow-screen fallback, not the default. */
+@media (min-width: 768px) {
   .project-detail__body {
-    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
 
   /* Sticky, so the gallery stays put while the case study scrolls. The
@@ -3750,5 +3757,13 @@ section {
 
   .project-detail__content {
     border-left: 1px solid var(--pd-line);
+  }
+}
+
+/* Desktop can afford to give the gallery the slightly larger half; on tablet
+   the text column needs every pixel to keep a readable measure. */
+@media (min-width: 1024px) {
+  .project-detail__body {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
   }
 }
