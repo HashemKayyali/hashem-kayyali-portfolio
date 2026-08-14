@@ -992,16 +992,15 @@ section {
 }
 
 /* --------------------------------------------------------------------------
-   Cover beside the copy from tablet portrait up. Stacking is the phone
-   layout: an iPad held upright is 768-1024px wide and has room for both
-   columns, and 900px left every portrait iPad on the phone layout.
+   Cover beside the copy from 768px up, the same single breakpoint the case
+   study sheet uses, so one number governs both. Below it the cover stacks
+   above the copy.
 
-   The height test is what keeps a phone on its stacked layout in landscape,
-   where it is wide enough to pass the width test on its own. Landscape phones
-   are 375-430px tall and every tablet is 768px or more, so 500px separates
-   them with room on both sides.
+   A landscape phone crosses 768px and gets the split too. That is the better
+   outcome anyway: stacked, the card is 693px tall on a 430px-tall screen and
+   never fits, while the split card is 352px and fits whole.
    -------------------------------------------------------------------------- */
-@media (min-width: 768px) and (min-height: 500px) {
+@media (min-width: 768px) {
   /* minmax(0, …) is load-bearing. A bare fr track keeps a min-content floor,
      so a card with a longer title or status line widened its own text column
      and stole width from the cover. Measured at 1180px, card 1 rendered a
