@@ -186,8 +186,13 @@ const GlobalBurgundyWarpBackground: React.FC = () => {
     let disposed = false;
 
     const resize = () => {
-      const width = Math.max(1, window.innerWidth);
-      const height = Math.max(1, window.innerHeight);
+      // Measured from the canvas, never from window.innerHeight. Mobile
+      // browsers retract the URL bar as you scroll, which grows innerHeight by
+      // ~10% with no real layout change; feeding that to u_resolution rescaled
+      // the whole shader field and read as the background zooming. The element
+      // is pinned to 100lvh in CSS, so its own box stays put while scrolling.
+      const width = Math.max(1, canvas.clientWidth);
+      const height = Math.max(1, canvas.clientHeight);
       const dpr = Math.min(window.devicePixelRatio || 1, 1.25);
       const quality = width < 768 ? 0.72 : width < 1280 ? 0.82 : 0.9;
       const renderWidth = Math.max(480, Math.round(width * dpr * quality));
@@ -276,7 +281,7 @@ const GlobalBurgundyWarpBackground: React.FC = () => {
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none fixed inset-0 z-0 overflow-hidden"
+      className="global-warp pointer-events-none fixed inset-0 z-0 overflow-hidden"
       style={{ background: '#24020b' }}
     >
       <div

@@ -157,6 +157,15 @@ section {
   }
 }
 
+/* Pinned to the LARGE viewport, the one measured with browser chrome
+   retracted, so retracting it while scrolling cannot change this box. A plain
+   fixed inset:0 tracks the dynamic viewport on iOS and Android, and the
+   background visibly rescaled on every scroll because of it. */
+.global-warp {
+  height: 100vh;
+  height: 100lvh;
+}
+
 /* Card warp canvases copy the single shared WebGL surface only while near the viewport. */
 .burgundy-warp-canvas {
   display: block;
@@ -777,25 +786,34 @@ section {
   position: relative;
   grid-row: 1;
   grid-column: 1;
+  /* Centres the cover if the body column ever makes the row taller, so the
+     blurred fill takes the slack evenly instead of all of it below. */
+  display: grid;
+  align-content: center;
   overflow: hidden;
   min-width: 0;
   aspect-ratio: 16 / 10;
   background: #1a060f;
 }
 
-.project-card__media img {
-  position: absolute;
-  inset: 0;
+/* Whole cover, never cropped.
+
+   IN FLOW on purpose. When every child was absolutely positioned the box had
+   no content height, leaving aspect-ratio as the only thing that could size
+   it - and WebKit does not resolve aspect-ratio for a grid item in that state.
+   On iOS the media row collapsed to 0 and the covers vanished entirely in
+   portrait, while in landscape the row fell back to the body's height and the
+   contained image shrank inside a box that was no longer 16/10. A replaced
+   element carrying its own ratio sizes reliably in every engine. */
+.project-card__media-main {
+  position: relative;
+  z-index: 1;
   display: block;
   width: 100%;
-  height: 100%;
+  height: auto;
   min-width: 0;
   max-width: none;
-}
-
-/* Whole cover, never cropped. */
-.project-card__media-main {
-  z-index: 1;
+  aspect-ratio: 16 / 10;
   object-fit: contain;
   object-position: center;
   transition: transform 600ms ease;
@@ -805,6 +823,13 @@ section {
    Scaled past the edges because a blur samples transparent pixels outside its
    own bounds and would otherwise fade at the rim. */
 .project-card__media-fill {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  max-width: none;
   object-fit: cover;
   object-position: center;
   transform: scale(1.18);
@@ -970,16 +995,32 @@ section {
    Horizontal layout only once the content panel has room to breathe.
    -------------------------------------------------------------------------- */
 @media (min-width: 900px) {
+  /* minmax(0, …) is load-bearing. A bare fr track keeps a min-content floor,
+     so a card with a longer title or status line widened its own text column
+     and stole width from the cover. Measured at 1180px, card 1 rendered a
+     422px cover and card 2 a 490px one, and the cards ended up 265px and
+     308px tall - which also broke the sticky stack, since its geometry
+     assumes every card is the same height. */
   .project-card__button {
-    grid-template-columns: 3fr 2fr;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
   }
 
-  /* Same ratio as the stacked layout: one rule governs the crop everywhere, and
-     7/5 was cutting 21% off the sides of the widest covers. */
+  /* Taller box than the stacked layout uses. Here the cover only gets 60% of
+     the card width, so a 16/10 box left the card at 2.65:1 - a letterbox
+     strip. 7/5 brings it to 2.33:1 with the same content.
+
+     7/5 was dropped once before because it cut 21% off the widest covers, but
+     that was while the image was cropped to fill. It is contained now, so a
+     taller box adds a little blurred fill above and below instead of cutting
+     anything, which is the same treatment the 1.33 covers already get. */
+  .project-card__media,
+  .project-card__media-main {
+    aspect-ratio: 7 / 5;
+  }
+
   .project-card__media {
     grid-row: 1;
     grid-column: 1;
-    aspect-ratio: 16 / 10;
   }
 
   .project-card__body {
