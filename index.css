@@ -3088,9 +3088,6 @@ section {
    -------------------------------------------------------------------------- */
 .project-detail,
 .project-viewer {
-  /* Opaque fallback for the glass surfaces; the @supports blocks below swap
-     in the real material where backdrop-filter exists. */
-  --pd-surface: rgba(46, 6, 20, 0.94);
   /* The exact surface .project-card__media sits on, so opening a card reads
      as the same object enlarged rather than a new, darker one. */
   --pd-stage: #1a060f;
@@ -3106,6 +3103,11 @@ section {
 }
 
 /* Above --z-drawer (80): the sheet is a portal over the whole app. */
+/* The scrim separates the sheet from the page, but at 0.84 it crushed the
+   burgundy environment to near-black, and the translucent panel then
+   composited over THAT - which is why the sheet measured 2.5x darker than a
+   project card. Blur does the separating; the tint only needs to take the
+   edge off. */
 .project-detail {
   position: fixed;
   z-index: 100;
@@ -3113,13 +3115,14 @@ section {
   display: grid;
   place-items: center;
   padding: clamp(0.5rem, 2vw, 2rem);
-  background: rgba(24, 4, 13, 0.84);
-  backdrop-filter: blur(10px) saturate(var(--glass-saturate));
-  -webkit-backdrop-filter: blur(10px) saturate(var(--glass-saturate));
+  background: rgba(24, 4, 13, 0.18);
+  backdrop-filter: blur(16px) saturate(var(--glass-saturate));
+  -webkit-backdrop-filter: blur(16px) saturate(var(--glass-saturate));
 }
 
-/* The sheet is the heaviest surface in the system, so it takes the dark
-   frost rather than the lighter prism the cards use. */
+/* Exactly the .about__story recipe - the system's large-sheet material. The
+   case study is the same kind of surface, so it uses the same numbers rather
+   than the darker frost meant for chrome. */
 .project-detail__panel {
   display: grid;
   grid-template-rows: auto minmax(0, 1fr);
@@ -3127,22 +3130,19 @@ section {
   min-height: 0;
   max-height: min(94svh, 58rem);
   overflow: hidden;
-  border: 1px solid var(--glass-dark-border);
+  border: 1px solid var(--glass-prism-border);
   border-radius: 20px;
-  background: var(--glass-dark-solid);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.26),
-    inset 0 -1px 0 rgba(12, 0, 5, 0.4),
-    var(--glass-dark-shadow);
+  background: var(--glass-sheet-solid);
+  box-shadow: var(--glass-prism-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.26);
   color: #ffffff;
 }
 
 @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
   .project-detail__panel {
-    -webkit-backdrop-filter: blur(var(--glass-dark-blur))
+    -webkit-backdrop-filter: blur(var(--glass-prism-blur))
       saturate(var(--glass-saturate));
-    backdrop-filter: blur(var(--glass-dark-blur)) saturate(var(--glass-saturate));
-    background: var(--glass-dark);
+    backdrop-filter: blur(var(--glass-prism-blur)) saturate(var(--glass-saturate));
+    background: var(--glass-sheet);
   }
 }
 
