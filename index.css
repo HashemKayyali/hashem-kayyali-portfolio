@@ -992,9 +992,11 @@ section {
 }
 
 /* --------------------------------------------------------------------------
-   Horizontal layout only once the content panel has room to breathe.
+   Cover beside the copy from tablet portrait up. Stacking is the phone
+   layout: an iPad held upright is 768-1024px wide and has room for both
+   columns, and 900px left every portrait iPad on the phone layout.
    -------------------------------------------------------------------------- */
-@media (min-width: 900px) {
+@media (min-width: 768px) {
   /* minmax(0, …) is load-bearing. A bare fr track keeps a min-content floor,
      so a card with a longer title or status line widened its own text column
      and stole width from the cover. Measured at 1180px, card 1 rendered a
