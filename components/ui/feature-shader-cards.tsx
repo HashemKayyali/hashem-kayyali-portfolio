@@ -3,7 +3,6 @@
 import type React from 'react';
 import { MoveUpRight } from 'lucide-react';
 import { motion, type MotionValue } from 'framer-motion';
-import BurgundyWarpBackground from './burgundy-warp-background';
 
 interface FeatureShaderCardProps {
   title: string;
@@ -45,7 +44,19 @@ const FeatureShaderCard: React.FC<FeatureShaderCardProps> = ({
         aria-label={`View ${title} case study`}
       >
         <div className="project-card__media">
+          {/* Covers span 1.33–1.78, so a fixed box crops most of them. The main
+              image is contained so the whole cover is visible; this blurred
+              copy fills whatever the contain leaves, instead of dead bars. */}
           <img
+            className="project-card__media-fill"
+            src={cardImage}
+            alt=""
+            aria-hidden="true"
+            loading="lazy"
+            decoding="async"
+          />
+          <img
+            className="project-card__media-main"
             src={cardImage}
             alt={`${title} project cover`}
             loading="lazy"
@@ -54,13 +65,6 @@ const FeatureShaderCard: React.FC<FeatureShaderCardProps> = ({
         </div>
 
         <div className="project-card__body">
-          <BurgundyWarpBackground
-            index={index}
-            className="project-card__warp"
-            overlayOpacity={0.45}
-            rootMargin="90px 0px"
-          />
-
           <div className="project-card__eyebrow">
             <span className="project-card__category">{category}</span>
             {total > 0 && (

@@ -53,9 +53,11 @@ export const skillGroups: SkillGroup[] = [
 
 export const experience: ExperienceItem[] = [
   {
-    title: 'R&D Product Engineer',
+    company: 'Eventies',
+    title: 'Co-Founder & R&D Product Engineer',
     period: 'Aug 2025 – Present',
-    location: 'Software & connected-system portfolio · Amman, Jordan',
+    location: 'Amman, Jordan',
+    current: true,
     image: '/experience/rd-product-engineer.webp',
     imageAlt: 'R&D Product Engineer experience photo placeholder',
     details: [
@@ -66,9 +68,11 @@ export const experience: ExperienceItem[] = [
     ],
   },
   {
-    title: 'The Terminal VR',
+    company: 'The Terminal VR',
+    title: 'Technical Operations Engineer',
     period: 'Jan 2025 – Jul 2025',
-    location: 'Jordan · Hybrid',
+    location: 'Jordan',
+    mode: 'Hybrid',
     image: '/experience/the-terminal-vr.webp',
     imageAlt: 'The Terminal VR experience photo placeholder',
     roles: [
@@ -83,9 +87,11 @@ export const experience: ExperienceItem[] = [
     ],
   },
   {
+    company: 'Umniah',
     title: 'Youth Unit Operations Team Member',
     period: 'Mar 2024 – Jan 2025',
-    location: 'Umniah · Amman, Jordan · Part-time',
+    location: 'Amman, Jordan',
+    mode: 'Part-time',
     image: '/experience/umniah.webp',
     imageAlt: 'Umniah experience photo placeholder',
     details: [
