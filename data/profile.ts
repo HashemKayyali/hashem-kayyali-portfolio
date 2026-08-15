@@ -168,6 +168,9 @@ export const projects: Project[] = [
     tech: ['Flutter', 'Dart', 'Supabase'],
     image: '/projects/umniah-youthconnect/cover.webp',
     gallery: gallery('umniah-youthconnect', 11),
+    /* Tested in the colour lab: yellow over black and midnight blue, matching
+       the Umniah role in the journey. */
+    warpRamp: ['#f2f2f2', '#e3e3e3', '#000000', '#fbff00', '#030521'],
     privateSource: true,
     features: [
       'Company-account login and email password reset',
