@@ -60,6 +60,8 @@ export const experience: ExperienceItem[] = [
     current: true,
     image: '/experience/rd-product-engineer.webp',
     imageAlt: 'R&D Product Engineer experience photo placeholder',
+    /* Tested in the colour lab: white and magenta over a near-black mid. */
+    warpRamp: ['#fafafa', '#b831dd', '#221f23', '#7100bd', '#ffffff'],
     details: [
       'Leading end-to-end R&D software and connected-system products across web, desktop, automation, computer vision, and IoT.',
       'Translating product ideas into clear requirements, technical plans, user flows, and working implementations.',
@@ -124,6 +126,8 @@ export const projects: Project[] = [
     tech: ['Next.js', 'TypeScript', 'Supabase', 'Cloudinary', 'Realtime'],
     image: '/projects/eventies/cover.webp',
     gallery: gallery('eventies', 4),
+    /* Tested in the colour lab: white and magenta over a near-black mid. */
+    warpRamp: ['#fafafa', '#b831dd', '#221f23', '#7100bd', '#ffffff'],
     liveUrl: 'https://www.eventiesjo.com/',
     features: ['Arabic and English experience', 'Service catalog and details', 'Rental and quotation requests', 'Custom-build inquiries', 'Admin and communication tools'],
     challenges: [],

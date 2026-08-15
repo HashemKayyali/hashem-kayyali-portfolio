@@ -1,5 +1,22 @@
 import React, { useEffect, useRef } from 'react';
-import { publishSharedWarpFrame, setSharedWarpSource } from './burgundy-warp-runtime';
+import {
+  publishSharedWarpFrame,
+  setRampRenderer,
+  setSharedWarpSource,
+} from './burgundy-warp-runtime';
+import type { WarpRamp } from '../../types';
+
+/** The shipping palette, now passed in rather than baked into the shader. */
+const BURGUNDY_RAMP: WarpRamp = ['#130105', '#25030b', '#4d0d1c', '#741b30', '#902a44'];
+
+/** Custom ramps render here before being copied; one buffer serves them all. */
+const SCRATCH_WIDTH = 512;
+const SCRATCH_HEIGHT = 384;
+
+const hexToUnit = (hex: string): [number, number, number] => {
+  const value = parseInt(hex.replace('#', ''), 16);
+  return [((value >> 16) & 255) / 255, ((value >> 8) & 255) / 255, (value & 255) / 255];
+};
 
 const vertexShaderSource = `
 attribute vec2 a_position;
@@ -17,6 +34,11 @@ precision mediump float;
 
 uniform vec2 u_resolution;
 uniform float u_time;
+uniform vec3 u_c0;
+uniform vec3 u_c1;
+uniform vec3 u_c2;
+uniform vec3 u_c3;
+uniform vec3 u_c4;
 
 float hash(vec2 p) {
   return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123);
@@ -73,16 +95,10 @@ void main() {
   float folds = smoothstep(0.18, 0.92, field * 0.88 + ribbon * 0.34);
   float highlight = pow(smoothstep(0.48, 1.0, ribbon * field), 1.35);
 
-  vec3 deepest = vec3(0.075, 0.003, 0.020);
-  vec3 deep = vec3(0.145, 0.012, 0.043);
-  vec3 burgundy = vec3(0.302, 0.051, 0.110);
-  vec3 lifted = vec3(0.455, 0.105, 0.190);
-  vec3 wine = vec3(0.565, 0.165, 0.265);
-
-  vec3 color = mix(deepest, deep, smoothstep(0.02, 0.46, field));
-  color = mix(color, burgundy, smoothstep(0.25, 0.78, folds));
-  color = mix(color, lifted, smoothstep(0.58, 0.98, folds + highlight * 0.22));
-  color = mix(color, wine, highlight * 0.34);
+  vec3 color = mix(u_c0, u_c1, smoothstep(0.02, 0.46, field));
+  color = mix(color, u_c2, smoothstep(0.25, 0.78, folds));
+  color = mix(color, u_c3, smoothstep(0.58, 0.98, folds + highlight * 0.22));
+  color = mix(color, u_c4, highlight * 0.34);
 
   float vignette = smoothstep(1.05, 0.18, radial);
   color *= 0.76 + vignette * 0.30;
@@ -160,12 +176,28 @@ const GlobalBurgundyWarpBackground: React.FC = () => {
     const positionLocation = gl.getAttribLocation(program, 'a_position');
     const resolutionLocation = gl.getUniformLocation(program, 'u_resolution');
     const timeLocation = gl.getUniformLocation(program, 'u_time');
+    const colorLocations = [0, 1, 2, 3, 4].map((index) =>
+      gl.getUniformLocation(program, `u_c${index}`),
+    );
     const positionBuffer = gl.createBuffer();
 
     if (!positionBuffer || !resolutionLocation || !timeLocation || positionLocation < 0) {
       gl.deleteProgram(program);
       return;
     }
+
+    const applyRamp = (
+      context: WebGLRenderingContext,
+      locations: (WebGLUniformLocation | null)[],
+      ramp: WarpRamp,
+    ) => {
+      ramp.forEach((hex, index) => {
+        const location = locations[index];
+        if (!location) return;
+        const [r, g, b] = hexToUnit(hex);
+        context.uniform3f(location, r, g, b);
+      });
+    };
 
     gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
     gl.bufferData(
@@ -210,6 +242,7 @@ const GlobalBurgundyWarpBackground: React.FC = () => {
       gl.useProgram(program);
       gl.uniform2f(resolutionLocation, canvas.width, canvas.height);
       gl.uniform1f(timeLocation, animationTime / 1000);
+      applyRamp(gl, colorLocations, BURGUNDY_RAMP);
       gl.drawArrays(gl.TRIANGLES, 0, 6);
       publishSharedWarpFrame(animationTime);
     };
@@ -258,6 +291,73 @@ const GlobalBurgundyWarpBackground: React.FC = () => {
       stop();
     };
 
+    // A second, small context draws surfaces that asked for their own palette.
+    // It only ever renders when such a surface is on screen, and its output is
+    // copied out immediately, so one buffer serves however many there are.
+    const scratch = document.createElement('canvas');
+    scratch.width = SCRATCH_WIDTH;
+    scratch.height = SCRATCH_HEIGHT;
+
+    const scratchGl = scratch.getContext('webgl', {
+      alpha: false,
+      antialias: false,
+      depth: false,
+      preserveDrawingBuffer: true,
+      stencil: false,
+    });
+
+    let scratchProgram: WebGLProgram | null = null;
+    let scratchLocations: {
+      resolution: WebGLUniformLocation | null;
+      time: WebGLUniformLocation | null;
+      colors: (WebGLUniformLocation | null)[];
+    } | null = null;
+
+    if (scratchGl) {
+      try {
+        scratchProgram = createProgram(scratchGl);
+        const scratchPosition = scratchGl.getAttribLocation(scratchProgram, 'a_position');
+        const scratchBuffer = scratchGl.createBuffer();
+
+        scratchGl.bindBuffer(scratchGl.ARRAY_BUFFER, scratchBuffer);
+        scratchGl.bufferData(
+          scratchGl.ARRAY_BUFFER,
+          new Float32Array([-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1]),
+          scratchGl.STATIC_DRAW,
+        );
+        scratchGl.useProgram(scratchProgram);
+        scratchGl.enableVertexAttribArray(scratchPosition);
+        scratchGl.vertexAttribPointer(scratchPosition, 2, scratchGl.FLOAT, false, 0, 0);
+        scratchGl.viewport(0, 0, scratch.width, scratch.height);
+
+        scratchLocations = {
+          resolution: scratchGl.getUniformLocation(scratchProgram, 'u_resolution'),
+          time: scratchGl.getUniformLocation(scratchProgram, 'u_time'),
+          colors: [0, 1, 2, 3, 4].map((index) =>
+            scratchGl.getUniformLocation(scratchProgram as WebGLProgram, `u_c${index}`),
+          ),
+        };
+      } catch (error) {
+        console.error('Warp ramp renderer failed to initialize:', error);
+        scratchProgram = null;
+      }
+    }
+
+    if (scratchGl && scratchProgram && scratchLocations) {
+      setRampRenderer((ramp, time) => {
+        scratchGl.useProgram(scratchProgram as WebGLProgram);
+        if (scratchLocations.resolution) {
+          scratchGl.uniform2f(scratchLocations.resolution, scratch.width, scratch.height);
+        }
+        if (scratchLocations.time) {
+          scratchGl.uniform1f(scratchLocations.time, time / 1000);
+        }
+        applyRamp(scratchGl, scratchLocations.colors, ramp);
+        scratchGl.drawArrays(scratchGl.TRIANGLES, 0, 6);
+        return scratch;
+      });
+    }
+
     setSharedWarpSource(canvas);
     window.addEventListener('resize', resize, { passive: true });
     document.addEventListener('visibilitychange', handleVisibility);
@@ -268,6 +368,7 @@ const GlobalBurgundyWarpBackground: React.FC = () => {
     return () => {
       disposed = true;
       stop();
+      setRampRenderer(null);
       setSharedWarpSource(null);
       window.removeEventListener('resize', resize);
       document.removeEventListener('visibilitychange', handleVisibility);

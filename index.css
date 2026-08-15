@@ -166,6 +166,34 @@ section {
   height: 100lvh;
 }
 
+/* --------------------------------------------------------------------------
+   Opt-in animated surfaces. A record carrying a warpRamp renders its own
+   frame in that palette instead of sharing the burgundy field, so these two
+   layers exist only where one is set.
+
+   Styled here rather than through the component's utility classes: the frozen
+   Tailwind build has no opacity-0, transition-opacity, or bg-[#300510], so
+   those would be silent no-ops.
+   -------------------------------------------------------------------------- */
+.project-card__warp,
+.journey-entry__warp {
+  z-index: -1;
+  border-radius: inherit;
+  background: #1a060f;
+}
+
+.project-card__warp .burgundy-warp-canvas,
+.journey-entry__warp .burgundy-warp-canvas {
+  opacity: 0;
+  transition: opacity 300ms var(--motion-ease);
+}
+
+/* The journey card does not clip by default, so a warp would escape its
+   rounded corners. Only the entries that carry one need the clip. */
+.journey-entry__card:has(.journey-entry__warp) {
+  overflow: hidden;
+}
+
 /* Card warp canvases copy the single shared WebGL surface only while near the viewport. */
 .burgundy-warp-canvas {
   display: block;

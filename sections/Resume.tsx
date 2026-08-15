@@ -112,6 +112,15 @@ const Resume: React.FC = () => {
                 </div>
 
                 <article className="journey-entry__card">
+                  {item.warpRamp && (
+                    <BurgundyWarpBackground
+                      index={20 + index}
+                      className="journey-entry__warp"
+                      overlayOpacity={0.6}
+                      ramp={item.warpRamp}
+                    />
+                  )}
+
                   <div className="journey-entry__top">
                     <p className="journey-entry__company">{item.company}</p>
                     <span className="journey-entry__period">{item.period}</span>

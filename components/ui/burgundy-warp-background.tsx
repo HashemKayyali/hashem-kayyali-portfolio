@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { subscribeToSharedWarp } from './burgundy-warp-runtime';
+import type { WarpRamp } from '../../types';
 
 interface BurgundyWarpBackgroundProps {
   index?: number;
@@ -7,6 +8,8 @@ interface BurgundyWarpBackgroundProps {
   overlayOpacity?: number;
   speedMultiplier?: number;
   rootMargin?: string;
+  /** Own palette for this surface. Omitted, it shares the burgundy field. */
+  ramp?: WarpRamp;
 }
 
 type SurfaceSize = {
@@ -60,6 +63,7 @@ const BurgundyWarpBackground: React.FC<BurgundyWarpBackgroundProps> = ({
   overlayOpacity = 0.18,
   speedMultiplier = 1,
   rootMargin = '160px 0px',
+  ramp,
 }) => {
   const rootRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -128,7 +132,7 @@ const BurgundyWarpBackground: React.FC<BurgundyWarpBackgroundProps> = ({
         speedMultiplier,
         sizeRef.current,
       );
-    });
+    }, ramp ?? null);
 
     return () => {
       unsubscribe();
@@ -136,7 +140,7 @@ const BurgundyWarpBackground: React.FC<BurgundyWarpBackgroundProps> = ({
       canvas.width = 1;
       canvas.height = 1;
     };
-  }, [index, isNearViewport, speedMultiplier]);
+  }, [index, isNearViewport, speedMultiplier, ramp]);
 
   return (
     <div
@@ -151,7 +155,10 @@ const BurgundyWarpBackground: React.FC<BurgundyWarpBackgroundProps> = ({
       />
       <div
         className="absolute inset-0"
-        style={{ background: `rgba(8, 0, 3, ${Math.min(Math.max(overlayOpacity, 0), 0.5)})` }}
+        /* Ceiling raised from 0.5: a surface on its own bright ramp needs a
+           heavier veil than the burgundy field ever did to keep its text
+           legible. Still capped, so a stray value cannot black the surface out. */
+        style={{ background: `rgba(8, 0, 3, ${Math.min(Math.max(overlayOpacity, 0), 0.7)})` }}
       />
       <div
         className="absolute inset-0"

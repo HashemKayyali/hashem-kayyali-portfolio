@@ -46,7 +46,16 @@ export interface ExperienceItem {
   imageAlt: string;
   /** Role progression inside one company, oldest first. */
   roles?: ExperienceRole[];
+  /** Optional custom palette for this entry's animated background. */
+  warpRamp?: WarpRamp;
 }
+
+/**
+ * The five stops the warp shader mixes between, darkest to lightest. Omit it
+ * and the surface uses the shared burgundy field; set it and that surface
+ * renders its own frame in these colours.
+ */
+export type WarpRamp = readonly [string, string, string, string, string];
 
 export interface ProjectVersion {
   title: string;
@@ -65,6 +74,8 @@ export interface Project {
   tech: string[];
   image: string;
   gallery: string[];
+  /** Optional custom palette for this card's animated background. */
+  warpRamp?: WarpRamp;
   liveUrl?: string;
   privateSource?: boolean;
   features: string[];

@@ -67,6 +67,7 @@ const StackItem: React.FC<StackItemProps> = ({ project, index, total, metrics, o
           status={project.status}
           image={project.image}
           tech={project.tech}
+          warpRamp={project.warpRamp}
           dimOpacity={dim}
           onClick={onOpen}
         />

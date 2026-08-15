@@ -3,6 +3,8 @@
 import type React from 'react';
 import { MoveUpRight } from 'lucide-react';
 import { motion, type MotionValue } from 'framer-motion';
+import BurgundyWarpBackground from './burgundy-warp-background';
+import type { WarpRamp } from '../../types';
 
 interface FeatureShaderCardProps {
   title: string;
@@ -15,6 +17,8 @@ interface FeatureShaderCardProps {
   total?: number;
   /** Scroll-linked dim applied while the next card rises over this one. */
   dimOpacity?: MotionValue<number>;
+  /** Own palette for this card's animated background. */
+  warpRamp?: WarpRamp;
   onClick: () => void;
 }
 
@@ -28,6 +32,7 @@ const FeatureShaderCard: React.FC<FeatureShaderCardProps> = ({
   index = 0,
   total = 0,
   dimOpacity,
+  warpRamp,
   onClick,
 }) => {
   // One canonical card asset: viewport width must never swap in a different crop.
@@ -65,6 +70,18 @@ const FeatureShaderCard: React.FC<FeatureShaderCardProps> = ({
         </div>
 
         <div className="project-card__body">
+          {/* Opt-in per card: without a ramp the body keeps the glass material
+              every other card uses. */}
+          {warpRamp && (
+            <BurgundyWarpBackground
+              index={index}
+              className="project-card__warp"
+              overlayOpacity={0.6}
+              rootMargin="90px 0px"
+              ramp={warpRamp}
+            />
+          )}
+
           <div className="project-card__eyebrow">
             <span className="project-card__category">{category}</span>
             {total > 0 && (
