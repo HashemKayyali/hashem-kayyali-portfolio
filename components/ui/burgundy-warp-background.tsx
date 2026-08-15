@@ -17,6 +17,30 @@ type SurfaceSize = {
   height: number;
 };
 
+/* Motion of the copied field, and the margin that motion needs.
+
+   The field drifts by DRIFT of the box in each direction and rotates a little,
+   so it has to be drawn larger than the box or an edge slides into view and
+   leaves a bare corner until the drift swings back. That was happening: drift
+   reached 7.5% of the box while the old 1.12 base only extended the field 6%
+   past each edge. It only showed on a surface whose palette differed from the
+   fill underneath, which is why it surfaced with the yellow ramp and not on
+   any burgundy one.
+
+   COVER_BASE is derived from the motion rather than chosen, so changing the
+   drift or the rotation cannot reintroduce the gap. */
+const DRIFT = 0.075;
+const ROTATION_AMPLITUDE = 0.055;
+const ROTATION_BIAS = 0.012;
+const PULSE_AMPLITUDE = 0.035;
+
+/** Worst-case tilt: the oscillation plus the largest per-index offset. */
+const MAX_ROTATION = ROTATION_AMPLITUDE + 2 * ROTATION_BIAS;
+
+/** Drift needs DRIFT past both edges; the tilt needs cos+sin on top of that. */
+const COVER_BASE =
+  (1 + 2 * DRIFT) * (Math.cos(MAX_ROTATION) + Math.sin(MAX_ROTATION)) + PULSE_AMPLITUDE;
+
 const drawSharedFrame = (
   target: HTMLCanvasElement,
   context: CanvasRenderingContext2D,
@@ -39,10 +63,10 @@ const drawSharedFrame = (
 
   const phase = (Math.abs(index) + 1) * 1.61803398875;
   const localTime = animationTime * 0.00018 * Math.max(0.35, speedMultiplier);
-  const rotation = Math.sin(localTime * 0.72 + phase) * 0.055 + ((index % 5) - 2) * 0.012;
-  const driftX = Math.sin(localTime + phase) * width * 0.075;
-  const driftY = Math.cos(localTime * 0.83 + phase * 0.71) * height * 0.075;
-  const pulse = 1.12 + Math.sin(localTime * 0.56 + phase) * 0.035;
+  const rotation = Math.sin(localTime * 0.72 + phase) * ROTATION_AMPLITUDE + ((index % 5) - 2) * ROTATION_BIAS;
+  const driftX = Math.sin(localTime + phase) * width * DRIFT;
+  const driftY = Math.cos(localTime * 0.83 + phase * 0.71) * height * DRIFT;
+  const pulse = COVER_BASE + Math.sin(localTime * 0.56 + phase) * PULSE_AMPLITUDE;
   const coverScale = Math.max(width / source.width, height / source.height) * pulse;
 
   context.setTransform(1, 0, 0, 1, 0, 0);
