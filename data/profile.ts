@@ -98,6 +98,8 @@ export const experience: ExperienceItem[] = [
     mode: 'Part-time',
     image: '/experience/umniah.webp',
     imageAlt: 'Umniah experience photo placeholder',
+    /* Tested in the colour lab: yellow over black and midnight blue. */
+    warpRamp: ['#f2f2f2', '#e3e3e3', '#000000', '#fbff00', '#030521'],
     details: [
       'Promoted and sold internet and mobile subscriptions through direct customer engagement.',
       'Identified customer needs, explained available services, and recommended suitable telecommunications solutions.',
