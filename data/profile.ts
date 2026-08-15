@@ -150,6 +150,8 @@ export const projects: Project[] = [
     tech: ['Next.js', 'TypeScript', 'Supabase', 'PostgreSQL', 'WhatsApp API'],
     image: '/projects/glitzz-lab/cover.webp',
     gallery: gallery('glitzz-lab', 7),
+    /* Tested in the colour lab: muted rose and taupe rising out of black. */
+    warpRamp: ['#000000', '#79454b', '#000000', '#987d7a', '#bfbfbf'],
     liveUrl: 'https://www.glitzzlab.com/',
     features: ['Bilingual booking experience', 'Dynamic service configuration', 'Availability and pricing checks', 'Customer request portal', 'Owner dashboard'],
     challenges: [],
