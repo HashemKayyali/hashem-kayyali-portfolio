@@ -77,6 +77,8 @@ export const experience: ExperienceItem[] = [
     mode: 'Hybrid',
     image: '/experience/the-terminal-vr.webp',
     imageAlt: 'The Terminal VR experience photo placeholder',
+    /* Tested in the colour lab: sky blue and teal over black. */
+    warpRamp: ['#f2f2f2', '#3fa9de', '#000000', '#071421', '#055f66'],
     roles: [
       { title: 'Sales Representative', period: 'Jan 2025 – Feb 2025' },
       { title: 'Technical Operations Engineer', period: 'Feb 2025 – Jul 2025' },
