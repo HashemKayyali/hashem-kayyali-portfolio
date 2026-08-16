@@ -130,8 +130,9 @@ export const projects: Project[] = [
     tech: ['Next.js', 'TypeScript', 'Supabase', 'Cloudinary', 'Realtime'],
     image: '/projects/eventies/cover.webp',
     gallery: gallery('eventies', 4),
-    /* Tested in the colour lab: magenta and blue out of black. */
-    warpRamp: ['#000000', '#f768f9', '#000000', '#257bfd', '#d6d6d6'],
+    /* Tested in the colour lab: deep violet out of black. Intentionally not
+       the same ramp as the Co-Founder role in the journey. */
+    warpRamp: ['#000000', '#471199', '#000000', '#81239f', '#d6d6d6'],
     liveUrl: 'https://www.eventiesjo.com/',
     features: ['Arabic and English experience', 'Service catalog and details', 'Rental and quotation requests', 'Custom-build inquiries', 'Admin and communication tools'],
     challenges: [],
