@@ -187,7 +187,9 @@ section {
 .project-card__warp .burgundy-warp-canvas,
 .journey-entry__warp .burgundy-warp-canvas,
 .section-sticky__warp .burgundy-warp-canvas,
-.about__story-warp .burgundy-warp-canvas {
+.about__story-warp .burgundy-warp-canvas,
+.capability__warp .burgundy-warp-canvas,
+.contact__warp .burgundy-warp-canvas {
   opacity: 0;
   transition: opacity 300ms var(--motion-ease);
 }
@@ -203,9 +205,6 @@ section {
 .about__story:has(.about__story-warp) {
   isolation: isolate;
   overflow: hidden;
-}
-
-
 }
 
 /* The journey card does not clip by default, so a warp would escape its
@@ -4049,48 +4048,82 @@ section {
   }
 }
 
-/* Same prismatic frost as the toolkit and journey cards. `isolation` is what
-   lets the ghost numeral sit behind the copy at z-index -1 without any of the
-   text needing a stacking context of its own. */
+/* Ink, each card lit from inside by its own palette. `isolation` is what lets
+   the warp and the ghost numeral sit behind the copy on negative layers without
+   any of the text needing a stacking context of its own.
+
+   The card itself must NOT clip: the rail overhangs both edges to bridge the
+   column gap, and `overflow: hidden` here would cut it back to the card. The
+   warp clips itself instead, to its own inherited radius. */
 .capability {
   position: relative;
   isolation: isolate;
   min-width: 0;
   padding: 0 0.95rem 1.05rem;
-  border: 1px solid var(--glass-prism-border);
+  border: 1px solid var(--ink-border);
   border-radius: 1.15rem;
-  background: var(--glass-prism-solid);
+  background: var(--ink-solid);
+  background-image: var(--ink);
   color: #ffffff;
-  box-shadow: var(--glass-prism-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  box-shadow: var(--ink-edge), var(--ink-shadow);
 }
 
-@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
-  .capability {
-    -webkit-backdrop-filter: blur(var(--glass-prism-blur)) saturate(var(--glass-saturate));
-    backdrop-filter: blur(var(--glass-prism-blur)) saturate(var(--glass-saturate));
-    background: var(--glass-prism);
-  }
+.capability__warp {
+  z-index: -2;
+  border-radius: inherit;
+  background: #0d0206;
 }
 
-/* The rail. Bridging the column gap with symmetric negative insets means one
-   rule works at one, two and four columns - nothing has to know how many cards
-   are in a row, and it can never land off the nodes. It fades at both ends, so
-   a row edge reads as a stroke running out rather than a line cut off. */
+/* The rail, carried on each card's own top edge rather than by the container:
+   a container line would be occluded by the cards and survive only in the gaps.
+   Sitting on the border it can never land off the nodes, whatever the card
+   height or column count.
+
+   The overhang is half a gap wider than the gap itself, so consecutive cards
+   join into one unbroken thread. Only the two ends of a row pull their overhang
+   back in — otherwise the row would begin and end on a floating stub. */
 .capability::before {
   content: '';
   position: absolute;
   z-index: 1;
   top: -1px;
-  right: -0.45rem;
-  left: -0.45rem;
+  right: 0;
+  left: 0;
   height: 1px;
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0),
-    rgba(255, 255, 255, 0.5) 16%,
-    rgba(255, 255, 255, 0.5) 84%,
-    rgba(255, 255, 255, 0)
-  );
+  background: rgba(255, 255, 255, 0.5);
+}
+
+@media (min-width: 640px) {
+  .capability::before {
+    right: -0.5rem;
+    left: -0.5rem;
+  }
+
+  .capability:nth-child(2n + 1)::before {
+    left: 0;
+  }
+
+  .capability:nth-child(2n)::before {
+    right: 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  .capability:nth-child(2n + 1)::before {
+    left: -0.5rem;
+  }
+
+  .capability:nth-child(2n)::before {
+    right: -0.5rem;
+  }
+
+  .capability:nth-child(4n + 1)::before {
+    left: 0;
+  }
+
+  .capability:nth-child(4n)::before {
+    right: 0;
+  }
 }
 
 /* Drawn, not faded in: it runs out from the node as the card lands. The start
@@ -4207,9 +4240,7 @@ section {
   .capability:hover {
     transform: translateY(-3px);
     border-color: rgba(255, 255, 255, 0.42);
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.3),
-      0 24px 46px rgba(6, 0, 3, 0.42);
+    box-shadow: var(--ink-edge), 0 28px 52px rgba(6, 0, 3, 0.58);
   }
 
   .capability:hover .capability__node {
@@ -4290,11 +4321,13 @@ section {
 .contact__warp {
   z-index: -1;
   border-radius: inherit;
-  background: #0d0206;
+  background: #04120c;
 }
 
 /* Availability, stated before the ask. It is the one fact that decides whether
-   the rest of the section is worth reading. */
+   the rest of the section is worth reading, so it is also the one badge on the
+   page carrying a colour of its own — the same green the card is lit with.
+   The label stays white: the green is the signal, never the text. */
 .contact__status {
   display: inline-flex;
   align-self: flex-start;
@@ -4302,15 +4335,16 @@ section {
   gap: 0.55rem;
   margin: 0;
   padding: 0.3rem 0.7rem 0.3rem 0.6rem;
-  border: 1px solid rgba(255, 255, 255, 0.26);
+  border: 1px solid rgba(86, 214, 163, 0.42);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.08);
-  color: rgba(255, 255, 255, 0.9);
+  background: rgba(20, 122, 90, 0.26);
+  color: #ffffff;
   font-size: 0.58rem;
   font-weight: 800;
   letter-spacing: 0.14em;
   line-height: 1.4;
   text-transform: uppercase;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16);
 }
 
 /* The dot carries the meaning; the ring is the only thing that moves, so the
@@ -4318,17 +4352,18 @@ section {
 .contact__pulse {
   position: relative;
   flex: none;
-  width: 0.42rem;
-  height: 0.42rem;
+  width: 0.45rem;
+  height: 0.45rem;
   border-radius: 50%;
-  background: #ffffff;
+  background: #56d6a3;
+  box-shadow: 0 0 8px rgba(86, 214, 163, 0.9);
 }
 
 .contact__pulse::after {
   content: '';
   position: absolute;
   inset: -0.3rem;
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(86, 214, 163, 0.75);
   border-radius: 50%;
   animation: contact-pulse 2.6s ease-out infinite;
 }
@@ -4399,10 +4434,12 @@ section {
     box-shadow 200ms ease;
 }
 
+/* Ink type rather than Burgundy: the card is lit green now, and a Burgundy
+   label on it was the one place two brand hues met without a reason. */
 .contact__cta--primary {
   border-color: #ffffff;
   background: #ffffff;
-  color: var(--burgundy);
+  color: #14040b;
   box-shadow: 0 12px 26px rgba(6, 0, 3, 0.42);
 }
 
@@ -4410,7 +4447,7 @@ section {
   .contact__cta:hover {
     transform: translateY(-2px);
     background: #ffffff;
-    color: var(--burgundy);
+    color: #14040b;
     box-shadow: 0 18px 32px rgba(6, 0, 3, 0.46);
   }
 }
@@ -4536,4 +4573,17 @@ a.contact-row:focus-visible .contact-row__go {
     opacity: 1;
     transform: none;
   }
+}
+
+/* The global focus ring is Burgundy at 35% — readable on the white surfaces it
+   was written for, invisible on these. Contact used to be one of those white
+   surfaces; now that it sits on the environment its links need a light ring.
+   The rows also pull their ring inside the panel, which clips its children. */
+#services a:focus-visible,
+#contact a:focus-visible {
+  outline-color: rgba(255, 255, 255, 0.9);
+}
+
+a.contact-row:focus-visible {
+  outline-offset: -3px;
 }

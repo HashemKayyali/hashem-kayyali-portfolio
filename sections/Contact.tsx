@@ -12,6 +12,15 @@ import SectionWrapper from '../components/SectionWrapper';
 import BurgundyWarpBackground from '../components/ui/burgundy-warp-background';
 import { useReveal } from '../components/useReveal';
 import { profile } from '../data/profile';
+import type { WarpRamp } from '../types';
+
+/**
+ * The closing plate gets its own palette rather than the shared Burgundy field:
+ * a cool green lit inside the ink. It is the one surface on the page whose
+ * subject is availability, and green is what the availability marker on it
+ * means — so the card and its status badge are lit by the same colour.
+ */
+const OPEN_RAMP: WarpRamp = ['#04120c', '#0d6047', '#000000', '#23a077', '#dcf2e7'];
 
 /**
  * Closing section. Everything a recruiter needs to act is stated once: whether
@@ -47,6 +56,7 @@ const Contact: React.FC = () => {
             className="contact__warp"
             overlayOpacity={0.6}
             speedMultiplier={0.7}
+            ramp={OPEN_RAMP}
           />
 
           <p className="contact__status">

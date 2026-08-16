@@ -1,8 +1,10 @@
 import React from 'react';
 import { Bot, Code2, Cpu, Lightbulb } from 'lucide-react';
 import SectionWrapper from '../components/SectionWrapper';
+import BurgundyWarpBackground from '../components/ui/burgundy-warp-background';
 import { useReveal } from '../components/useReveal';
 import { services } from '../data/profile';
+import type { WarpRamp } from '../types';
 
 /**
  * The four capabilities are not a menu of unrelated services — they are the
@@ -15,6 +17,21 @@ import { services } from '../data/profile';
  */
 const stages = ['Scope', 'Build', 'Connect', 'Operate'];
 const icons = [Lightbulb, Code2, Cpu, Bot];
+
+/**
+ * One palette per stage, the same mechanism the project cards use. All four
+ * open on the same near-black and keep black as the mid stop, so they stay one
+ * family of ink surfaces; only the two lit stops differ, which is what lets the
+ * reader tell the stages apart at a glance without a legend.
+ *
+ * Held under a 0.6 veil: the colour is the light inside the ink, not the ink.
+ */
+const rampByStage: WarpRamp[] = [
+  ['#0d0206', '#8a5f18', '#000000', '#c48f30', '#e6d5b4'], // Scope — amber
+  ['#0d0206', '#8f1839', '#000000', '#c9385f', '#f2dae0'], // Build — the house burgundy
+  ['#0d0206', '#0f6d78', '#000000', '#2fa9b5', '#dff0f2'], // Connect — signal teal
+  ['#0d0206', '#4a2a9c', '#000000', '#7a55d1', '#e4dcf6'], // Operate — violet
+];
 
 const Services: React.FC = () => {
   const revealRef = useReveal<HTMLDivElement>();
@@ -49,6 +66,14 @@ const Services: React.FC = () => {
                 data-reveal
                 style={{ '--reveal-delay': `${index * 90}ms` } as React.CSSProperties}
               >
+                <BurgundyWarpBackground
+                  index={30 + index}
+                  className="capability__warp"
+                  overlayOpacity={0.6}
+                  speedMultiplier={0.8}
+                  ramp={rampByStage[index]}
+                />
+
                 {/* Ink capsule, threaded onto the rail that runs along the card's
                     top edge — the stage marker, not decoration. */}
                 <span className="capability__node" aria-hidden="true">
