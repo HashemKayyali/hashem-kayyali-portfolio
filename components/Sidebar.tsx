@@ -113,7 +113,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               style={{ zIndex: 70 }}
-              className="drawer-scrim fixed inset-0 bg-primary/80 xl:hidden"
+              className="drawer-scrim fixed inset-0 xl:hidden"
             />
             <motion.aside
               initial={{ x: '-100%' }}
