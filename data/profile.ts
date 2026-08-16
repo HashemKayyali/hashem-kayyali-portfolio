@@ -258,6 +258,8 @@ export const projects: Project[] = [
     tech: ['ESP32-S3', 'Bluetooth LE', 'FTMS', 'Hall Sensor', 'Embedded C++'],
     image: '/projects/vr-cycling/cover.webp',
     gallery: gallery('vr-cycling', 0),
+    /* Tested in the colour lab: the amber of the ride's sunset street scene. */
+    warpRamp: ['#0f0a01', '#c75b19', '#000000', '#ffffff', '#c75b19'],
     privateSource: true,
     features: ['Bluetooth FTMS data', 'Speed, cadence, and distance metrics', 'Battery LED indicator', 'Charging detection', 'Deep-sleep power management'],
     challenges: [],
