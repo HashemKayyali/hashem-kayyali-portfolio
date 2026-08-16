@@ -198,6 +198,8 @@ export const projects: Project[] = [
     tech: ['C#', 'WPF', '.NET Web API', 'NFC', 'REST API'],
     image: '/projects/the-terminal-nfc/cover.webp',
     gallery: gallery('the-terminal-nfc', 1),
+    /* Tested in the colour lab: teal and slate against near-black. */
+    warpRamp: ['#fffafa', '#03788e', '#1e1515', '#274653', '#ffffff'],
     privateSource: true,
     features: ['POS transaction interface', 'NFC user identification', 'Account verification', 'Separate client application', 'Central transaction records'],
     challenges: [],
