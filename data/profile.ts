@@ -60,8 +60,8 @@ export const experience: ExperienceItem[] = [
     current: true,
     image: '/experience/rd-product-engineer.webp',
     imageAlt: 'R&D Product Engineer experience photo placeholder',
-    /* Tested in the colour lab: magenta and blue out of black. */
-    warpRamp: ['#000000', '#f768f9', '#000000', '#257bfd', '#d6d6d6'],
+    /* Same ramp as the Eventies project card, which is the reference for both. */
+    warpRamp: ['#000000', '#471199', '#000000', '#81239f', '#d6d6d6'],
     details: [
       'Leading end-to-end R&D software and connected-system products across web, desktop, automation, computer vision, and IoT.',
       'Translating product ideas into clear requirements, technical plans, user flows, and working implementations.',
@@ -218,8 +218,8 @@ export const projects: Project[] = [
     tech: ['Flutter', 'ESP32-S3', 'Hall Sensor', 'WebSocket', 'FastLED'],
     image: '/projects/bike-tower/cover.webp',
     gallery: gallery('bike-tower', 4),
-    /* Tested in the colour lab: the LED pink and cyan the towers actually run. */
-    warpRamp: ['#000000', '#f64680', '#000000', '#00d2dd', '#000000'],
+    /* Tested in the colour lab: LED magenta flashing against white and black. */
+    warpRamp: ['#0f0a01', '#ffffff', '#000000', '#f408aa', '#e3e3e3'],
     privateSource: true,
     features: ['Race and Tug of War modes', 'Live speed and distance telemetry', 'UDP discovery and WebSocket control', 'Tower monitoring', 'LED theme settings'],
     challenges: [],
@@ -318,6 +318,8 @@ export const projects: Project[] = [
     tech: ['Python', 'PySide6', 'YOLOv8', 'OpenCV', 'BoT-SORT'],
     image: '/projects/traffic-flow-analytics-studio/cover.webp',
     gallery: gallery('traffic-flow-analytics-studio', 0),
+    /* Tested in the colour lab: the green of the detection overlay. */
+    warpRamp: ['#01100a', '#04231a', '#000000', '#148f68', '#2b9370'],
     privateSource: true,
     features: ['Vehicle detection and tracking', 'Line and route counting', 'Perspective and region tools', 'Background video analysis', 'Video, CSV, and Excel exports'],
     challenges: [],
