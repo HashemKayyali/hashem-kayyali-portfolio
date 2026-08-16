@@ -9,7 +9,7 @@ import {
 import SectionWrapper from '../components/SectionWrapper';
 import { useReveal } from '../components/useReveal';
 import BurgundyWarpBackground from '../components/ui/burgundy-warp-background';
-import { experience, profile, projects, skillGroups } from '../data/profile';
+import { SECTION_WARP_RAMP, experience, profile, projects, skillGroups } from '../data/profile';
 import type { ExperienceItem } from '../types';
 
 const focusAreas = [
@@ -70,6 +70,7 @@ const Resume: React.FC = () => {
       subtitle="Recruiter-focused experience, engineering strengths, and a downloadable ATS-friendly resume."
       variant="burgundy"
       stickyHeader
+      warpRamp={SECTION_WARP_RAMP}
     >
       {/* Primary sheet: the one place the whole profile is stated at once. */}
       <div className="resume-profile m-primary" ref={profileRef} data-reveal>

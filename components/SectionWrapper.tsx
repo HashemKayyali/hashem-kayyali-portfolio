@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
+import BurgundyWarpBackground from './ui/burgundy-warp-background';
+import type { WarpRamp } from '../types';
 
 interface SectionWrapperProps {
   id: string;
@@ -16,6 +18,8 @@ interface SectionWrapperProps {
   stickyControls?: React.ReactNode;
   /** Makes the title + description sticky for sections without extra controls. */
   stickyHeader?: boolean;
+  /** Own palette for the pinned header's animated background. */
+  warpRamp?: WarpRamp;
 }
 
 const SectionWrapper: React.FC<SectionWrapperProps> = ({
@@ -27,6 +31,7 @@ const SectionWrapper: React.FC<SectionWrapperProps> = ({
   variant = 'white',
   stickyControls,
   stickyHeader = false,
+  warpRamp,
 }) => {
   const sectionRef = useRef<HTMLElement>(null);
   const controlsRef = useRef<HTMLDivElement>(null);
@@ -124,6 +129,19 @@ const SectionWrapper: React.FC<SectionWrapperProps> = ({
               pinned ? ' section-sticky--pinned' : ''
             }`}
           >
+            {warpRamp && (
+              <BurgundyWarpBackground
+                index={40 + (id.charCodeAt(0) % 5)}
+                className="section-sticky__warp"
+                overlayOpacity={0.6}
+                rootMargin="0px"
+                ramp={warpRamp}
+                /* The header is a wide, short box, so covering it blows one
+                   soft patch up ~2.3x. Tightening the field puts the pattern
+                   back inside it. */
+                density={2.4}
+              />
+            )}
             {(title || subtitle) && <header className="section-sticky__heading">{heading}</header>}
             {stickyControls}
           </div>

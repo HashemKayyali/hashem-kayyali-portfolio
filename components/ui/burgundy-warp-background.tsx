@@ -10,6 +10,8 @@ interface BurgundyWarpBackgroundProps {
   rootMargin?: string;
   /** Own palette for this surface. Omitted, it shares the burgundy field. */
   ramp?: WarpRamp;
+  /** Above 1, tightens the pattern so more of it lands inside the surface. */
+  density?: number;
 }
 
 type SurfaceSize = {
@@ -88,6 +90,7 @@ const BurgundyWarpBackground: React.FC<BurgundyWarpBackgroundProps> = ({
   speedMultiplier = 1,
   rootMargin = '160px 0px',
   ramp,
+  density = 1,
 }) => {
   const rootRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -156,7 +159,7 @@ const BurgundyWarpBackground: React.FC<BurgundyWarpBackgroundProps> = ({
         speedMultiplier,
         sizeRef.current,
       );
-    }, ramp ?? null);
+    }, ramp ?? null, density);
 
     return () => {
       unsubscribe();
@@ -164,7 +167,7 @@ const BurgundyWarpBackground: React.FC<BurgundyWarpBackgroundProps> = ({
       canvas.width = 1;
       canvas.height = 1;
     };
-  }, [index, isNearViewport, speedMultiplier, ramp]);
+  }, [index, isNearViewport, speedMultiplier, ramp, density]);
 
   return (
     <div

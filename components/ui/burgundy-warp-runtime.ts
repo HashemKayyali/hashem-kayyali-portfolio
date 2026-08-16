@@ -3,14 +3,19 @@ import type { WarpRamp } from '../../types';
 type WarpFrameSubscriber = (source: HTMLCanvasElement, animationTime: number) => void;
 
 /** Renders one frame in an arbitrary ramp and returns the surface holding it. */
-type RampRenderer = (ramp: WarpRamp, animationTime: number) => HTMLCanvasElement | null;
+type RampRenderer = (
+  ramp: WarpRamp,
+  animationTime: number,
+  density: number,
+) => HTMLCanvasElement | null;
 
 let sharedSource: HTMLCanvasElement | null = null;
 let rampRenderer: RampRenderer | null = null;
 let lastAnimationTime = 0;
 
 /** Subscriber -> the ramp it wants, or null for the shared burgundy surface. */
-const subscribers = new Map<WarpFrameSubscriber, WarpRamp | null>();
+type Request = { ramp: WarpRamp; density: number };
+const subscribers = new Map<WarpFrameSubscriber, Request | null>();
 
 export const setSharedWarpSource = (source: HTMLCanvasElement | null) => {
   sharedSource = source;
@@ -34,15 +39,15 @@ export const setRampRenderer = (renderer: RampRenderer | null) => {
  * one scratch buffer serves every one of them: the copy happens inside the
  * subscriber call, before the next render overwrites it.
  */
-const sourceFor = (ramp: WarpRamp | null, animationTime: number) => {
-  if (!ramp) return sharedSource;
+const sourceFor = (request: Request | null, animationTime: number) => {
+  if (!request) return sharedSource;
   if (!rampRenderer) return sharedSource;
-  return rampRenderer(ramp, animationTime) ?? sharedSource;
+  return rampRenderer(request.ramp, animationTime, request.density) ?? sharedSource;
 };
 
 const deliver = (animationTime: number) => {
-  subscribers.forEach((ramp, subscriber) => {
-    const source = sourceFor(ramp, animationTime);
+  subscribers.forEach((request, subscriber) => {
+    const source = sourceFor(request, animationTime);
     if (source) subscriber(source, animationTime);
   });
 };
@@ -57,11 +62,13 @@ export const publishSharedWarpFrame = (animationTime: number) => {
 export const subscribeToSharedWarp = (
   subscriber: WarpFrameSubscriber,
   ramp: WarpRamp | null = null,
+  density = 1,
 ) => {
-  subscribers.set(subscriber, ramp);
+  const request = ramp ? { ramp, density } : null;
+  subscribers.set(subscriber, request);
 
   if (sharedSource && lastAnimationTime > 0) {
-    const source = sourceFor(ramp, lastAnimationTime);
+    const source = sourceFor(request, lastAnimationTime);
     if (source) subscriber(source, lastAnimationTime);
   }
 

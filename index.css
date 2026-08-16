@@ -176,16 +176,24 @@ section {
    those would be silent no-ops.
    -------------------------------------------------------------------------- */
 .project-card__warp,
-.journey-entry__warp {
+.journey-entry__warp,
+.section-sticky__warp {
   z-index: -1;
   border-radius: inherit;
   background: #1a060f;
 }
 
 .project-card__warp .burgundy-warp-canvas,
-.journey-entry__warp .burgundy-warp-canvas {
+.journey-entry__warp .burgundy-warp-canvas,
+.section-sticky__warp .burgundy-warp-canvas {
   opacity: 0;
   transition: opacity 300ms var(--motion-ease);
+}
+
+/* The header is a rounded floating card, so its warp has to be clipped to that
+   silhouette. Its ::before edge light sits at z-index 2 and stays on top. */
+.section-sticky--glass:has(.section-sticky__warp) {
+  overflow: hidden;
 }
 
 /* The journey card does not clip by default, so a warp would escape its

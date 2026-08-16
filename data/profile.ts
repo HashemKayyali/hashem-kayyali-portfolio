@@ -1,4 +1,4 @@
-import { ExperienceItem, Profile, Project, Service, SkillGroup } from '../types';
+import { ExperienceItem, Profile, Project, Service, SkillGroup, WarpRamp } from '../types';
 
 export const profile: Profile = {
   name: 'Hashem Kayyali',
@@ -51,6 +51,12 @@ export const skillGroups: SkillGroup[] = [
   },
 ];
 
+/**
+ * The pinned section headers (About, Resume, Selected Projects) share one
+ * palette, so they read as the same piece of furniture down the page.
+ */
+export const SECTION_WARP_RAMP: WarpRamp = ['#ffffff', '#a11b3d', '#000000', '#ffffff', '#000000'];
+
 export const experience: ExperienceItem[] = [
   {
     company: 'Eventies',
@@ -98,8 +104,8 @@ export const experience: ExperienceItem[] = [
     mode: 'Part-time',
     image: '/experience/umniah.webp',
     imageAlt: 'Umniah experience photo placeholder',
-    /* Tested in the colour lab: yellow over black and midnight blue. */
-    warpRamp: ['#f2f2f2', '#e3e3e3', '#000000', '#fbff00', '#030521'],
+    /* Tested in the colour lab: the operator's red against navy. */
+    warpRamp: ['#f2f2f2', '#d1203c', '#000000', '#12234a', '#ffffff'],
     details: [
       'Promoted and sold internet and mobile subscriptions through direct customer engagement.',
       'Identified customer needs, explained available services, and recommended suitable telecommunications solutions.',
@@ -130,8 +136,8 @@ export const projects: Project[] = [
     tech: ['Next.js', 'TypeScript', 'Supabase', 'Cloudinary', 'Realtime'],
     image: '/projects/eventies/cover.webp',
     gallery: gallery('eventies', 4),
-    /* Tested in the colour lab: deep violet out of black. Intentionally not
-       the same ramp as the Co-Founder role in the journey. */
+    /* Tested in the colour lab: deep violet out of black. The Co-Founder role
+       in the journey follows this card. */
     warpRamp: ['#000000', '#471199', '#000000', '#81239f', '#d6d6d6'],
     liveUrl: 'https://www.eventiesjo.com/',
     features: ['Arabic and English experience', 'Service catalog and details', 'Rental and quotation requests', 'Custom-build inquiries', 'Admin and communication tools'],

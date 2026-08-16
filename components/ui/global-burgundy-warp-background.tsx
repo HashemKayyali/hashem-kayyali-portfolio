@@ -39,6 +39,7 @@ uniform vec3 u_c1;
 uniform vec3 u_c2;
 uniform vec3 u_c3;
 uniform vec3 u_c4;
+uniform float u_density;
 
 float hash(vec2 p) {
   return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123);
@@ -74,6 +75,9 @@ void main() {
   vec2 uv = gl_FragCoord.xy / max(u_resolution.xy, vec2(1.0));
   vec2 p = uv - 0.5;
   p.x *= u_resolution.x / max(u_resolution.y, 1.0);
+  // Tightens the field so more of the pattern lands inside a surface that
+  // would otherwise blow one soft patch up to cover itself.
+  p *= u_density;
 
   float t = u_time * 0.10;
   float radial = length(p);
@@ -179,6 +183,7 @@ const GlobalBurgundyWarpBackground: React.FC = () => {
     const colorLocations = [0, 1, 2, 3, 4].map((index) =>
       gl.getUniformLocation(program, `u_c${index}`),
     );
+    const densityLocation = gl.getUniformLocation(program, 'u_density');
     const positionBuffer = gl.createBuffer();
 
     if (!positionBuffer || !resolutionLocation || !timeLocation || positionLocation < 0) {
@@ -243,6 +248,7 @@ const GlobalBurgundyWarpBackground: React.FC = () => {
       gl.uniform2f(resolutionLocation, canvas.width, canvas.height);
       gl.uniform1f(timeLocation, animationTime / 1000);
       applyRamp(gl, colorLocations, BURGUNDY_RAMP);
+      if (densityLocation) gl.uniform1f(densityLocation, 1);
       gl.drawArrays(gl.TRIANGLES, 0, 6);
       publishSharedWarpFrame(animationTime);
     };
@@ -311,6 +317,7 @@ const GlobalBurgundyWarpBackground: React.FC = () => {
       resolution: WebGLUniformLocation | null;
       time: WebGLUniformLocation | null;
       colors: (WebGLUniformLocation | null)[];
+      density: WebGLUniformLocation | null;
     } | null = null;
 
     if (scratchGl) {
@@ -336,6 +343,7 @@ const GlobalBurgundyWarpBackground: React.FC = () => {
           colors: [0, 1, 2, 3, 4].map((index) =>
             scratchGl.getUniformLocation(scratchProgram as WebGLProgram, `u_c${index}`),
           ),
+          density: scratchGl.getUniformLocation(scratchProgram as WebGLProgram, 'u_density'),
         };
       } catch (error) {
         console.error('Warp ramp renderer failed to initialize:', error);
@@ -344,7 +352,7 @@ const GlobalBurgundyWarpBackground: React.FC = () => {
     }
 
     if (scratchGl && scratchProgram && scratchLocations) {
-      setRampRenderer((ramp, time) => {
+      setRampRenderer((ramp, time, density) => {
         scratchGl.useProgram(scratchProgram as WebGLProgram);
         if (scratchLocations.resolution) {
           scratchGl.uniform2f(scratchLocations.resolution, scratch.width, scratch.height);
@@ -353,6 +361,9 @@ const GlobalBurgundyWarpBackground: React.FC = () => {
           scratchGl.uniform1f(scratchLocations.time, time / 1000);
         }
         applyRamp(scratchGl, scratchLocations.colors, ramp);
+        if (scratchLocations.density) {
+          scratchGl.uniform1f(scratchLocations.density, density);
+        }
         scratchGl.drawArrays(scratchGl.TRIANGLES, 0, 6);
         return scratch;
       });

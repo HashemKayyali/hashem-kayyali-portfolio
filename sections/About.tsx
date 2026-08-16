@@ -2,7 +2,7 @@ import React from 'react';
 import { Code2, Cpu, Database, Layers3, Smartphone } from 'lucide-react';
 import SectionWrapper from '../components/SectionWrapper';
 import { useReveal } from '../components/useReveal';
-import { profile, skillGroups } from '../data/profile';
+import { SECTION_WARP_RAMP, profile, skillGroups } from '../data/profile';
 
 const iconMap = [Code2, Smartphone, Database, Cpu, Layers3];
 
@@ -22,6 +22,7 @@ const About: React.FC = () => {
     subtitle="Product-minded engineer across software, connected systems, technical operations, and real-world product delivery."
     variant="burgundy"
     stickyHeader
+    warpRamp={SECTION_WARP_RAMP}
   >
     <div className="about" ref={revealRef}>
       {/* Glass sheet: the global animated Burgundy shows through it, so this
