@@ -238,6 +238,8 @@ export const projects: Project[] = [
     tech: ['Flutter', 'ESP32', 'MPU6050', 'WebSocket', 'SQLite'],
     image: '/projects/basket-beats/cover.webp',
     gallery: gallery('basket-beats', 0),
+    /* Tested in the colour lab: violet lifting into lilac out of black. */
+    warpRamp: ['#fefbfb', '#7743bf', '#000000', '#c5bbc9', '#d6d6d6'],
     privateSource: true,
     features: ['Multiple game modes', 'Real-time hit tracking', 'LED feedback and themes', 'Local reports and leaderboards', 'OTA firmware updates'],
     challenges: [],
