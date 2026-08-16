@@ -218,6 +218,8 @@ export const projects: Project[] = [
     tech: ['Flutter', 'ESP32-S3', 'Hall Sensor', 'WebSocket', 'FastLED'],
     image: '/projects/bike-tower/cover.webp',
     gallery: gallery('bike-tower', 4),
+    /* Tested in the colour lab: the LED pink and cyan the towers actually run. */
+    warpRamp: ['#000000', '#f64680', '#000000', '#00d2dd', '#000000'],
     privateSource: true,
     features: ['Race and Tug of War modes', 'Live speed and distance telemetry', 'UDP discovery and WebSocket control', 'Tower monitoring', 'LED theme settings'],
     challenges: [],
