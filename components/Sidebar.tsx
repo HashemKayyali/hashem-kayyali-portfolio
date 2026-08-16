@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { profile } from '../data/profile';
+import { SECTION_WARP_RAMP, profile } from '../data/profile';
 import { Download, FileText, FolderKanban, Home, Instagram, Linkedin, Mail, Menu, MessageCircle, User, Wrench, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import BurgundyWarpBackground from './ui/burgundy-warp-background';
@@ -52,6 +52,17 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
 
   const content = (
     <div className="sidebar-surface flex h-full flex-col text-primary">
+      <BurgundyWarpBackground
+        index={31}
+        className="sidebar-surface__warp"
+        overlayOpacity={0.6}
+        rootMargin="0px"
+        ramp={SECTION_WARP_RAMP}
+        /* Tall and narrow, so covering it blows the field up ~3.4x from its
+           height. Tightening puts the pattern back inside the panel. */
+        density={2.6}
+      />
+
       <div className="flex justify-end p-3 xl:hidden">
         <button onClick={() => setIsOpen(false)} className="rounded-full border border-primary/15 p-2.5" aria-label="Close navigation"><X size={21} /></button>
       </div>
@@ -80,14 +91,6 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
                   onClick={() => goTo(item.id)}
                   className={`relative isolate flex w-full items-center gap-2.5 overflow-hidden rounded-xl px-3 py-2.5 text-left text-[13px] font-semibold transition ${active ? 'nav-item--active text-white' : 'nav-item text-primary/65'}`}
                 >
-                  {active && (
-                    <BurgundyWarpBackground
-                      index={20 + index}
-                      className="-z-10"
-                      overlayOpacity={0.14}
-                      rootMargin="0px"
-                    />
-                  )}
                   <item.icon size={17} className="relative z-10" />
                   <span className="relative z-10">{item.label}</span>
                 </button>
@@ -147,6 +150,16 @@ export const MobileNav: React.FC<{ onOpen: () => void; isOpen: boolean }> = ({ o
   // Kept in flow while the drawer is open (no layout shift) but visually and
   // programmatically inert, so the hamburger never sits behind the drawer.
   <header className={`mobile-nav${isOpen ? ' mobile-nav--inert' : ''}`} aria-hidden={isOpen}>
+    {/* Wide and short like the section headers, so it needs the same tightening
+        or the field is one soft patch blown up to cover the bar. */}
+    <BurgundyWarpBackground
+      index={32}
+      className="mobile-nav__warp"
+      overlayOpacity={0.6}
+      rootMargin="0px"
+      ramp={SECTION_WARP_RAMP}
+      density={2.4}
+    />
     <div className="mobile-nav__brand">
       <div className="mobile-nav__avatar">
         <img src="/images/hashem-profile.webp" alt="" />
