@@ -2,7 +2,7 @@ import React, { Suspense, lazy, useEffect, useLayoutEffect, useMemo, useRef, use
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import SectionWrapper from '../components/SectionWrapper';
 import FeatureShaderCard from '../components/ui/feature-shader-cards';
-import { SECTION_WARP_RAMP, projects } from '../data/profile';
+import { projects } from '../data/profile';
 import { Project } from '../types';
 
 const ProjectModal = lazy(() => import('../components/ProjectModal'));
@@ -154,7 +154,6 @@ const Portfolio: React.FC = () => {
         title="Selected Projects"
         subtitle="Digital platforms, business systems, automation tools, computer vision, and R&D / IoT products designed and developed end to end."
         variant="burgundy"
-        warpRamp={SECTION_WARP_RAMP}
         stickyControls={
           <div className="portfolio-filters" aria-label="Project filters">
             {filters.map((item) => (
