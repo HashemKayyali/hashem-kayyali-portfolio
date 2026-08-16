@@ -1036,22 +1036,17 @@ section {
      308px tall - which also broke the sticky stack, since its geometry
      assumes every card is the same height. */
   .project-card__button {
-    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    grid-template-columns: minmax(0, 5fr) minmax(0, 3fr);
   }
 
-  /* Taller box than the stacked layout uses. Here the cover only gets 60% of
-     the card width, so a 16/10 box left the card at 2.65:1 - a letterbox
-     strip. 7/5 brings it to 2.33:1 with the same content.
+  /* The box keeps the stacked layout's 16/10 because six of the ten covers are
+     exactly 16/10, and a contained image only fills its box edge to edge when
+     the two ratios match. The 7/5 box tried here earlier made the card taller
+     but put blurred fill above and below every one of those six.
 
-     7/5 was dropped once before because it cut 21% off the widest covers, but
-     that was while the image was cropped to fill. It is contained now, so a
-     taller box adds a little blurred fill above and below instead of cutting
-     anything, which is the same treatment the 1.33 covers already get. */
-  .project-card__media,
-  .project-card__media-main {
-    aspect-ratio: 7 / 5;
-  }
-
+     Height comes from the column split instead: at 5fr the cover is wide
+     enough to keep the card near the proportion 7/5 gave it, without putting
+     a ratio between the image and its frame. */
   .project-card__media {
     grid-row: 1;
     grid-column: 1;
