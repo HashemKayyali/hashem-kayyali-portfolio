@@ -525,11 +525,12 @@ section {
   .portfolio-filters {
     flex-wrap: nowrap;
     gap: 0.35rem;
-    margin-right: -0.8rem;
+    /* Aligned with the heading, not bled to the card edge. The negative margins
+       pulled the rail 12px outside the card's padding, so the All chip sat on
+       the border while the text above it started 12px further in. */
+    margin-top: 0.7rem;
     margin-bottom: 0;
-    margin-left: -0.8rem;
-    padding-right: 0.8rem;
-    padding-left: 0.8rem;
+    padding-right: 0.25rem;
     overflow-x: auto;
     /* Horizontal only. Without this a swipe that is a few degrees off axis is
        handed to the page instead of the rail, so dragging the filters scrolled
@@ -598,8 +599,8 @@ section {
   }
 
   .portfolio-filters button {
-    padding: 0.5rem 0.68rem;
-    font-size: 0.76rem;
+    padding: 0.38rem 0.62rem;
+    font-size: 0.72rem;
   }
 }
 
