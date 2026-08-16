@@ -531,19 +531,23 @@ section {
     padding-right: 0.8rem;
     padding-left: 0.8rem;
     overflow-x: auto;
+    /* Horizontal only. Without this a swipe that is a few degrees off axis is
+       handed to the page instead of the rail, so dragging the filters scrolled
+       the section up and down under the finger. */
+    touch-action: pan-x;
+    overscroll-behavior-x: contain;
     scroll-snap-type: x proximity;
     scrollbar-width: none;
+    /* Fades on the right only. The rail rests at scroll 0, so a left fade had
+       nothing to hide and instead ate the first 12.8px of the All chip, which
+       sits flush against that edge. */
     -webkit-mask-image: linear-gradient(
       to right,
-      transparent 0,
-      #000 0.8rem,
       #000 calc(100% - 1.6rem),
       transparent 100%
     );
     mask-image: linear-gradient(
       to right,
-      transparent 0,
-      #000 0.8rem,
       #000 calc(100% - 1.6rem),
       transparent 100%
     );
