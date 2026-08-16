@@ -278,6 +278,8 @@ export const projects: Project[] = [
     tech: ['ESP32-S3', 'Bluetooth FTMS', 'CSC / CPS', 'Hall Sensor', 'Embedded C++'],
     image: '/projects/bike-land-smart-cycling-trainer/cover.webp',
     gallery: gallery('bike-land-smart-cycling-trainer', 1),
+    /* Tested in the colour lab: steel and the navy of the room behind the bikes. */
+    warpRamp: ['#fffafa', '#707070', '#0b0f10', '#0c2245', '#ffffff'],
     privateSource: true,
     features: ['FTMS, CSC, and CPS services', 'Real-time cycling metrics', 'FTMS control commands', 'Battery and charging indicators', 'Deep-sleep operation'],
     challenges: [],
@@ -296,6 +298,8 @@ export const projects: Project[] = [
     tech: ['Next.js', 'TypeScript', 'Supabase', 'SMTP / IMAP', 'XLSX'],
     image: '/projects/outreach-automation-platform/cover.webp',
     gallery: gallery('outreach-automation-platform', 4),
+    /* Tested in the colour lab: teal on white, matching the dashboard cover. */
+    warpRamp: ['#fefbfb', '#117771', '#ffffff', '#ffffff', '#d6d6d6'],
     privateSource: true,
     features: ['Contact imports', 'Email templates and sender identities', 'Campaign queue processing', 'Reply synchronization', 'Sending logs and reports'],
     challenges: [],
