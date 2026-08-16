@@ -3,6 +3,11 @@ import { Code2, Cpu, Database, Layers3, Smartphone } from 'lucide-react';
 import SectionWrapper from '../components/SectionWrapper';
 import { useReveal } from '../components/useReveal';
 import { profile, skillGroups } from '../data/profile';
+import BurgundyWarpBackground from '../components/ui/burgundy-warp-background';
+import type { WarpRamp } from '../types';
+
+/** Tested in the colour lab: deep navy and indigo lifting into white. */
+const STORY_WARP_RAMP: WarpRamp = ['#ffffff', '#01122d', '#070434', '#f2f2f2', '#d8d8d8'];
 
 const iconMap = [Code2, Smartphone, Database, Cpu, Layers3];
 
@@ -24,9 +29,14 @@ const About: React.FC = () => {
     stickyHeader
   >
     <div className="about" ref={revealRef}>
-      {/* Glass sheet: the global animated Burgundy shows through it, so this
-          card carries no background of its own. */}
       <article className="about__story m-primary" data-reveal>
+        <BurgundyWarpBackground
+          index={41}
+          className="about__story-warp"
+          overlayOpacity={0.6}
+          rootMargin="0px"
+          ramp={STORY_WARP_RAMP}
+        />
         <div className="about__story-body">
           {narrative.map((paragraph) => (
             <p key={paragraph.slice(0, 24)}>{paragraph}</p>

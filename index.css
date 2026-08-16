@@ -200,6 +200,13 @@ section {
   overflow: hidden;
 }
 
+/* The story sheet is rounded and does not clip, so its field needs the same
+   treatment the cards get. */
+.about__story:has(.about__story-warp) {
+  isolation: isolate;
+  overflow: hidden;
+}
+
 
 }
 
