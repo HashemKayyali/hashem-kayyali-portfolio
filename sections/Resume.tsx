@@ -1,46 +1,33 @@
 import React from 'react';
-import {
-  Download,
-  FileText,
-  GraduationCap,
-  MapPin,
-  ShieldCheck,
-} from 'lucide-react';
+import { ArrowUpRight, Download, FileText, GraduationCap, MapPin } from 'lucide-react';
 import SectionWrapper from '../components/SectionWrapper';
 import { useReveal } from '../components/useReveal';
 import BurgundyWarpBackground from '../components/ui/burgundy-warp-background';
-import { experience, profile, projects, skillGroups } from '../data/profile';
-import type { ExperienceItem } from '../types';
-
-const focusAreas = [
-  'Product ownership',
-  'Responsive UI engineering',
-  'API & database integration',
-  'Real-time connected systems',
-  'Embedded hardware integration',
-  'Testing & troubleshooting',
-];
+import { experienceAssets, RESUME_DOCX, RESUME_PDF } from '../data/profile';
+import { projectAssets } from '../data/projectAssets';
+import { useI18n } from '../i18n/useI18n';
+import type { ExperienceCopy } from '../content/types';
 
 /**
- * One journey entry. It observes itself rather than inheriting the column's
- * reveal, so entries play as the reader reaches them — which, with the data in
- * newest-first order, walks the timeline from the current role backwards. The
+ * One employer block. It observes itself rather than inheriting the column's
+ * reveal, so blocks play as the reader reaches them — which, with the data in
+ * newest-first order, walks the record from the current role backwards. The
  * index delay only matters when several are on screen at once (desktop), where
- * it keeps that same order visible as a cascade.
+ * it keeps that same order visible as a short cascade.
  */
 const JourneyEntry: React.FC<{
-  item: ExperienceItem;
+  current: boolean;
   index: number;
   children: React.ReactNode;
-}> = ({ item, index, children }) => {
+}> = ({ current, index, children }) => {
   const ref = useReveal<HTMLLIElement>();
 
   return (
     <li
       ref={ref}
-      className={`journey-entry m-connect${item.current ? ' journey-entry--current' : ''}`}
+      className={`journey-entry m-journey${current ? ' journey-entry--current' : ''}`}
       data-reveal-self
-      style={{ '--reveal-delay': `${index * 110}ms` } as React.CSSProperties}
+      style={{ '--reveal-delay': `${index * 50}ms` } as React.CSSProperties}
     >
       {children}
     </li>
@@ -48,13 +35,22 @@ const JourneyEntry: React.FC<{
 };
 
 /**
- * Resume. Three tiers of surface, so the section reads as designed rather than
- * repeated: one primary profile sheet, the journey rail as the main column, and
- * a support column of quieter cards. Only the two highest-emphasis surfaces
- * (the metric tile and the download card) carry the animated Burgundy.
+ * Resume.
+ *
+ * Composed as employer blocks rather than a timeline: a rail with nodes reads
+ * as one continuous track, which misrepresents a record where one employer
+ * holds two roles and another is still running. Each employer is one surface
+ * that states its own period, and role progression is shown inside the block
+ * that owns it.
+ *
+ * Three tiers of surface keep the section from reading as repeated cards: one
+ * primary profile sheet, the journey as the main column, and a support column
+ * of quieter cards. Only the two highest-emphasis surfaces — the metric tile
+ * and the download card — carry the animated Burgundy.
  */
-
 const Resume: React.FC = () => {
+  const { t } = useI18n();
+
   // Three reveal groups, so each band of the section plays as it is reached
   // rather than all at once from the top.
   const profileRef = useReveal<HTMLDivElement>();
@@ -66,33 +62,28 @@ const Resume: React.FC = () => {
   return (
     <SectionWrapper
       id="resume"
-      title="Resume"
-      subtitle="Recruiter-focused experience, engineering strengths, and a downloadable ATS-friendly resume."
+      title={t.resume.title}
+      subtitle={t.resume.subtitle}
       variant="burgundy"
       stickyHeader
     >
       {/* Primary sheet: the one place the whole profile is stated at once. */}
       <div className="resume-profile m-primary" ref={profileRef} data-reveal>
         <div className="resume-profile__body">
-          <p className="resume-profile__eyebrow">Professional profile</p>
-          <h3 className="resume-profile__headline">
-            Product-minded software engineer and R&amp;D product engineer.
-          </h3>
-          <p className="resume-profile__summary">
-            {profile.professionalSummary} I take products from requirements and interface design
-            through implementation, hardware integration, testing, and deployment preparation.
-          </p>
+          <p className="resume-profile__eyebrow">{t.resume.profileEyebrow}</p>
+          <h3 className="resume-profile__headline">{t.resume.profileHeadline}</h3>
+          <p className="resume-profile__summary">{t.resume.profileSummary}</p>
         </div>
 
         <div className="resume-profile__metrics">
           <div className="resume-metric resume-metric--feature">
             <BurgundyWarpBackground index={9} className="-z-10" overlayOpacity={0.16} />
-            <p className="resume-metric__value">{projects.length}</p>
-            <p className="resume-metric__label">Selected products</p>
+            <p className="resume-metric__value">{projectAssets.length}</p>
+            <p className="resume-metric__label">{t.resume.metricLabels.selectedProjects}</p>
           </div>
           <div className="resume-metric">
-            <p className="resume-metric__value">{skillGroups.length}</p>
-            <p className="resume-metric__label">Engineering domains</p>
+            <p className="resume-metric__value">{t.about.skills.length}</p>
+            <p className="resume-metric__label">{t.resume.metricLabels.engineeringDomains}</p>
           </div>
         </div>
       </div>
@@ -100,63 +91,98 @@ const Resume: React.FC = () => {
       <div className="resume-layout">
         <div className="resume-layout__main" ref={journeyRef}>
           <header className="journey__head m-support" data-reveal>
-            <h3>Professional journey</h3>
-            <p>Roles, progression, and what each one actually involved.</p>
+            <h3>{t.resume.journeyTitle}</h3>
+            <p>{t.resume.journeySupport}</p>
           </header>
 
           <ol className="journey">
-            {experience.map((item, index) => (
-              <JourneyEntry key={`${item.company}-${item.period}`} item={item} index={index}>
-                <div className="journey-entry__node">
-                  <img src={item.image} alt={item.imageAlt} loading="lazy" decoding="async" />
-                </div>
+            {t.resume.experience.map((entry: ExperienceCopy, index) => {
+              const asset = experienceAssets[index];
+              const current = Boolean(entry.badge);
 
-                <article className="journey-entry__card">
-                  {item.warpRamp && (
-                    <BurgundyWarpBackground
-                      index={20 + index}
-                      className="journey-entry__warp"
-                      overlayOpacity={0.6}
-                      ramp={item.warpRamp}
-                    />
-                  )}
+              return (
+                <JourneyEntry key={entry.company} current={current} index={index}>
+                  <article className="journey-card">
+                    {asset && (
+                      <BurgundyWarpBackground
+                        index={20 + index}
+                        className="journey-card__warp"
+                        overlayOpacity={0.6}
+                        ramp={asset.warpRamp}
+                      />
+                    )}
 
-                  <div className="journey-entry__top">
-                    <p className="journey-entry__company">{item.company}</p>
-                    <span className="journey-entry__period">{item.period}</span>
-                  </div>
+                    <div className="journey-card__head">
+                      {asset && (
+                        <figure className="journey-card__photo">
+                          <img
+                            src={asset.image}
+                            alt={t.ui.alt[asset.altKey]}
+                            loading="lazy"
+                            decoding="async"
+                          />
+                        </figure>
+                      )}
 
-                  <h4 className="journey-entry__role">{item.title}</h4>
+                      <div className="journey-card__ident">
+                        <div className="journey-card__title-row">
+                          <p className="journey-card__company">{entry.company}</p>
+                          {entry.badge && (
+                            <span className="journey-card__badge">{entry.badge}</span>
+                          )}
+                        </div>
 
-                  <p className="journey-entry__meta">
-                    <MapPin size={13} aria-hidden="true" />
-                    <span>{item.location}</span>
-                    {item.mode && <span className="journey-entry__mode">{item.mode}</span>}
-                    {item.current && <span className="journey-entry__badge">Current role</span>}
-                  </p>
+                        {entry.role && <h4 className="journey-card__role">{entry.role}</h4>}
 
-                  {item.roles && item.roles.length > 0 && (
-                    <ol
-                      className="journey-entry__roles"
-                      aria-label={`Role progression at ${item.company}`}
-                    >
-                      {item.roles.map((role) => (
-                        <li key={`${role.title}-${role.period}`}>
-                          <span className="journey-entry__roles-title">{role.title}</span>
-                          <span className="journey-entry__roles-period">{role.period}</span>
-                        </li>
+                        <p className="journey-card__meta">
+                          <span className="journey-card__period">{entry.period}</span>
+                          <span className="journey-card__place">
+                            <MapPin size={12} aria-hidden="true" />
+                            {entry.location}
+                          </span>
+                          {entry.mode && (
+                            <span className="journey-card__mode">{entry.mode}</span>
+                          )}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* One employer, two roles: the progression is shown inside
+                        the block that owns it, so it never reads as two jobs. */}
+                    {entry.roles && entry.roles.length > 0 && (
+                      <ol className="journey-progression">
+                        {entry.roles.map((role, roleIndex) => (
+                          <li
+                            key={role.title}
+                            className={
+                              roleIndex === entry.roles!.length - 1
+                                ? 'journey-progression__step journey-progression__step--latest'
+                                : 'journey-progression__step'
+                            }
+                          >
+                            {roleIndex > 0 && (
+                              <ArrowUpRight
+                                className="journey-progression__arrow"
+                                size={14}
+                                aria-hidden="true"
+                              />
+                            )}
+                            <span className="journey-progression__title">{role.title}</span>
+                            <span className="journey-progression__period">{role.period}</span>
+                          </li>
+                        ))}
+                      </ol>
+                    )}
+
+                    <ul className="journey-card__points">
+                      {entry.points.map((point) => (
+                        <li key={point}>{point}</li>
                       ))}
-                    </ol>
-                  )}
-
-                  <ul className="journey-entry__points">
-                    {item.details.map((detail) => (
-                      <li key={detail}>{detail}</li>
-                    ))}
-                  </ul>
-                </article>
-              </JourneyEntry>
-            ))}
+                    </ul>
+                  </article>
+                </JourneyEntry>
+              );
+            })}
           </ol>
         </div>
 
@@ -167,49 +193,37 @@ const Resume: React.FC = () => {
             <span className="resume-download__icon" aria-hidden="true">
               <FileText size={19} />
             </span>
-            <h3>Download resume</h3>
-            <p>
-              A one-page, ATS-friendly resume built for software engineering, R&amp;D, full-stack,
-              mobile, and IoT applications.
-            </p>
+            <h3>{t.resume.downloadCard.title}</h3>
+            <p>{t.resume.downloadCard.copy}</p>
             <div className="resume-download__actions">
-              <a
-                href="/resume/hashem-kayyali-resume.pdf"
-                download
-                className="resume-btn resume-btn--primary"
-              >
-                <Download size={16} aria-hidden="true" /> Download PDF
+              <a href={RESUME_PDF} download className="resume-btn resume-btn--primary">
+                <Download size={16} aria-hidden="true" /> {t.resume.downloadCard.pdf}
               </a>
-              <a
-                href="/resume/hashem-kayyali-resume.docx"
-                download
-                className="resume-btn resume-btn--ghost"
-              >
-                <Download size={16} aria-hidden="true" /> Download Word
+              <a href={RESUME_DOCX} download className="resume-btn resume-btn--ghost">
+                <Download size={16} aria-hidden="true" /> {t.resume.downloadCard.word}
               </a>
             </div>
             <p className="resume-download__note">
-              <ShieldCheck size={14} aria-hidden="true" />
-              <span>Clean layout, selectable text, and no unsupported claims.</span>
+              <span>{t.resume.downloadCard.availability}</span>
             </p>
           </div>
 
-          <div className="resume-card m-support" data-reveal style={delay(80)}>
+          <div className="resume-card m-support" data-reveal style={delay(60)}>
             <div className="resume-card__head">
               <span className="resume-card__icon" aria-hidden="true">
                 <GraduationCap size={16} />
               </span>
-              <h3>Education</h3>
+              <h3>{t.resume.education.title}</h3>
             </div>
-            <p className="resume-card__lead">Software Engineering</p>
-            <p className="resume-card__note">Bachelor-level studies currently in progress.</p>
+            <p className="resume-card__lead">{t.resume.education.degree}</p>
+            <p className="resume-card__note">{t.resume.education.status}</p>
           </div>
 
-          <div className="resume-card m-support" data-reveal style={delay(140)}>
-            <p className="resume-card__eyebrow">Core strengths</p>
+          <div className="resume-card m-support" data-reveal style={delay(110)}>
+            <p className="resume-card__eyebrow">{t.resume.coreStrengths.title}</p>
             <ul className="resume-strengths">
-              {focusAreas.map((area) => (
-                <li key={area}>{area}</li>
+              {t.resume.coreStrengths.items.map((item) => (
+                <li key={item}>{item}</li>
               ))}
             </ul>
           </div>

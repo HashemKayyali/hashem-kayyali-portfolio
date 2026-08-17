@@ -199,7 +199,7 @@ section {
    those would be silent no-ops.
    -------------------------------------------------------------------------- */
 .project-card__warp,
-.journey-entry__warp,
+.journey-card__warp,
 .section-sticky__warp,
 .about__story-warp {
   z-index: -1;
@@ -208,7 +208,7 @@ section {
 }
 
 .project-card__warp .burgundy-warp-canvas,
-.journey-entry__warp .burgundy-warp-canvas,
+.journey-card__warp .burgundy-warp-canvas,
 .section-sticky__warp .burgundy-warp-canvas,
 .about__story-warp .burgundy-warp-canvas,
 .capability__warp .burgundy-warp-canvas,
@@ -232,7 +232,8 @@ section {
 
 /* The journey card does not clip by default, so a warp would escape its
    rounded corners. Only the entries that carry one need the clip. */
-.journey-entry__card:has(.journey-entry__warp) {
+.journey-card:has(.journey-card__warp) {
+  isolation: isolate;
   overflow: hidden;
 }
 
@@ -490,7 +491,7 @@ section {
   display: grid;
   width: 40px;
   height: 40px;
-  margin-left: auto;
+  margin-inline-start: auto;
   place-items: center;
   border: 1px solid rgba(255, 255, 255, 0.28);
   border-radius: 50%;
@@ -650,7 +651,7 @@ section {
        the border while the text above it started 12px further in. */
     margin-top: 0.7rem;
     margin-bottom: 0;
-    padding-right: 0.25rem;
+    padding-inline-end: 0.25rem;
     overflow-x: auto;
     /* Horizontal only. Without this a swipe that is a few degrees off axis is
        handed to the page instead of the rail, so dragging the filters scrolled
@@ -937,7 +938,7 @@ section {
   border: 0;
   background: none;
   color: inherit;
-  text-align: left;
+  text-align: start;
   cursor: pointer;
 }
 
@@ -1109,7 +1110,7 @@ section {
 
 .project-card__tech span + span::before {
   content: '\00b7';
-  margin-right: 0.55rem;
+  margin-inline-end: 0.55rem;
   color: rgba(255, 255, 255, 0.3);
 }
 
@@ -1200,9 +1201,9 @@ section {
   /* The divider turns vertical alongside the horizontal split. */
   .project-card__body::after {
     top: 0;
-    right: auto;
+    inset-inline-end: auto;
     bottom: 0;
-    left: 0;
+    inset-inline-start: 0;
     width: 1px;
     height: auto;
     background: linear-gradient(
@@ -1469,7 +1470,7 @@ section {
 
   .hero__cta--tertiary {
     flex-basis: auto;
-    margin-left: 0.35rem;
+    margin-inline-start: 0.35rem;
     padding: 0.72rem 0.6rem;
   }
 
@@ -1599,7 +1600,7 @@ section {
 /* The drawer carries `glass-panel` too, so it inherits the desktop sidebar's
    dark material and its light type wholesale. Only the differences live here. */
 .mobile-drawer {
-  border-right: 1px solid var(--glass-dark-border);
+  border-inline-end: 1px solid var(--glass-dark-border);
   border-radius: 0;
   background: var(--glass-drawer-solid);
 }
@@ -1985,7 +1986,7 @@ section {
   }
 }
 
-/* Target roles: an inline run, never five cards. Two rows at 375, one at
+/* Engineering focus: an inline run, never five cards. Two rows at 375, one at
    desktop. */
 .about__roles {
   margin-top: 0.65rem;
@@ -2017,7 +2018,7 @@ section {
 
 .about__roles-list span + span::before {
   content: '\00b7';
-  margin-right: 0.24rem;
+  margin-inline-end: 0.24rem;
   color: rgba(255, 255, 255, 0.38);
 }
 
@@ -2032,7 +2033,7 @@ section {
   }
 
   .about__roles-list span + span::before {
-    margin-right: 0.1rem;
+    margin-inline-end: 0.1rem;
   }
 }
 
@@ -2189,7 +2190,7 @@ section {
 
 .toolkit-card__items li + li::before {
   content: '\00b7';
-  margin-right: 0.34rem;
+  margin-inline-end: 0.34rem;
   color: rgba(255, 255, 255, 0.4);
 }
 
@@ -2214,8 +2215,9 @@ section {
 
 .about__meta-item {
   min-width: 0;
-  padding: 0.38rem 0 0.38rem 0.7rem;
-  border-left: 1px solid rgba(255, 255, 255, 0.22);
+  padding-block: 0.38rem;
+  padding-inline-start: 0.7rem;
+  border-inline-start: 1px solid rgba(255, 255, 255, 0.22);
 }
 
 .about__meta-item p {
@@ -2450,9 +2452,20 @@ section {
   line-height: 1.45;
 }
 
+/* --------------------------------------------------------------------------
+   Professional Journey — employer blocks
+
+   Not a timeline. A rail with nodes reads as one continuous track, which
+   misstates a record where one employer holds two roles and another is still
+   running. Each employer owns one surface that states its own period, and role
+   progression is shown inside the block that owns it.
+
+   Every offset here is logical (inline-start / padding-inline), so the whole
+   composition mirrors itself under `dir="rtl"` with no override.
+   -------------------------------------------------------------------------- */
 .journey {
   display: grid;
-  gap: 0.7rem;
+  gap: 0.75rem;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -2463,33 +2476,10 @@ section {
   min-width: 0;
 }
 
-/* The logo rides the card edge on phones: a rail plus a node costs ~4.5rem of
-   inline space, which the bullets cannot spare at 320px. */
-.journey-entry__node {
-  position: absolute;
-  z-index: 2;
-  top: 0.75rem;
-  left: 0.8rem;
-  width: 2.3rem;
-  height: 2.3rem;
-  overflow: hidden;
-  border: 2px solid rgba(255, 255, 255, 0.5);
-  border-radius: 0.7rem;
-  background: rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 18px rgba(12, 0, 5, 0.34);
-}
-
-.journey-entry__node img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.journey-entry__card {
+.journey-card {
   position: relative;
   min-width: 0;
-  /* Left inset clears the absolutely placed logo. */
-  padding: 0.8rem 0.85rem 0.9rem 3.55rem;
+  padding: 0.9rem 0.95rem 1rem;
   border: 1px solid var(--glass-prism-border);
   border-radius: 1.05rem;
   background: var(--glass-prism-solid);
@@ -2497,38 +2487,76 @@ section {
 }
 
 @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
-  .journey-entry__card {
+  .journey-card {
     -webkit-backdrop-filter: blur(var(--glass-prism-blur)) saturate(var(--glass-saturate));
     backdrop-filter: blur(var(--glass-prism-blur)) saturate(var(--glass-saturate));
     background: var(--glass-prism);
   }
 }
 
-/* The active role is the one card that reads brighter, with a lit left edge. */
-.journey-entry--current .journey-entry__card {
-  border-color: rgba(255, 255, 255, 0.4);
+/* The active role is the one block that reads brighter, with a lit leading
+   edge. `inset-inline-start` keeps that edge on the reading side in RTL. */
+.journey-entry--current .journey-card {
+  border-color: rgba(255, 255, 255, 0.42);
   background: var(--glass-sheet-solid);
-  box-shadow:
-    var(--glass-prism-shadow),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3),
-    inset 3px 0 0 rgba(255, 255, 255, 0.42);
+  box-shadow: var(--glass-prism-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.journey-entry--current .journey-card::after {
+  content: '';
+  position: absolute;
+  z-index: 3;
+  inset-block: 0;
+  inset-inline-start: 0;
+  width: 3px;
+  background: rgba(255, 255, 255, 0.46);
 }
 
 @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
-  .journey-entry--current .journey-entry__card {
+  .journey-entry--current .journey-card {
     background: var(--glass-sheet);
   }
 }
 
-.journey-entry__top {
+.journey-card__head {
   display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.2rem 0.6rem;
-  min-height: 1.4rem;
+  align-items: flex-start;
+  gap: 0.7rem;
+  min-width: 0;
 }
 
-.journey-entry__company {
+/* The employer photograph, kept as a compact inset rather than a rail node. */
+.journey-card__photo {
+  flex: none;
+  width: 2.6rem;
+  height: 2.6rem;
+  margin: 0;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 18px rgba(12, 0, 5, 0.34);
+}
+
+.journey-card__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.journey-card__ident {
+  min-width: 0;
+  flex: 1;
+}
+
+.journey-card__title-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.5rem;
+}
+
+.journey-card__company {
   margin: 0;
   color: #ffffff;
   font-family: var(--font-heading);
@@ -2538,178 +2566,179 @@ section {
   line-height: 1.2;
 }
 
-/* Date chip: quiet, monospaced-feeling, never competing with the company. */
-.journey-entry__period {
-  color: rgba(255, 255, 255, 0.72);
-  font-size: 0.68rem;
-  font-variant-numeric: tabular-nums;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  white-space: nowrap;
-}
-
-.journey-entry__role {
-  margin: 0.3rem 0 0;
+.journey-card__role {
+  margin: 0.25rem 0 0;
   color: rgba(255, 255, 255, 0.94);
   font-size: 0.83rem;
   font-weight: 700;
-  line-height: 1.3;
+  line-height: 1.35;
 }
 
-.journey-entry__meta {
+.journey-card__meta {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.3rem 0.5rem;
+  gap: 0.25rem 0.55rem;
   margin: 0.4rem 0 0;
   color: rgba(255, 255, 255, 0.62);
   font-size: 0.7rem;
   font-weight: 600;
 }
 
-.journey-entry__meta svg {
+.journey-card__meta svg {
   flex: none;
 }
 
-.journey-entry__mode,
-.journey-entry__badge {
+/* Dates read as data: tabular figures, and never wrapped mid-range. */
+.journey-card__period {
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 0.68rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+.journey-card__place {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.journey-card__mode,
+.journey-card__badge {
   padding: 0.12rem 0.45rem;
   border: 1px solid rgba(255, 255, 255, 0.24);
   border-radius: 999px;
   font-size: 0.62rem;
   font-weight: 800;
   letter-spacing: 0.06em;
-  text-transform: uppercase;
+  /* Not uppercased: Arabic has no case, and German/French/Spanish labels get
+     appreciably wider in caps at the narrow widths this sits at. */
+  white-space: nowrap;
 }
 
-.journey-entry__badge {
-  border-color: rgba(255, 255, 255, 0.5);
-  background: rgba(255, 255, 255, 0.14);
+.journey-card__badge {
+  border-color: rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.16);
   color: #ffffff;
 }
 
-/* Role progression: a compact ladder, not four more cards. */
-.journey-entry__roles {
+/* Role progression inside one employer: a short ladder where each step after
+   the first is marked as a move up, so the promotion is explicit. */
+.journey-progression {
   display: grid;
-  gap: 0.28rem;
-  margin: 0.6rem 0 0;
-  padding: 0.55rem 0 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.16);
-  counter-reset: step;
+  gap: 0.3rem;
+  margin: 0.7rem 0 0;
+  padding: 0.6rem 0.7rem;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 0.8rem;
+  background: rgba(255, 255, 255, 0.06);
   list-style: none;
 }
 
-.journey-entry__roles li {
+.journey-progression__step {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
   gap: 0.15rem 0.5rem;
-  counter-increment: step;
+  min-width: 0;
 }
 
-.journey-entry__roles li::before {
-  content: counter(step, decimal-leading-zero);
-  color: rgba(255, 255, 255, 0.42);
-  font-size: 0.62rem;
-  font-variant-numeric: tabular-nums;
-  font-weight: 800;
+.journey-progression__arrow {
+  flex: none;
+  align-self: center;
+  color: rgba(255, 255, 255, 0.72);
 }
 
-.journey-entry__roles-title {
+/* The arrow mirrors: a promotion points up and forward along the reading axis. */
+[dir='rtl'] .journey-progression__arrow {
+  transform: scaleX(-1);
+}
+
+.journey-progression__title {
   color: rgba(255, 255, 255, 0.9);
   font-size: 0.75rem;
   font-weight: 700;
 }
 
-.journey-entry__roles-period {
+.journey-progression__step--latest .journey-progression__title {
+  color: #ffffff;
+}
+
+.journey-progression__period {
   color: rgba(255, 255, 255, 0.55);
   font-size: 0.66rem;
   font-variant-numeric: tabular-nums;
   font-weight: 600;
+  white-space: nowrap;
 }
 
-.journey-entry__points {
+.journey-card__points {
   display: grid;
-  gap: 0.32rem;
-  margin: 0.6rem 0 0;
-  padding: 0.55rem 0 0;
+  gap: 0.34rem;
+  margin: 0.7rem 0 0;
+  padding: 0.6rem 0 0;
   border-top: 1px solid rgba(255, 255, 255, 0.16);
   list-style: none;
 }
 
-.journey-entry__points li {
+.journey-card__points li {
   position: relative;
-  padding-left: 0.8rem;
+  padding-inline-start: 0.8rem;
   color: rgba(255, 255, 255, 0.82);
   font-size: 0.78rem;
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
-.journey-entry__points li::before {
+.journey-card__points li::before {
   content: '';
   position: absolute;
-  top: 0.52em;
-  left: 0;
+  top: 0.55em;
+  inset-inline-start: 0;
   width: 4px;
   height: 4px;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.45);
 }
 
-/* From 768px there is room for a real rail: the node leaves the card and sits
-   on a continuous glass line, so the entries read as one timeline. */
 @media (min-width: 768px) {
   .journey {
-    position: relative;
-    gap: 0.85rem;
-    padding-left: 3.6rem;
+    gap: 0.9rem;
   }
 
-  .journey::before {
-    content: '';
-    position: absolute;
-    top: 1.2rem;
-    bottom: 1.2rem;
-    left: 1.4rem;
-    width: 2px;
-    border-radius: 999px;
-    background: linear-gradient(
-      to bottom,
-      rgba(255, 255, 255, 0.42),
-      rgba(255, 255, 255, 0.16) 70%,
-      rgba(255, 255, 255, 0.02)
-    );
+  .journey-card {
+    padding: 1.05rem 1.2rem 1.15rem;
   }
 
-  .journey-entry__node {
-    top: 0.65rem;
-    left: -3.6rem;
-    width: 2.8rem;
-    height: 2.8rem;
+  .journey-card__photo {
+    width: 3.1rem;
+    height: 3.1rem;
     border-radius: 0.85rem;
   }
 
-  .journey-entry__card {
-    padding: 0.95rem 1.1rem 1.05rem;
+  .journey-card__company {
+    font-size: 1.08rem;
   }
 
-  .journey-entry__company {
-    font-size: 1.05rem;
+  .journey-card__role {
+    font-size: 0.9rem;
   }
 
-  .journey-entry__role {
-    font-size: 0.88rem;
-  }
-
-  .journey-entry__points li {
+  .journey-card__points li {
     font-size: 0.81rem;
   }
 }
 
-@media (min-width: 1024px) {
-  .journey-entry__roles {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.28rem 1.1rem;
+/* The ladder runs as one row only where both steps fit without either title
+   wrapping to a second line — which German and Spanish do below this width. */
+@media (min-width: 1180px) {
+  .journey-progression {
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(0, 1fr);
+    gap: 0.3rem 1rem;
+    align-items: center;
   }
 }
 
@@ -2894,24 +2923,39 @@ section {
   line-height: 1.45;
 }
 
-/* Strengths read as a quiet list, matching the toolkit language in About. */
+/* Strengths read as a quiet list, matching the toolkit language in About.
+
+   One row each rather than a `·`-separated inline run: there are now eight
+   multi-word strengths instead of six short ones, and inline they collapse into
+   a single unreadable line where the longer German and Spanish labels wrap
+   mid-item, leaving the separators marking nothing. The marker is the same one
+   the journey points use. */
 .resume-strengths {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.05rem 0.42rem;
+  display: grid;
+  gap: 0.32rem;
   margin: 0.5rem 0 0;
   padding: 0;
   list-style: none;
-  color: rgba(255, 255, 255, 0.86);
-  font-size: 0.75rem;
-  font-weight: 600;
-  line-height: 1.5;
 }
 
-.resume-strengths li + li::before {
-  content: '\00b7';
-  margin-right: 0.42rem;
-  color: rgba(255, 255, 255, 0.4);
+.resume-strengths li {
+  position: relative;
+  padding-inline-start: 0.75rem;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 0.74rem;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.resume-strengths li::before {
+  content: '';
+  position: absolute;
+  top: 0.55em;
+  inset-inline-start: 0;
+  width: 3px;
+  height: 3px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.45);
 }
 
 /* ==========================================================================
@@ -3020,13 +3064,22 @@ section {
   --reveal-ease: var(--motion-ease-back);
 }
 
-/* Journey entries connect to the rail, so they swing in from it. */
-.m-connect {
-  --reveal-x: -32px;
-  --reveal-y: 12px;
+/* Journey blocks: opacity and a short lift, nothing else. Three tall surfaces
+   swinging in from the side reads as motion for its own sake, and a reader
+   scrolling at speed must never be waiting on an entrance to finish. Paired
+   with a ~50ms stagger set on each block. */
+.m-journey {
+  --reveal-x: 0px;
+  --reveal-y: 14px;
   --reveal-rx: 0deg;
-  --reveal-scale: 0.98;
-  --reveal-duration: var(--motion-primary);
+  --reveal-scale: 1;
+  --reveal-duration: 340ms;
+}
+
+/* Support surfaces travel from the inline end, so the direction reverses with
+   the page rather than always arriving from the right. */
+[dir='rtl'] .m-support {
+  --reveal-x: -26px;
 }
 
 /* --------------------------------------------------------------------------
@@ -3099,7 +3152,7 @@ section {
   animation-delay: calc(120ms + var(--word-index) * 34ms);
   /* The space between words is collapsed by inline-block, so it is restored
      here rather than with a literal space node. */
-  margin-right: 0.26em;
+  margin-inline-end: 0.26em;
 }
 
 .hero__figure {
@@ -3545,7 +3598,7 @@ section {
 
 .project-stage__hint {
   top: 0.7rem;
-  left: 0.7rem;
+  inset-inline-start: 0.7rem;
   opacity: 0;
   transition: opacity 220ms var(--motion-ease);
 }
@@ -3556,7 +3609,7 @@ section {
 }
 
 .project-stage__count {
-  right: 0.7rem;
+  inset-inline-end: 0.7rem;
   bottom: 0.7rem;
 }
 
@@ -3586,11 +3639,11 @@ section {
 }
 
 .project-stage__nav--previous {
-  left: 0.65rem;
+  inset-inline-start: 0.65rem;
 }
 
 .project-stage__nav--next {
-  right: 0.65rem;
+  inset-inline-end: 0.65rem;
 }
 
 .project-stage--empty {
@@ -3681,26 +3734,19 @@ section {
   padding: clamp(1.15rem, 2.6vw, 2rem);
 }
 
-.project-detail__lede {
-  margin: 0;
-  color: var(--pd-text);
-  font-size: clamp(0.92rem, 1.05vw, 1rem);
-  line-height: 1.75;
-}
-
-.project-detail__value {
-  margin: 0;
-  padding-left: 1.1rem;
-  border-left: 2px solid var(--pd-accent);
-  color: #ffffff;
-  font-size: 0.93rem;
-  font-weight: 650;
-  line-height: 1.7;
+/* ---- Case study ----------------------------------------------------------
+   Seven labelled sections in one reading order. No accordions and no tabs:
+   the content is the point of opening the modal, so none of it starts hidden.
+   Depth comes from the label hierarchy and one contrasting surface, not from
+   controls the reader has to operate.
+   -------------------------------------------------------------------------- */
+.case-study__block {
+  min-width: 0;
 }
 
 /* Matches the section-label pattern used across About, Resume, and the cards:
    0.62rem at 0.62 alpha. */
-.project-detail__block h4 {
+.case-study__label {
   margin: 0 0 0.7rem;
   color: rgba(255, 255, 255, 0.62);
   font-size: 0.62rem;
@@ -3709,21 +3755,35 @@ section {
   text-transform: uppercase;
 }
 
-.project-detail__block p {
+/* Arabic has no case and its letterforms do not survive wide tracking, so the
+   label keeps its size and weight but drops the Latin typographic treatment. */
+[dir='rtl'] .case-study__label {
+  letter-spacing: 0;
+  text-transform: none;
+  font-size: 0.72rem;
+}
+
+.case-study__block p {
   margin: 0;
   color: var(--pd-text);
   font-size: 0.9rem;
   line-height: 1.72;
 }
 
-.project-detail__features {
+.case-study__lede {
+  color: var(--pd-text);
+  font-size: clamp(0.92rem, 1.05vw, 1rem);
+  line-height: 1.75;
+}
+
+.case-study__capabilities {
   display: grid;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.project-detail__features li {
+.case-study__capabilities li {
   display: flex;
   align-items: flex-start;
   gap: 0.7rem;
@@ -3734,11 +3794,11 @@ section {
   line-height: 1.6;
 }
 
-.project-detail__features li:last-child {
+.case-study__capabilities li:last-child {
   border-bottom: 0;
 }
 
-.project-detail__features li > span {
+.case-study__capabilities li > span {
   flex: none;
   width: 0.34rem;
   height: 0.34rem;
@@ -3747,13 +3807,50 @@ section {
   background: var(--pd-accent);
 }
 
-.project-detail__tech {
+/* Engineering trade-offs are a different kind of statement from the product
+   copy above, so they sit on their own surface rather than reading as more
+   marketing. */
+.case-study__considerations {
+  padding: clamp(0.85rem, 1.6vw, 1.15rem);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 0.9rem;
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.case-study__considerations ul {
+  display: grid;
+  gap: 0.55rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.case-study__considerations li {
+  position: relative;
+  padding-inline-start: 1rem;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.85rem;
+  line-height: 1.62;
+}
+
+.case-study__considerations li::before {
+  content: '';
+  position: absolute;
+  top: 0.62em;
+  inset-inline-start: 0;
+  width: 0.3rem;
+  height: 0.3rem;
+  border-radius: 999px;
+  background: var(--pd-accent);
+}
+
+.case-study__tech {
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem;
 }
 
-.project-detail__tech span {
+.case-study__tech span {
   padding: 0.34rem 0.7rem;
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 999px;
@@ -3761,6 +3858,17 @@ section {
   color: rgba(255, 255, 255, 0.8);
   font-size: 0.72rem;
   font-weight: 700;
+}
+
+/* The two shorter prose blocks pair up only where each still gets a readable
+   measure. Driven by `auto-fit` rather than a viewport breakpoint: this column
+   is one half of a split modal, so its width does not track the viewport, and
+   a media query here would pair them at widths where neither block fits. */
+.case-study__pair {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  gap: clamp(1.1rem, 2vw, 1.5rem);
+  min-width: 0;
 }
 
 .project-detail__actions {
@@ -3895,11 +4003,11 @@ section {
 }
 
 .project-viewer__nav--previous {
-  left: clamp(0.4rem, 2vw, 1.5rem);
+  inset-inline-start: clamp(0.4rem, 2vw, 1.5rem);
 }
 
 .project-viewer__nav--next {
-  right: clamp(0.4rem, 2vw, 1.5rem);
+  inset-inline-end: clamp(0.4rem, 2vw, 1.5rem);
 }
 
 /* ---- Responsive ---------------------------------------------------------- */
@@ -3971,7 +4079,7 @@ section {
   }
 
   .project-detail__content {
-    border-left: 1px solid var(--pd-line);
+    border-inline-start: 1px solid var(--pd-line);
   }
 }
 
@@ -4125,7 +4233,7 @@ section {
 
 .capabilities__legend span + span::before,
 .capabilities__legend em::before {
-  margin-right: 0.55rem;
+  margin-inline-end: 0.55rem;
   color: rgba(255, 255, 255, 0.42);
 }
 
@@ -4219,29 +4327,29 @@ section {
   }
 
   .capability:nth-child(2n + 1)::before {
-    left: 0;
+    inset-inline-start: 0;
   }
 
   .capability:nth-child(2n)::before {
-    right: 0;
+    inset-inline-end: 0;
   }
 }
 
 @media (min-width: 1024px) {
   .capability:nth-child(2n + 1)::before {
-    left: -0.5rem;
+    inset-inline-start: -0.5rem;
   }
 
   .capability:nth-child(2n)::before {
-    right: -0.5rem;
+    inset-inline-end: -0.5rem;
   }
 
   .capability:nth-child(4n + 1)::before {
-    left: 0;
+    inset-inline-start: 0;
   }
 
   .capability:nth-child(4n)::before {
-    right: 0;
+    inset-inline-end: 0;
   }
 }
 
@@ -4330,7 +4438,7 @@ section {
 .capability__mark {
   position: absolute;
   z-index: -1;
-  right: 0.5rem;
+  inset-inline-end: 0.5rem;
   bottom: -0.15rem;
   color: transparent;
   font-family: var(--font-heading);
@@ -4373,7 +4481,7 @@ section {
 }
 
 /* ==========================================================================
-   LET'S WORK TOGETHER - the closing plate.
+   CONTACT - the closing plate.
 
    This was the one opaque white section on the page, dropped between a Burgundy
    capabilities section and a Burgundy footer, so it read as a different site.
@@ -4705,4 +4813,210 @@ a.contact-row:focus-visible .contact-row__go {
 
 a.contact-row:focus-visible {
   outline-offset: -3px;
+}
+
+/* --------------------------------------------------------------------------
+   Language selector
+
+   Expands in flow rather than floating: the sidebar is an `overflow-hidden`
+   glass panel wrapping an `overflow-y-auto` nav, and an absolutely positioned
+   popup inside that pair clips against one or the other at some viewport
+   height. Expanding in place scrolls with its container instead, and the same
+   markup then works unchanged in the mobile drawer.
+
+   Styled here rather than through utility classes: the frozen Tailwind build
+   has no min-h-[44px] or the tokens these need.
+   -------------------------------------------------------------------------- */
+.lang-select {
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.lang-select__trigger {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  /* 44px: the selector is a touch target in the drawer, not only a pointer one. */
+  min-height: 44px;
+  padding: 0.4rem 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-align: start;
+  cursor: pointer;
+  transition: background 180ms var(--motion-ease), border-color 180ms var(--motion-ease);
+}
+
+.lang-select__trigger:hover {
+  border-color: rgba(255, 255, 255, 0.34);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.lang-select__current {
+  flex: 1;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.08em;
+}
+
+/* Rotation, not reflection: the chevron points down when closed and up when
+   open in both directions, so it never needs mirroring. */
+.lang-select__chevron {
+  flex: none;
+  transition: transform 200ms var(--motion-ease);
+}
+
+.lang-select__chevron--open {
+  transform: rotate(180deg);
+}
+
+.lang-select__panel {
+  display: grid;
+  gap: 0.15rem;
+  margin: 0.35rem 0 0.2rem;
+  padding: 0;
+  list-style: none;
+}
+
+.lang-select__option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  width: 100%;
+  min-height: 44px;
+  padding: 0.4rem 0.75rem;
+  border: 1px solid transparent;
+  border-radius: 0.7rem;
+  background: none;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-align: start;
+  cursor: pointer;
+  transition: background 160ms var(--motion-ease), color 160ms var(--motion-ease);
+}
+
+.lang-select__option:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.lang-select__option--active {
+  border-color: rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+  font-weight: 800;
+}
+
+.lang-select__trigger:focus-visible,
+.lang-select__option:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.9);
+  outline-offset: 2px;
+}
+
+/* Nav rows are buttons, so their text needs an explicit start alignment; the
+   frozen Tailwind build only offers the physical `text-left`. */
+.nav-row {
+  text-align: start;
+}
+
+/* --------------------------------------------------------------------------
+   RTL
+
+   Everything above this point is written with logical properties and needs no
+   override. What remains here is the handful of positions set by the frozen
+   Tailwind build, which only has physical utilities, plus the two places where
+   a glyph carries a direction of its own.
+   -------------------------------------------------------------------------- */
+
+/* The sidebar docks to the reading-start edge, so the main column's inset for
+   it moves to the other side. Mirrors `xl:pl-[268px] xl:pr-4 2xl:pl-[280px]`. */
+@media (min-width: 1280px) {
+  [dir='rtl'] .app-main {
+    padding-left: 1rem;
+    padding-right: 268px;
+  }
+}
+
+@media (min-width: 1536px) {
+  [dir='rtl'] .app-main {
+    padding-right: 280px;
+  }
+}
+
+/* Mirrors `fixed bottom-4 left-4 top-4`. */
+[dir='rtl'] .sidebar-dock {
+  left: auto;
+  right: 1rem;
+}
+
+/* Mirrors `fixed inset-y-0 left-0`. The drawer's slide direction is set on the
+   element by Framer Motion, which reads the same direction value. */
+[dir='rtl'] .mobile-drawer {
+  left: auto;
+  right: 0;
+}
+
+/* Arrows that mean "onward" follow the reading axis. The external-link and
+   back-to-top glyphs are deliberately excluded: they point out of the page and
+   up, neither of which reverses. */
+[dir='rtl'] .hero__cta-arrow,
+[dir='rtl'] .project-card__cta-arrow {
+  transform: scaleX(-1);
+}
+
+/* The contact arrow both mirrors and keeps its entrance nudge, so the whole
+   transform is restated rather than replaced — including the resting offset,
+   which slides in from the reading-start side. */
+[dir='rtl'] .contact-row__go {
+  transform: translate(4px, 4px) scaleX(-1);
+}
+
+[dir='rtl'] a.contact-row:focus-visible .contact-row__go,
+[dir='rtl'] a.contact-row:hover .contact-row__go {
+  transform: scaleX(-1);
+}
+
+/* --------------------------------------------------------------------------
+   Text expansion safety net
+
+   German compounds (Produktentwicklungsingenieur, Softwarearchitektur) and the
+   longer Spanish and French labels can exceed a narrow box as a single
+   unbreakable token — at 320px the hero role overflowed its grid track by 45px.
+
+   `break-word` only breaks a word that would otherwise overflow, so this is
+   inert wherever the text already fits, including in English. It is applied to
+   the boxes that are both narrow and fed by translated strings, rather than
+   globally, so ordinary prose keeps its natural wrapping.
+   -------------------------------------------------------------------------- */
+.hero__role,
+.hero__summary,
+.hero__meta span,
+.journey-card__company,
+.journey-card__role,
+.journey-progression__title,
+.journey-card__points li,
+.resume-profile__headline,
+.resume-strengths li,
+.resume-card__lead,
+.toolkit-card__items li,
+.toolkit-card__head h4,
+.about__roles-list span,
+.capability__title,
+.project-card__title,
+.project-card__description,
+.project-card__status,
+.project-card__category,
+.case-study__label,
+.case-study__capabilities li,
+.contact-row__value,
+.lang-select__option,
+.nav-row span,
+.portfolio-filter {
+  overflow-wrap: break-word;
 }

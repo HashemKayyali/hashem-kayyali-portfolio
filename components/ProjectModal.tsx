@@ -9,11 +9,12 @@ import {
   Maximize2,
   X,
 } from 'lucide-react';
-import { Project } from '../types';
+import type { ProjectView } from '../data/projectAssets';
 import { pauseSmoothScroll, resumeSmoothScroll } from './smoothScroll';
+import { format, useI18n } from '../i18n/useI18n';
 
 interface ProjectModalProps {
-  project: Project | null;
+  project: ProjectView | null;
   onClose: () => void;
 }
 
@@ -29,7 +30,7 @@ const DURATION_SUPPORT = 0.42;
    immediate, so it stays well under the token scale. */
 const DURATION_IMAGE_SWAP = 0.18;
 
-const buildProjectImages = (project: Project | null): string[] => {
+const buildProjectImages = (project: ProjectView | null): string[] => {
   if (!project) return [];
   return Array.from(new Set([project.image, ...project.gallery]));
 };
@@ -53,6 +54,7 @@ const ThumbStrip: React.FC<ThumbStripProps> = ({
   variant,
   onSelect,
 }) => {
+  const { t } = useI18n();
   const stripRef = useRef<HTMLDivElement>(null);
 
   // Long galleries (11 shots) scroll out of the strip, so the active thumb is
@@ -73,7 +75,7 @@ const ThumbStrip: React.FC<ThumbStripProps> = ({
       ref={stripRef}
       className={`project-thumbs project-thumbs--${variant}`}
       role="tablist"
-      aria-label="Project screenshots"
+      aria-label={t.projectModal.labels.screenshots}
     >
       {images.map((image, index) => (
         <button
@@ -86,7 +88,10 @@ const ThumbStrip: React.FC<ThumbStripProps> = ({
             activeIndex === index ? ' is-active' : ''
           }`}
           onClick={() => onSelect(index)}
-          aria-label={`Show image ${index + 1} of ${images.length}`}
+          aria-label={format(t.projectModal.a11y.showImage, {
+            index: index + 1,
+            count: images.length,
+          })}
         >
           <img
             src={thumbnailFor(image)}
@@ -110,6 +115,10 @@ const ThumbStrip: React.FC<ThumbStripProps> = ({
 };
 
 const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
+  const { t, dir } = useI18n();
+  const labels = t.projectModal.labels;
+  const isRtl = dir === 'rtl';
+
   const candidateImages = useMemo(() => buildProjectImages(project), [project]);
   const [availableImages, setAvailableImages] = useState<string[]>(candidateImages);
   const [activeImage, setActiveImage] = useState(0);
@@ -160,8 +169,10 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
         return;
       }
 
-      if (event.key === 'ArrowRight') showNextImage();
-      if (event.key === 'ArrowLeft') showPreviousImage();
+      // The strip runs in reading order, so the arrow that moves along it
+      // reverses with the direction of the page.
+      if (event.key === 'ArrowRight') (isRtl ? showPreviousImage : showNextImage)();
+      if (event.key === 'ArrowLeft') (isRtl ? showNextImage : showPreviousImage)();
     };
 
     document.body.style.overflow = 'hidden';
@@ -176,7 +187,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
       resumeSmoothScroll();
       window.removeEventListener('keydown', onKey);
     };
-  }, [project, onClose, isViewerOpen, showNextImage, showPreviousImage]);
+  }, [project, onClose, isViewerOpen, showNextImage, showPreviousImage, isRtl]);
 
   useEffect(() => {
     if (!isViewerOpen) return;
@@ -215,17 +226,25 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
     const distance = event.changedTouches[0].clientX - origin;
     if (Math.abs(distance) < SWIPE_THRESHOLD) return;
 
-    if (distance < 0) showNextImage();
+    // Dragging the content leftwards advances in LTR and rewinds in RTL: the
+    // gesture follows the images, and the images run in reading order.
+    const forward = isRtl ? distance > 0 : distance < 0;
+    if (forward) showNextImage();
     else showPreviousImage();
   };
 
   const currentImage = availableImages[activeImage];
   const hasMultiple = imageCount > 1;
+  const copy = project?.copy;
+
+  /* The chevrons point outward along the reading axis, so they swap with it. */
+  const PreviousIcon = isRtl ? ChevronRight : ChevronLeft;
+  const NextIcon = isRtl ? ChevronLeft : ChevronRight;
 
   const modal = (
     <>
       <AnimatePresence>
-        {project && (
+        {project && copy && (
           <motion.div
             className="project-detail"
             initial={{ opacity: 0 }}
@@ -237,7 +256,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
             }
             role="dialog"
             aria-modal="true"
-            aria-label={`${project.title} case study`}
+            aria-label={format(t.projectModal.a11y.caseStudy, { title: copy.title })}
           >
             <motion.article
               className="project-detail__panel"
@@ -248,17 +267,15 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
             >
               <header className="project-detail__head">
                 <div className="project-detail__identity">
-                  <span className="project-detail__eyebrow">
-                    {project.category}
-                  </span>
-                  <h3 className="project-detail__title">{project.title}</h3>
-                  <p className="project-detail__status">{project.status}</p>
+                  <span className="project-detail__eyebrow">{copy.category}</span>
+                  <h3 className="project-detail__title">{copy.title}</h3>
+                  <p className="project-detail__status">{copy.status}</p>
                 </div>
                 <button
                   type="button"
                   onClick={onClose}
                   className="project-detail__close"
-                  aria-label="Close project details"
+                  aria-label={labels.closeDetails}
                 >
                   <X size={19} />
                 </button>
@@ -287,12 +304,17 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
                           type="button"
                           className="project-stage__trigger"
                           onClick={() => setIsViewerOpen(true)}
-                          aria-label={`Open image ${activeImage + 1} full screen`}
+                          aria-label={format(t.projectModal.a11y.openImageFullScreen, {
+                            index: activeImage + 1,
+                          })}
                         >
                           <img
                             className="project-stage__image"
                             src={currentImage}
-                            alt={`${project.title} screenshot ${activeImage + 1}`}
+                            alt={format(t.projectModal.a11y.screenshot, {
+                              title: copy.title,
+                              index: activeImage + 1,
+                            })}
                             decoding="async"
                             fetchPriority="high"
                             onError={() => removeMissingImage(currentImage)}
@@ -301,9 +323,9 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
 
                         <span className="project-stage__hint" aria-hidden="true">
                           <Maximize2 size={14} />
-                          Expand
+                          {labels.expand}
                         </span>
-                        <span className="project-stage__count" aria-live="polite">
+                        <span className="project-stage__count" aria-live="polite" dir="ltr">
                           {activeImage + 1} / {availableImages.length}
                         </span>
 
@@ -313,17 +335,17 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
                               type="button"
                               className="project-stage__nav project-stage__nav--previous"
                               onClick={showPreviousImage}
-                              aria-label="Previous image"
+                              aria-label={labels.previousImage}
                             >
-                              <ChevronLeft size={20} />
+                              <PreviousIcon size={20} />
                             </button>
                             <button
                               type="button"
                               className="project-stage__nav project-stage__nav--next"
                               onClick={showNextImage}
-                              aria-label="Next image"
+                              aria-label={labels.nextImage}
                             >
-                              <ChevronRight size={20} />
+                              <NextIcon size={20} />
                             </button>
                           </>
                         )}
@@ -339,40 +361,70 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
                       )}
                     </>
                   ) : (
+                    // Never a developer instruction: a visitor who reaches this
+                    // is told the images are unavailable, and nothing more.
                     <div className="project-stage project-stage--empty">
-                      Add cover.webp or screenshot-01.webp to this project folder.
+                      {labels.imageUnavailable}
                     </div>
                   )}
                 </section>
 
-                <section className="project-detail__content">
-                  <p className="project-detail__lede">{project.longDescription}</p>
-
-                  <p className="project-detail__value">
-                    {project.stakeholderValue}
-                  </p>
-
-                  <div className="project-detail__block">
-                    <h4>My role</h4>
-                    <p>{project.role}</p>
+                {/* The case study proper. Labelled prose blocks in one reading
+                    order on mobile; the two shorter blocks pair up on desktop. */}
+                <section className="project-detail__content case-study">
+                  <div className="case-study__block case-study__block--lede">
+                    <h4 className="case-study__label">{labels.overview}</h4>
+                    <p className="case-study__lede">{copy.overview}</p>
                   </div>
 
-                  <div className="project-detail__block">
-                    <h4>Key features</h4>
-                    <ul className="project-detail__features">
-                      {project.features.map((feature) => (
-                        <li key={feature}>
+                  <div className="case-study__block">
+                    <h4 className="case-study__label">{labels.purpose}</h4>
+                    <p>{copy.purpose}</p>
+                  </div>
+
+                  {/* Contribution and Engineering pair up where there is width
+                      for two readable measures. Source order is the approved
+                      order, so the reading sequence is the same whether they
+                      sit side by side or stack. */}
+                  <div className="case-study__pair">
+                    <div className="case-study__block">
+                      <h4 className="case-study__label">{labels.contribution}</h4>
+                      <p>{copy.contribution}</p>
+                    </div>
+
+                    <div className="case-study__block">
+                      <h4 className="case-study__label">{labels.engineering}</h4>
+                      <p>{copy.engineering}</p>
+                    </div>
+                  </div>
+
+                  <div className="case-study__block">
+                    <h4 className="case-study__label">{labels.capabilities}</h4>
+                    <ul className="case-study__capabilities">
+                      {copy.capabilities.map((capability) => (
+                        <li key={capability}>
                           <span aria-hidden="true" />
-                          {feature}
+                          {capability}
                         </li>
                       ))}
                     </ul>
                   </div>
 
-                  <div className="project-detail__block">
-                    <h4>Stack</h4>
-                    <div className="project-detail__tech">
-                      {project.tech.map((item) => (
+                  {/* Held on its own surface: engineering trade-offs are a
+                      different kind of statement from the product copy above. */}
+                  <div className="case-study__block case-study__considerations">
+                    <h4 className="case-study__label">{labels.considerations}</h4>
+                    <ul>
+                      {copy.considerations.map((consideration) => (
+                        <li key={consideration}>{consideration}</li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="case-study__block">
+                    <h4 className="case-study__label">{labels.technology}</h4>
+                    <div className="case-study__tech">
+                      {copy.technology.map((item) => (
                         <span key={item}>{item}</span>
                       ))}
                     </div>
@@ -386,11 +438,12 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
                         rel="noopener noreferrer"
                         className="project-detail__cta"
                       >
-                        Visit live project <ExternalLink size={16} />
+                        {labels.visitLive}
+                        <ExternalLink className="project-detail__cta-icon" size={16} />
                       </a>
                     ) : (
                       <span className="project-detail__private">
-                        <LockKeyhole size={15} /> Private source code
+                        <LockKeyhole size={15} /> {labels.privateProject}
                       </span>
                     )}
                   </div>
@@ -402,7 +455,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
       </AnimatePresence>
 
       <AnimatePresence>
-        {project && isViewerOpen && currentImage && (
+        {project && copy && isViewerOpen && currentImage && (
           <motion.div
             className="project-viewer"
             initial={{ opacity: 0 }}
@@ -411,12 +464,12 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
             transition={{ duration: DURATION_DETAIL, ease: EASE }}
             role="dialog"
             aria-modal="true"
-            aria-label={`${project.title} image viewer`}
+            aria-label={format(t.projectModal.a11y.imageViewer, { title: copy.title })}
           >
             <header className="project-viewer__bar">
               <div className="project-viewer__caption">
-                <span>{project.title}</span>
-                <span>
+                <span>{copy.title}</span>
+                <span dir="ltr">
                   {activeImage + 1} / {availableImages.length}
                 </span>
               </div>
@@ -425,7 +478,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
                 type="button"
                 className="project-viewer__close"
                 onClick={() => setIsViewerOpen(false)}
-                aria-label="Close image viewer"
+                aria-label={labels.closeImageViewer}
               >
                 <X size={20} />
               </button>
@@ -444,9 +497,9 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
                   type="button"
                   className="project-viewer__nav project-viewer__nav--previous"
                   onClick={showPreviousImage}
-                  aria-label="Previous image"
+                  aria-label={labels.previousImage}
                 >
-                  <ChevronLeft size={26} />
+                  <PreviousIcon size={26} />
                 </button>
               )}
 
@@ -454,7 +507,11 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
                 key={currentImage}
                 className="project-viewer__image"
                 src={currentImage}
-                alt={`${project.title} screenshot ${activeImage + 1} of ${availableImages.length}`}
+                alt={format(t.projectModal.a11y.screenshotOf, {
+                  title: copy.title,
+                  index: activeImage + 1,
+                  count: availableImages.length,
+                })}
                 decoding="async"
                 initial={{ opacity: 0, scale: 0.985 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -467,9 +524,9 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
                   type="button"
                   className="project-viewer__nav project-viewer__nav--next"
                   onClick={showNextImage}
-                  aria-label="Next image"
+                  aria-label={labels.nextImage}
                 >
-                  <ChevronRight size={26} />
+                  <NextIcon size={26} />
                 </button>
               )}
             </div>

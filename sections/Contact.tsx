@@ -11,38 +11,31 @@ import {
 import SectionWrapper from '../components/SectionWrapper';
 import BurgundyWarpBackground from '../components/ui/burgundy-warp-background';
 import { useReveal } from '../components/useReveal';
-import { profile } from '../data/profile';
-import type { WarpRamp } from '../types';
+import { CONTACT_RAMP, profile } from '../data/profile';
+import { useI18n } from '../i18n/useI18n';
 
 /**
- * The closing plate gets its own palette rather than the shared Burgundy field:
- * a cool green lit inside the ink. It is the one surface on the page whose
- * subject is availability, and green is what the availability marker on it
- * means — so the card and its status badge are lit by the same colour.
+ * Closing section. The direct channels and the full contact index are stated
+ * once, so the section answers "how do I reach him" without a scroll back.
  */
-const OPEN_RAMP: WarpRamp = ['#04120c', '#0d6047', '#000000', '#23a077', '#dcf2e7'];
-
-/**
- * Closing section. Everything a recruiter needs to act is stated once: whether
- * he is available, where he is, the two direct channels, and the full contact
- * index — so the section answers "how do I reach him" without a scroll back.
- */
-const channels = [
-  { icon: Mail, label: 'Email', value: profile.email, href: profile.social.email },
-  { icon: Phone, label: 'Phone', value: profile.phone, href: `tel:${profile.whatsapp}` },
-  { icon: MapPin, label: 'Location', value: profile.location },
-  { icon: Linkedin, label: 'LinkedIn', value: 'hashem-kayyali', href: profile.social.linkedin },
-  { icon: Instagram, label: 'Instagram', value: '@hashemkayyali', href: profile.social.instagram },
-];
-
 const Contact: React.FC = () => {
+  const { t } = useI18n();
   const revealRef = useReveal<HTMLDivElement>();
+
+  // Machine identifiers — addresses, numbers, handles — stay LTR inside Arabic.
+  const channels = [
+    { icon: Mail, label: t.contact.index.email, value: profile.email, href: profile.social.email, ltr: true },
+    { icon: Phone, label: t.contact.index.phone, value: profile.phone, href: `tel:${profile.whatsapp}`, ltr: true },
+    { icon: MapPin, label: t.contact.index.location, value: t.identity.location, ltr: false },
+    { icon: Linkedin, label: t.contact.index.linkedin, value: profile.linkedinHandle, href: profile.social.linkedin, ltr: true },
+    { icon: Instagram, label: t.contact.index.instagram, value: profile.instagramHandle, href: profile.social.instagram, ltr: true },
+  ];
 
   return (
     <SectionWrapper
       id="contact"
-      title="Let's Work Together"
-      subtitle="I am interested in software engineering, R&D product engineering, mobile, full-stack, and IoT opportunities."
+      title={t.contact.title}
+      subtitle={t.contact.subtitle}
       variant="burgundy"
       stickyHeader
     >
@@ -56,23 +49,20 @@ const Contact: React.FC = () => {
             className="contact__warp"
             overlayOpacity={0.6}
             speedMultiplier={0.7}
-            ramp={OPEN_RAMP}
+            ramp={CONTACT_RAMP}
           />
 
           <p className="contact__status">
             <span className="contact__pulse" aria-hidden="true" />
-            {profile.freelanceStatus}
+            {t.contact.eyebrow}
           </p>
 
-          <h3>Have a role or product challenge in mind?</h3>
-          <p className="contact__lead">
-            Reach me directly by email or WhatsApp. I am based in {profile.location} and open to
-            discussing software, product, and connected-system opportunities.
-          </p>
+          <h3>{t.contact.heading}</h3>
+          <p className="contact__lead">{t.contact.supporting}</p>
 
           <div className="contact__actions">
             <a className="contact__cta contact__cta--primary" href={profile.social.email}>
-              <Mail size={17} aria-hidden="true" /> Email Me
+              <Mail size={17} aria-hidden="true" /> {t.contact.actions.email}
             </a>
             <a
               className="contact__cta"
@@ -80,7 +70,7 @@ const Contact: React.FC = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <MessageCircle size={17} aria-hidden="true" /> WhatsApp
+              <MessageCircle size={17} aria-hidden="true" /> {t.contact.actions.whatsapp}
             </a>
           </div>
         </article>
@@ -91,9 +81,9 @@ const Contact: React.FC = () => {
           className="contact__index m-support"
           data-reveal
           style={{ '--reveal-delay': '110ms' } as React.CSSProperties}
-          aria-label="Contact details"
+          aria-label={t.contact.aria}
         >
-          {channels.map(({ icon: Icon, label, value, href }) => {
+          {channels.map(({ icon: Icon, label, value, href, ltr }) => {
             const external = href?.startsWith('http');
             const body = (
               <>
@@ -102,7 +92,7 @@ const Contact: React.FC = () => {
                 </span>
                 <span className="contact-row__body">
                   <span className="contact-row__label">{label}</span>
-                  <span className="contact-row__value">{value}</span>
+                  <span className="contact-row__value" dir={ltr ? 'ltr' : undefined}>{value}</span>
                 </span>
                 {href && <ArrowUpRight className="contact-row__go" size={15} aria-hidden="true" />}
               </>

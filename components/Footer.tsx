@@ -9,7 +9,8 @@ import {
   Phone,
 } from 'lucide-react';
 import { useReveal } from './useReveal';
-import { profile } from '../data/profile';
+import { PROFILE_IMAGE, profile } from '../data/profile';
+import { useI18n } from '../i18n/useI18n';
 
 /**
  * Closing panel. It carries no animated field of its own: it is the same
@@ -17,24 +18,18 @@ import { profile } from '../data/profile';
  * the page ends on the chrome it has been navigated by rather than on a fourth
  * kind of surface.
  */
-const sections = [
-  { label: 'Home', href: '#home' },
-  { label: 'About', href: '#about' },
-  { label: 'Resume', href: '#resume' },
-  { label: 'Projects', href: '#portfolio' },
-  { label: 'Capabilities', href: '#services' },
-  { label: 'Contact', href: '#contact' },
-];
-
-const socials = [
-  { label: 'Email', href: profile.social.email, Icon: Mail },
-  { label: 'WhatsApp', href: profile.social.whatsapp, Icon: MessageCircle },
-  { label: 'LinkedIn', href: profile.social.linkedin, Icon: Linkedin },
-  { label: 'Instagram', href: profile.social.instagram, Icon: Instagram },
-];
+const SECTION_HREFS = ['#home', '#about', '#resume', '#portfolio', '#services', '#contact'];
 
 const Footer: React.FC = () => {
+  const { t } = useI18n();
   const revealRef = useReveal<HTMLElement>();
+
+  const socials = [
+    { label: t.contact.index.email, href: profile.social.email, Icon: Mail },
+    { label: t.contact.actions.whatsapp, href: profile.social.whatsapp, Icon: MessageCircle },
+    { label: t.contact.index.linkedin, href: profile.social.linkedin, Icon: Linkedin },
+    { label: t.contact.index.instagram, href: profile.social.instagram, Icon: Instagram },
+  ];
 
   return (
     <footer className="site-footer" ref={revealRef}>
@@ -43,14 +38,14 @@ const Footer: React.FC = () => {
           <div className="footer-identity">
             <div className="footer-identity__head">
               <span className="footer-identity__avatar">
-                <img src="/images/hashem-profile.webp" alt="" loading="lazy" decoding="async" />
+                <img src={PROFILE_IMAGE} alt="" loading="lazy" decoding="async" />
               </span>
               <div>
-                <p className="footer-identity__name">Hashem Kayyali</p>
-                <p className="footer-identity__role">{profile.role}</p>
+                <p className="footer-identity__name">{t.identity.name}</p>
+                <p className="footer-identity__role">{t.footer.role}</p>
               </div>
             </div>
-            <p className="footer-identity__status">{profile.freelanceStatus}</p>
+            <p className="footer-identity__status">{t.contact.eyebrow}</p>
             <div className="footer-socials">
               {socials.map(({ label, href, Icon }) => (
                 <a
@@ -66,37 +61,40 @@ const Footer: React.FC = () => {
             </div>
           </div>
 
-          <nav className="footer-nav" aria-label="Footer navigation">
-            <p className="footer-heading">Navigate</p>
+          <nav className="footer-nav" aria-label={t.footer.pageSections}>
+            <p className="footer-heading">{t.footer.pageSections}</p>
             <div className="footer-nav__links">
-              {sections.map((section) => (
-                <a key={section.href} href={section.href}>
-                  {section.label}
+              {t.footer.navigation.map((entry, index) => (
+                <a key={entry.number} href={SECTION_HREFS[index]}>
+                  {entry.label}
                 </a>
               ))}
             </div>
           </nav>
 
           <div className="footer-reach">
-            <p className="footer-heading">Reach</p>
+            <p className="footer-heading">{t.contact.title}</p>
+            {/* Addresses and numbers stay LTR inside Arabic. */}
             <a className="footer-reach__row" href={profile.social.email}>
               <Mail size={15} aria-hidden="true" />
-              <span>{profile.email}</span>
+              <span dir="ltr">{profile.email}</span>
             </a>
             <a className="footer-reach__row" href={`tel:${profile.whatsapp}`}>
               <Phone size={15} aria-hidden="true" />
-              <span>{profile.phone}</span>
+              <span dir="ltr">{profile.phone}</span>
             </a>
             <p className="footer-reach__row footer-reach__row--static">
               <MapPin size={15} aria-hidden="true" />
-              <span>{profile.location}</span>
+              <span>{t.identity.location}</span>
             </p>
           </div>
         </div>
 
         <div className="site-footer__base">
-          <p>© {new Date().getFullYear()} Hashem Kayyali. All rights reserved.</p>
-          <a className="site-footer__top" href="#home" aria-label="Back to top">
+          {/* Latin throughout, so it keeps its own direction: bidi would other-
+              wise move the © to the end of the line inside Arabic. */}
+          <p dir="ltr">© {new Date().getFullYear()} {t.footer.copyrightName}</p>
+          <a className="site-footer__top" href="#home" aria-label={t.footer.backToTop}>
             <ArrowUp size={18} aria-hidden="true" />
           </a>
         </div>

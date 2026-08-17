@@ -3,8 +3,9 @@ import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion
 import SectionWrapper from '../components/SectionWrapper';
 import FeatureShaderCard from '../components/ui/feature-shader-cards';
 import { scrollToTarget } from '../components/smoothScroll';
-import { projects } from '../data/profile';
-import { Project } from '../types';
+import { filterOrder, projectAssets, type ProjectView } from '../data/projectAssets';
+import type { FilterKey } from '../content/types';
+import { useI18n } from '../i18n/useI18n';
 
 const ProjectModal = lazy(() => import('../components/ProjectModal'));
 
@@ -27,7 +28,7 @@ interface StackMetrics {
 }
 
 interface StackItemProps {
-  project: Project;
+  project: ProjectView;
   index: number;
   total: number;
   metrics: StackMetrics | null;
@@ -62,13 +63,7 @@ const StackItem: React.FC<StackItemProps> = ({ project, index, total, metrics, o
         <FeatureShaderCard
           index={index}
           total={total}
-          title={project.title}
-          category={project.category}
-          description={project.description}
-          status={project.status}
-          image={project.image}
-          tech={project.tech}
-          warpRamp={project.warpRamp}
+          project={project}
           dimOpacity={dim}
           onClick={onOpen}
         />
@@ -78,18 +73,31 @@ const StackItem: React.FC<StackItemProps> = ({ project, index, total, metrics, o
 };
 
 const Portfolio: React.FC = () => {
-  const [filter, setFilter] = useState('All');
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const { t } = useI18n();
+  // Keyed, never labelled: a localized category string would stop matching the
+  // moment the language changes.
+  const [filter, setFilter] = useState<FilterKey>('all');
+  const [selectedId, setSelectedId] = useState<string | null>(null);
   const [metrics, setMetrics] = useState<StackMetrics | null>(null);
   const stackRef = useRef<HTMLDivElement>(null);
 
-  const filters = useMemo(
-    () => ['All', ...Array.from(new Set(projects.map((project) => project.category)))],
-    [],
+  // Asset record joined to the active language's copy.
+  const allProjects = useMemo<ProjectView[]>(
+    () => projectAssets.map((asset) => ({ ...asset, copy: t.projects[asset.id] })),
+    [t],
   );
+
   const visibleProjects = useMemo(
-    () => (filter === 'All' ? projects : projects.filter((project) => project.category === filter)),
-    [filter],
+    () =>
+      filter === 'all'
+        ? allProjects
+        : allProjects.filter((project) => project.categoryKey === filter),
+    [allProjects, filter],
+  );
+
+  const selectedProject = useMemo(
+    () => allProjects.find((project) => project.id === selectedId) ?? null,
+    [allProjects, selectedId],
   );
 
   // A shorter filtered list can leave the viewport past the section, taking the
@@ -111,7 +119,7 @@ const Portfolio: React.FC = () => {
     // Routed through Lenis so it cannot be dragged back by an in-flight
     // interpolation aimed at the position this is correcting.
     scrollToTarget(rect.top + window.scrollY - offset, { immediate: true });
-  }, [visibleProjects]);
+  }, [filter]);
 
   useEffect(() => {
     const stack = stackRef.current;
@@ -154,22 +162,22 @@ const Portfolio: React.FC = () => {
     <>
       <SectionWrapper
         id="portfolio"
-        title="Selected Projects"
-        subtitle="Digital platforms, business systems, automation tools, computer vision, and R&D / IoT products designed and developed end to end."
+        title={t.projectsSection.title}
+        subtitle={t.projectsSection.subtitle}
         variant="burgundy"
         stickyControls={
-          <div className="portfolio-filters" aria-label="Project filters">
-            {filters.map((item) => (
+          <div className="portfolio-filters" aria-label={t.projectModal.labels.projectFilters}>
+            {filterOrder.map((key) => (
               <button
-                key={item}
+                key={key}
                 type="button"
-                onClick={() => setFilter(item)}
-                aria-pressed={filter === item}
+                onClick={() => setFilter(key)}
+                aria-pressed={filter === key}
                 className={`portfolio-filter${
-                  filter === item ? ' portfolio-filter--active' : ''
+                  filter === key ? ' portfolio-filter--active' : ''
                 }`}
               >
-                {item}
+                {t.projectsSection.filters[key]}
               </button>
             ))}
           </div>
@@ -178,19 +186,19 @@ const Portfolio: React.FC = () => {
         <div className="project-stack" ref={stackRef}>
           {visibleProjects.map((project, index) => (
             <StackItem
-              key={project.slug}
+              key={project.id}
               project={project}
               index={index}
               total={visibleProjects.length}
               metrics={metrics}
-              onOpen={() => setSelectedProject(project)}
+              onOpen={() => setSelectedId(project.id)}
             />
           ))}
         </div>
       </SectionWrapper>
       {selectedProject && (
         <Suspense fallback={null}>
-          <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
+          <ProjectModal project={selectedProject} onClose={() => setSelectedId(null)} />
         </Suspense>
       )}
     </>

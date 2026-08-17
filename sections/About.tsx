@@ -2,29 +2,22 @@ import React from 'react';
 import { Code2, Cpu, Database, Layers3, Smartphone } from 'lucide-react';
 import SectionWrapper from '../components/SectionWrapper';
 import { useReveal } from '../components/useReveal';
-import { profile, skillGroups } from '../data/profile';
+import { ABOUT_STORY_RAMP, profile } from '../data/profile';
 import BurgundyWarpBackground from '../components/ui/burgundy-warp-background';
-import type { WarpRamp } from '../types';
-
-/** Tested in the colour lab: deep navy and indigo lifting into white. */
-const STORY_WARP_RAMP: WarpRamp = ['#ffffff', '#01122d', '#070434', '#f2f2f2', '#d8d8d8'];
+import { useI18n } from '../i18n/useI18n';
 
 const iconMap = [Code2, Smartphone, Database, Cpu, Layers3];
 
-// Two beats instead of three: the same sentences, regrouped so the story reads
-// as a denser block. Nothing is added, removed, or reworded.
-const sentences = profile.aboutParagraph.split(/(?<=\.)\s+/).filter(Boolean);
-const narrative = [sentences.slice(0, 2).join(' '), sentences.slice(2).join(' ')].filter(Boolean);
-
 const About: React.FC = () => {
+  const { t } = useI18n();
   const revealRef = useReveal<HTMLDivElement>();
   const metaRef = useReveal<HTMLDivElement>();
 
   return (
   <SectionWrapper
     id="about"
-    title="About Me"
-    subtitle="Product-minded engineer across software, connected systems, technical operations, and real-world product delivery."
+    title={t.about.title}
+    subtitle={t.about.subtitle}
     variant="burgundy"
     stickyHeader
   >
@@ -35,18 +28,17 @@ const About: React.FC = () => {
           className="about__story-warp"
           overlayOpacity={0.6}
           rootMargin="0px"
-          ramp={STORY_WARP_RAMP}
+          ramp={ABOUT_STORY_RAMP}
         />
         <div className="about__story-body">
-          {narrative.map((paragraph) => (
-            <p key={paragraph.slice(0, 24)}>{paragraph}</p>
-          ))}
+          <p>{t.about.story1}</p>
+          <p>{t.about.story2}</p>
         </div>
         <div className="about__roles">
-          <p className="about__roles-label">Target roles</p>
+          <p className="about__roles-label">{t.about.engineeringFocusTitle}</p>
           <div className="about__roles-list">
-            {profile.targetRoles.map((role) => (
-              <span key={role}>{role}</span>
+            {t.about.engineeringFocus.map((focus) => (
+              <span key={focus}>{focus}</span>
             ))}
           </div>
         </div>
@@ -58,26 +50,23 @@ const About: React.FC = () => {
         style={{ '--reveal-delay': '90ms' } as React.CSSProperties}
       >
         <div className="about__toolkit-head">
-          <h3>Technical toolkit</h3>
-          <p>
-            Mostly Next.js, React Native, and Flutter, supported by backend, automation, and
-            embedded technologies.
-          </p>
+          <h3>{t.about.toolkitTitle}</h3>
+          <p>{t.about.toolkitIntro}</p>
         </div>
 
-        <div className="about__toolkit" aria-label="Technical toolkit matrix">
-          {skillGroups.map((group, index) => {
+        <div className="about__toolkit" aria-label={t.about.toolkitAria}>
+          {t.about.skillCategories.map((category, index) => {
             const Icon = iconMap[index] ?? Layers3;
             return (
-              <section key={group.category} className="toolkit-card">
+              <section key={category} className="toolkit-card">
                 <div className="toolkit-card__head">
                   <span className="toolkit-card__icon" aria-hidden="true">
                     <Icon size={15} />
                   </span>
-                  <h4>{group.category}</h4>
+                  <h4>{category}</h4>
                 </div>
                 <ul className="toolkit-card__items">
-                  {group.items.map((item) => (
+                  {(t.about.skills[index] ?? []).map((item) => (
                     <li key={item}>{item}</li>
                   ))}
                 </ul>
@@ -89,10 +78,10 @@ const About: React.FC = () => {
     </div>
 
     <div className="about__meta m-detail" ref={metaRef} data-reveal>
-      <Info label="Location" value={profile.location} />
-      <Info label="Email" value={profile.email} href={profile.social.email} />
-      <Info label="Phone" value={profile.phone} href={`tel:${profile.whatsapp}`} />
-      <Info label="Status" value={profile.freelanceStatus} />
+      <Info label={t.about.metadataLabels.location} value={t.identity.location} />
+      <Info label={t.about.metadataLabels.currentRole} value={t.resume.experience[0].role ?? t.identity.role} />
+      <Info label={t.about.metadataLabels.email} value={profile.email} href={profile.social.email} />
+      <Info label={t.about.metadataLabels.focus} value={t.about.focusValue} />
     </div>
   </SectionWrapper>
   );
@@ -101,7 +90,8 @@ const About: React.FC = () => {
 const Info = ({ label, value, href }: { label: string; value: string; href?: string }) => (
   <div className="about__meta-item">
     <p>{label}</p>
-    {href ? <a href={href}>{value}</a> : <span>{value}</span>}
+    {/* An address stays LTR inside Arabic: it is a machine identifier, not prose. */}
+    {href ? <a href={href} dir="ltr">{value}</a> : <span>{value}</span>}
   </div>
 );
 
