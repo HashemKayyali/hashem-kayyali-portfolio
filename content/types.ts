@@ -46,6 +46,11 @@ export interface LocalizedProject {
   title: string;
   category: string;
   status: string;
+  /**
+   * Supporting metadata naming the role held on this project. Present only
+   * where the relationship to the product is not obvious from the copy.
+   */
+  role?: string;
   /** Card copy. Stays compact enough for the approved card composition. */
   short: string;
   overview: string;
@@ -73,6 +78,18 @@ export interface ExperienceCopy {
   badge?: string;
   /** Role progression inside one employer, oldest first. */
   roles?: ExperienceRoleCopy[];
+  /**
+   * Prose form of the entry. Where present it replaces `points`, for a role
+   * whose scope reads as one continuous responsibility rather than a list of
+   * separable duties.
+   */
+  summary?: string;
+  /**
+   * A short row naming the dimensions the role covers — at most a few words
+   * each, rendered as the same quiet pills the entry's mode uses.
+   */
+  responsibilities?: string[];
+  /** Empty where `summary` carries the entry instead. */
   points: string[];
 }
 

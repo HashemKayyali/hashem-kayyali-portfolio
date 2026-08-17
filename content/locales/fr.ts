@@ -130,11 +130,12 @@ const fr: Dictionary = {
         "company": "Eventies",
         "period": "Août 2025 – aujourd’hui",
         "location": "Amman, Jordanie",
-        "points": [
-          "Cofondation d’Eventies et pilotage de l’ingénierie produit, de la définition du produit et de l’architecture logicielle jusqu’à l’implémentation, l’intégration, les tests et la préparation au déploiement.",
-          "Traduire les besoins métier en parcours structurés pour les services, la location, les devis, les demandes sur mesure et les opérations.",
-          "Développer les systèmes orientés client et opérationnels à travers le web, les services backend, la gestion des médias, les flux de sécurité et les intégrations temps réel.",
-          "Maintenir la direction technique au fil de l’évolution de la plateforme, avec un accent sur la maintenabilité, la clarté des parcours et la cohérence de l’expérience produit."
+        "points": [],
+        "summary": "Cofondateur responsable de la direction technique et de la gestion produit d’Eventies, avec la responsabilité complète de la conception, de l’ingénierie et du développement de la plateforme depuis zéro. Le rôle couvre l’architecture produit, l’expérience utilisateur, le développement frontend et backend, les intégrations, les tests, le déploiement, l’exploitation du site, l’organisation des contenus et des services, ainsi que l’amélioration continue du produit.",
+        "responsibilities": [
+          "Produit",
+          "Ingénierie",
+          "Exploitation de la plateforme"
         ],
         "role": "Cofondateur & Ingénieur produit R&D",
         "badge": "Rôle actuel"
@@ -222,10 +223,11 @@ const fr: Dictionary = {
       "title": "Eventies",
       "category": "Plateforme web",
       "status": "En ligne · Développement actif",
+      "role": "Cofondateur & Ingénieur produit R&D",
       "short": "Une plateforme de services événementiels qui réunit location, production, activations et solutions sur mesure dans une expérience structurée de découverte et de demande.",
       "overview": "Eventies regroupe la location événementielle, les services de production, les activations et les solutions conçues sur mesure au sein d’une plateforme organisée. Le produit simplifie la découverte des services, aide à identifier les options adaptées à l’événement et guide le passage de la recherche vers une demande de location, de devis ou de solution personnalisée.",
       "purpose": "Centralise la découverte des services événementiels et les parcours de demande, en réduisant la fragmentation entre consultation des services, demandes de devis, organisation des locations et échanges autour de solutions personnalisées.",
-      "contribution": "Responsabilité produit et ingénierie allant de la définition du produit, du design d’expérience et de l’architecture logicielle jusqu’à l’implémentation, l’intégration, les tests et la préparation au déploiement. Le travail couvre à la fois l’expérience client et les systèmes opérationnels, en transformant les besoins métier en parcours clairs, fonctionnalités maintenables et base technique cohérente.",
+      "contribution": "Responsabilité complète du produit numérique et de la mise en œuvre technique d’Eventies, de la structure initiale du produit et du design d’expérience jusqu’à l’architecture logicielle, au développement frontend et backend, aux intégrations, aux tests, au déploiement et à l’exploitation continue de la plateforme. Le rôle comprend également la gestion du site, l’organisation des contenus et des services, la maintenance de la plateforme et la traduction continue des besoins opérationnels en améliorations du produit.",
       "engineering": "Un produit web modulaire reliant la découverte publique des services à des données de catalogue structurées, des parcours de demande, la gestion opérationnelle, la gestion des médias, les flux de sécurité et les intégrations prêtes au déploiement.",
       "capabilities": [
         "Découverte structurée des services événementiels",

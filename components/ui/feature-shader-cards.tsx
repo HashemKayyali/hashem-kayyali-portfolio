@@ -88,6 +88,10 @@ const FeatureShaderCard: React.FC<FeatureShaderCardProps> = ({
           </div>
 
           <h3 className="project-card__title">{copy.title}</h3>
+          {/* Supporting metadata, not a badge: the card says what the product
+              is, and this says what the relationship to it was. Only projects
+              that carry a role render it. */}
+          {copy.role && <p className="project-card__role">{copy.role}</p>}
           <p className="project-card__description">{copy.short}</p>
 
           <div className="project-card__tech">

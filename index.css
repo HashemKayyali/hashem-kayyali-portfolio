@@ -1110,17 +1110,45 @@ section {
   line-height: 1.18;
 }
 
+/* Role held on the project: supporting metadata sitting between the title and
+   the description. Deliberately quieter than both — smaller than the body copy
+   and set in the label colour — so it identifies the relationship to the
+   product without competing with the product's name. It wraps rather than
+   truncating, because the German and Spanish forms are appreciably longer. */
+.project-card__role {
+  margin: 0.35rem 0 0;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: max(11px, 0.7rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.4;
+}
+
 .project-card__description {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
   line-clamp: 3;
   overflow: hidden;
-  margin: 0.6rem 0 0;
+  margin: 0.5rem 0 0;
   color: rgba(255, 255, 255, 0.74);
   font-size: 0.85rem;
   font-weight: 500;
   line-height: 1.62;
+}
+
+/* A card carrying a role line gives up the third clamped line of description,
+   so the role costs no height.
+
+   This matters beyond tidiness: `Portfolio.tsx` measures the first card to
+   derive the step for the whole sticky stack, and the role line had made that
+   card the tallest in the set — every later card would then pin against a step
+   ~20px too large, drifting further with each one. The description was already
+   truncating at three lines, and the untruncated text is the modal's first
+   paragraph. */
+.project-card__body:has(.project-card__role) .project-card__description {
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
 }
 
 /* Understated, not pills: technology reads as a quiet supporting line. */
@@ -2634,7 +2662,8 @@ section {
 }
 
 .journey-card__mode,
-.journey-card__badge {
+.journey-card__badge,
+.journey-card__scope {
   padding: 0.12rem 0.45rem;
   border: 1px solid rgba(255, 255, 255, 0.24);
   border-radius: 999px;
@@ -2644,6 +2673,23 @@ section {
   /* Not uppercased: Arabic has no case, and German/French/Spanish labels get
      appreciably wider in caps at the narrow widths this sits at. */
   white-space: nowrap;
+}
+
+/* The dimensions a role covers. Same pill as the mode, one step quieter, so
+   the row reads as metadata rather than as three claims. */
+.journey-card__scope {
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.72);
+  font-weight: 700;
+}
+
+/* The longest of these ("Exploitation de la plateforme") is wider than a phone
+   allows on one line, so the row is permitted to wrap there. */
+@media (max-width: 480px) {
+  .journey-card__scope {
+    white-space: normal;
+  }
 }
 
 .journey-card__badge {
@@ -2700,6 +2746,25 @@ section {
   font-variant-numeric: tabular-nums;
   font-weight: 600;
   white-space: nowrap;
+}
+
+/* Prose form of an entry. Matches the bullets' size, measure and rhythm, so a
+   card that carries a paragraph sits at the same weight in the column as the
+   cards that carry a list. */
+.journey-card__summary {
+  max-inline-size: 72ch;
+  margin: 0.65rem 0 0;
+  padding: 0.55rem 0 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+  color: rgba(255, 255, 255, 0.82);
+  font-size: max(13px, 0.88rem);
+  line-height: 1.62;
+}
+
+@media (min-width: 768px) {
+  .journey-card__summary {
+    font-size: max(13.5px, 0.9rem);
+  }
 }
 
 /* Capped measure: at 1440 the bullets ran the full 745px of the column, which
@@ -5076,6 +5141,9 @@ a.contact-row:focus-visible {
 .hero__meta span,
 .journey-card__company,
 .journey-card__role,
+.journey-card__scope,
+.journey-card__summary,
+.project-card__role,
 .journey-progression__title,
 .journey-card__points li,
 .resume-profile__headline,

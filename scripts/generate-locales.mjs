@@ -57,6 +57,49 @@ const PROFILE_HEADLINE = {
   es: 'Responsabilidad de ingeniería, desde la arquitectura del producto hasta el despliegue.',
 };
 
+/**
+ * Eventies — the journey entry, in prose.
+ *
+ * Replaces the four bullets, which read as separable duties and understated a
+ * role that runs continuously from product direction through to running the
+ * live platform. Scope is deliberately bounded to product, engineering and
+ * digital-platform operations; the commercial side of the venture belongs to
+ * the co-founder and is not claimed here.
+ */
+const EVENTIES_JOURNEY_SUMMARY = {
+  en: 'Co-Founder responsible for Eventies’ technical direction and product management, with full ownership of designing, engineering, and developing the platform from the ground up. The role spans product architecture, user experience, frontend and backend development, integrations, testing, deployment, website operations, content and service organization, and continuous product improvement.',
+  ar: 'شريك مؤسس مسؤول عن التوجه التقني وإدارة المنتج في Eventies، مع تولّي تصميم وهندسة وتطوير المنصة بالكامل من الصفر، بما يشمل بنية المنتج، وتجربة المستخدم، وتطوير الواجهات والأنظمة الخلفية، والتكاملات، والاختبار والنشر، إلى جانب إدارة تشغيل الموقع، وتنظيم المحتوى والخدمات، والتحسين المستمر للمنتج.',
+  de: 'Mitgründer, verantwortlich für die technische Ausrichtung und das Produktmanagement von Eventies, mit vollständiger Verantwortung für Design, Engineering und Entwicklung der Plattform von Grund auf. Die Rolle umfasst Produktarchitektur, User Experience, Frontend- und Backend-Entwicklung, Integrationen, Tests, Bereitstellung, den Betrieb der Website, die Organisation von Inhalten und Services sowie die kontinuierliche Produktverbesserung.',
+  fr: 'Cofondateur responsable de la direction technique et de la gestion produit d’Eventies, avec la responsabilité complète de la conception, de l’ingénierie et du développement de la plateforme depuis zéro. Le rôle couvre l’architecture produit, l’expérience utilisateur, le développement frontend et backend, les intégrations, les tests, le déploiement, l’exploitation du site, l’organisation des contenus et des services, ainsi que l’amélioration continue du produit.',
+  es: 'Cofundador responsable de la dirección técnica y la gestión de producto de Eventies, con responsabilidad completa del diseño, la ingeniería y el desarrollo de la plataforma desde cero. El rol abarca arquitectura de producto, experiencia de usuario, desarrollo frontend y backend, integraciones, pruebas, despliegue, operación del sitio, organización de contenidos y servicios, y mejora continua del producto.',
+};
+
+/** The three dimensions the Eventies role covers, as a compact row. */
+const EVENTIES_RESPONSIBILITIES = {
+  en: ['Product', 'Engineering', 'Platform Operations'],
+  ar: ['المنتج', 'الهندسة', 'تشغيل المنصة'],
+  de: ['Produkt', 'Engineering', 'Plattformbetrieb'],
+  fr: ['Produit', 'Ingénierie', 'Exploitation de la plateforme'],
+  es: ['Producto', 'Ingeniería', 'Operación de la plataforma'],
+};
+
+/**
+ * Eventies — the case study's Contribution section.
+ *
+ * Overview, Purpose and Engineering are untouched: what the product is, what it
+ * solves, and how it is built are separate statements from what one person owns.
+ */
+const EVENTIES_CONTRIBUTION = {
+  en: 'Full ownership of Eventies’ digital product and technical implementation, from initial product structure and experience design through software architecture, frontend and backend development, integrations, testing, deployment, and ongoing platform operations. The role also includes website management, content and service organization, platform maintenance, and continuously translating operational needs into product improvements.',
+  ar: 'مسؤولية متكاملة عن المنتج الرقمي والتنفيذ التقني في Eventies، بدءًا من بناء هيكل المنتج وتصميم تجربة الاستخدام، مرورًا بالبنية البرمجية وتطوير الواجهات والأنظمة الخلفية والتكاملات والاختبار والنشر، وصولًا إلى التشغيل المستمر للمنصة. ويشمل الدور كذلك إدارة الموقع، وتنظيم المحتوى والخدمات، وصيانة المنصة، وتحويل الاحتياجات التشغيلية باستمرار إلى تحسينات وتطويرات في المنتج.',
+  de: 'Vollständige Verantwortung für das digitale Produkt und die technische Umsetzung von Eventies — von der initialen Produktstruktur und dem Experience Design über Softwarearchitektur, Frontend- und Backend-Entwicklung, Integrationen, Tests und Bereitstellung bis zum laufenden Betrieb der Plattform. Die Rolle umfasst außerdem die Verwaltung der Website, die Organisation von Inhalten und Services, die Wartung der Plattform und die kontinuierliche Übersetzung operativer Anforderungen in Produktverbesserungen.',
+  fr: 'Responsabilité complète du produit numérique et de la mise en œuvre technique d’Eventies, de la structure initiale du produit et du design d’expérience jusqu’à l’architecture logicielle, au développement frontend et backend, aux intégrations, aux tests, au déploiement et à l’exploitation continue de la plateforme. Le rôle comprend également la gestion du site, l’organisation des contenus et des services, la maintenance de la plateforme et la traduction continue des besoins opérationnels en améliorations du produit.',
+  es: 'Responsabilidad completa del producto digital y de la implementación técnica de Eventies, desde la estructura inicial del producto y el diseño de experiencia hasta la arquitectura de software, el desarrollo frontend y backend, las integraciones, las pruebas, el despliegue y la operación continua de la plataforma. El rol incluye además la gestión del sitio, la organización de contenidos y servicios, el mantenimiento de la plataforma y la traducción continua de necesidades operativas en mejoras del producto.',
+};
+
+/** Projects that name the role held on them, keyed by project id. */
+const PROJECT_ROLE_IDS = ['eventies'];
+
 const source = JSON.parse(readFileSync(SOURCE, 'utf8'));
 
 /** True for a `{ en, ar, de, fr, es }` translation map. */
@@ -96,10 +139,18 @@ const buildProjects = (locale) =>
         title: project.title,
         category: pick(project.category, locale),
         status: pick(project.status, locale),
+        // Reuses the resume's role string rather than restating it, so the card
+        // and the journey can never drift apart.
+        ...(PROJECT_ROLE_IDS.includes(project.id)
+          ? { role: pick(source.resume.experience[0].role, locale) }
+          : {}),
         short: pick(project.short, locale),
         overview: pick(project.overview, locale),
         purpose: pick(project.purpose, locale),
-        contribution: pick(project.contribution, locale),
+        contribution:
+          project.id === 'eventies'
+            ? EVENTIES_CONTRIBUTION[locale]
+            : pick(project.contribution, locale),
         engineering: pick(project.engineering, locale),
         capabilities: pick(project.capabilities, locale),
         considerations: pick(project.considerations, locale),
@@ -110,14 +161,24 @@ const buildProjects = (locale) =>
 
 const buildExperience = (locale) =>
   source.resume.experience.map((entry) => {
+    // Eventies reads as one continuous responsibility, so it carries prose and
+    // a dimensions row instead of a bullet list. `points` stays an empty array
+    // rather than being dropped, so the schema is identical across entries.
+    const isEventies = entry.company === 'Eventies';
+
     const copy = {
       company: entry.company,
       // One employer holds a role progression instead of a single title, and
       // spans the combined period of those roles.
       period: pick(entry.period ?? entry.overallPeriod, locale),
       location: pick(entry.location, locale),
-      points: pick(entry.points, locale),
+      points: isEventies ? [] : pick(entry.points, locale),
     };
+
+    if (isEventies) {
+      copy.summary = EVENTIES_JOURNEY_SUMMARY[locale];
+      copy.responsibilities = EVENTIES_RESPONSIBILITIES[locale];
+    }
     if (entry.role) copy.role = pick(entry.role, locale);
     if (entry.mode) copy.mode = pick(entry.mode, locale);
     if (entry.badge) copy.badge = pick(entry.badge, locale);

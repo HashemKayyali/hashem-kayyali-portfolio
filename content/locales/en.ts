@@ -130,11 +130,12 @@ const en: Dictionary = {
         "company": "Eventies",
         "period": "Aug 2025 – Present",
         "location": "Amman, Jordan",
-        "points": [
-          "Co-founded Eventies; lead product engineering across product definition, software architecture, implementation, integration, testing, and deployment preparation.",
-          "Translate business requirements into structured service, rental, quotation, custom-build, and operational workflows.",
-          "Develop customer-facing and operational systems across web software, backend services, media handling, security flows, and real-time integrations.",
-          "Maintain technical direction as the platform evolves, with emphasis on maintainability, clear workflows, and a consistent product experience."
+        "points": [],
+        "summary": "Co-Founder responsible for Eventies’ technical direction and product management, with full ownership of designing, engineering, and developing the platform from the ground up. The role spans product architecture, user experience, frontend and backend development, integrations, testing, deployment, website operations, content and service organization, and continuous product improvement.",
+        "responsibilities": [
+          "Product",
+          "Engineering",
+          "Platform Operations"
         ],
         "role": "Co-Founder & R&D Product Engineer",
         "badge": "Current Role"
@@ -222,10 +223,11 @@ const en: Dictionary = {
       "title": "Eventies",
       "category": "Web Platform",
       "status": "Live · Active Development",
+      "role": "Co-Founder & R&D Product Engineer",
       "short": "An event-services platform that brings rentals, production services, activations, and custom event solutions into one structured discovery and request experience.",
       "overview": "Eventies brings event rentals, production services, activations, and custom-built solutions into one organized platform. The product simplifies how customers explore available services, understand what fits their event, and move from discovery to rental, quotation, or custom requests through a clear, structured workflow.",
       "purpose": "Centralizes event-service discovery and request workflows, reducing fragmentation between browsing services, requesting quotations, arranging rentals, and discussing custom solutions.",
-      "contribution": "Product and engineering ownership spanning product definition, experience design, software architecture, implementation, integration, testing, and deployment preparation. The work covers both the customer-facing experience and the operational systems behind it, translating business requirements into clear workflows, maintainable features, and a coherent technical foundation.",
+      "contribution": "Full ownership of Eventies’ digital product and technical implementation, from initial product structure and experience design through software architecture, frontend and backend development, integrations, testing, deployment, and ongoing platform operations. The role also includes website management, content and service organization, platform maintenance, and continuously translating operational needs into product improvements.",
       "engineering": "A modular web product connecting public service discovery with structured catalog data, request workflows, operational management, media handling, security flows, and deployment-ready integrations.",
       "capabilities": [
         "Structured event-service discovery",

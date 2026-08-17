@@ -130,11 +130,12 @@ const de: Dictionary = {
         "company": "Eventies",
         "period": "Aug. 2025 – heute",
         "location": "Amman, Jordanien",
-        "points": [
-          "Eventies mitgegründet und die Produktentwicklung von Produktdefinition und Softwarearchitektur über Implementierung, Integration und Tests bis zur Vorbereitung der Bereitstellung geleitet.",
-          "Geschäftsanforderungen in strukturierte Abläufe für Services, Vermietung, Angebote, individuelle Anfragen und operative Prozesse übersetzen.",
-          "Kundenorientierte und operative Systeme über Websoftware, Backend-Dienste, Medienverwaltung, Sicherheitsabläufe und Echtzeitintegrationen hinweg entwickeln.",
-          "Die technische Ausrichtung bei der Weiterentwicklung der Plattform steuern, mit Fokus auf Wartbarkeit, klare Abläufe und eine konsistente Produkterfahrung."
+        "points": [],
+        "summary": "Mitgründer, verantwortlich für die technische Ausrichtung und das Produktmanagement von Eventies, mit vollständiger Verantwortung für Design, Engineering und Entwicklung der Plattform von Grund auf. Die Rolle umfasst Produktarchitektur, User Experience, Frontend- und Backend-Entwicklung, Integrationen, Tests, Bereitstellung, den Betrieb der Website, die Organisation von Inhalten und Services sowie die kontinuierliche Produktverbesserung.",
+        "responsibilities": [
+          "Produkt",
+          "Engineering",
+          "Plattformbetrieb"
         ],
         "role": "Mitgründer & Produktentwicklungsingenieur (F&E)",
         "badge": "Aktuelle Rolle"
@@ -222,10 +223,11 @@ const de: Dictionary = {
       "title": "Eventies",
       "category": "Webplattform",
       "status": "Live · Aktive Weiterentwicklung",
+      "role": "Mitgründer & Produktentwicklungsingenieur (F&E)",
       "short": "Eine Plattform für Event-Services, die Vermietung, Produktionsleistungen, Aktivierungen und individuelle Eventlösungen in einer strukturierten Discovery- und Anfrageerfahrung bündelt.",
       "overview": "Eventies bündelt Eventvermietung, Produktionsleistungen, Aktivierungen und individuell entwickelte Lösungen in einer organisierten Plattform. Das Produkt vereinfacht die Suche nach passenden Leistungen und führt Kunden über einen klaren, strukturierten Ablauf von der Entdeckung bis zu Miet-, Angebots- oder individuellen Anfragen.",
       "purpose": "Zentralisiert die Suche nach Event-Services und die zugehörigen Anfrageabläufe und reduziert die Fragmentierung zwischen Service-Recherche, Angebotsanfragen, Mietorganisation und individuellen Lösungen.",
-      "contribution": "Produkt- und Engineering-Verantwortung von Produktdefinition, Experience Design und Softwarearchitektur bis zu Implementierung, Integration, Tests und Deployment-Vorbereitung. Der Umfang umfasst sowohl die Kundenerfahrung als auch die operativen Systeme dahinter und übersetzt Geschäftsanforderungen in klare Abläufe, wartbare Funktionen und eine konsistente technische Grundlage.",
+      "contribution": "Vollständige Verantwortung für das digitale Produkt und die technische Umsetzung von Eventies — von der initialen Produktstruktur und dem Experience Design über Softwarearchitektur, Frontend- und Backend-Entwicklung, Integrationen, Tests und Bereitstellung bis zum laufenden Betrieb der Plattform. Die Rolle umfasst außerdem die Verwaltung der Website, die Organisation von Inhalten und Services, die Wartung der Plattform und die kontinuierliche Übersetzung operativer Anforderungen in Produktverbesserungen.",
       "engineering": "Ein modulares Webprodukt, das die öffentliche Service-Suche mit strukturierten Katalogdaten, Anfrageabläufen, operativer Verwaltung, Medienhandling, Sicherheitsprozessen und deploymentfähigen Integrationen verbindet.",
       "capabilities": [
         "Strukturierte Entdeckung von Event-Services",

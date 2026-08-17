@@ -146,6 +146,15 @@ const Resume: React.FC = () => {
                           {entry.mode && (
                             <span className="journey-card__mode">{entry.mode}</span>
                           )}
+                          {/* The dimensions the role covers, in the same quiet
+                              pill as the mode — so the three sit in the row
+                              that already carries this entry's metadata rather
+                              than adding a band of their own. */}
+                          {entry.responsibilities?.map((item) => (
+                            <span key={item} className="journey-card__scope">
+                              {item}
+                            </span>
+                          ))}
                         </p>
                       </div>
                     </div>
@@ -177,11 +186,18 @@ const Resume: React.FC = () => {
                       </ol>
                     )}
 
-                    <ul className="journey-card__points">
-                      {entry.points.map((point) => (
-                        <li key={point}>{point}</li>
-                      ))}
-                    </ul>
+                    {/* Prose or bullets, never both: an entry whose scope runs
+                        continuously reads better as a paragraph, and the rest
+                        keep the list of separable duties. */}
+                    {entry.summary ? (
+                      <p className="journey-card__summary">{entry.summary}</p>
+                    ) : (
+                      <ul className="journey-card__points">
+                        {entry.points.map((point) => (
+                          <li key={point}>{point}</li>
+                        ))}
+                      </ul>
+                    )}
                   </article>
                 </JourneyEntry>
               );
