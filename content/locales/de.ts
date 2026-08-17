@@ -130,8 +130,12 @@ const de: Dictionary = {
         "company": "Eventies",
         "period": "Aug. 2025 – heute",
         "location": "Amman, Jordanien",
-        "points": [],
-        "summary": "Mitgründer, verantwortlich für die technische Ausrichtung und das Produktmanagement von Eventies, mit vollständiger Verantwortung für Design, Engineering und Entwicklung der Plattform von Grund auf. Die Rolle umfasst Produktarchitektur, User Experience, Frontend- und Backend-Entwicklung, Integrationen, Tests, Bereitstellung, den Betrieb der Website, die Organisation von Inhalten und Services sowie die kontinuierliche Produktverbesserung.",
+        "points": [
+          "Eventies mitgegründet und verantwortlich für die technische Ausrichtung und das digitale Produkt — von Produktarchitektur und User Experience bis zu Implementierung und Bereitstellung.",
+          "Die Plattform von Grund auf konzipiert, entwickelt und umgesetzt, einschließlich Frontend- und Backend-Entwicklung, Integrationen, Tests und laufender technischer Weiterentwicklung.",
+          "Betrieb der Website, Veröffentlichung und Organisation von Inhalten, Struktur des Servicekatalogs, Plattform-Updates und laufende Wartung verantworten.",
+          "Operative Anforderungen in kontinuierliche Produktverbesserungen übersetzen und dabei klare Abläufe, technische Wartbarkeit und eine konsistente Nutzererfahrung sicherstellen."
+        ],
         "responsibilities": [
           "Produkt",
           "Engineering",

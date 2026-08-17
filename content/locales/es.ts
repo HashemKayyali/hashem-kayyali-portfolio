@@ -130,8 +130,12 @@ const es: Dictionary = {
         "company": "Eventies",
         "period": "Ago. 2025 – actualidad",
         "location": "Amán, Jordania",
-        "points": [],
-        "summary": "Cofundador responsable de la dirección técnica y la gestión de producto de Eventies, con responsabilidad completa del diseño, la ingeniería y el desarrollo de la plataforma desde cero. El rol abarca arquitectura de producto, experiencia de usuario, desarrollo frontend y backend, integraciones, pruebas, despliegue, operación del sitio, organización de contenidos y servicios, y mejora continua del producto.",
+        "points": [
+          "Cofundación de Eventies y responsabilidad de la dirección técnica y del producto digital, desde la arquitectura de producto y la experiencia de usuario hasta la implementación y el despliegue.",
+          "Diseño, ingeniería y desarrollo de la plataforma desde cero, incluyendo desarrollo frontend y backend, integraciones, pruebas y evolución técnica continua.",
+          "Gestión de la operación del sitio, la publicación y organización de contenidos, la estructura del catálogo de servicios, las actualizaciones de la plataforma y el mantenimiento continuo.",
+          "Traducir los requisitos operativos en mejoras continuas del producto, manteniendo flujos de trabajo claros, mantenibilidad técnica y una experiencia de usuario coherente."
+        ],
         "responsibilities": [
           "Producto",
           "Ingeniería",

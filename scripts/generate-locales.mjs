@@ -58,32 +58,6 @@ const PROFILE_HEADLINE = {
 };
 
 /**
- * Eventies — the journey entry, in prose.
- *
- * Replaces the four bullets, which read as separable duties and understated a
- * role that runs continuously from product direction through to running the
- * live platform. Scope is deliberately bounded to product, engineering and
- * digital-platform operations; the commercial side of the venture belongs to
- * the co-founder and is not claimed here.
- */
-const EVENTIES_JOURNEY_SUMMARY = {
-  en: 'Co-Founder responsible for Eventies’ technical direction and product management, with full ownership of designing, engineering, and developing the platform from the ground up. The role spans product architecture, user experience, frontend and backend development, integrations, testing, deployment, website operations, content and service organization, and continuous product improvement.',
-  ar: 'شريك مؤسس مسؤول عن التوجه التقني وإدارة المنتج في Eventies، مع تولّي تصميم وهندسة وتطوير المنصة بالكامل من الصفر، بما يشمل بنية المنتج، وتجربة المستخدم، وتطوير الواجهات والأنظمة الخلفية، والتكاملات، والاختبار والنشر، إلى جانب إدارة تشغيل الموقع، وتنظيم المحتوى والخدمات، والتحسين المستمر للمنتج.',
-  de: 'Mitgründer, verantwortlich für die technische Ausrichtung und das Produktmanagement von Eventies, mit vollständiger Verantwortung für Design, Engineering und Entwicklung der Plattform von Grund auf. Die Rolle umfasst Produktarchitektur, User Experience, Frontend- und Backend-Entwicklung, Integrationen, Tests, Bereitstellung, den Betrieb der Website, die Organisation von Inhalten und Services sowie die kontinuierliche Produktverbesserung.',
-  fr: 'Cofondateur responsable de la direction technique et de la gestion produit d’Eventies, avec la responsabilité complète de la conception, de l’ingénierie et du développement de la plateforme depuis zéro. Le rôle couvre l’architecture produit, l’expérience utilisateur, le développement frontend et backend, les intégrations, les tests, le déploiement, l’exploitation du site, l’organisation des contenus et des services, ainsi que l’amélioration continue du produit.',
-  es: 'Cofundador responsable de la dirección técnica y la gestión de producto de Eventies, con responsabilidad completa del diseño, la ingeniería y el desarrollo de la plataforma desde cero. El rol abarca arquitectura de producto, experiencia de usuario, desarrollo frontend y backend, integraciones, pruebas, despliegue, operación del sitio, organización de contenidos y servicios, y mejora continua del producto.',
-};
-
-/** The three dimensions the Eventies role covers, as a compact row. */
-const EVENTIES_RESPONSIBILITIES = {
-  en: ['Product', 'Engineering', 'Platform Operations'],
-  ar: ['المنتج', 'الهندسة', 'تشغيل المنصة'],
-  de: ['Produkt', 'Engineering', 'Plattformbetrieb'],
-  fr: ['Produit', 'Ingénierie', 'Exploitation de la plateforme'],
-  es: ['Producto', 'Ingeniería', 'Operación de la plataforma'],
-};
-
-/**
  * Eventies — the case study's Contribution section.
  *
  * Overview, Purpose and Engineering are untouched: what the product is, what it
@@ -161,23 +135,18 @@ const buildProjects = (locale) =>
 
 const buildExperience = (locale) =>
   source.resume.experience.map((entry) => {
-    // Eventies reads as one continuous responsibility, so it carries prose and
-    // a dimensions row instead of a bullet list. `points` stays an empty array
-    // rather than being dropped, so the schema is identical across entries.
-    const isEventies = entry.company === 'Eventies';
-
     const copy = {
       company: entry.company,
       // One employer holds a role progression instead of a single title, and
       // spans the combined period of those roles.
       period: pick(entry.period ?? entry.overallPeriod, locale),
       location: pick(entry.location, locale),
-      points: isEventies ? [] : pick(entry.points, locale),
+      points: pick(entry.points, locale),
     };
 
-    if (isEventies) {
-      copy.summary = EVENTIES_JOURNEY_SUMMARY[locale];
-      copy.responsibilities = EVENTIES_RESPONSIBILITIES[locale];
+    // Present only on the entry that names the dimensions its role covers.
+    if (entry.responsibilities) {
+      copy.responsibilities = pick(entry.responsibilities, locale);
     }
     if (entry.role) copy.role = pick(entry.role, locale);
     if (entry.mode) copy.mode = pick(entry.mode, locale);

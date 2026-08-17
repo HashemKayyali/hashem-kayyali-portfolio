@@ -130,8 +130,12 @@ const en: Dictionary = {
         "company": "Eventies",
         "period": "Aug 2025 – Present",
         "location": "Amman, Jordan",
-        "points": [],
-        "summary": "Co-Founder responsible for Eventies’ technical direction and product management, with full ownership of designing, engineering, and developing the platform from the ground up. The role spans product architecture, user experience, frontend and backend development, integrations, testing, deployment, website operations, content and service organization, and continuous product improvement.",
+        "points": [
+          "Co-founded Eventies and oversee the technical direction and digital product, from product architecture and user experience through implementation and deployment.",
+          "Designed, engineered, and developed the platform from the ground up, covering frontend and backend development, integrations, testing, and ongoing technical evolution.",
+          "Manage website operations, content publishing and organization, service catalog structure, platform updates, and ongoing maintenance.",
+          "Translate operational requirements into continuous product improvements while maintaining clear workflows, technical maintainability, and a consistent user experience."
+        ],
         "responsibilities": [
           "Product",
           "Engineering",

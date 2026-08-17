@@ -186,18 +186,11 @@ const Resume: React.FC = () => {
                       </ol>
                     )}
 
-                    {/* Prose or bullets, never both: an entry whose scope runs
-                        continuously reads better as a paragraph, and the rest
-                        keep the list of separable duties. */}
-                    {entry.summary ? (
-                      <p className="journey-card__summary">{entry.summary}</p>
-                    ) : (
-                      <ul className="journey-card__points">
-                        {entry.points.map((point) => (
-                          <li key={point}>{point}</li>
-                        ))}
-                      </ul>
-                    )}
+                    <ul className="journey-card__points">
+                      {entry.points.map((point) => (
+                        <li key={point}>{point}</li>
+                      ))}
+                    </ul>
                   </article>
                 </JourneyEntry>
               );

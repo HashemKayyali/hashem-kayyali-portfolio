@@ -2748,25 +2748,6 @@ section {
   white-space: nowrap;
 }
 
-/* Prose form of an entry. Matches the bullets' size, measure and rhythm, so a
-   card that carries a paragraph sits at the same weight in the column as the
-   cards that carry a list. */
-.journey-card__summary {
-  max-inline-size: 72ch;
-  margin: 0.65rem 0 0;
-  padding: 0.55rem 0 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.16);
-  color: rgba(255, 255, 255, 0.82);
-  font-size: max(13px, 0.88rem);
-  line-height: 1.62;
-}
-
-@media (min-width: 768px) {
-  .journey-card__summary {
-    font-size: max(13.5px, 0.9rem);
-  }
-}
-
 /* Capped measure: at 1440 the bullets ran the full 745px of the column, which
    is ~95 characters — too long a line to track comfortably back to the start.
    The cap costs no height at this width because the text already wrapped. */
@@ -5142,7 +5123,6 @@ a.contact-row:focus-visible {
 .journey-card__company,
 .journey-card__role,
 .journey-card__scope,
-.journey-card__summary,
 .project-card__role,
 .journey-progression__title,
 .journey-card__points li,

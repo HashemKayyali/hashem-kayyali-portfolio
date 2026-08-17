@@ -130,8 +130,12 @@ const fr: Dictionary = {
         "company": "Eventies",
         "period": "Août 2025 – aujourd’hui",
         "location": "Amman, Jordanie",
-        "points": [],
-        "summary": "Cofondateur responsable de la direction technique et de la gestion produit d’Eventies, avec la responsabilité complète de la conception, de l’ingénierie et du développement de la plateforme depuis zéro. Le rôle couvre l’architecture produit, l’expérience utilisateur, le développement frontend et backend, les intégrations, les tests, le déploiement, l’exploitation du site, l’organisation des contenus et des services, ainsi que l’amélioration continue du produit.",
+        "points": [
+          "Cofondation d’Eventies et pilotage de la direction technique et du produit numérique, de l’architecture produit et de l’expérience utilisateur jusqu’à l’implémentation et au déploiement.",
+          "Conception, ingénierie et développement de la plateforme depuis zéro, couvrant le développement frontend et backend, les intégrations, les tests et l’évolution technique continue.",
+          "Gestion de l’exploitation du site, de la publication et de l’organisation des contenus, de la structure du catalogue de services, des mises à jour de la plateforme et de la maintenance continue.",
+          "Traduire les besoins opérationnels en améliorations produit continues, tout en préservant la clarté des parcours, la maintenabilité technique et la cohérence de l’expérience utilisateur."
+        ],
         "responsibilities": [
           "Produit",
           "Ingénierie",

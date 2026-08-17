@@ -79,17 +79,10 @@ export interface ExperienceCopy {
   /** Role progression inside one employer, oldest first. */
   roles?: ExperienceRoleCopy[];
   /**
-   * Prose form of the entry. Where present it replaces `points`, for a role
-   * whose scope reads as one continuous responsibility rather than a list of
-   * separable duties.
-   */
-  summary?: string;
-  /**
    * A short row naming the dimensions the role covers — at most a few words
    * each, rendered as the same quiet pills the entry's mode uses.
    */
   responsibilities?: string[];
-  /** Empty where `summary` carries the entry instead. */
   points: string[];
 }
 
