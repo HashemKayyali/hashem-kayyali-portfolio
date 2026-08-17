@@ -10,6 +10,7 @@ import {
   X,
 } from 'lucide-react';
 import { Project } from '../types';
+import { pauseSmoothScroll, resumeSmoothScroll } from './smoothScroll';
 
 interface ProjectModalProps {
   project: Project | null;
@@ -164,10 +165,15 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
     };
 
     document.body.style.overflow = 'hidden';
+    // Held rather than merely blocked: an interpolation still in flight when
+    // the modal opens would keep resolving against a body that can no longer
+    // move, and land the page somewhere else on close.
+    pauseSmoothScroll();
     window.addEventListener('keydown', onKey);
 
     return () => {
       document.body.style.overflow = previousOverflow;
+      resumeSmoothScroll();
       window.removeEventListener('keydown', onKey);
     };
   }, [project, onClose, isViewerOpen, showNextImage, showPreviousImage]);
@@ -258,7 +264,8 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
                 </button>
               </header>
 
-              <div className="project-detail__body">
+              {/* Its own scroller: Lenis must not take the wheel here. */}
+              <div className="project-detail__body" data-lenis-prevent>
                 <section className="project-detail__gallery">
                   {currentImage ? (
                     <>

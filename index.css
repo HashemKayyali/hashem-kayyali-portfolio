@@ -13,6 +13,29 @@
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; width: 100%; max-width: 100%; overflow-x: clip; }
+
+/* Lenis sets the scroll position itself, one frame at a time. Leaving the
+   browser's own smooth scrolling on would make it interpolate towards each of
+   those frames in turn, so the two ease against each other and the page feels
+   heavy. Only applies while Lenis is actually mounted — with reduced motion it
+   never is, and the native smooth scroll above stays in charge. */
+html.lenis,
+html.lenis body {
+  scroll-behavior: auto;
+}
+
+/* Lenis' own requirements for the scroll root and for opted-out scrollers. */
+html.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+[data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
 body {
   margin: 0;
   min-width: 320px;

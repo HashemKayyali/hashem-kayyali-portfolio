@@ -3,6 +3,7 @@ import { profile } from '../data/profile';
 import { Download, FileText, FolderKanban, Home, Instagram, Linkedin, Mail, Menu, MessageCircle, User, Wrench, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import BurgundyWarpBackground from './ui/burgundy-warp-background';
+import { scrollToTarget } from './smoothScroll';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -47,7 +48,11 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
 
   const goTo = (id: string) => {
     setIsOpen(false);
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    // Through Lenis when it is running, so navigating lands with the same
+    // easing as a wheel scroll instead of the browser's own smooth scroll
+    // fighting it for the same frames.
+    const target = document.getElementById(id);
+    if (target) scrollToTarget(target);
   };
 
   const content = (

@@ -2,6 +2,7 @@ import React, { Suspense, lazy, useEffect, useLayoutEffect, useMemo, useRef, use
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import SectionWrapper from '../components/SectionWrapper';
 import FeatureShaderCard from '../components/ui/feature-shader-cards';
+import { scrollToTarget } from '../components/smoothScroll';
 import { projects } from '../data/profile';
 import { Project } from '../types';
 
@@ -107,7 +108,9 @@ const Portfolio: React.FC = () => {
     const item = stack.querySelector<HTMLElement>('.project-stack__item');
     const offset = item ? parseFloat(getComputedStyle(item).top) || 0 : 0;
     // Instant: a smooth jump across the whole stack would be disorienting.
-    window.scrollTo({ top: rect.top + window.scrollY - offset, behavior: 'instant' });
+    // Routed through Lenis so it cannot be dragged back by an in-flight
+    // interpolation aimed at the position this is correcting.
+    scrollToTarget(rect.top + window.scrollY - offset, { immediate: true });
   }, [visibleProjects]);
 
   useEffect(() => {

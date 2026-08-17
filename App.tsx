@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Sidebar, { MobileNav } from './components/Sidebar';
+import { startSmoothScroll } from './components/smoothScroll';
 import GlobalBackground from './components/GlobalBackground';
 import Hero from './sections/Hero';
 import About from './sections/About';
@@ -11,6 +12,8 @@ import Footer from './components/Footer';
 
 const App: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  useEffect(() => startSmoothScroll(), []);
 
   return (
     <div className="relative min-h-screen max-w-full overflow-x-clip text-primary">
