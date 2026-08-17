@@ -43,3 +43,8 @@ data/mobile_overflow_fix_modified/
 # Local agent tooling and skills, not part of the product.
 .agents/
 .claude/
+
+# Authoring source for the site's copy, kept locally. `data/profile.ts` is what
+# the app actually reads, so this file is a working document rather than part of
+# the product, and it should not be published with the repository.
+Hashem_Portfolio_Content_Master_v3_5LANG.json
