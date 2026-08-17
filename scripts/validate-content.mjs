@@ -198,7 +198,24 @@ const pass = (name, detail = '') => results.push({ name, ok: true, detail });
 
 /* -- Source scan ----------------------------------------------------------- */
 const SCAN_EXTENSIONS = new Set(['.ts', '.tsx', '.css', '.html']);
-const SKIP_DIRECTORIES = new Set(['node_modules', 'dist', '.git', 'docs', 'public', 'scripts']);
+
+/**
+ * `.worktrees` and `.claude` hold sibling git worktrees — other branches of
+ * this same repository, checked out inside it. Their files are not this
+ * branch's production source, and scanning them reports retired copy from
+ * whatever those branches happen to contain. Only reachable when the validator
+ * runs from the canonical repository root, which is exactly where it matters.
+ */
+const SKIP_DIRECTORIES = new Set([
+  'node_modules',
+  'dist',
+  '.git',
+  '.worktrees',
+  '.claude',
+  'docs',
+  'public',
+  'scripts',
+]);
 
 const sourceFiles = [];
 const collect = (directory) => {
