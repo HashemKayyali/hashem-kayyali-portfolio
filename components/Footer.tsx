@@ -96,7 +96,6 @@ const Footer: React.FC = () => {
 
         <div className="site-footer__base">
           <p>© {new Date().getFullYear()} Hashem Kayyali. All rights reserved.</p>
-          <p className="site-footer__colophon">Built with React, TypeScript and Vite</p>
           <a className="site-footer__top" href="#home" aria-label="Back to top">
             <ArrowUp size={18} aria-hidden="true" />
           </a>

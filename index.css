@@ -251,7 +251,7 @@ section {
    Burgundy it used to paint is simply the page showing through the glass.
 
    Three bands inside one card: who, where to go, how to reach. Then a base rule
-   carrying copyright, colophon and the way back up.
+   carrying copyright and the way back up.
    ========================================================================== */
 .site-footer {
   padding: 0 clamp(0.75rem, 2vw, 1rem) clamp(0.75rem, 2vw, 1rem);
@@ -463,10 +463,6 @@ section {
   margin: 0;
 }
 
-.site-footer__colophon {
-  color: rgba(255, 255, 255, 0.5);
-}
-
 .site-footer__top {
   display: grid;
   width: 40px;
@@ -504,11 +500,6 @@ section {
 @media (max-width: 699px) {
   .site-footer__base {
     gap: 0.4rem 1rem;
-  }
-
-  .site-footer__colophon {
-    order: 3;
-    width: 100%;
   }
 }
 
