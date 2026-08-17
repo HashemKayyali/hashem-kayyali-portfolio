@@ -20,9 +20,12 @@ let lastAnimationTime = 0;
  * callback dropped one in five of them on arrival. The rate lives here now, so
  * a frame that will not be drawn is never rendered in the first place.
  *
- * Same cadence, same frames, same pixels — only the discarded work is gone.
+ * The rate itself is a quality dial: redrawing these surfaces is the single
+ * largest measured contributor to dropped frames while scrolling, and it scales
+ * directly with this number. Lowering it makes the background's own drift less
+ * fluid; it changes nothing about layout, type, or any other animation.
  */
-const FRAME_INTERVAL = 1000 / 24;
+const FRAME_INTERVAL = 1000 / 15;
 
 /** Subscriber -> the ramp it wants, or null for the shared burgundy surface. */
 type Request = { ramp: WarpRamp; density: number };

@@ -54,7 +54,10 @@ const drawSharedFrame = (
 ) => {
   if (size.width < 1 || size.height < 1 || source.width < 1 || source.height < 1) return;
 
-  const dpr = Math.min(window.devicePixelRatio || 1, 1.25);
+  // 1.0 rather than 1.25: these surfaces carry a soft, low-frequency field with
+  // no edges to hold, so the extra pixels bought very little detail while every
+  // redraw and every layer upload paid for 56% more of them.
+  const dpr = Math.min(window.devicePixelRatio || 1, 1);
   const width = Math.max(1, Math.round(size.width * dpr));
   const height = Math.max(1, Math.round(size.height * dpr));
 
