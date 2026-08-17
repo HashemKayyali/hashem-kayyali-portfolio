@@ -72,7 +72,9 @@ const drawSharedFrame = (
   const coverScale = Math.max(width / source.width, height / source.height) * pulse;
 
   context.setTransform(1, 0, 0, 1, 0, 0);
-  context.clearRect(0, 0, width, height);
+  // No clearRect: the fill below covers the whole surface with an opaque colour
+  // on a context created with `alpha: false`, so clearing first only ever wrote
+  // pixels that the very next call overwrote — once per surface, per frame.
   context.fillStyle = '#300510';
   context.fillRect(0, 0, width, height);
   context.translate(width / 2 + driftX, height / 2 + driftY);
@@ -80,7 +82,10 @@ const drawSharedFrame = (
   context.scale(coverScale, coverScale);
   context.drawImage(source, -source.width / 2, -source.height / 2);
   context.setTransform(1, 0, 0, 1, 0, 0);
-  target.style.opacity = '1';
+  // Written once, on the frame that reveals the surface. Re-asserting it every
+  // frame dirtied the element's style on all ~20 canvases, for a value that
+  // only ever changes when the canvas is first painted or torn down.
+  if (target.style.opacity !== '1') target.style.opacity = '1';
 };
 
 const BurgundyWarpBackground: React.FC<BurgundyWarpBackgroundProps> = ({
@@ -145,11 +150,9 @@ const BurgundyWarpBackground: React.FC<BurgundyWarpBackgroundProps> = ({
     const context = canvas.getContext('2d', { alpha: false, desynchronized: true });
     if (!context) return;
 
-    let lastDrawTime = -Infinity;
+    // The 24fps cadence lives in the runtime now, which is what lets it skip
+    // rendering a frame this surface was going to discard on arrival.
     const unsubscribe = subscribeToSharedWarp((source, animationTime) => {
-      if (animationTime - lastDrawTime < 1000 / 24) return;
-      lastDrawTime = animationTime;
-
       drawSharedFrame(
         canvas,
         context,
@@ -180,17 +183,19 @@ const BurgundyWarpBackground: React.FC<BurgundyWarpBackgroundProps> = ({
         ref={canvasRef}
         className="burgundy-warp-canvas absolute inset-0 opacity-0 transition-opacity duration-300"
       />
-      <div
-        className="absolute inset-0"
-        /* Ceiling raised from 0.5: a surface on its own bright ramp needs a
-           heavier veil than the burgundy field ever did to keep its text
-           legible. Still capped, so a stray value cannot black the surface out. */
-        style={{ background: `rgba(8, 0, 3, ${Math.min(Math.max(overlayOpacity, 0), 0.7)})` }}
-      />
+      {/* Veil and sheen on one element instead of two stacked ones. A
+          background-color always paints beneath that element's own
+          background-images, so the veil still sits under the gradients exactly
+          as it did when they were separate layers — same order, same pixels,
+          one composited layer per surface instead of two. */}
       <div
         className="absolute inset-0"
         style={{
-          background:
+          /* Ceiling raised from 0.5: a surface on its own bright ramp needs a
+             heavier veil than the burgundy field ever did to keep its text
+             legible. Still capped, so a stray value cannot black the surface out. */
+          backgroundColor: `rgba(8, 0, 3, ${Math.min(Math.max(overlayOpacity, 0), 0.7)})`,
+          backgroundImage:
             'radial-gradient(circle at 18% 12%, rgba(255,255,255,0.09), transparent 34%), linear-gradient(118deg, rgba(255,255,255,0.045), transparent 27%, transparent 74%, rgba(255,255,255,0.035))',
         }}
       />

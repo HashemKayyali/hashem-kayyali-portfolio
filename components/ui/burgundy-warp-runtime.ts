@@ -13,9 +13,21 @@ let sharedSource: HTMLCanvasElement | null = null;
 let rampRenderer: RampRenderer | null = null;
 let lastAnimationTime = 0;
 
+/**
+ * Surfaces redraw at 24fps while the shared field is published at 30. That gap
+ * used to be spent and then thrown away: `deliver` rendered a scratch frame for
+ * every custom-ramp surface on every published frame, and the surface's own
+ * callback dropped one in five of them on arrival. The rate lives here now, so
+ * a frame that will not be drawn is never rendered in the first place.
+ *
+ * Same cadence, same frames, same pixels — only the discarded work is gone.
+ */
+const FRAME_INTERVAL = 1000 / 24;
+
 /** Subscriber -> the ramp it wants, or null for the shared burgundy surface. */
 type Request = { ramp: WarpRamp; density: number };
-const subscribers = new Map<WarpFrameSubscriber, Request | null>();
+type Entry = { request: Request | null; lastDelivered: number };
+const subscribers = new Map<WarpFrameSubscriber, Entry>();
 
 export const setSharedWarpSource = (source: HTMLCanvasElement | null) => {
   sharedSource = source;
@@ -34,21 +46,48 @@ export const setRampRenderer = (renderer: RampRenderer | null) => {
   rampRenderer = renderer;
 };
 
-/**
- * A surface on a custom ramp is rendered on demand and copied immediately, so
- * one scratch buffer serves every one of them: the copy happens inside the
- * subscriber call, before the next render overwrites it.
- */
 const sourceFor = (request: Request | null, animationTime: number) => {
   if (!request) return sharedSource;
   if (!rampRenderer) return sharedSource;
   return rampRenderer(request.ramp, animationTime, request.density) ?? sharedSource;
 };
 
+const keyFor = (request: Request | null) =>
+  request ? `${request.density}|${request.ramp.join(',')}` : '';
+
+/**
+ * Ramps repeat across the page — several project cards share a palette — and
+ * two surfaces asking for the same one at the same instant want the same image.
+ *
+ * They cannot simply be handed a cached canvas: the scratch buffer is a single
+ * surface that the next render overwrites, which is exactly why each subscriber
+ * copies out of it immediately. So the saving comes from ordering instead —
+ * subscribers are grouped by the source they need, and every surface sharing a
+ * palette is served from one render before the buffer moves on. Delivery order
+ * within a frame changes; the image each surface receives does not.
+ */
 const deliver = (animationTime: number) => {
-  subscribers.forEach((request, subscriber) => {
+  let due: Map<string, { request: Request | null; waiting: [WarpFrameSubscriber, Entry][] }> | null =
+    null;
+
+  subscribers.forEach((entry, subscriber) => {
+    if (animationTime - entry.lastDelivered < FRAME_INTERVAL) return;
+    if (!due) due = new Map();
+    const key = keyFor(entry.request);
+    const group = due.get(key);
+    if (group) group.waiting.push([subscriber, entry]);
+    else due.set(key, { request: entry.request, waiting: [[subscriber, entry]] });
+  });
+
+  if (!due) return;
+
+  due.forEach(({ request, waiting }) => {
     const source = sourceFor(request, animationTime);
-    if (source) subscriber(source, animationTime);
+    if (!source) return;
+    waiting.forEach(([subscriber, entry]) => {
+      entry.lastDelivered = animationTime;
+      subscriber(source, animationTime);
+    });
   });
 };
 
@@ -65,11 +104,17 @@ export const subscribeToSharedWarp = (
   density = 1,
 ) => {
   const request = ramp ? { ramp, density } : null;
-  subscribers.set(subscriber, request);
+  // -Infinity, so a surface that has just mounted paints on the very next
+  // published frame rather than waiting out an interval it was never part of.
+  const entry: Entry = { request, lastDelivered: -Infinity };
+  subscribers.set(subscriber, entry);
 
   if (sharedSource && lastAnimationTime > 0) {
     const source = sourceFor(request, lastAnimationTime);
-    if (source) subscriber(source, lastAnimationTime);
+    if (source) {
+      entry.lastDelivered = lastAnimationTime;
+      subscriber(source, lastAnimationTime);
+    }
   }
 
   return () => {
