@@ -88,6 +88,15 @@ const structuredData = (locale, dictionary, profile) => {
     description: dictionary.seo.description,
     inLanguage: LOCALE_META[locale].htmlLang,
     isPartOf: { '@id': siteId },
+    /*
+     * Required by Google for ProfilePage, and the reason it flagged the page:
+     * `about` alone does not tell it whose profile this is.
+     *
+     * A reference rather than an inline copy, so the five language versions all
+     * point at one canonical Person node instead of declaring five people who
+     * happen to share a name.
+     */
+    mainEntity: { '@id': personId },
     about: { '@id': personId },
     primaryImageOfPage: `${SITE_URL}/images/hashem-profile.webp`,
   };

@@ -136,6 +136,23 @@ if (pages.size === LOCALES.length) pass('every locale emits a page', `${pages.si
       if (person?.alternateName !== 'هاشم كيالي') problems.push(`${locale}: Person.alternateName`);
       const site = (data['@graph'] ?? []).find((node) => node['@type'] === 'WebSite');
       if (site?.name !== 'Hashem Kayyali') problems.push(`${locale}: WebSite.name should be the person`);
+
+      /* ProfilePage.mainEntity is required by Google, and it has to resolve to
+         the one canonical Person node — five locales must describe the same
+         person, not five people with the same name. */
+      const profilePage = (data['@graph'] ?? []).find((node) => node['@type'] === 'ProfilePage');
+      const canonicalPersonId = `${SITE_URL}/#person`;
+      if (!profilePage?.mainEntity) {
+        problems.push(`${locale}: ProfilePage has no mainEntity`);
+      } else if (profilePage.mainEntity['@id'] !== canonicalPersonId) {
+        problems.push(`${locale}: mainEntity -> ${profilePage.mainEntity['@id']}`);
+      }
+      if (person?.['@id'] !== canonicalPersonId) {
+        problems.push(`${locale}: Person @id ${person?.['@id']} is not the canonical id`);
+      }
+      // One Person per document: a second would fork the identity.
+      const personCount = (data['@graph'] ?? []).filter((node) => node['@type'] === 'Person').length;
+      if (personCount !== 1) problems.push(`${locale}: ${personCount} Person entities`);
     } catch (error) {
       problems.push(`${locale}: JSON-LD does not parse (${error.message.slice(0, 40)})`);
     }
