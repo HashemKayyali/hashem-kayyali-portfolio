@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Roboto+Slab:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  /* Source for the generated brand assets. Screenshotted at build-prep time by
+     seo/capture-brand-assets.mjs, using the site's own burgundy, its heading
+     face and its existing warp surface — no new visual language. */
+  :root {
+    --burgundy: #4d0d1c;
+    --burgundy-deep: #540e21;
+    --ink: #2a0710;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #ffffff; }
+
+  .frame { position: relative; overflow: hidden; }
+
+  .field {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(120% 90% at 18% 8%, rgba(255,255,255,0.16), transparent 46%),
+      radial-gradient(90% 80% at 88% 92%, rgba(180,30,70,0.42), transparent 55%),
+      linear-gradient(140deg, var(--ink) 0%, var(--burgundy) 46%, var(--burgundy-deep) 100%);
+  }
+  .field::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url('/images/burgundy-warp-surface.webp');
+    background-size: cover;
+    background-position: center;
+    mix-blend-mode: soft-light;
+    opacity: 0.55;
+  }
+
+  /* ---- Open Graph card, 1200x630 ---- */
+  #og { width: 1200px; height: 630px; }
+  #og .inner {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 64px;
+    padding: 76px 84px;
+  }
+  #og .name {
+    font-family: 'Roboto Slab', Georgia, serif;
+    font-weight: 800;
+    font-size: 78px;
+    line-height: 1.04;
+    letter-spacing: -0.015em;
+    color: #ffffff;
+  }
+  #og .role {
+    margin-top: 22px;
+    font-family: Inter, sans-serif;
+    font-weight: 700;
+    font-size: 27px;
+    line-height: 1.42;
+    color: rgba(255,255,255,0.9);
+  }
+  #og .meta {
+    margin-top: 30px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  #og .meta span {
+    font-family: Inter, sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.86);
+    border: 1px solid rgba(255,255,255,0.34);
+    border-radius: 999px;
+    padding: 9px 18px;
+  }
+  #og .portrait {
+    width: 300px;
+    height: 380px;
+    border-radius: 26px;
+    overflow: hidden;
+    border: 3px solid rgba(255,255,255,0.72);
+    box-shadow: 0 26px 70px rgba(10,0,4,0.5);
+  }
+  #og .portrait img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  /* ---- Square icon ---- */
+  .icon { width: 512px; height: 512px; }
+  .icon .inner {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: grid;
+    place-items: center;
+  }
+  .icon .mark {
+    font-family: 'Roboto Slab', Georgia, serif;
+    font-weight: 800;
+    font-size: 250px;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: #ffffff;
+    text-shadow: 0 10px 34px rgba(10,0,4,0.45);
+  }
+</style>
+</head>
+<body>
+  <div class="frame" id="og">
+    <div class="field"></div>
+    <div class="inner">
+      <div>
+        <div class="name">Hashem Kayyali</div>
+        <div class="role">Co-Founder &amp; R&amp;D Product Engineer · Software Engineer</div>
+        <div class="meta">
+          <span>Amman, Jordan</span>
+          <span>Product</span>
+          <span>Engineering</span>
+        </div>
+      </div>
+      <div class="portrait"><img src="/images/hashem-profile.webp" alt="" /></div>
+    </div>
+  </div>
+
+  <div class="frame icon" id="icon">
+    <div class="field"></div>
+    <div class="inner"><div class="mark">HK</div></div>
+  </div>
+</body>
+</html>

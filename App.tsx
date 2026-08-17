@@ -3,6 +3,7 @@ import Sidebar, { MobileNav } from './components/Sidebar';
 import { startSmoothScroll } from './components/smoothScroll';
 import GlobalBackground from './components/GlobalBackground';
 import LanguageProvider from './i18n/LanguageProvider';
+import type { Locale } from './content/types';
 import Hero from './sections/Hero';
 import About from './sections/About';
 import Resume from './sections/Resume';
@@ -11,13 +12,18 @@ import Services from './sections/Services';
 import Contact from './sections/Contact';
 import Footer from './components/Footer';
 
-const App: React.FC = () => {
+interface AppProps {
+  /** Supplied during prerendering, where there is no URL to read. */
+  initialLocale?: Locale;
+}
+
+const App: React.FC<AppProps> = ({ initialLocale }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => startSmoothScroll(), []);
 
   return (
-    <LanguageProvider>
+    <LanguageProvider initialLocale={initialLocale}>
       <div className="relative min-h-screen max-w-full overflow-x-clip text-primary">
         <GlobalBackground />
         <Sidebar isOpen={mobileMenuOpen} setIsOpen={setMobileMenuOpen} />

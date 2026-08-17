@@ -26,7 +26,10 @@ const Hero: React.FC = () => {
           />
         </figure>
 
-        <h2 className="hero__headline">
+        {/* The page's one h1: the hero states what this site is about, and the
+            identity itself is carried by the title, the structured data and the
+            visible name in the navigation. */}
+        <h1 className="hero__headline">
           {/* Split per word so each can swing up on its own beat. The full
               sentence stays in the accessibility tree via the sr-only copy, and
               the spans are hidden from it, so screen readers get one heading
@@ -44,7 +47,7 @@ const Hero: React.FC = () => {
               </span>
             ))}
           </span>
-        </h2>
+        </h1>
 
         <p className="hero__role">{t.identity.role}</p>
         <p className="hero__summary">{t.hero.supporting}</p>

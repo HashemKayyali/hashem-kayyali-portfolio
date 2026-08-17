@@ -75,7 +75,9 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
         <div className="nav-avatar">
           <img src={PROFILE_IMAGE} alt={t.ui.alt.profile} />
         </div>
-        <h1 className="mt-3 font-heading text-lg font-extrabold 2xl:text-xl">{t.identity.name}</h1>
+        {/* Not a heading: this block renders twice (docked rail and drawer), and
+            the page's single h1 belongs to the hero. */}
+        <p className="mt-3 font-heading text-lg font-extrabold 2xl:text-xl">{t.identity.name}</p>
         <p className="mx-auto mt-1.5 max-w-[190px] text-[9px] font-semibold uppercase leading-4 tracking-[0.13em] text-primary/65 2xl:text-[10px]">{t.identity.role}</p>
         <div className="mt-3 flex justify-center gap-1.5 2xl:mt-4">
           <Social href={profile.social.linkedin} label={t.contact.index.linkedin}><Linkedin size={15} /></Social>
