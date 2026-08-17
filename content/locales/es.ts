@@ -121,7 +121,7 @@ const es: Dictionary = {
     "title": "Trayectoria",
     "subtitle": "Experiencia profesional, responsabilidad de producto, amplitud técnica y el trabajo real detrás de cada rol.",
     "profileEyebrow": "Perfil profesional",
-    "profileHeadline": "Ingeniería de producto en software, sistemas conectados y entornos operativos reales.",
+    "profileHeadline": "Responsabilidad de ingeniería, desde la arquitectura del producto hasta el despliegue.",
     "profileSummary": "Experiencia de ingeniería multidisciplinaria que abarca desarrollo de producto, sistemas de software, automatización, visión por computador, sistemas embebidos e integración hardware–software. El trabajo suele cubrir todo el recorrido del producto: requisitos, UX, arquitectura, implementación, integración, pruebas, diagnóstico y preparación para despliegue.",
     "journeyTitle": "Trayectoria profesional",
     "journeySupport": "Evolución entre desarrollo de producto, operaciones técnicas y entornos de atención directa al cliente.",

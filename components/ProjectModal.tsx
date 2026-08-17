@@ -283,6 +283,13 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
 
               {/* Its own scroller: Lenis must not take the wheel here. */}
               <div className="project-detail__body" data-lenis-prevent>
+                {/* Media column. On desktop this is one sticky block — images,
+                    thumbnails, then the project's single action — so the column
+                    ends on something deliberate instead of trailing off into an
+                    empty half of the modal. Below the split it becomes
+                    `display: contents` and the action is ordered last, keeping
+                    the mobile reading order: images, case study, then act. */}
+                <div className="project-detail__media-col">
                 <section className="project-detail__gallery">
                   {currentImage ? (
                     <>
@@ -369,6 +376,25 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
                   )}
                 </section>
 
+                <div className="project-detail__actions">
+                  {project.liveUrl ? (
+                    <a
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="project-detail__cta"
+                    >
+                      {labels.visitLive}
+                      <ExternalLink className="project-detail__cta-icon" size={16} />
+                    </a>
+                  ) : (
+                    <span className="project-detail__private">
+                      <LockKeyhole size={15} /> {labels.privateProject}
+                    </span>
+                  )}
+                </div>
+                </div>
+
                 {/* The case study proper. Labelled prose blocks in one reading
                     order on mobile; the two shorter blocks pair up on desktop. */}
                 <section className="project-detail__content case-study">
@@ -428,24 +454,6 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
                         <span key={item}>{item}</span>
                       ))}
                     </div>
-                  </div>
-
-                  <div className="project-detail__actions">
-                    {project.liveUrl ? (
-                      <a
-                        href={project.liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="project-detail__cta"
-                      >
-                        {labels.visitLive}
-                        <ExternalLink className="project-detail__cta-icon" size={16} />
-                      </a>
-                    ) : (
-                      <span className="project-detail__private">
-                        <LockKeyhole size={15} /> {labels.privateProject}
-                      </span>
-                    )}
                   </div>
                 </section>
               </div>

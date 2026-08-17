@@ -237,6 +237,33 @@ section {
   overflow: hidden;
 }
 
+/* The employer field sat at full strength behind the case text and read as the
+   card's subject rather than its atmosphere. It drops a layer so a reading
+   scrim can sit between it and the content — the colour identity still shows
+   through, but the text now has a surface to sit on. Both layers stay negative,
+   so the card's own `isolation: isolate` keeps them inside it. */
+.journey-card__warp {
+  z-index: -2;
+}
+
+.journey-card:has(.journey-card__warp)::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  border-radius: inherit;
+  /* Lightest at the top, where the photograph and employer name sit, and
+     heaviest across the bullets. The field stays visible throughout; it just
+     stops competing with the sentence in front of it. */
+  background: linear-gradient(
+    180deg,
+    rgba(10, 1, 6, 0.16) 0%,
+    rgba(10, 1, 6, 0.4) 34%,
+    rgba(10, 1, 6, 0.56) 100%
+  );
+  pointer-events: none;
+}
+
 /* Card warp canvases copy the single shared WebGL surface only while near the viewport. */
 .burgundy-warp-canvas {
   display: block;
@@ -2307,7 +2334,7 @@ section {
 .resume-profile__eyebrow {
   margin: 0;
   color: rgba(255, 255, 255, 0.6);
-  font-size: 0.62rem;
+  font-size: max(10.5px, 0.66rem);
   font-weight: 800;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -2327,13 +2354,13 @@ section {
   margin: 0.55rem 0 0;
   max-width: 46rem;
   color: rgba(255, 255, 255, 0.8);
-  font-size: 0.85rem;
+  font-size: max(13px, 0.9rem);
   line-height: 1.6;
 }
 
 @media (min-width: 1024px) {
   .resume-profile__summary {
-    font-size: 0.89rem;
+    font-size: max(13.5px, 0.94rem);
     line-height: 1.64;
   }
 }
@@ -2384,7 +2411,7 @@ section {
 .resume-metric__label {
   margin: 0.3rem 0 0;
   color: rgba(255, 255, 255, 0.68);
-  font-size: 0.62rem;
+  font-size: max(10.5px, 0.66rem);
   font-weight: 700;
   letter-spacing: 0.13em;
   line-height: 1.3;
@@ -2441,14 +2468,14 @@ section {
   margin: 0;
   color: #ffffff;
   font-family: var(--font-heading);
-  font-size: 1.05rem;
+  font-size: max(16.5px, 1.08rem);
   font-weight: 800;
 }
 
 .journey__head p {
   margin: 0.22rem 0 0;
   color: rgba(255, 255, 255, 0.7);
-  font-size: 0.78rem;
+  font-size: max(12.5px, 0.84rem);
   line-height: 1.45;
 }
 
@@ -2560,7 +2587,7 @@ section {
   margin: 0;
   color: #ffffff;
   font-family: var(--font-heading);
-  font-size: 0.97rem;
+  font-size: max(16px, 1.02rem);
   font-weight: 800;
   letter-spacing: -0.005em;
   line-height: 1.2;
@@ -2569,7 +2596,7 @@ section {
 .journey-card__role {
   margin: 0.25rem 0 0;
   color: rgba(255, 255, 255, 0.94);
-  font-size: 0.83rem;
+  font-size: max(14px, 0.92rem);
   font-weight: 700;
   line-height: 1.35;
 }
@@ -2581,7 +2608,7 @@ section {
   gap: 0.25rem 0.55rem;
   margin: 0.4rem 0 0;
   color: rgba(255, 255, 255, 0.62);
-  font-size: 0.7rem;
+  font-size: max(11.5px, 0.74rem);
   font-weight: 600;
 }
 
@@ -2592,7 +2619,7 @@ section {
 /* Dates read as data: tabular figures, and never wrapped mid-range. */
 .journey-card__period {
   color: rgba(255, 255, 255, 0.76);
-  font-size: 0.68rem;
+  font-size: max(11.5px, 0.72rem);
   font-variant-numeric: tabular-nums;
   font-weight: 700;
   letter-spacing: 0.03em;
@@ -2611,7 +2638,7 @@ section {
   padding: 0.12rem 0.45rem;
   border: 1px solid rgba(255, 255, 255, 0.24);
   border-radius: 999px;
-  font-size: 0.62rem;
+  font-size: max(10.5px, 0.66rem);
   font-weight: 800;
   letter-spacing: 0.06em;
   /* Not uppercased: Arabic has no case, and German/French/Spanish labels get
@@ -2630,8 +2657,8 @@ section {
 .journey-progression {
   display: grid;
   gap: 0.3rem;
-  margin: 0.7rem 0 0;
-  padding: 0.6rem 0.7rem;
+  margin: 0.65rem 0 0;
+  padding: 0.55rem 0.7rem;
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 0.8rem;
   background: rgba(255, 255, 255, 0.06);
@@ -2659,7 +2686,7 @@ section {
 
 .journey-progression__title {
   color: rgba(255, 255, 255, 0.9);
-  font-size: 0.75rem;
+  font-size: max(12.5px, 0.8rem);
   font-weight: 700;
 }
 
@@ -2669,17 +2696,21 @@ section {
 
 .journey-progression__period {
   color: rgba(255, 255, 255, 0.55);
-  font-size: 0.66rem;
+  font-size: max(11px, 0.72rem);
   font-variant-numeric: tabular-nums;
   font-weight: 600;
   white-space: nowrap;
 }
 
+/* Capped measure: at 1440 the bullets ran the full 745px of the column, which
+   is ~95 characters — too long a line to track comfortably back to the start.
+   The cap costs no height at this width because the text already wrapped. */
 .journey-card__points {
   display: grid;
-  gap: 0.34rem;
-  margin: 0.7rem 0 0;
-  padding: 0.6rem 0 0;
+  gap: 0.3rem;
+  max-inline-size: 72ch;
+  margin: 0.65rem 0 0;
+  padding: 0.55rem 0 0;
   border-top: 1px solid rgba(255, 255, 255, 0.16);
   list-style: none;
 }
@@ -2688,8 +2719,8 @@ section {
   position: relative;
   padding-inline-start: 0.8rem;
   color: rgba(255, 255, 255, 0.82);
-  font-size: 0.78rem;
-  line-height: 1.55;
+  font-size: max(13px, 0.88rem);
+  line-height: 1.62;
 }
 
 .journey-card__points li::before {
@@ -2719,15 +2750,15 @@ section {
   }
 
   .journey-card__company {
-    font-size: 1.08rem;
+    font-size: max(17px, 1.1rem);
   }
 
   .journey-card__role {
-    font-size: 0.9rem;
+    font-size: max(14.5px, 0.96rem);
   }
 
   .journey-card__points li {
-    font-size: 0.81rem;
+    font-size: max(13.5px, 0.9rem);
   }
 }
 
@@ -2774,15 +2805,15 @@ section {
 .resume-download h3 {
   margin: 0.7rem 0 0;
   font-family: var(--font-heading);
-  font-size: 1.05rem;
+  font-size: max(16px, 1.06rem);
   font-weight: 800;
 }
 
 .resume-download p {
   margin: 0.4rem 0 0;
   color: rgba(255, 255, 255, 0.76);
-  font-size: 0.79rem;
-  line-height: 1.5;
+  font-size: max(12.5px, 0.84rem);
+  line-height: 1.58;
 }
 
 .resume-download__actions {
@@ -2797,7 +2828,7 @@ section {
   gap: 0.35rem;
   margin-top: 0.7rem;
   color: rgba(255, 255, 255, 0.6);
-  font-size: 0.68rem;
+  font-size: max(12px, 0.74rem);
   line-height: 1.4;
 }
 
@@ -2817,7 +2848,7 @@ section {
   padding: 0.6rem 0.9rem;
   border: 1px solid transparent;
   border-radius: 0.8rem;
-  font-size: 0.81rem;
+  font-size: max(13px, 0.86rem);
   font-weight: 800;
   text-decoration: none;
   transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
@@ -2904,7 +2935,7 @@ section {
 .resume-card__eyebrow {
   margin: 0;
   color: rgba(255, 255, 255, 0.6);
-  font-size: 0.62rem;
+  font-size: max(10.5px, 0.66rem);
   font-weight: 800;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -2912,14 +2943,14 @@ section {
 
 .resume-card__lead {
   margin: 0.6rem 0 0;
-  font-size: 0.85rem;
+  font-size: max(13px, 0.88rem);
   font-weight: 700;
 }
 
 .resume-card__note {
   margin: 0.2rem 0 0;
   color: rgba(255, 255, 255, 0.64);
-  font-size: 0.75rem;
+  font-size: max(12.5px, 0.8rem);
   line-height: 1.45;
 }
 
@@ -2942,7 +2973,7 @@ section {
   position: relative;
   padding-inline-start: 0.75rem;
   color: rgba(255, 255, 255, 0.86);
-  font-size: 0.74rem;
+  font-size: max(12.5px, 0.82rem);
   font-weight: 600;
   line-height: 1.45;
 }
@@ -4065,29 +4096,75 @@ section {
    columns. Stacking is the narrow-screen fallback, not the default. */
 @media (min-width: 768px) {
   .project-detail__body {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
   }
 
-  /* Sticky, so the gallery stays put while the case study scrolls. The
-     divider lives on the taller content column so it runs the full height
-     instead of stopping where the short gallery box ends. */
-  .project-detail__gallery {
+  /* The media column is one sticky block, so the images and the project's
+     action stay put while the case study scrolls beside them. */
+  .project-detail__media-col {
     position: sticky;
     top: 0;
     align-self: start;
+    min-width: 0;
+  }
+
+  .project-detail__gallery {
     border-bottom: 0;
   }
 
-  .project-detail__content {
-    border-inline-start: 1px solid var(--pd-line);
+  .project-detail__media-col .project-detail__actions {
+    padding: 0 clamp(1.15rem, 2.6vw, 2rem) clamp(1.15rem, 2.6vw, 2rem);
+  }
+
+  /* The divider ends with the media rather than running the full height of the
+     case study.
+
+     A full-height rule down the middle framed everything below the thumbnails
+     as an empty tinted panel — on a 1440 desktop that was a ~555x250px void
+     held open by a border with nothing in it. Ending the line with the gallery
+     lets that space read as the modal's own margin, which is what it is. It
+     fades out rather than stopping square, so it reads as deliberate. */
+  .project-detail__media-col::after {
+    content: '';
+    position: absolute;
+    z-index: 2;
+    inset-block: 0;
+    inset-inline-end: 0;
+    width: 1px;
+    background: linear-gradient(
+      to bottom,
+      var(--pd-line) 0%,
+      var(--pd-line) 72%,
+      transparent 100%
+    );
   }
 }
 
-/* Desktop can afford to give the gallery the slightly larger half; on tablet
-   the text column needs every pixel to keep a readable measure. */
+/* Below the split there is one column, so the wrapper stops being a box and
+   its children join the body's own flow. Order is restated because the action
+   belongs after the case study when everything is stacked. */
+@media (max-width: 767px) {
+  .project-detail__media-col {
+    display: contents;
+  }
+
+  .project-detail__content {
+    order: 2;
+  }
+
+  .project-detail__body .project-detail__actions {
+    order: 3;
+    padding: 0 clamp(1.15rem, 2.6vw, 2rem) clamp(1.15rem, 2.6vw, 2rem);
+  }
+}
+
+/* The case study is the reason the modal opens, so the reading column takes the
+   larger share. The gallery previously held the wider half and then ran out of
+   content two thirds of the way down, which is what left the void beside the
+   text. */
 @media (min-width: 1024px) {
   .project-detail__body {
-    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
   }
 }
 

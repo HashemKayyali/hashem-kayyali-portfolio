@@ -121,7 +121,7 @@ const fr: Dictionary = {
     "title": "Parcours",
     "subtitle": "Expérience professionnelle, responsabilité produit, diversité technique et travail concret derrière chaque rôle.",
     "profileEyebrow": "Profil professionnel",
-    "profileHeadline": "Ingénierie produit à travers les logiciels, les systèmes connectés et les environnements opérationnels réels.",
+    "profileHeadline": "Responsabilité d’ingénierie, de l’architecture produit au déploiement.",
     "profileSummary": "Expérience d’ingénierie multidisciplinaire couvrant le développement produit, les systèmes logiciels, l’automatisation, la vision par ordinateur, les systèmes embarqués et l’intégration matériel–logiciel. Le travail couvre généralement l’ensemble du cycle produit : exigences, UX, architecture, implémentation, intégration, tests, diagnostic et préparation au déploiement.",
     "journeyTitle": "Parcours professionnel",
     "journeySupport": "Une progression entre développement produit, opérations techniques et environnements en contact avec les clients.",

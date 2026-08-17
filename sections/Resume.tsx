@@ -107,7 +107,10 @@ const Resume: React.FC = () => {
                       <BurgundyWarpBackground
                         index={20 + index}
                         className="journey-card__warp"
-                        overlayOpacity={0.6}
+                        /* Raised from 0.6 (0.7 is the component's cap): the
+                           field is atmosphere behind a block of case text, not
+                           a display surface like the capability cards. */
+                        overlayOpacity={0.68}
                         ramp={asset.warpRamp}
                       />
                     )}

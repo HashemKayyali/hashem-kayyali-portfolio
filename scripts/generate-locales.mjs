@@ -23,16 +23,38 @@ const OUT_DIR = resolve(ROOT, 'content/locales');
 const LOCALES = ['en', 'ar', 'de', 'fr', 'es'];
 
 /**
- * The card call to action has no key in the content source; these five strings
- * were approved separately for it. Everything else on this page comes from the
- * JSON.
+ * Directed copy that is not in the content source.
+ *
+ * Both entries were specified after the JSON was frozen, and the JSON itself is
+ * untracked — so they live here, in version control, rather than as an edit to
+ * the source file that a later hand-off would silently drop. Everything else on
+ * the page still comes from the JSON.
  */
+
+/** The card call to action has no key in the content source. */
 const VIEW_PROJECT = {
   en: 'View project',
   ar: 'عرض المشروع',
   de: 'Projekt ansehen',
   fr: 'Voir le projet',
   es: 'Ver proyecto',
+};
+
+/**
+ * Replaces `resume.profileHeadline`. The source line restated the Hero almost
+ * word for word; this one names the span of responsibility instead, so the
+ * Resume opens on something the Hero has not already said.
+ *
+ * The deployment noun matches the one each locale already uses in the resume
+ * bullets (Bereitstellung / déploiement / despliegue / النشر), so the section
+ * stays internally consistent.
+ */
+const PROFILE_HEADLINE = {
+  en: 'Engineering ownership from product architecture to deployment.',
+  ar: 'مسؤولية هندسية من بنية المنتج حتى النشر.',
+  de: 'Engineering-Verantwortung von der Produktarchitektur bis zur Bereitstellung.',
+  fr: 'Responsabilité d’ingénierie, de l’architecture produit au déploiement.',
+  es: 'Responsabilidad de ingeniería, desde la arquitectura del producto hasta el despliegue.',
 };
 
 const source = JSON.parse(readFileSync(SOURCE, 'utf8'));
@@ -136,7 +158,7 @@ const buildDictionary = (locale) => ({
     title: pick(source.resume.title, locale),
     subtitle: pick(source.resume.subtitle, locale),
     profileEyebrow: pick(source.resume.profileEyebrow, locale),
-    profileHeadline: pick(source.resume.profileHeadline, locale),
+    profileHeadline: PROFILE_HEADLINE[locale],
     profileSummary: pick(source.resume.profileSummary, locale),
     journeyTitle: pick(source.resume.journeyTitle, locale),
     journeySupport: pick(source.resume.journeySupport, locale),

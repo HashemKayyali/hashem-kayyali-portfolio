@@ -121,7 +121,7 @@ const en: Dictionary = {
     "title": "Resume",
     "subtitle": "Professional experience, product ownership, engineering breadth, and the work behind each role.",
     "profileEyebrow": "Professional Profile",
-    "profileHeadline": "Product engineering across software, connected systems, and real-world operations.",
+    "profileHeadline": "Engineering ownership from product architecture to deployment.",
     "profileSummary": "Cross-disciplinary engineering experience spanning product development, software systems, automation, computer vision, embedded systems, and hardware–software integration. The work typically covers the full product path: requirements, UX, architecture, implementation, integration, testing, troubleshooting, and deployment preparation.",
     "journeyTitle": "Professional Journey",
     "journeySupport": "Progression across product development, technical operations, and customer-facing environments.",

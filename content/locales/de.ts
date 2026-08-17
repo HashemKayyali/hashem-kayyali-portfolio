@@ -121,7 +121,7 @@ const de: Dictionary = {
     "title": "Lebenslauf",
     "subtitle": "Berufserfahrung, Produktverantwortung, technische Bandbreite und die Arbeit hinter jeder Rolle.",
     "profileEyebrow": "Berufliches Profil",
-    "profileHeadline": "Produktentwicklung über Software, vernetzte Systeme und reale Betriebsumgebungen hinweg.",
+    "profileHeadline": "Engineering-Verantwortung von der Produktarchitektur bis zur Bereitstellung.",
     "profileSummary": "Interdisziplinäre Engineering-Erfahrung in Produktentwicklung, Softwaresystemen, Automatisierung, Computer Vision, Embedded Systems und Hardware-Software-Integration. Die Arbeit deckt typischerweise den gesamten Produktpfad ab: Anforderungen, UX, Architektur, Implementierung, Integration, Tests, Fehleranalyse und Vorbereitung der Bereitstellung.",
     "journeyTitle": "Beruflicher Werdegang",
     "journeySupport": "Entwicklung über Produktentwicklung, technischen Betrieb und kundennahe Umgebungen hinweg.",
