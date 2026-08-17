@@ -12,7 +12,9 @@
  * Exits non-zero on the first failing check so it can gate a build.
  */
 
-import { readdirSync, readFileSync, statSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
+import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import { dirname, extname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -108,6 +110,31 @@ const pass = (name, detail = '') => results.push({ name, ok: true, detail });
       'all 10 project slugs exist in every locale',
       missing.length ? missing.slice(0, 6).join(', ') : `asset/content id mismatch`,
     );
+  }
+}
+
+/* -- 3b. Fields that are optional in the type but required in practice -------
+   `role` and `responsibilities` are optional so the other entries need not
+   carry them; that means a migration could drop them everywhere without any
+   schema check noticing. These assert they survive. */
+{
+  const missing = [];
+  LOCALES.forEach((locale) => {
+    const dictionary = dictionaries[locale];
+    if (!dictionary.projects.eventies.role) missing.push(`${locale}: eventies card role`);
+    if (!dictionary.projects.eventies.contribution) missing.push(`${locale}: eventies contribution`);
+    if (!dictionary.resume.profileHeadline) missing.push(`${locale}: profile headline`);
+    if (!dictionary.actions.viewProject) missing.push(`${locale}: view-project CTA`);
+
+    const eventies = dictionary.resume.experience[0];
+    if (eventies.points.length === 0) missing.push(`${locale}: eventies journey points`);
+    if (!eventies.responsibilities?.length) missing.push(`${locale}: eventies scope pills`);
+  });
+
+  if (missing.length === 0) {
+    pass('role, contribution, headline and CTA present in every locale');
+  } else {
+    fail('role, contribution, headline and CTA present in every locale', missing.slice(0, 6).join(', '));
   }
 }
 
@@ -224,6 +251,68 @@ const scan = (patterns) => {
   const hits = scan(forbidden);
   if (hits.length === 0) pass('no component-level hardware names in source', `${forbidden.length} patterns`);
   else fail('no component-level hardware names in source', hits.join(' | '));
+}
+
+/* -- 9. The generator holds no copy ----------------------------------------
+   Approved wording must live in the content source, not in the transform. A
+   second place to look for a string is how two versions of it start to exist. */
+{
+  const generator = readFileSync(resolve(ROOT, 'scripts/generate-locales.mjs'), 'utf8');
+  const smuggled = [
+    'Engineering ownership from product architecture',
+    'Full ownership of Eventies',
+    'Co-Founder & R&D Product Engineer',
+    'View project',
+    'PROFILE_HEADLINE',
+    'EVENTIES_CONTRIBUTION',
+    'EVENTIES_JOURNEY',
+  ].filter((phrase) => generator.includes(phrase));
+
+  /* Any long quoted literal is a smell: the generator's own strings are paths,
+     keys and file-header boilerplate, all short. */
+  const longLiterals = (generator.match(/'[^'\n]{60,}'/g) ?? []).filter(
+    (literal) => !literal.includes('Hashem_Portfolio_Content_Master'),
+  );
+
+  if (smuggled.length === 0 && longLiterals.length === 0) {
+    pass('generator contains no approved copy', 'transform only');
+  } else {
+    fail(
+      'generator contains no approved copy',
+      [...smuggled, ...longLiterals.map((l) => l.slice(0, 40) + '…')].join(' | '),
+    );
+  }
+}
+
+/* -- 10. Generated dictionaries match the source ----------------------------
+   Re-runs the generator and checks the files it writes are byte-identical to
+   the ones checked in. That proves two things at once: generation is
+   deterministic, and nobody has hand-edited a dictionary out of sync with the
+   content source. Writing identical bytes makes this a no-op on disk.
+
+   Skipped rather than failed when the source is absent: it is deliberately
+   gitignored, so a clean checkout cannot run this check. */
+{
+  const localeFiles = LOCALES.map((locale) => resolve(ROOT, `content/locales/${locale}.ts`));
+  const hash = (file) => createHash('sha256').update(readFileSync(file)).digest('hex');
+
+  if (!existsSync(resolve(ROOT, 'Hashem_Portfolio_Content_Master_v3_5LANG.json'))) {
+    pass('generated dictionaries match the source', 'skipped — authoring JSON not present');
+  } else {
+    const before = localeFiles.map(hash);
+    execFileSync(process.execPath, [resolve(ROOT, 'scripts/generate-locales.mjs')], {
+      cwd: ROOT,
+      stdio: 'ignore',
+    });
+    const after = localeFiles.map(hash);
+    const drifted = LOCALES.filter((_, index) => before[index] !== after[index]);
+
+    if (drifted.length === 0) {
+      pass('generated dictionaries match the source', 'regeneration is a no-op');
+    } else {
+      fail('generated dictionaries match the source', `regenerating changed: ${drifted.join(', ')}`);
+    }
+  }
 }
 
 /* -- Report ---------------------------------------------------------------- */

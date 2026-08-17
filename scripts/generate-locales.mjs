@@ -22,58 +22,6 @@ const OUT_DIR = resolve(ROOT, 'content/locales');
 
 const LOCALES = ['en', 'ar', 'de', 'fr', 'es'];
 
-/**
- * Directed copy that is not in the content source.
- *
- * Both entries were specified after the JSON was frozen, and the JSON itself is
- * untracked — so they live here, in version control, rather than as an edit to
- * the source file that a later hand-off would silently drop. Everything else on
- * the page still comes from the JSON.
- */
-
-/** The card call to action has no key in the content source. */
-const VIEW_PROJECT = {
-  en: 'View project',
-  ar: 'عرض المشروع',
-  de: 'Projekt ansehen',
-  fr: 'Voir le projet',
-  es: 'Ver proyecto',
-};
-
-/**
- * Replaces `resume.profileHeadline`. The source line restated the Hero almost
- * word for word; this one names the span of responsibility instead, so the
- * Resume opens on something the Hero has not already said.
- *
- * The deployment noun matches the one each locale already uses in the resume
- * bullets (Bereitstellung / déploiement / despliegue / النشر), so the section
- * stays internally consistent.
- */
-const PROFILE_HEADLINE = {
-  en: 'Engineering ownership from product architecture to deployment.',
-  ar: 'مسؤولية هندسية من بنية المنتج حتى النشر.',
-  de: 'Engineering-Verantwortung von der Produktarchitektur bis zur Bereitstellung.',
-  fr: 'Responsabilité d’ingénierie, de l’architecture produit au déploiement.',
-  es: 'Responsabilidad de ingeniería, desde la arquitectura del producto hasta el despliegue.',
-};
-
-/**
- * Eventies — the case study's Contribution section.
- *
- * Overview, Purpose and Engineering are untouched: what the product is, what it
- * solves, and how it is built are separate statements from what one person owns.
- */
-const EVENTIES_CONTRIBUTION = {
-  en: 'Full ownership of Eventies’ digital product and technical implementation, from initial product structure and experience design through software architecture, frontend and backend development, integrations, testing, deployment, and ongoing platform operations. The role also includes website management, content and service organization, platform maintenance, and continuously translating operational needs into product improvements.',
-  ar: 'مسؤولية متكاملة عن المنتج الرقمي والتنفيذ التقني في Eventies، بدءًا من بناء هيكل المنتج وتصميم تجربة الاستخدام، مرورًا بالبنية البرمجية وتطوير الواجهات والأنظمة الخلفية والتكاملات والاختبار والنشر، وصولًا إلى التشغيل المستمر للمنصة. ويشمل الدور كذلك إدارة الموقع، وتنظيم المحتوى والخدمات، وصيانة المنصة، وتحويل الاحتياجات التشغيلية باستمرار إلى تحسينات وتطويرات في المنتج.',
-  de: 'Vollständige Verantwortung für das digitale Produkt und die technische Umsetzung von Eventies — von der initialen Produktstruktur und dem Experience Design über Softwarearchitektur, Frontend- und Backend-Entwicklung, Integrationen, Tests und Bereitstellung bis zum laufenden Betrieb der Plattform. Die Rolle umfasst außerdem die Verwaltung der Website, die Organisation von Inhalten und Services, die Wartung der Plattform und die kontinuierliche Übersetzung operativer Anforderungen in Produktverbesserungen.',
-  fr: 'Responsabilité complète du produit numérique et de la mise en œuvre technique d’Eventies, de la structure initiale du produit et du design d’expérience jusqu’à l’architecture logicielle, au développement frontend et backend, aux intégrations, aux tests, au déploiement et à l’exploitation continue de la plateforme. Le rôle comprend également la gestion du site, l’organisation des contenus et des services, la maintenance de la plateforme et la traduction continue des besoins opérationnels en améliorations du produit.',
-  es: 'Responsabilidad completa del producto digital y de la implementación técnica de Eventies, desde la estructura inicial del producto y el diseño de experiencia hasta la arquitectura de software, el desarrollo frontend y backend, las integraciones, las pruebas, el despliegue y la operación continua de la plataforma. El rol incluye además la gestión del sitio, la organización de contenidos y servicios, el mantenimiento de la plataforma y la traducción continua de necesidades operativas en mejoras del producto.',
-};
-
-/** Projects that name the role held on them, keyed by project id. */
-const PROJECT_ROLE_IDS = ['eventies'];
-
 const source = JSON.parse(readFileSync(SOURCE, 'utf8'));
 
 /** True for a `{ en, ar, de, fr, es }` translation map. */
@@ -105,6 +53,21 @@ const listOf = (group, locale) => Object.values(group).map((entry) => pick(entry
 const technology = (tokens, locale) =>
   tokens.map((token) => source.technologyTerms[token]?.[locale] ?? token);
 
+/**
+ * The role title held at one employer, looked up by company name.
+ *
+ * Lets a project reference a role that is authored in the resume rather than
+ * restating it: the string exists once, in one place, and feeds both the
+ * journey entry and the project card.
+ */
+const roleOfCompany = (company) => {
+  const entry = source.resume.experience.find((item) => item.company === company);
+  if (!entry?.role) {
+    throw new Error(`roleFromCompany: no experience entry with a role for "${company}"`);
+  }
+  return entry.role;
+};
+
 const buildProjects = (locale) =>
   Object.fromEntries(
     source.projects.map((project) => [
@@ -113,18 +76,16 @@ const buildProjects = (locale) =>
         title: project.title,
         category: pick(project.category, locale),
         status: pick(project.status, locale),
-        // Reuses the resume's role string rather than restating it, so the card
-        // and the journey can never drift apart.
-        ...(PROJECT_ROLE_IDS.includes(project.id)
-          ? { role: pick(source.resume.experience[0].role, locale) }
+        // A project may name the role held on it by pointing at the experience
+        // entry that already carries that title, so the role is authored once
+        // and the card and the journey cannot drift apart.
+        ...(project.roleFromCompany
+          ? { role: pick(roleOfCompany(project.roleFromCompany), locale) }
           : {}),
         short: pick(project.short, locale),
         overview: pick(project.overview, locale),
         purpose: pick(project.purpose, locale),
-        contribution:
-          project.id === 'eventies'
-            ? EVENTIES_CONTRIBUTION[locale]
-            : pick(project.contribution, locale),
+        contribution: pick(project.contribution, locale),
         engineering: pick(project.engineering, locale),
         capabilities: pick(project.capabilities, locale),
         considerations: pick(project.considerations, locale),
@@ -188,7 +149,7 @@ const buildDictionary = (locale) => ({
     title: pick(source.resume.title, locale),
     subtitle: pick(source.resume.subtitle, locale),
     profileEyebrow: pick(source.resume.profileEyebrow, locale),
-    profileHeadline: PROFILE_HEADLINE[locale],
+    profileHeadline: pick(source.resume.profileHeadline, locale),
     profileSummary: pick(source.resume.profileSummary, locale),
     journeyTitle: pick(source.resume.journeyTitle, locale),
     journeySupport: pick(source.resume.journeySupport, locale),
@@ -236,7 +197,9 @@ const buildDictionary = (locale) => ({
   seo: pick(source.seo, locale),
   ui: pick(source.ui, locale),
   actions: {
-    viewProject: VIEW_PROJECT[locale],
+    // Card call to action. Lives under `projectsSection` in the source, beside
+    // the section's other visible strings.
+    viewProject: pick(source.projectsSection.viewProject, locale),
   },
 });
 
