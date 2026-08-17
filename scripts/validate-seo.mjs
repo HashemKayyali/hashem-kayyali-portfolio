@@ -233,6 +233,61 @@ if (pages.size === LOCALES.length) pass('every locale emits a page', `${pages.si
   else fail('head strings come from the locale dictionaries', problems.join(' | '));
 }
 
+/* -- Deployment routing -----------------------------------------------------
+   The host config decides what a crawler actually receives, so it is checked
+   alongside the built files rather than trusted.
+
+   A blanket `/(.*) -> /index.html` rewrite is the specific thing being guarded
+   against: with every route prerendered as a real file, that rule no longer
+   serves any legitimate path and instead answers every unknown URL with 200 and
+   the English page — a soft 404 on an unbounded set of URLs. It is also what
+   served /sitemap.xml as HTML before the sitemap existed. */
+{
+  const problems = [];
+  const configPath = resolve(ROOT, 'vercel.json');
+
+  if (!existsSync(configPath)) {
+    problems.push('vercel.json missing');
+  } else {
+    const config = JSON.parse(readFileSync(configPath, 'utf8'));
+
+    const catchAll = (config.rewrites ?? []).find((rule) => /^\/\(\.\*\)$|^\/\(\.\*\)\/?$/.test(rule.source));
+    if (catchAll) problems.push(`catch-all rewrite ${catchAll.source} -> ${catchAll.destination} creates soft 404s`);
+
+    const headerFor = (source) =>
+      (config.headers ?? []).find((rule) => rule.source === source)?.headers ?? [];
+    const contentType = (source) =>
+      headerFor(source).find((h) => h.key.toLowerCase() === 'content-type')?.value ?? '';
+
+    if (!contentType('/sitemap.xml').startsWith('application/xml')) {
+      problems.push('sitemap.xml has no explicit application/xml Content-Type');
+    }
+    if (!contentType('/robots.txt').startsWith('text/plain')) {
+      problems.push('robots.txt has no explicit text/plain Content-Type');
+    }
+
+    // English must exist at exactly one URL.
+    const enRedirect = (config.redirects ?? []).find((rule) => rule.source === '/en/' || rule.source === '/en');
+    if (!enRedirect) problems.push('/en/ does not redirect to /');
+    else if (enRedirect.destination !== '/') problems.push(`/en/ redirects to ${enRedirect.destination}`);
+    else if (enRedirect.permanent !== true) problems.push('/en/ redirect is not permanent');
+
+    // Every non-root locale needs its path served by its own prerendered file.
+    for (const locale of LOCALES.filter((l) => l !== 'en')) {
+      const rule = (config.rewrites ?? []).find((r) => r.source === `/${locale}/`);
+      if (!rule || !rule.destination.includes(`/${locale}/index.html`)) {
+        problems.push(`/${locale}/ has no rewrite to its prerendered file`);
+      }
+    }
+  }
+
+  if (problems.length === 0) {
+    pass('deployment routing: no soft 404s, explicit content types, single English URL');
+  } else {
+    fail('deployment routing: no soft 404s, explicit content types, single English URL', problems.join(' | '));
+  }
+}
+
 /* -- Report ----------------------------------------------------------------- */
 const failures = results.filter((r) => !r.ok);
 for (const result of results) {
