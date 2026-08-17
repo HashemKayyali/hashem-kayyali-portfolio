@@ -241,176 +241,278 @@ section {
    containment above already provides the paint savings. */
 
 
-/* Compact professional footer using the shared animated burgundy surface. */
+/* ==========================================================================
+   SITE FOOTER — the closing chrome panel.
+
+   No field of its own. The footer is the same floating liquid-glass card as the
+   sidebar and the pinned section headers — it takes that material by joining
+   their selector list rather than restating it — so the page ends on the chrome
+   it was navigated by instead of on a fourth kind of surface. The animated
+   Burgundy it used to paint is simply the page showing through the glass.
+
+   Three bands inside one card: who, where to go, how to reach. Then a base rule
+   carrying copyright, colophon and the way back up.
+   ========================================================================== */
 .site-footer {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
+  padding: 0 clamp(0.75rem, 2vw, 1rem) clamp(0.75rem, 2vw, 1rem);
   color: #ffffff;
-  background: #300510;
-  border-top: 1px solid rgba(255, 255, 255, 0.18);
 }
 
-.site-footer__background {
-  z-index: -1;
+.site-footer__card {
+  border-radius: clamp(1.15rem, 2vw, 1.6rem);
+  padding: clamp(1.1rem, 2.5vw, 1.9rem) clamp(1rem, 2.5vw, 2rem) clamp(0.85rem, 1.5vw, 1.1rem);
 }
 
-.site-footer__inner {
-  width: min(100%, 82rem);
-  margin: 0 auto;
-  padding: clamp(2.5rem, 5vw, 4.75rem) clamp(1.5rem, 4vw, 4.5rem) 1.5rem;
-}
-
-.site-footer__main {
+.site-footer__grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.55fr) minmax(11rem, 0.65fr) minmax(13rem, 0.8fr);
-  gap: clamp(2rem, 5vw, 5rem);
-  align-items: start;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.4rem;
 }
 
-.site-footer__eyebrow,
-.site-footer__label {
-  margin: 0;
-  color: rgba(255, 255, 255, 0.58);
-  font-size: 0.72rem;
+@media (min-width: 700px) {
+  .site-footer__grid {
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.85fr) minmax(0, 1fr);
+    gap: clamp(1.5rem, 4vw, 3.25rem);
+    align-items: start;
+  }
+}
+
+.footer-heading {
+  margin: 0 0 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.6rem;
   font-weight: 800;
-  letter-spacing: 0.17em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
 }
 
-.site-footer__brand h2 {
-  max-width: 42rem;
-  margin: 0.85rem 0 0;
-  color: #ffffff;
-  font-family: Inter, sans-serif;
-  font-size: clamp(1.65rem, 3vw, 2.8rem);
-  font-weight: 850;
-  line-height: 1.1;
+/* --------------------------------------------------------------------------
+   Identity: the same face the sidebar leads with, so the page closes on the
+   person rather than on a slogan.
+   -------------------------------------------------------------------------- */
+.footer-identity__head {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
-.site-footer__brand > p:last-child {
-  max-width: 41rem;
-  margin: 1rem 0 0;
+.footer-identity__avatar {
+  display: block;
+  overflow: hidden;
+  width: 2.9rem;
+  height: 2.9rem;
+  flex: none;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 20px rgba(6, 0, 3, 0.42);
+}
+
+.footer-identity__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 22%;
+}
+
+.footer-identity__name {
+  margin: 0;
+  color: #ffffff;
+  font-family: var(--font-heading);
+  font-size: 1.02rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.footer-identity__role {
+  margin: 0.2rem 0 0;
   color: rgba(255, 255, 255, 0.68);
-  font-size: 0.98rem;
-  line-height: 1.75;
-}
-
-.site-footer__nav > div {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.7rem 1.15rem;
-  margin-top: 1rem;
-}
-
-.site-footer__nav a,
-.site-footer__email {
-  color: rgba(255, 255, 255, 0.78);
-  font-size: 0.92rem;
+  font-size: 0.66rem;
   font-weight: 700;
-  text-decoration: none;
-  transition: color 180ms ease, transform 180ms ease;
+  letter-spacing: 0.12em;
+  line-height: 1.35;
+  text-transform: uppercase;
 }
 
-.site-footer__nav a:hover,
-.site-footer__email:hover {
-  color: #ffffff;
-  transform: translateX(2px);
+.footer-identity__status {
+  margin: 0.85rem 0 0;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.8rem;
+  line-height: 1.5;
 }
 
-.site-footer__socials {
+.footer-socials {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.6rem;
-  margin-top: 1rem;
-}
-
-.site-footer__socials a {
-  display: grid;
-  width: 2.65rem;
-  height: 2.65rem;
-  place-items: center;
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  border-radius: 999px;
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.06);
-  transition: transform 180ms ease, background 180ms ease, color 180ms ease;
-}
-
-.site-footer__socials a:hover {
-  transform: translateY(-3px);
-  color: var(--burgundy);
-  background: #ffffff;
-}
-
-.site-footer__email {
-  display: inline-block;
-  margin-top: 1rem;
-  overflow-wrap: anywhere;
-}
-
-.site-footer__top {
-  display: inline-flex;
-  align-items: center;
   gap: 0.5rem;
-  margin-top: 1.15rem;
-  padding: 0.65rem 0.95rem;
+  margin-top: 0.9rem;
+}
+
+.footer-socials a {
+  display: grid;
+  width: 2.4rem;
+  height: 2.4rem;
+  min-width: 40px;
+  min-height: 40px;
+  place-items: center;
   border: 1px solid rgba(255, 255, 255, 0.26);
-  border-radius: 999px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.07);
   color: #ffffff;
-  background: rgba(255, 255, 255, 0.06);
-  font-size: 0.82rem;
-  font-weight: 800;
-  text-decoration: none;
-  transition: transform 180ms ease, background 180ms ease, color 180ms ease;
+  transition:
+    transform 200ms var(--motion-ease),
+    background 200ms ease,
+    color 200ms ease,
+    border-color 200ms ease;
 }
 
-.site-footer__top:hover {
-  transform: translateY(-2px);
-  color: var(--burgundy);
-  background: #ffffff;
+@media (hover: hover) {
+  .footer-socials a:hover {
+    transform: translateY(-2px);
+    border-color: #ffffff;
+    background: #ffffff;
+    color: #14040b;
+  }
 }
 
-.site-footer__bottom {
+.footer-socials a:active {
+  transform: translateY(1px);
+}
+
+/* --------------------------------------------------------------------------
+   Navigate: two columns at every width. Six links in a single stack ran the
+   card half again as tall as its other two columns and left the identity
+   block sitting in a hole of its own whitespace.
+   -------------------------------------------------------------------------- */
+.footer-nav__links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.15rem 1rem;
+}
+
+.footer-nav__links a {
   display: flex;
-  justify-content: space-between;
-  gap: 1.25rem;
-  margin-top: clamp(2.5rem, 5vw, 4rem);
-  padding-top: 1.25rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.18);
-  color: rgba(255, 255, 255, 0.52);
-  font-size: 0.77rem;
-  line-height: 1.6;
+  min-height: 32px;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.84rem;
+  font-weight: 650;
+  text-decoration: none;
+  transition: color 180ms ease, transform 180ms var(--motion-ease);
 }
 
-.site-footer__bottom p {
+@media (hover: hover) {
+  .footer-nav__links a:hover {
+    color: #ffffff;
+    transform: translateX(3px);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Reach: the three details worth repeating at the very bottom, as real links.
+   -------------------------------------------------------------------------- */
+.footer-reach__row {
+  display: flex;
+  min-height: 32px;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 0.82rem;
+  font-weight: 600;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+  text-decoration: none;
+  transition: color 180ms ease;
+}
+
+.footer-reach__row svg {
+  flex: none;
+  color: rgba(255, 255, 255, 0.6);
+  transition: color 180ms ease;
+}
+
+.footer-reach__row--static {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+@media (hover: hover) {
+  a.footer-reach__row:hover,
+  a.footer-reach__row:hover svg {
+    color: #ffffff;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Base rule
+   -------------------------------------------------------------------------- */
+.site-footer__base {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1.5rem;
+  margin-top: clamp(1.1rem, 2.5vw, 1.6rem);
+  padding-top: 0.9rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+  color: rgba(255, 255, 255, 0.64);
+  font-size: 0.72rem;
+  line-height: 1.5;
+}
+
+.site-footer__base p {
   margin: 0;
 }
 
-@media (max-width: 1023px) {
-  .site-footer__main {
-    grid-template-columns: minmax(0, 1fr) minmax(10rem, 0.65fr);
-  }
+.site-footer__colophon {
+  color: rgba(255, 255, 255, 0.5);
+}
 
-  .site-footer__brand {
-    grid-column: 1 / -1;
+.site-footer__top {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  margin-left: auto;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.07);
+  color: #ffffff;
+  transition:
+    transform 200ms var(--motion-ease),
+    background 200ms ease,
+    color 200ms ease;
+}
+
+@media (hover: hover) {
+  .site-footer__top:hover {
+    transform: translateY(-3px);
+    background: #ffffff;
+    color: #14040b;
   }
 }
 
-@media (max-width: 767px) {
-  .site-footer__main {
-    grid-template-columns: 1fr;
-    gap: 2.25rem;
+.site-footer__top:active {
+  transform: translateY(1px);
+}
+
+/* The global focus ring is Burgundy at 35%, written for the white sections.
+   Nothing in this footer is white. */
+.site-footer a:focus-visible {
+  outline-color: rgba(255, 255, 255, 0.9);
+}
+
+@media (max-width: 699px) {
+  .site-footer__base {
+    gap: 0.4rem 1rem;
   }
 
-  .site-footer__brand {
-    grid-column: auto;
-  }
-
-  .site-footer__bottom {
-    flex-direction: column;
+  .site-footer__colophon {
+    order: 3;
+    width: 100%;
   }
 }
+
+
 
 
 #root {
@@ -3876,7 +3978,8 @@ section {
    -------------------------------------------------------------------------- */
 .sidebar-surface,
 .mobile-nav,
-.section-sticky--glass {
+.section-sticky--glass,
+.site-footer__card {
   isolation: isolate;
   background:
     linear-gradient(163deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0) 38%),
@@ -3890,7 +3993,8 @@ section {
 @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
   .sidebar-surface,
   .mobile-nav,
-  .section-sticky--glass {
+  .section-sticky--glass,
+  .site-footer__card {
     -webkit-backdrop-filter: blur(18px) saturate(1.25);
     backdrop-filter: blur(18px) saturate(1.25);
     background:
@@ -3900,7 +4004,8 @@ section {
 }
 
 .sidebar-surface,
-.section-sticky--glass {
+.section-sticky--glass,
+.site-footer__card {
   border: 1px solid rgba(255, 255, 255, 0.16);
 }
 

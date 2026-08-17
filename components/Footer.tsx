@@ -4,12 +4,20 @@ import {
   Instagram,
   Linkedin,
   Mail,
+  MapPin,
   MessageCircle,
+  Phone,
 } from 'lucide-react';
-import BurgundyWarpBackground from './ui/burgundy-warp-background';
+import { useReveal } from './useReveal';
 import { profile } from '../data/profile';
 
-const footerLinks = [
+/**
+ * Closing panel. It carries no animated field of its own: it is the same
+ * floating liquid-glass card as the sidebar and the pinned section headers, so
+ * the page ends on the chrome it has been navigated by rather than on a fourth
+ * kind of surface.
+ */
+const sections = [
   { label: 'Home', href: '#home' },
   { label: 'About', href: '#about' },
   { label: 'Resume', href: '#resume' },
@@ -18,56 +26,84 @@ const footerLinks = [
   { label: 'Contact', href: '#contact' },
 ];
 
-const Footer: React.FC = () => (
-  <footer className="site-footer">
-    <BurgundyWarpBackground
-      index={14}
-      className="site-footer__background"
-      overlayOpacity={0.3}
-      speedMultiplier={0.72}
-      rootMargin="260px 0px"
-    />
+const socials = [
+  { label: 'Email', href: profile.social.email, Icon: Mail },
+  { label: 'WhatsApp', href: profile.social.whatsapp, Icon: MessageCircle },
+  { label: 'LinkedIn', href: profile.social.linkedin, Icon: Linkedin },
+  { label: 'Instagram', href: profile.social.instagram, Icon: Instagram },
+];
 
-    <div className="site-footer__inner">
-      <div className="site-footer__main">
-        <div className="site-footer__brand">
-          <p className="site-footer__eyebrow">R&D Product Engineer · Software Engineer</p>
-          <h2>Building complete products across software and real-world systems.</h2>
-          <p>
-            Product development, connected systems, technical operations, and practical problem solving from concept to deployment.
-          </p>
+const Footer: React.FC = () => {
+  const revealRef = useReveal<HTMLElement>();
+
+  return (
+    <footer className="site-footer" ref={revealRef}>
+      <div className="site-footer__card m-support" data-reveal>
+        <div className="site-footer__grid">
+          <div className="footer-identity">
+            <div className="footer-identity__head">
+              <span className="footer-identity__avatar">
+                <img src="/images/hashem-profile.webp" alt="" loading="lazy" decoding="async" />
+              </span>
+              <div>
+                <p className="footer-identity__name">Hashem Kayyali</p>
+                <p className="footer-identity__role">{profile.role}</p>
+              </div>
+            </div>
+            <p className="footer-identity__status">{profile.freelanceStatus}</p>
+            <div className="footer-socials">
+              {socials.map(({ label, href, Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  aria-label={label}
+                  target={href.startsWith('http') ? '_blank' : undefined}
+                  rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                >
+                  <Icon size={17} aria-hidden="true" />
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <nav className="footer-nav" aria-label="Footer navigation">
+            <p className="footer-heading">Navigate</p>
+            <div className="footer-nav__links">
+              {sections.map((section) => (
+                <a key={section.href} href={section.href}>
+                  {section.label}
+                </a>
+              ))}
+            </div>
+          </nav>
+
+          <div className="footer-reach">
+            <p className="footer-heading">Reach</p>
+            <a className="footer-reach__row" href={profile.social.email}>
+              <Mail size={15} aria-hidden="true" />
+              <span>{profile.email}</span>
+            </a>
+            <a className="footer-reach__row" href={`tel:${profile.whatsapp}`}>
+              <Phone size={15} aria-hidden="true" />
+              <span>{profile.phone}</span>
+            </a>
+            <p className="footer-reach__row footer-reach__row--static">
+              <MapPin size={15} aria-hidden="true" />
+              <span>{profile.location}</span>
+            </p>
+          </div>
         </div>
 
-        <nav className="site-footer__nav" aria-label="Footer navigation">
-          <p className="site-footer__label">Navigate</p>
-          <div>
-            {footerLinks.map((link) => (
-              <a key={link.href} href={link.href}>{link.label}</a>
-            ))}
-          </div>
-        </nav>
-
-        <div className="site-footer__connect">
-          <p className="site-footer__label">Connect</p>
-          <div className="site-footer__socials">
-            <a href={profile.social.email} aria-label="Email Hashem"><Mail size={19} /></a>
-            <a href={profile.social.whatsapp} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><MessageCircle size={19} /></a>
-            <a href={profile.social.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><Linkedin size={19} /></a>
-            <a href={profile.social.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram"><Instagram size={19} /></a>
-          </div>
-          <a className="site-footer__email" href={profile.social.email}>{profile.email}</a>
-          <a className="site-footer__top" href="#home">
-            Back to top <ArrowUp size={17} />
+        <div className="site-footer__base">
+          <p>© {new Date().getFullYear()} Hashem Kayyali. All rights reserved.</p>
+          <p className="site-footer__colophon">Built with React, TypeScript and Vite</p>
+          <a className="site-footer__top" href="#home" aria-label="Back to top">
+            <ArrowUp size={18} aria-hidden="true" />
           </a>
         </div>
       </div>
-
-      <div className="site-footer__bottom">
-        <p>© {new Date().getFullYear()} Hashem Kayyali. All rights reserved.</p>
-        <p>{profile.location} · Open to software engineering and R&D opportunities</p>
-      </div>
-    </div>
-  </footer>
-);
+    </footer>
+  );
+};
 
 export default Footer;
