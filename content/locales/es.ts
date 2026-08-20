@@ -212,7 +212,7 @@ const es: Dictionary = {
   },
   "projectsSection": {
     "title": "Proyectos seleccionados",
-    "subtitle": "Una selección de productos y sistemas que abarca plataformas digitales, operaciones de negocio, automatización, visión por computador y hardware conectado.",
+    "subtitle": "Proyectos seleccionados que muestran ideas prácticas y soluciones técnicas.",
     "filters": {
       "all": "Todos",
       "webPlatform": "Plataforma web",

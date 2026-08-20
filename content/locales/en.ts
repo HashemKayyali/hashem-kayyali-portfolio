@@ -212,7 +212,7 @@ const en: Dictionary = {
   },
   "projectsSection": {
     "title": "Selected Projects",
-    "subtitle": "Selected products and systems spanning digital platforms, business operations, automation, computer vision, and connected hardware.",
+    "subtitle": "Selected projects showcasing practical ideas and technical solutions.",
     "filters": {
       "all": "All",
       "webPlatform": "Web Platform",
