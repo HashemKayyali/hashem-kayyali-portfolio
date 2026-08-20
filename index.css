@@ -12,7 +12,18 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; width: 100%; max-width: 100%; overflow-x: clip; }
+/* The fixed warp only covers the layout viewport. iOS exposes the canvas
+   outside it — rubber-band overscroll, and the area around the layout
+   viewport while pinch-zoomed — so the canvas itself has to be Burgundy,
+   never the white default. overscroll-behavior removes the bounce on top. */
+html {
+  scroll-behavior: smooth;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+  background: var(--burgundy);
+  overscroll-behavior-y: none;
+}
 
 /* Lenis sets the scroll position itself, one frame at a time. Leaving the
    browser's own smooth scrolling on would make it interpolate towards each of
@@ -150,12 +161,6 @@ html {
 
 section {
   min-width: 0;
-}
-
-@media (max-width: 1279px) {
-  body {
-    background: var(--white);
-  }
 }
 
 @media (max-width: 767px) {

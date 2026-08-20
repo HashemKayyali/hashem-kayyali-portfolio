@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { PROFILE_IMAGE, profile, RESUME_PDF } from '../data/profile';
 import { Download, FileText, FolderKanban, Home, Instagram, Linkedin, Mail, Menu, MessageCircle, User, Wrench, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -160,14 +160,49 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
   );
 };
 
+/**
+ * `position: sticky` pins to the LAYOUT viewport, which is not what you are
+ * looking at once the page is pinch-zoomed — the bar drifts off the top of the
+ * screen, or floats mid-page after zooming out. The visual viewport's offset
+ * from the layout viewport is exactly that drift, so translating the bar by it
+ * puts it back on the top edge of what is actually on screen. At scale 1 both
+ * viewports coincide and the transform is removed entirely, so ordinary
+ * scrolling keeps the plain sticky behaviour.
+ */
+const useVisualViewportPin = () => {
+  const ref = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const vv = window.visualViewport;
+    const el = ref.current;
+    if (!vv || !el) return;
+
+    const sync = () => {
+      const zoomed = Math.abs(vv.scale - 1) >= 0.01;
+      el.style.transform = zoomed ? `translate(${vv.offsetLeft}px, ${vv.offsetTop}px)` : '';
+    };
+
+    sync();
+    vv.addEventListener('resize', sync);
+    vv.addEventListener('scroll', sync);
+    return () => {
+      vv.removeEventListener('resize', sync);
+      vv.removeEventListener('scroll', sync);
+    };
+  }, []);
+
+  return ref;
+};
+
 /** Sticky mobile/tablet header. Replaces the old hamburger that floated over content. */
 export const MobileNav: React.FC<{ onOpen: () => void; isOpen: boolean }> = ({ onOpen, isOpen }) => {
   const { t } = useI18n();
+  const ref = useVisualViewportPin();
 
   return (
     // Kept in flow while the drawer is open (no layout shift) but visually and
     // programmatically inert, so the hamburger never sits behind the drawer.
-    <header className={`mobile-nav${isOpen ? ' mobile-nav--inert' : ''}`} aria-hidden={isOpen}>
+    <header ref={ref} className={`mobile-nav${isOpen ? ' mobile-nav--inert' : ''}`} aria-hidden={isOpen}>
       <div className="mobile-nav__brand">
         <div className="mobile-nav__avatar">
           <img src={PROFILE_IMAGE} alt="" />
