@@ -65,7 +65,7 @@ const FeatureShaderCard: React.FC<FeatureShaderCardProps> = ({
           />
         </div>
 
-        <div className="project-card__body">
+        <div className="project-card__body m-beats">
           {/* Opt-in per card: without a ramp the body keeps the glass material
               every other card uses. */}
           {warpRamp && (
@@ -94,7 +94,7 @@ const FeatureShaderCard: React.FC<FeatureShaderCardProps> = ({
           {copy.role && <p className="project-card__role">{copy.role}</p>}
           <p className="project-card__description">{copy.short}</p>
 
-          <div className="project-card__tech">
+          <div className="project-card__tech m-beats m-beats--inline m-beats--tight">
             {copy.technology.slice(0, 3).map((item) => (
               <span key={item}>{item}</span>
             ))}

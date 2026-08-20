@@ -397,7 +397,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
 
                 {/* The case study proper. Labelled prose blocks in one reading
                     order on mobile; the two shorter blocks pair up on desktop. */}
-                <section className="project-detail__content case-study">
+                <section className="project-detail__content case-study m-beats">
                   <div className="case-study__block case-study__block--lede">
                     <h4 className="case-study__label">{labels.overview}</h4>
                     <p className="case-study__lede">{copy.overview}</p>

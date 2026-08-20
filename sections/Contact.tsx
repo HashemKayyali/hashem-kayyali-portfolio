@@ -43,7 +43,7 @@ const Contact: React.FC = () => {
         {/* The one ink monolith on the page: the last surface a reader meets, so
             it is the darkest, with the animated Burgundy showing only through
             it rather than around it. */}
-        <article className="contact__pitch m-primary" data-reveal>
+        <article className="contact__pitch m-primary m-beats" data-reveal>
           <BurgundyWarpBackground
             index={11}
             className="contact__warp"
@@ -60,7 +60,7 @@ const Contact: React.FC = () => {
           <h3>{t.contact.heading}</h3>
           <p className="contact__lead">{t.contact.supporting}</p>
 
-          <div className="contact__actions">
+          <div className="contact__actions m-beats m-beats--inline m-beats--tight">
             <a className="contact__cta contact__cta--primary" href={profile.social.email}>
               <Mail size={17} aria-hidden="true" /> {t.contact.actions.email}
             </a>
@@ -78,7 +78,7 @@ const Contact: React.FC = () => {
         {/* One panel of hairline-divided rows, not five floating pills — the
             same index pattern the toolkit uses, so it reads as the same site. */}
         <ul
-          className="contact__index m-support"
+          className="contact__index m-support m-beats m-beats--inline m-beats--tight"
           data-reveal
           style={{ '--reveal-delay': '110ms' } as React.CSSProperties}
           aria-label={t.contact.aria}

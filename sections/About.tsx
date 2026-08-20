@@ -30,13 +30,13 @@ const About: React.FC = () => {
           rootMargin="0px"
           ramp={ABOUT_STORY_RAMP}
         />
-        <div className="about__story-body">
+        <div className="about__story-body m-beats">
           <p>{t.about.story1}</p>
           <p>{t.about.story2}</p>
         </div>
         <div className="about__roles">
           <p className="about__roles-label">{t.about.engineeringFocusTitle}</p>
-          <div className="about__roles-list">
+          <div className="about__roles-list m-beats m-beats--inline m-beats--tight">
             {t.about.engineeringFocus.map((focus) => (
               <span key={focus}>{focus}</span>
             ))}
@@ -77,7 +77,7 @@ const About: React.FC = () => {
       </div>
     </div>
 
-    <div className="about__meta m-detail" ref={metaRef} data-reveal>
+    <div className="about__meta m-detail m-beats m-beats--inline" ref={metaRef} data-reveal>
       <Info label={t.about.metadataLabels.location} value={t.identity.location} />
       <Info label={t.about.metadataLabels.currentRole} value={t.resume.experience[0].role ?? t.identity.role} />
       <Info label={t.about.metadataLabels.email} value={profile.email} href={profile.social.email} />

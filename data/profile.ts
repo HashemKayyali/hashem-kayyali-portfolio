@@ -73,7 +73,7 @@ export const experienceAssets: ExperienceAsset[] = [
  */
 export const CAPABILITY_RAMPS: WarpRamp[] = [
   ['#0d0206', '#8a5f18', '#000000', '#c48f30', '#e6d5b4'], // Define — amber
-  ['#0d0206', '#8f1839', '#000000', '#c9385f', '#f2dae0'], // Build — the house burgundy
+  ['#0d0206', '#1c46a8', '#000000', '#4a7fe8', '#d9e4fa'], // Build — cobalt
   ['#0d0206', '#0f6d78', '#000000', '#2fa9b5', '#dff0f2'], // Connect — signal teal
   ['#0d0206', '#4a2a9c', '#000000', '#7a55d1', '#e4dcf6'], // Operate — violet
 ];

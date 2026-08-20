@@ -8,9 +8,16 @@ import { useI18n } from '../i18n/useI18n';
 
 /**
  * The four capabilities are not a menu of unrelated services — they are the
- * order a product is actually delivered in. Naming that order is what lets the
- * section explain its own structure: the rail threading the cards is the
- * delivery path, and each node is a stage on it.
+ * order a product is actually delivered in, so the section is built as a
+ * descent through four stages rather than a row of interchangeable tiles.
+ *
+ * Reading down beats reading across for this content: the eye already takes a
+ * stacked list as a sequence, which is what the old horizontal rail and its
+ * threaded nodes were spending fifty lines of nth-child overhang to imply. The
+ * index numeral carries the order instead, at a size that can be read as
+ * structure from across the page, and each stage gets the full column width —
+ * so its palette is a field to look at rather than a sliver behind two lines
+ * of copy.
  */
 const icons = [Lightbulb, Code2, Cpu, Bot];
 
@@ -31,7 +38,7 @@ const Services: React.FC = () => {
       <div className="capabilities" ref={revealRef}>
         {/* The legend states the structure in words; the rail below states it in
             geometry. Between them the section needs no further explanation. */}
-        <p className="capabilities__legend m-detail" data-reveal>
+        <p className="capabilities__legend m-detail m-beats m-beats--inline m-beats--tight" data-reveal>
           {stages.map((stage) => (
             <span key={stage}>{stage}</span>
           ))}
@@ -45,7 +52,7 @@ const Services: React.FC = () => {
             return (
               <li
                 key={item.number}
-                className="capability m-primary"
+                className="capability m-primary m-beats"
                 data-reveal
                 style={{ '--reveal-delay': `${index * 90}ms` } as React.CSSProperties}
               >
@@ -57,21 +64,24 @@ const Services: React.FC = () => {
                   ramp={CAPABILITY_RAMPS[index]}
                 />
 
-                {/* Ink capsule, threaded onto the rail that runs along the card's
-                    top edge — the stage marker, not decoration. */}
-                <span className="capability__node" aria-hidden="true">
-                  <Icon size={19} />
-                </span>
-
-                <p className="capability__stage">
+                {/* The index and the stage it names, as one mark. It replaces
+                    both the old numeral in the label and the outlined ghost
+                    numeral behind the copy — which was the same number said a
+                    third time, and at card width it sat underneath the
+                    description rather than beside it. */}
+                <p className="capability__index">
                   <span className="capability__num">{item.number}</span>
-                  {stages[index]}
+                  <span className="capability__stage">{stages[index]}</span>
                 </p>
 
-                <h3 className="capability__title">{item.title}</h3>
-                <p className="capability__text">{item.description}</p>
+                <div className="capability__body m-beats">
+                  <h3 className="capability__title">{item.title}</h3>
+                  <p className="capability__text">{item.description}</p>
+                </div>
 
-                <span className="capability__mark" aria-hidden="true">{item.number}</span>
+                <span className="capability__node" aria-hidden="true">
+                  <Icon size={20} />
+                </span>
               </li>
             );
           })}

@@ -69,13 +69,13 @@ const Resume: React.FC = () => {
     >
       {/* Primary sheet: the one place the whole profile is stated at once. */}
       <div className="resume-profile m-primary" ref={profileRef} data-reveal>
-        <div className="resume-profile__body">
+        <div className="resume-profile__body m-beats">
           <p className="resume-profile__eyebrow">{t.resume.profileEyebrow}</p>
           <h3 className="resume-profile__headline">{t.resume.profileHeadline}</h3>
           <p className="resume-profile__summary">{t.resume.profileSummary}</p>
         </div>
 
-        <div className="resume-profile__metrics">
+        <div className="resume-profile__metrics m-beats">
           <div className="resume-metric resume-metric--feature">
             <BurgundyWarpBackground index={9} className="-z-10" overlayOpacity={0.16} />
             <p className="resume-metric__value">{projectAssets.length}</p>
@@ -127,7 +127,7 @@ const Resume: React.FC = () => {
                         </figure>
                       )}
 
-                      <div className="journey-card__ident">
+                      <div className="journey-card__ident m-beats">
                         <div className="journey-card__title-row">
                           <p className="journey-card__company">{entry.company}</p>
                           {entry.badge && (
@@ -162,7 +162,7 @@ const Resume: React.FC = () => {
                     {/* One employer, two roles: the progression is shown inside
                         the block that owns it, so it never reads as two jobs. */}
                     {entry.roles && entry.roles.length > 0 && (
-                      <ol className="journey-progression">
+                      <ol className="journey-progression m-beats m-beats--inline m-beats--tight">
                         {entry.roles.map((role, roleIndex) => (
                           <li
                             key={role.title}
@@ -200,14 +200,14 @@ const Resume: React.FC = () => {
 
         <aside className="resume-layout__aside" ref={asideRef}>
           {/* Feature card: the section's single call to action. */}
-          <div className="resume-download m-target" data-reveal>
+          <div className="resume-download m-target m-beats" data-reveal>
             <BurgundyWarpBackground index={10} className="-z-10" overlayOpacity={0.16} />
             <span className="resume-download__icon" aria-hidden="true">
               <FileText size={19} />
             </span>
             <h3>{t.resume.downloadCard.title}</h3>
             <p>{t.resume.downloadCard.copy}</p>
-            <div className="resume-download__actions">
+            <div className="resume-download__actions m-beats m-beats--inline m-beats--tight">
               <a href={RESUME_PDF} download className="resume-btn resume-btn--primary">
                 <Download size={16} aria-hidden="true" /> {t.resume.downloadCard.pdf}
               </a>
@@ -233,7 +233,7 @@ const Resume: React.FC = () => {
 
           <div className="resume-card m-support" data-reveal style={delay(110)}>
             <p className="resume-card__eyebrow">{t.resume.coreStrengths.title}</p>
-            <ul className="resume-strengths">
+            <ul className="resume-strengths m-beats m-beats--inline m-beats--tight">
               {t.resume.coreStrengths.items.map((item) => (
                 <li key={item}>{item}</li>
               ))}

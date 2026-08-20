@@ -34,7 +34,7 @@ const Footer: React.FC = () => {
   return (
     <footer className="site-footer" ref={revealRef}>
       <div className="site-footer__card m-support" data-reveal>
-        <div className="site-footer__grid">
+        <div className="site-footer__grid m-beats">
           <div className="footer-identity">
             <div className="footer-identity__head">
               <span className="footer-identity__avatar">
@@ -46,7 +46,7 @@ const Footer: React.FC = () => {
               </div>
             </div>
             <p className="footer-identity__status">{t.contact.eyebrow}</p>
-            <div className="footer-socials">
+            <div className="footer-socials m-beats m-beats--inline m-beats--tight">
               {socials.map(({ label, href, Icon }) => (
                 <a
                   key={label}
@@ -63,7 +63,7 @@ const Footer: React.FC = () => {
 
           <nav className="footer-nav" aria-label={t.footer.pageSections}>
             <p className="footer-heading">{t.footer.pageSections}</p>
-            <div className="footer-nav__links">
+            <div className="footer-nav__links m-beats m-beats--inline m-beats--tight">
               {t.footer.navigation.map((entry, index) => (
                 <a key={entry.number} href={SECTION_HREFS[index]}>
                   {entry.label}
@@ -90,7 +90,7 @@ const Footer: React.FC = () => {
           </div>
         </div>
 
-        <div className="site-footer__base">
+        <div className="site-footer__base m-beats m-beats--inline m-beats--tight">
           {/* Latin throughout, so it keeps its own direction: bidi would other-
               wise move the © to the end of the line inside Arabic. */}
           <p dir="ltr">© {new Date().getFullYear()} {t.footer.copyrightName}</p>

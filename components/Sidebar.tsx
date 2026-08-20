@@ -71,15 +71,15 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
         <button onClick={() => setIsOpen(false)} className="rounded-full border border-primary/15 p-2.5" aria-label={t.navigation.closeNavigation}><X size={21} /></button>
       </div>
 
-      <div className="px-4 pb-4 pt-4 text-center xl:pt-5">
+      <div className="nav-identity px-4 pb-4 pt-4 text-center xl:pt-5">
         <div className="nav-avatar">
           <img src={PROFILE_IMAGE} alt={t.ui.alt.profile} />
         </div>
         {/* Not a heading: this block renders twice (docked rail and drawer), and
             the page's single h1 belongs to the hero. */}
-        <p className="mt-3 font-heading text-lg font-extrabold 2xl:text-xl">{t.identity.name}</p>
-        <p className="mx-auto mt-1.5 max-w-[190px] text-[9px] font-semibold uppercase leading-4 tracking-[0.13em] text-primary/65 2xl:text-[10px]">{t.identity.role}</p>
-        <div className="mt-3 flex justify-center gap-1.5 2xl:mt-4">
+        <p className="nav-identity__name mt-3 font-heading text-lg font-extrabold 2xl:text-xl">{t.identity.name}</p>
+        <p className="nav-identity__role mx-auto mt-1.5 max-w-[190px] text-[9px] font-semibold uppercase leading-4 tracking-[0.13em] text-primary/65 2xl:text-[10px]">{t.identity.role}</p>
+        <div className="nav-socials mt-3 flex justify-center gap-1.5 2xl:mt-4">
           <Social href={profile.social.linkedin} label={t.contact.index.linkedin}><Linkedin size={15} /></Social>
           <Social href={profile.social.instagram} label={t.contact.index.instagram}><Instagram size={15} /></Social>
           <Social href={profile.social.whatsapp} label={t.contact.actions.whatsapp}><MessageCircle size={15} /></Social>
@@ -110,7 +110,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
         <LanguageSelector />
       </nav>
 
-      <div className="p-3.5 2xl:p-4">
+      <div className="nav-foot p-3.5 2xl:p-4">
         <a href={RESUME_PDF} download className="nav-resume relative isolate flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl px-3 py-2.5 text-[13px] font-bold text-white">
           <BurgundyWarpBackground index={30} className="-z-10" overlayOpacity={0.14} rootMargin="0px" />
           <Download size={17} className="relative z-10" />
@@ -118,7 +118,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
         </a>
         {/* Latin throughout, so it keeps its own direction: bidi would other-
             wise move the © to the end of the line inside Arabic. */}
-        <p className="mt-3 text-center text-[10px] text-silver" dir="ltr">© {new Date().getFullYear()} {t.footer.copyrightName}</p>
+        <p className="nav-copyright mt-3 text-center text-[10px] text-silver" dir="ltr">© {new Date().getFullYear()} {t.footer.copyrightName}</p>
       </div>
     </div>
   );

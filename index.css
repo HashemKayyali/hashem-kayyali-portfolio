@@ -598,10 +598,15 @@ section {
   --z-drawer: 80;
 }
 
-/* The desktop layout navigates from the sidebar, so there is no top bar. */
+/* The desktop layout navigates from the sidebar, so there is no top bar to
+   dock under. The pinned header takes the sidebar's own inset instead of the
+   window edge — `top-4` on the rail, 1rem here — so the two float at one
+   height and read as the same layer over the page. Everything that stacks
+   below a pinned header derives its offset from this, so the whole column
+   moves with it. */
 @media (min-width: 1280px) {
   :root {
-    --sticky-top-base: 0px;
+    --sticky-top-base: 1rem;
   }
 }
 
@@ -873,7 +878,8 @@ section {
   background: #ffffff;
   color: var(--burgundy);
   cursor: pointer;
-  transition: background 180ms ease, color 180ms ease, border-color 180ms ease;
+  transition: background 180ms ease, color 180ms ease, border-color 180ms ease,
+    transform 120ms var(--motion-ease);
 }
 
 .mobile-nav__menu:hover {
@@ -1778,6 +1784,23 @@ section {
     0 34px 60px -18px rgba(14, 2, 8, 0.7);
 }
 
+/* Desktop floats the header a full 1rem clear of the window, to sit at the
+   sidebar's height. That is more than twice the gap the ambient layer above
+   was set for, and lines of the section were legible in the strip — content
+   sliding under the card and back out the top of it. This layer is aimed
+   upward and is nearly opaque: offset and spread put its full weight over the
+   strip before the blur softens it, so what passes through reads as depth
+   under glass instead of as a second column of text. */
+@media (min-width: 1280px) {
+  .section-sticky--glass.section-sticky--pinned {
+    box-shadow:
+      0 -14px 26px 14px rgba(10, 1, 5, 0.94),
+      0 0 20px 10px rgba(14, 2, 8, 0.74),
+      0 16px 26px -6px rgba(14, 2, 8, 0.72),
+      0 34px 60px -18px rgba(14, 2, 8, 0.7);
+  }
+}
+
 /* Compact heading: a rule, a title, and a full description — no header slab.
    Sized here and nowhere else, so nothing downstream can put the height back. */
 .section-sticky--glass .section-sticky__heading {
@@ -1903,13 +1926,104 @@ section {
   }
 }
 
+/* --------------------------------------------------------------------------
+   Navigation panel composition.
+
+   The panel held three unrelated jobs — who this is, where to go, and what to
+   take away — in one undivided column, at one spacing, with the current
+   section marked only by a slightly lighter fill. Hairlines separate the three
+   so the eye can find the list without reading it, and the current section
+   gets a mark rather than a shade.
+
+   Colour is untouched: the same ink glass, the same white type. Everything
+   here is division, weight and edge.
+   -------------------------------------------------------------------------- */
+.nav-identity {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-identity__name {
+  letter-spacing: -0.01em;
+}
+
+/* Two lines that break where the phrase does. The role is a compound title at
+   0.13em tracking in a 190px column, so left to itself it split mid-phrase —
+   `balance` gives the browser the whole box to even the lines over. */
+.nav-identity__role {
+  text-wrap: balance;
+}
+
+/* A ring of the panel's own light rather than a second border: it separates
+   the portrait from the material without adding a competing edge. */
+.nav-avatar {
+  box-shadow:
+    0 0 0 5px rgba(255, 255, 255, 0.045),
+    0 10px 26px rgba(12, 0, 5, 0.34);
+}
+
+.nav-socials a {
+  display: grid;
+  width: 2.4rem;
+  height: 2.4rem;
+  place-items: center;
+  padding: 0;
+}
+
 /* Inactive nav item */
 .nav-item {
+  position: relative;
   border: 1px solid transparent;
 }
 
 .nav-item:hover {
   background: rgba(255, 255, 255, 0.1);
+}
+
+/* The label steps toward the reading direction under the pointer. Small enough
+   to read as the row answering rather than as the row moving. */
+@media (hover: hover) {
+  .glass-panel nav button span {
+    transition: transform 200ms var(--motion-ease);
+  }
+
+  .glass-panel nav button:hover span {
+    transform: translateX(2px);
+  }
+
+  [dir='rtl'] .glass-panel nav button:hover span {
+    transform: translateX(-2px);
+  }
+}
+
+/* Where you are, as a mark on the edge. A fill alone had to be read against
+   five other fills; a bar on the inline-start edge is found without reading.
+   It clips to the row's own radius, which is why it lives inside the button
+   rather than beside it. */
+.nav-item--active::before {
+  content: '';
+  position: absolute;
+  z-index: 3;
+  top: 50%;
+  inset-inline-start: 0;
+  width: 3px;
+  height: 1.15rem;
+  transform: translateY(-50%);
+  border-radius: 999px;
+  background: #ffffff;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.45);
+}
+
+/* Closing group: the download and the line under it belong together, and
+   together they are separate from the list above. */
+.nav-foot {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Scoped through the panel: `.glass-panel .sidebar-surface p` already claims
+   every paragraph in here, and it outranks a lone class. */
+.glass-panel .sidebar-surface .nav-copyright {
+  color: rgba(255, 255, 255, 0.42);
+  letter-spacing: 0.04em;
 }
 
 /* Active item + Resume button: keep the animated Burgundy, add a real button
@@ -2206,7 +2320,7 @@ section {
    out of the surface it belongs to. */
 @media (hover: hover) {
   .toolkit-card {
-    transition: background 200ms ease;
+    transition: background 200ms ease, transform 120ms var(--motion-ease);
   }
 
   .toolkit-card:hover {
@@ -3177,6 +3291,117 @@ section {
 }
 
 /* --------------------------------------------------------------------------
+   Content beats — the second level of the system.
+
+   A tier above moves a whole surface. This moves what is written on it: once a
+   card has arrived, its lines play in reading order instead of being painted
+   flat with the box. The card is the sentence; the beats are the words.
+
+   No observer of its own. `data-revealed` is already flipped on the group by
+   `useReveal`, so `.m-beats` is a pure CSS consumer of a signal that is
+   published anyway — the whole layer costs zero extra JavaScript.
+
+   Reading order is DOM order in every card here, so the stagger runs over
+   direct children rather than a hand-written delay per element.
+   -------------------------------------------------------------------------- */
+:root {
+  --motion-beat: 300ms;
+  /* Far enough apart to read as a sequence, close enough that a six-line card
+     still finishes around 700ms — inside the ~1200ms ceiling. */
+  --motion-beat-step: 55ms;
+  /* Beats start while the card is still arriving, so the two overlap rather
+     than queue. */
+  --motion-beat-lead: 140ms;
+}
+
+@keyframes motion-beat {
+  from {
+    opacity: 0;
+    transform: translate3d(0, var(--beat-y, 12px), 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Rows, chips and list items travel along the reading direction instead of up:
+   they belong to a line, not to a stack. */
+@keyframes motion-beat-inline {
+  from {
+    opacity: 0;
+    transform: translate3d(var(--beat-x, -12px), 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Both selectors, for the same reason the reveal tiers need both: the flag
+     may sit on an ancestor group or on the element carrying `.m-beats`. */
+  [data-revealed='true'] .m-beats > *,
+  .m-beats[data-revealed='true'] > * {
+    animation: motion-beat var(--motion-beat) var(--motion-ease) both;
+    /* `--reveal-delay` is set on the surface and inherits, so a card that is
+       itself fourth in a stagger does not start writing its lines before it
+       has arrived. */
+    animation-delay: calc(
+      var(--reveal-delay, 0ms) + var(--motion-beat-lead) + var(--beat-index, 0) * var(--motion-beat-step)
+    );
+  }
+
+  /* An animated field is not a line of the card. Most surfaces carry theirs as
+     the first child, which costs the content one step of the ladder — cheaper
+     than a wrapper element on every card just to move the counting. */
+  .m-beats > [data-warp-surface] {
+    animation: none;
+  }
+
+  /* A group inside a group does not play itself — only the lines inside it do,
+     a step after the row they belong to is under way. Setting the longer lead
+     on the nested container instead put its own beat AFTER its children's,
+     so the container sat at opacity 0 through the whole stagger and the lines
+     all appeared together when it finally faded. */
+  .m-beats .m-beats {
+    animation: none;
+  }
+
+  .m-beats .m-beats > * {
+    --motion-beat-lead: 260ms;
+  }
+
+  [data-revealed='true'] .m-beats--inline > *,
+  .m-beats--inline[data-revealed='true'] > * {
+    animation-name: motion-beat-inline;
+  }
+
+  /* One ladder, every list. Anything past the tenth child arrives with the
+     tenth rather than trailing further behind. */
+  .m-beats > *:nth-child(1) { --beat-index: 0; }
+  .m-beats > *:nth-child(2) { --beat-index: 1; }
+  .m-beats > *:nth-child(3) { --beat-index: 2; }
+  .m-beats > *:nth-child(4) { --beat-index: 3; }
+  .m-beats > *:nth-child(5) { --beat-index: 4; }
+  .m-beats > *:nth-child(6) { --beat-index: 5; }
+  .m-beats > *:nth-child(7) { --beat-index: 6; }
+  .m-beats > *:nth-child(8) { --beat-index: 7; }
+  .m-beats > *:nth-child(9) { --beat-index: 8; }
+  .m-beats > *:nth-child(n + 10) { --beat-index: 9; }
+}
+
+/* Inline beats follow the page, so in RTL they arrive from the right. */
+[dir='rtl'] .m-beats--inline {
+  --beat-x: 12px;
+}
+
+/* Denser stagger for rows that are read as a list rather than as prose. */
+.m-beats--tight {
+  --motion-beat-step: 38ms;
+}
+
+/* --------------------------------------------------------------------------
    Hero — plays on load, in reading order.
    -------------------------------------------------------------------------- */
 @keyframes motion-rise {
@@ -3360,8 +3585,151 @@ section {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  [data-reveal-self][data-revealed='true'] .journey-entry__badge {
+  /* Was `.journey-entry__badge`, a class the markup has never rendered — the
+     element is `.journey-card__badge`, so this pop had never once played. */
+  [data-reveal-self][data-revealed='true'] .journey-card__badge {
     animation: motion-pop 380ms var(--motion-ease-back) 300ms both;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Beat exceptions.
+
+   A beat is a line of prose. The elements below are not lines — they are
+   marks, targets and photographs — so each takes the move that belongs to its
+   own kind instead of the default rise.
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  /* Markers and targets land with weight rather than sliding up. */
+  [data-revealed='true'] .capability__node,
+  [data-revealed='true'] .resume-metric__value,
+  [data-revealed='true'] .resume-download__icon {
+    animation: motion-pop 380ms var(--motion-ease-back) both;
+    animation-delay: calc(var(--reveal-delay, 0ms) + 200ms);
+  }
+
+  /* The project cover carries NO entrance of its own, and that is the fix for
+     a real bug rather than an omission. It holds a child under an 18px blur
+     inside a stack framer-motion re-transforms every scroll frame; a clip-path
+     uncover flickered outright, and even a plain opacity fade forced the
+     blurred subtree to be composited as a group while a lazily decoded image
+     was still arriving, which read as a blink. The card's own scroll-linked
+     scale is its entrance now — one composited transform, nothing to re-raster.
+
+     Call to action, so it lands with the same overshoot the hero's buttons
+     and the download card use. */
+  [data-revealed='true'] .contact__actions > *,
+  [data-revealed='true'] .resume-download__actions > * {
+    animation-timing-function: var(--motion-ease-back);
+  }
+}
+
+@keyframes motion-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Professional journey — beats, at the section's own pace.
+
+   This section is deliberately the fastest on the page: `m-journey` is 340ms
+   of opacity and a short lift, because a reader scanning a work record must
+   never be waiting on an entrance. Its beats are scaled to match, so the whole
+   entry resolves at roughly the card's own duration instead of trailing a long
+   tail behind it.
+   -------------------------------------------------------------------------- */
+.journey-card {
+  --motion-beat: 240ms;
+  --motion-beat-lead: 90ms;
+  --motion-beat-step: 40ms;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* The photograph settles with the card rather than after it. */
+  [data-reveal-self][data-revealed='true'] .journey-card__photo {
+    animation: motion-fade 300ms var(--motion-ease) 60ms both;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Navigation surfaces. Both mount on open rather than on scroll, so they play
+   from `animation` on mount — the same trigger the Hero uses — and need no
+   observer at all.
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  .mobile-drawer nav ul li,
+  .lang-select__panel > li {
+    animation: motion-beat-inline 300ms var(--motion-ease) both;
+  }
+
+  .mobile-drawer nav ul li:nth-child(1) { animation-delay: 120ms; }
+  .mobile-drawer nav ul li:nth-child(2) { animation-delay: 158ms; }
+  .mobile-drawer nav ul li:nth-child(3) { animation-delay: 196ms; }
+  .mobile-drawer nav ul li:nth-child(4) { animation-delay: 234ms; }
+  .mobile-drawer nav ul li:nth-child(5) { animation-delay: 272ms; }
+  .mobile-drawer nav ul li:nth-child(6) { animation-delay: 310ms; }
+
+  /* The panel itself opens; its options follow it rather than with it. */
+  .lang-select__panel {
+    animation: motion-beat 180ms var(--motion-ease) both;
+  }
+
+  .lang-select__panel > li:nth-child(1) { animation-delay: 90ms; }
+  .lang-select__panel > li:nth-child(2) { animation-delay: 122ms; }
+  .lang-select__panel > li:nth-child(3) { animation-delay: 154ms; }
+  .lang-select__panel > li:nth-child(4) { animation-delay: 186ms; }
+  .lang-select__panel > li:nth-child(5) { animation-delay: 218ms; }
+}
+
+/* --------------------------------------------------------------------------
+   Press feedback.
+
+   Every hover state on this page is invisible on the devices it is most read
+   on: a touch screen has no pointer to hover with. These give the same
+   surfaces an answer to a finger. Short and small on purpose — a press
+   confirms a hit, it does not perform.
+   -------------------------------------------------------------------------- */
+/* Only the surfaces with no transition on the touch path — two of these declare
+   theirs inside `@media (hover: hover)`, which is exactly the branch a finger
+   never takes. Everywhere else the press is folded into the declaration that
+   already exists, so nothing here can silently drop a colour or border
+   transition on its way past. */
+.project-card__button,
+.capability,
+.toolkit-card,
+.about__meta-item {
+  transition: transform 120ms var(--motion-ease);
+}
+
+.project-card__button:active,
+.capability:active,
+a.contact-row:active,
+.toolkit-card:active,
+.footer-nav__links a:active,
+.lang-select__option:active,
+.portfolio-filter:active,
+.hero__cta:active,
+.mobile-nav__menu:active,
+.lang-select--bar .lang-select__trigger:active {
+  transform: scale(0.978);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-card__button:active,
+  .capability:active,
+  a.contact-row:active,
+  .toolkit-card:active,
+  .footer-nav__links a:active,
+  .lang-select__option:active,
+  .portfolio-filter:active,
+  .hero__cta:active,
+  .mobile-nav__menu:active,
+  .lang-select--bar .lang-select__trigger:active {
+    transform: none;
   }
 }
 
@@ -3384,7 +3752,8 @@ section {
   white-space: nowrap;
   scroll-snap-align: start;
   cursor: pointer;
-  transition: background 200ms ease, border-color 200ms ease, color 200ms ease;
+  transition: background 200ms ease, border-color 200ms ease, color 200ms ease,
+    transform 120ms var(--motion-ease);
 }
 
 /* The tap target is 44px without the chip being 44px tall. Six 44px chips cost
@@ -4314,18 +4683,20 @@ section {
 }
 
 /* ==========================================================================
-   WHAT I BUILD - a delivery path, not a card grid.
+   WHAT I BUILD — a descent through four stages.
 
-   The four capabilities are the order a product is actually delivered in, so
-   the layout is a rail with four stages threaded onto it rather than four
-   interchangeable tiles. The rail is the cards' own top edge, extended a little
-   past both sides; each ink node sits on it, half above the card it opens. That
-   is what makes the structure self-describing: the eye reads a sequence before
-   it reads a word.
+   Read down, not across. The four capabilities are the order a product is
+   actually delivered in, and a stacked list is already read as a sequence —
+   which is what the previous 4-up row had to fake with a hairline rail
+   threaded through half-overhanging nodes, plus fifty lines of nth-child
+   rules pulling that rail back at the ends of every breakpoint's row. The
+   order now sits in the index numeral, at a size that reads as structure.
 
-   The old treatment was four solid white bricks - the only opaque white
-   surfaces on a page whose every other card is Burgundy glass. Material,
-   heading, motion and header are all brought onto the shared system here.
+   The trade the layout makes: a full-width plate per stage instead of a
+   quarter-width one. That is what each palette needed — at card width the
+   field was a sliver behind two lines of copy, and the outlined ghost numeral
+   that filled the leftover space ran underneath the description instead of
+   beside it. Same material, same four ramps, four times the surface.
    ========================================================================== */
 #services {
   padding-top: 1.4rem;
@@ -4351,8 +4722,7 @@ section {
   gap: 0.2rem;
 }
 
-/* States the structure in words directly above the rail that states it in
-   geometry. Between the two the section needs no further explanation. */
+/* Names the path in one line above the stages that walk it. */
 .capabilities__legend {
   display: flex;
   flex-wrap: wrap;
@@ -4378,7 +4748,7 @@ section {
 }
 
 .capabilities__legend span + span::before {
-  content: '\2192';
+  content: '→';
 }
 
 .capabilities__legend em {
@@ -4389,44 +4759,42 @@ section {
 }
 
 .capabilities__legend em::before {
-  content: '\00b7';
+  content: '·';
 }
 
-/* Row gap clears the node that the next row's cards push above themselves. */
 .capability-flow {
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 2.1rem 0.9rem;
+  gap: 0.7rem;
   margin: 0;
-  padding: 1.5rem 0 0;
+  padding: 1.15rem 0 0;
   list-style: none;
 }
 
-@media (min-width: 640px) {
+@media (min-width: 900px) {
   .capability-flow {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.85rem;
   }
 }
 
-@media (min-width: 1024px) {
-  .capability-flow {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 2.2rem 0.85rem;
-  }
-}
+/* Ink, each plate lit from inside by its own palette. `isolation` is what lets
+   the warp sit behind the copy on a negative layer without any of the text
+   needing a stacking context of its own.
 
-/* Ink, each card lit from inside by its own palette. `isolation` is what lets
-   the warp and the ghost numeral sit behind the copy on negative layers without
-   any of the text needing a stacking context of its own.
-
-   The card itself must NOT clip: the rail overhangs both edges to bridge the
-   column gap, and `overflow: hidden` here would cut it back to the card. The
-   warp clips itself instead, to its own inherited radius. */
+   Phone and tablet: the index and the icon share the top line, and the copy
+   runs full width beneath them — the only arrangement that leaves the
+   description a readable measure on a 360px screen. */
 .capability {
   position: relative;
   isolation: isolate;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-areas:
+    'index index node'
+    'body  body  body';
+  align-items: center;
+  gap: 0.85rem 0.9rem;
   min-width: 0;
-  padding: 0 0.95rem 1.05rem;
+  padding: clamp(1rem, 3vw, 1.25rem) clamp(1rem, 3.2vw, 1.35rem);
   border: 1px solid var(--ink-border);
   border-radius: 1.15rem;
   background: var(--ink-solid);
@@ -4435,161 +4803,142 @@ section {
   box-shadow: var(--ink-edge), var(--ink-shadow);
 }
 
+/* One line per stage once there is width for it: the mark leads, the copy
+   takes the middle, the icon closes. */
+@media (min-width: 900px) {
+  .capability {
+    grid-template-columns: minmax(6.5rem, auto) minmax(0, 1fr) auto;
+    grid-template-areas: 'index body node';
+    gap: clamp(1.25rem, 3vw, 2.4rem);
+    padding: clamp(1.25rem, 2vw, 1.6rem) clamp(1.35rem, 2.4vw, 1.9rem);
+  }
+}
+
 .capability__warp {
   z-index: -2;
   border-radius: inherit;
   background: #0d0206;
 }
 
-/* The rail, carried on each card's own top edge rather than by the container:
-   a container line would be occluded by the cards and survive only in the gaps.
-   Sitting on the border it can never land off the nodes, whatever the card
-   height or column count.
-
-   The overhang is half a gap wider than the gap itself, so consecutive cards
-   join into one unbroken thread. Only the two ends of a row pull their overhang
-   back in — otherwise the row would begin and end on a floating stub. */
-.capability::before {
-  content: '';
-  position: absolute;
-  z-index: 1;
-  top: -1px;
-  right: 0;
-  left: 0;
-  height: 1px;
-  background: rgba(255, 255, 255, 0.5);
+.capability__index {
+  display: flex;
+  grid-area: index;
+  align-items: baseline;
+  gap: 0.6rem;
+  margin: 0;
+  min-width: 0;
 }
 
-@media (min-width: 640px) {
-  .capability::before {
-    right: -0.5rem;
-    left: -0.5rem;
-  }
-
-  .capability:nth-child(2n + 1)::before {
-    inset-inline-start: 0;
-  }
-
-  .capability:nth-child(2n)::before {
-    inset-inline-end: 0;
+/* Stacked once the plate is one line: the numeral becomes the column that
+   opens the row, with the stage word set under it as its caption. */
+@media (min-width: 900px) {
+  .capability__index {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
   }
 }
 
-@media (min-width: 1024px) {
-  .capability:nth-child(2n + 1)::before {
-    inset-inline-start: -0.5rem;
-  }
-
-  .capability:nth-child(2n)::before {
-    inset-inline-end: -0.5rem;
-  }
-
-  .capability:nth-child(4n + 1)::before {
-    inset-inline-start: 0;
-  }
-
-  .capability:nth-child(4n)::before {
-    inset-inline-end: 0;
-  }
-}
-
-/* Drawn, not faded in: it runs out from the node as the card lands. The start
-   state lives behind the motion query for the same reason the reveal system's
-   does - a reader who asks for less motion is never served an invisible rail. */
-@media (prefers-reduced-motion: no-preference) {
-  .capability::before {
-    transform: scaleX(0);
-    transform-origin: left center;
-    transition: transform 700ms var(--motion-ease) var(--reveal-delay, 0ms);
-  }
-
-  [data-revealed='true'] .capability::before {
-    transform: scaleX(1);
-  }
-}
-
-/* Ink node, threaded onto the rail: its own height pulled up by half, so its
-   centre sits exactly on the card's top edge. */
-.capability__node {
-  position: relative;
-  z-index: 2;
-  display: grid;
-  width: 2.5rem;
-  height: 2.5rem;
-  margin: -1.25rem 0 0;
-  place-items: center;
-  border: 1px solid var(--ink-border);
-  border-radius: 0.85rem;
-  background: var(--ink-solid);
-  background-image: var(--ink);
+/* Tabular, so the four indices sit on one vertical rhythm down the column. */
+.capability__num {
   color: #ffffff;
-  box-shadow: var(--ink-edge), 0 12px 26px rgba(6, 0, 3, 0.55);
+  font-family: var(--font-heading);
+  font-size: clamp(1.75rem, 5.5vw, 2.15rem);
+  font-variant-numeric: tabular-nums;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 0.9;
+}
+
+@media (min-width: 900px) {
+  .capability__num {
+    font-size: clamp(2.3rem, 3.4vw, 3.15rem);
+  }
 }
 
 .capability__stage {
-  display: flex;
-  align-items: center;
-  gap: 0.45rem;
-  margin: 0.75rem 0 0;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.72);
   font-size: 0.6rem;
   font-weight: 800;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
 }
 
-/* Tabular, so the four indices sit on the same rhythm however they wrap. */
-.capability__num {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  color: #ffffff;
-  font-family: var(--font-heading);
-  font-size: 0.74rem;
-  font-variant-numeric: tabular-nums;
-  letter-spacing: 0.02em;
+/* A hairline under the numeral, not a rule across the plate: it closes the
+   mark and separates it from the copy without drawing a second horizontal. */
+@media (min-width: 900px) {
+  .capability__stage {
+    padding-top: 0.42rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.28);
+  }
 }
 
-.capability__num::after {
-  content: '';
-  width: 0.85rem;
-  height: 1px;
-  background: rgba(255, 255, 255, 0.34);
+.capability__body {
+  grid-area: body;
+  min-width: 0;
+}
+
+/* Title and description share the line once the plate is wide enough to give
+   each a column. Stacked, a 140-character description wrapped at its reading
+   measure and left a third of the plate empty beside it; paired, the two fill
+   the width they were given and the row reads as an entry in a record rather
+   than a card that happens to be stretched. */
+@media (min-width: 1100px) {
+  .capability__body {
+    display: grid;
+    grid-template-columns: minmax(0, 15.5rem) minmax(0, 1fr);
+    align-items: baseline;
+    gap: 0.3rem 2rem;
+  }
 }
 
 .capability__title {
-  margin: 0.4rem 0 0;
+  margin: 0;
   color: #ffffff;
   font-family: var(--font-heading);
-  font-size: 1rem;
+  font-size: clamp(1.02rem, 2.6vw, 1.2rem);
   font-weight: 800;
-  line-height: 1.22;
+  line-height: 1.2;
 }
 
 .capability__text {
-  margin: 0.45rem 0 0;
+  /* Held to a reading measure: the plate is now the full column, and a line
+     running its whole width would be far past what an eye tracks back. */
+  max-inline-size: 66ch;
+  margin: 0.4rem 0 0;
   color: rgba(255, 255, 255, 0.84);
-  font-size: 0.82rem;
-  line-height: 1.55;
+  font-size: 0.85rem;
+  line-height: 1.58;
 }
 
-/* Outlined rather than filled: it reads as a watermark in the glass, and an
-   outline at this alpha cannot compete with the copy sitting over it. */
-.capability__mark {
-  position: absolute;
-  z-index: -1;
-  inset-inline-end: 0.5rem;
-  bottom: -0.15rem;
-  color: transparent;
-  font-family: var(--font-heading);
-  font-size: 3.6rem;
-  font-variant-numeric: tabular-nums;
-  font-weight: 800;
-  line-height: 1;
-  pointer-events: none;
-  user-select: none;
-  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.15);
-  transition: -webkit-text-stroke-color 240ms ease;
+@media (min-width: 1100px) {
+  .capability__text {
+    margin-top: 0;
+  }
+}
+
+/* Ink capsule closing the row. It marks the stage's kind of work; the numeral
+   opposite it marks the stage's place in the order. */
+.capability__node {
+  display: grid;
+  grid-area: node;
+  align-self: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  place-items: center;
+  border: 1px solid var(--ink-border);
+  border-radius: 0.9rem;
+  background: rgba(10, 2, 6, 0.5);
+  color: #ffffff;
+  box-shadow: var(--ink-edge);
+}
+
+@media (min-width: 900px) {
+  .capability__node {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 1rem;
+  }
 }
 
 @media (hover: hover) {
@@ -4601,7 +4950,7 @@ section {
   }
 
   .capability__node {
-    transition: border-color 240ms ease, box-shadow 240ms ease;
+    transition: border-color 240ms ease, background 240ms ease;
   }
 
   .capability:hover {
@@ -4612,11 +4961,7 @@ section {
 
   .capability:hover .capability__node {
     border-color: rgba(255, 255, 255, 0.5);
-    box-shadow: var(--ink-edge), 0 16px 30px rgba(6, 0, 3, 0.62);
-  }
-
-  .capability:hover .capability__mark {
-    -webkit-text-stroke-color: rgba(255, 255, 255, 0.32);
+    background: rgba(255, 255, 255, 0.12);
   }
 }
 
@@ -4860,7 +5205,7 @@ section {
   padding: 0.6rem 0.85rem;
   color: #ffffff;
   text-decoration: none;
-  transition: background 200ms ease;
+  transition: background 200ms ease, transform 120ms var(--motion-ease);
 }
 
 @media (min-width: 1024px) {
@@ -4989,7 +5334,8 @@ a.contact-row:focus-visible {
   font-weight: 700;
   text-align: start;
   cursor: pointer;
-  transition: background 180ms var(--motion-ease), border-color 180ms var(--motion-ease);
+  transition: background 180ms var(--motion-ease), border-color 180ms var(--motion-ease),
+    transform 120ms var(--motion-ease);
 }
 
 .lang-select__trigger:hover {
@@ -5038,7 +5384,8 @@ a.contact-row:focus-visible {
   font-weight: 600;
   text-align: start;
   cursor: pointer;
-  transition: background 160ms var(--motion-ease), color 160ms var(--motion-ease);
+  transition: background 160ms var(--motion-ease), color 160ms var(--motion-ease),
+    transform 120ms var(--motion-ease);
 }
 
 .lang-select__option:hover {
