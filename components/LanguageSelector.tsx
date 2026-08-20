@@ -14,8 +14,12 @@ import { useI18n } from '../i18n/useI18n';
  *
  * The trigger shows the locale code; options name each language in itself. No
  * flags — the choice is a language, not a country.
+ *
+ * `variant="bar"` is the mobile navbar copy: the same markup, but the panel
+ * drops out of flow as a menu under the bar, because a bar of fixed height
+ * cannot grow a list inside itself the way the drawer can.
  */
-const LanguageSelector: React.FC = () => {
+const LanguageSelector: React.FC<{ variant?: 'bar' }> = ({ variant }) => {
   const { locale, t, setLocale } = useI18n();
   const [open, setOpen] = useState(false);
   const panelId = useId();
@@ -45,7 +49,7 @@ const LanguageSelector: React.FC = () => {
   }, [open]);
 
   return (
-    <div className="lang-select" ref={rootRef}>
+    <div className={`lang-select${variant === 'bar' ? ' lang-select--bar' : ''}`} ref={rootRef}>
       <button
         type="button"
         className="lang-select__trigger"

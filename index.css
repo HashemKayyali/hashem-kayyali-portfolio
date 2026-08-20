@@ -849,6 +849,18 @@ section {
   white-space: nowrap;
 }
 
+/* Language and the drawer trigger travel together on the end edge, spaced
+   far enough apart that neither is hit by accident. */
+.mobile-nav__actions {
+  display: flex;
+  flex: none;
+  /* Full bar height, so the language panel inside can hang off the bar's own
+     bottom edge; the controls themselves stay centred within it. */
+  align-self: stretch;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .mobile-nav__menu {
   display: grid;
   flex: none;
@@ -5045,6 +5057,77 @@ a.contact-row:focus-visible {
 .lang-select__option:focus-visible {
   outline: 2px solid rgba(255, 255, 255, 0.9);
   outline-offset: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   Navbar variant. The drawer copy is hidden below the sidebar breakpoint, so
+   on a phone or tablet this pill is the one language control — which is why it
+   is pitched brighter than the hamburger beside it rather than matching it.
+   The panel leaves the flow here: the bar is a fixed 4.25rem and cannot open a
+   list inside itself.
+   -------------------------------------------------------------------------- */
+/* Stretched to the bar's full height, with the pill centred inside it, so the
+   panel's `top: 100%` lands under the BAR rather than under the pill — no
+   magic offset to re-derive whenever the bar's height changes. */
+.lang-select--bar {
+  position: relative;
+  display: flex;
+  align-self: stretch;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  border-top: 0;
+}
+
+.lang-select--bar .lang-select__trigger {
+  width: auto;
+  min-height: 2.6rem;
+  gap: 0.32rem;
+  padding: 0 0.6rem;
+  border-color: rgba(255, 255, 255, 0.45);
+  border-radius: 0.85rem;
+  background: rgba(255, 255, 255, 0.17);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+}
+
+.lang-select--bar .lang-select__trigger:hover {
+  border-color: rgba(255, 255, 255, 0.72);
+  background: rgba(255, 255, 255, 0.26);
+}
+
+.lang-select--bar .lang-select__current {
+  flex: none;
+  font-size: 0.72rem;
+}
+
+.lang-select--bar .lang-select__panel {
+  position: absolute;
+  z-index: 5;
+  inset-inline-end: 0;
+  top: calc(100% + 0.55rem);
+  min-width: 11.5rem;
+  margin: 0;
+  padding: 0.35rem;
+  border: 1px solid var(--glass-dark-border);
+  border-radius: 1rem;
+  background: var(--glass-navbar-solid);
+  box-shadow: 0 22px 44px rgba(12, 0, 5, 0.42);
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .lang-select--bar .lang-select__panel {
+    -webkit-backdrop-filter: blur(var(--glass-navbar-blur)) saturate(var(--glass-saturate));
+    backdrop-filter: blur(var(--glass-navbar-blur)) saturate(var(--glass-saturate));
+    background: var(--glass-navbar);
+  }
+}
+
+/* One language control per breakpoint: the drawer's copy would be a second one
+   below 1280px, where the navbar pill already carries it. The docked desktop
+   sidebar keeps its own — there is no navbar up there. */
+.mobile-drawer .lang-select {
+  display: none;
 }
 
 /* Nav rows are buttons, so their text needs an explicit start alignment; the

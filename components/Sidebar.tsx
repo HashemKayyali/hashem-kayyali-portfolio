@@ -212,15 +212,21 @@ export const MobileNav: React.FC<{ onOpen: () => void; isOpen: boolean }> = ({ o
           <span className="mobile-nav__role">{t.identity.role}</span>
         </div>
       </div>
-      <button
-        type="button"
-        onClick={onOpen}
-        className="mobile-nav__menu"
-        aria-label={t.navigation.openNavigation}
-        tabIndex={isOpen ? -1 : undefined}
-      >
-        <Menu size={21} />
-      </button>
+      {/* Language sits in the bar itself, not behind the hamburger: on a phone
+          or tablet the drawer is the only other navigation, and a reader who
+          cannot see that the site speaks their language never opens it. */}
+      <div className="mobile-nav__actions">
+        <LanguageSelector variant="bar" />
+        <button
+          type="button"
+          onClick={onOpen}
+          className="mobile-nav__menu"
+          aria-label={t.navigation.openNavigation}
+          tabIndex={isOpen ? -1 : undefined}
+        >
+          <Menu size={21} />
+        </button>
+      </div>
     </header>
   );
 };
