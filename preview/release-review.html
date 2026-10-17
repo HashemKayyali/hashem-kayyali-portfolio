@@ -36,7 +36,7 @@ code{font:13px ui-monospace,Consolas,monospace;color:var(--accent)}
 <header><h1>SEO repair and motion pass</h1>
 <p>Local build only: nothing is pushed or deployed. “Before” is the live hashemkayyali.com, “after” is local. Links open the local dev server (<code>npm run dev</code>, port 5176).</p>
 <p>Direct links: <a href="/en/">/en/</a> · <a href="/ar/">/ar/</a> · <a href="/en/projects/">/en/projects/</a> · <a href="/ar/projects/">/ar/projects/</a> · <a href="/en/projects/bike-tower/">/en/projects/bike-tower/</a> · <a href="/ar/projects/bike-tower/">/ar/projects/bike-tower/</a> · <a href="/preview/ar/">/preview/ar/ (old URL, redirects)</a> · <a href="/ar">/ar (redirects)</a></p>
-<nav class="toc"><a href="#seo">01 URLs and SEO</a><a href="#console">02 Search Console</a><a href="#smoke">03 Smoke</a><a href="#method">04 Engineering Focus</a><a href="#entrance">05 Projects entrances</a><a href="#stack">06 Stacking cards</a><a href="#cards">07 Laptop cards</a><a href="#flight">08 Image flight</a><a href="#gallery">09 Project gallery</a><a href="#tests">10 Tests and limits</a></nav></header>
+<nav class="toc"><a href="#seo">01 URLs and SEO</a><a href="#console">02 Search Console</a><a href="#smoke">03 Smoke</a><a href="#method">04 Engineering Focus</a><a href="#entrance">05 Projects entrances</a><a href="#stack">06 Stacking cards</a><a href="#cards">07 Laptop cards</a><a href="#perf">07b Performance</a><a href="#flight">08 Image flight</a><a href="#gallery">09 Project gallery</a><a href="#tests">10 Tests and limits</a></nav></header>
 <main>
 
 <section id="seo"><h2><small>01</small>URLs, redirects and SEO</h2>
@@ -94,9 +94,10 @@ code{font:13px ui-monospace,Consolas,monospace;color:var(--accent)}
 <div class="scroll"><table><tr><th>Viewport</th><th>Home</th><th>Projects</th><th>Overflow</th></tr>
 <tr><td>320×640</td><td>stacked, 3 cards</td><td>stacked, 11 cards</td><td>0</td></tr>
 <tr><td>390×844</td><td>stacked</td><td>stacked</td><td>0</td></tr>
-<tr><td>1366×768</td><td>stacked</td><td>stacked</td><td>0</td></tr>
-<tr><td>1920×1080</td><td>stacked</td><td>stacked</td><td>0</td></tr>
-<tr><td>3440×1440</td><td>stacked</td><td>stacked</td><td>0</td></tr></table></div>
+<tr><td>820×1180 / 1024×1366 iPad portrait</td><td>stacked</td><td>stacked</td><td>0</td></tr>
+<tr><td>1024×768 / 1180×820 iPad landscape</td><td>stacked</td><td>split grid</td><td>0</td></tr>
+<tr><td>1366×768, 1920×1080, 3440×1440</td><td>stacked</td><td>split grid</td><td>0</td></tr></table></div>
+<p class="muted">Your choice (18 Oct): Projects shows the split card grid on landscape screens ≥1024px (iPad landscape, 13-inch laptops and larger) and stacks on iPad portrait and phones.</p>
 <div class="scroll"><table><tr><th>Interaction (390 and 1440)</th><th>Result</th></tr>
 <tr><td>Each filter</td><td>Only matching cards stack (2 / 3 / 4); a single result sits flat ✓ (this pass fixed hidden cards showing in stack mode)</td></tr>
 <tr><td>Open a stacked card → Back</td><td>Returns to the same scroll position, deck still stacked ✓</td></tr>
@@ -106,9 +107,21 @@ code{font:13px ui-monospace,Consolas,monospace;color:var(--accent)}
 <div class="pair"><figure><video src="/preview/review-assets/r3/stack-phone-390.webm" controls muted playsinline preload="metadata"></video><figcaption>390 PHONE · DOWN AND BACK UP</figcaption></figure><figure><img src="/preview/review-assets/r3/stack-sizes.png" alt=""><figcaption>MID-DECK · 320 TO 3440</figcaption></figure></div></section>
 
 <section id="cards"><h2><small>07</small>Laptop project cards</h2>
-<p>At 1366×768, cards were up to 470px tall with screenshots as small as 238×179. Each card is now a 451px folio with the full screenshot at 573×358 (contain, never cropped). Photos and UI keep their whole frame.</p>
-<div class="pair"><figure><img src="/preview/review-assets/r3/cards-1366-before.png" alt=""><figcaption>BEFORE · LIVE · 1366</figcaption></figure><figure><img src="/preview/review-assets/r3/cards-1366-after.png" alt=""><figcaption>AFTER · 1366</figcaption></figure></div>
-<figure style="max-width:680px"><img src="/preview/review-assets/r3/cards-1366-reduced-motion.png" alt=""><figcaption>AFTER · REDUCED MOTION · SAME CARDS, NO STACKING</figcaption></figure></section>
+<p>Per your note, landscape tablets and laptops keep the split card grid exactly as on the live site (left). The stacked folio (right) is used on iPad portrait and phones, and with reduced motion there it stays flat.</p>
+<div class="pair"><figure><img src="/preview/review-assets/r3/cards-1366-before.png" alt=""><figcaption>LAPTOP 1366 · SPLIT GRID (KEPT)</figcaption></figure><figure><img src="/preview/review-assets/r3/cards-1366-after.png" alt=""><figcaption>STACKED FOLIO · NOW PORTRAIT AND PHONE ONLY</figcaption></figure></div></section>
+<section id="perf"><h2><small>07b</small>Performance (no visual change)</h2>
+<ul>
+<li><b>Smooth scrolling.</b> On every wheel event Lenis read computed styles up the element tree to look for nested scroll areas, forcing a full style pass mid-frame (100 forced reads per 70 wheel events). It now matches the four real nested scrollers by selector.</li>
+<li><b>Stacked cards.</b> The dim was an inherited CSS variable, so each scroll frame restyled every element inside every covered card. It is now a shade element animated by opacity (compositor only), and covered cards scale as cached layers instead of being re-rasterized each frame.</li>
+<li><b>Home story.</b> The step tracker read the header height from computed style on every scroll frame; it is now cached and refreshed on resize.</li>
+<li><b>Caching.</b> Production served every file with <code>max-age=0</code>. Hashed JS/CSS are now cached for a year (immutable), fonts for 30 days, images for a day with background refresh. HTML still revalidates, so deploys show at once.</li>
+<li><b>Viewer.</b> Wheel at the end of the image viewer no longer scrolls the page behind it (same bug existed live).</li>
+</ul>
+<div class="scroll"><table><tr><th>Projects scroll, 1440, real GPU</th><th>Style work</th><th>Frames &gt;34ms</th><th>Worst frame</th></tr>
+<tr><td>Before this pass (stacked deck)</td><td>1683ms</td><td>81</td><td>146ms</td></tr>
+<tr><td>After</td><td>249–269ms</td><td>16–20</td><td>77–125ms</td></tr>
+<tr><td>Phone 390 stacked, raster time</td><td colspan="3">352ms → 147ms; worst frame 187ms → 76ms</td></tr></table></div>
+<p class="warn">Measured on a fast desktop with CPU throttling as a stand-in for slower devices; numbers vary run to run. Not measured on your own laptop or phone.</p></section>
 
 <section id="flight"><h2><small>08</small>Project image flight</h2>
 <p><b>Cause.</b> The flying image was an upscaled bitmap (blur), and the empty destination frame showed behind it. The flight now lays the image out at its destination size and scales it down to the source (no resampling at the end), follows the visible image rectangle (including letterboxing), interpolates the corner radius, and hides the destination frame chrome during the flight.</p>

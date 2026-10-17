@@ -32,8 +32,12 @@ export function createCardStack(deck:HTMLElement,options:CardStackOptions){
   context=gsap.context(()=>{
    items.slice(0,-1).forEach((item,index)=>{
     const next=items[index+1],surface=options.surface?item.querySelector<HTMLElement>(options.surface)??item:item;
-    // Covered cards recede slightly further the more cards sit on top of them.
-    gsap.fromTo(surface,{scale:1,'--stack-dim':0},{scale:1-(options.depth??.045),'--stack-dim':1,ease:'none',transformOrigin:'50% 0%',scrollTrigger:{id:`${options.id}:layer:${index}`,trigger:next,start:'top bottom-=8%',end:()=>`top ${top+(index+1)*offset}px`,scrub:.5,invalidateOnRefresh:true}});
+    // Covered cards recede and dim. The shade is a child animated by opacity (compositor only);
+    // an inherited custom property here restyled every descendant on each scroll frame.
+    const shade=surface.querySelector<HTMLElement>(':scope>.stack-shade')??surface.appendChild(Object.assign(document.createElement('span'),{className:'stack-shade',ariaHidden:'true'}));
+    gsap.timeline({scrollTrigger:{id:`${options.id}:layer:${index}`,trigger:next,start:'top bottom-=8%',end:()=>`top ${top+(index+1)*offset}px`,scrub:.5,invalidateOnRefresh:true}})
+     .fromTo(surface,{scale:1},{scale:1-(options.depth??.045),ease:'none',transformOrigin:'50% 0%'},0)
+     .fromTo(shade,{opacity:0},{opacity:.32,ease:'none'},0);
    });
   },deck);
   ScrollTrigger.refresh();
@@ -43,5 +47,5 @@ export function createCardStack(deck:HTMLElement,options:CardStackOptions){
  addEventListener('resize',schedule,{passive:true});
  void document.fonts.ready.then(schedule);
  rebuild();
- return {refresh:schedule,dispose:()=>{alive=false;cancelAnimationFrame(frame);resize.disconnect();removeEventListener('resize',schedule);context?.revert();delete deck.dataset.stack;['--stack-top','--stack-offset','--stack-tail'].forEach(name=>deck.style.removeProperty(name));}};
+ return {refresh:schedule,dispose:()=>{alive=false;cancelAnimationFrame(frame);resize.disconnect();removeEventListener('resize',schedule);context?.revert();deck.querySelectorAll('.stack-shade').forEach(shade=>shade.remove());delete deck.dataset.stack;['--stack-top','--stack-offset','--stack-tail'].forEach(name=>deck.style.removeProperty(name));}};
 }

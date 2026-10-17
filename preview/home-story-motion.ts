@@ -12,7 +12,7 @@ export function useHomeStoryMotion(root:RefObject<HTMLDivElement|null>,locale:st
   const sheets=[...element.querySelectorAll<HTMLElement>('[data-story-sheet]')];
   const method=element.querySelector<HTMLElement>('.story-method-layout');
   if(!method||sheets.length!==3)return;
-  let alive=true,frame=0,selected=-1,inView=true;
+  let alive=true,frame=0,selected=-1,inView=true,header=0;
   const media=matchMedia('(prefers-reduced-motion:reduce)');
   const wide=matchMedia('(min-width:900px) and (min-height:650px)');
   const owned=gsap.context(()=>{},element),arrivals=new Map<HTMLElement,gsap.core.Timeline>();
@@ -34,7 +34,8 @@ export function useHomeStoryMotion(root:RefObject<HTMLDivElement|null>,locale:st
    // Follow the chapter beside the sticky image, just below the fixed header.
    // The active step is the one passing the centre of the sticky board, so each image
    // arrives while the board is actually on screen beside its text.
-   const header=parseFloat(getComputedStyle(element).getPropertyValue('--app-header-height'))||68;
+   // Header height is cached (reset on resize): reading computed style each scroll frame forced a style flush.
+   if(!header)header=parseFloat(getComputedStyle(element).getPropertyValue('--app-header-height'))||68;
    const board=element.querySelector<HTMLElement>('.story-visual')?.getBoundingClientRect();
    const line=board&&board.height?Math.min(Math.max(board.top+board.height*.4,header+120),innerHeight*.72):Math.min(innerHeight*.35,header+120);
    let next=0;
@@ -48,6 +49,7 @@ export function useHomeStoryMotion(root:RefObject<HTMLDivElement|null>,locale:st
    const meter=element.querySelector<HTMLElement>('.story-board-meter i');if(meter)meter.style.transform=`scaleX(${(next+1)/3})`;
   };
   const schedule=()=>{if(!frame&&alive)frame=requestAnimationFrame(measure);};
+  const resized=()=>{header=0;schedule();};
   const motionChange=()=>{transition?.kill();if(selected>=0)sequence!.time(selected);for(const animation of arrivals.values())animation.progress(1);schedule();};
   const observer=typeof IntersectionObserver==='undefined'?undefined:new IntersectionObserver(entries=>{
    for(const entry of entries){
@@ -81,8 +83,8 @@ export function useHomeStoryMotion(root:RefObject<HTMLDivElement|null>,locale:st
   const leave=()=>{bounds=undefined;x?.(0);y?.(0);};
   action?.addEventListener('pointerenter',enter);action?.addEventListener('pointermove',move);action?.addEventListener('pointerleave',leave);action?.addEventListener('blur',leave);
   const resize=typeof ResizeObserver==='undefined'?undefined:new ResizeObserver(schedule);resize?.observe(method);
-  addEventListener('scroll',schedule,{passive:true});addEventListener('resize',schedule,{passive:true});media.addEventListener('change',motionChange);wide.addEventListener('change',assemble);element.addEventListener('focusin',focus);
+  addEventListener('scroll',schedule,{passive:true});addEventListener('resize',resized,{passive:true});media.addEventListener('change',motionChange);wide.addEventListener('change',assemble);element.addEventListener('focusin',focus);
   measure();
-  return()=>{alive=false;cancelAnimationFrame(frame);transition?.kill();observer?.disconnect();resize?.disconnect();removeEventListener('scroll',schedule);removeEventListener('resize',schedule);media.removeEventListener('change',motionChange);wide.removeEventListener('change',assemble);element.removeEventListener('focusin',focus);action?.removeEventListener('pointerenter',enter);action?.removeEventListener('pointermove',move);action?.removeEventListener('pointerleave',leave);action?.removeEventListener('blur',leave);owned.revert();element.dataset.storyMotion='static';delete element.dataset.storyChapter;chapters.forEach(chapter=>delete chapter.dataset.active);};
+  return()=>{alive=false;cancelAnimationFrame(frame);transition?.kill();observer?.disconnect();resize?.disconnect();removeEventListener('scroll',schedule);removeEventListener('resize',resized);media.removeEventListener('change',motionChange);wide.removeEventListener('change',assemble);element.removeEventListener('focusin',focus);action?.removeEventListener('pointerenter',enter);action?.removeEventListener('pointermove',move);action?.removeEventListener('pointerleave',leave);action?.removeEventListener('blur',leave);owned.revert();element.dataset.storyMotion='static';delete element.dataset.storyChapter;chapters.forEach(chapter=>delete chapter.dataset.active);};
  },{scope:root,dependencies:[locale],revertOnUpdate:true});
 }

@@ -10,6 +10,7 @@ import {ScrollTrigger} from 'gsap/ScrollTrigger';
  * native: Lenis is never created for them.
  */
 let lenis:Lenis|null=null;
+const NESTED_SCROLL='dialog,#primary-navigation,.studio-records ol,[data-lenis-prevent]';
 const tick=(time:number)=>lenis?.raf(time*1000);
 const reduced=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -21,7 +22,10 @@ export function startSmoothScroll(){
    duration:1.4,                         // cinematic settle, chosen by the owner
    easing:t=>Math.min(1,1.001-Math.pow(2,-10*t)),
    smoothWheel:true,syncTouch:false,
-   allowNestedScroll:true,               // menus, dialogs, filmstrips and admin panels scroll natively
+   // Vertical nested scrollers keep native wheel. Matched by selector: Lenis's generic
+   // allowNestedScroll reads getComputedStyle up the event path on every wheel event,
+   // which forced a style flush per event while cards moved under the cursor.
+   prevent:node=>node.matches(NESTED_SCROLL),
    stopInertiaOnNavigate:true,
   });
   lenis.on('scroll',ScrollTrigger.update);

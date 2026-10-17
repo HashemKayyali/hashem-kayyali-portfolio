@@ -294,10 +294,12 @@
 
 /* ── Signature stacking deck (Home + Projects, every viewport) ───────────────────
    card-stack.ts sets data-stack, --stack-top/--stack-offset/--stack-i and scrubs depth
-   (scale + --stack-dim). Reduced motion or cards taller than the viewport keep normal flow. */
+   (scale + shade opacity). Reduced motion or cards taller than the viewport keep normal flow. */
 :root .light-portfolio.luxury-portfolio.atelier-compact .pulse-scenes[data-stack=active] .pulse-scene{top:calc(var(--stack-top,86px) + var(--stack-i,0)*var(--stack-offset,14px));z-index:calc(1 + var(--stack-i,0));}
 :root .light-portfolio.luxury-portfolio.atelier-compact .pulse-scene-surface{position:relative;}
-:root .light-portfolio.luxury-portfolio.atelier-compact :is(.pulse-scene-surface,.gallery-exhibits[data-stack=active] .gallery-exhibit)::after{content:'';position:absolute;inset:0;border-radius:inherit;background:#000;opacity:calc(var(--stack-dim,0)*.32);pointer-events:none;}
+:root .light-portfolio.luxury-portfolio.atelier-compact :is(.pulse-scenes[data-stack=active] .pulse-scene-surface,.gallery-exhibits[data-stack=active] .gallery-exhibit){will-change:transform;} /* depth scale composites a cached layer instead of re-rastering each frame */
+/* Covered-card shade: its own element so the scrubbed opacity stays on the compositor. */
+:root .light-portfolio.luxury-portfolio.atelier-compact .stack-shade{position:absolute;inset:0;border-radius:inherit;background:#000;opacity:0;pointer-events:none;}
 :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibits[data-stack]{grid-template-columns:minmax(0,1fr)!important;gap:0!important;align-items:start;}
 :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibits[data-stack=active]::after{content:'';display:block;height:var(--stack-tail,48px);}
 :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibits[data-stack] .gallery-exhibit{grid-column:1/-1!important;height:auto!important;margin-block-end:clamp(18px,3.5vh,40px);border-radius:16px;container-type:inline-size;display:flex;transform-origin:50% 0;}
@@ -357,3 +359,6 @@
 :root .light-portfolio.luxury-portfolio.atelier-compact .signature-case .case-body .case-gallery .evidence-stage{height:var(--g-h)!important;border-radius:16px;}
 :root .light-portfolio.luxury-portfolio.atelier-compact .signature-case .case-body .case-gallery .evidence-slide{padding:var(--g-pad)!important;}
 :root .light-portfolio.luxury-portfolio.atelier-compact .signature-case .case-body .case-gallery .evidence-native-frame{width:min(100%,calc((var(--g-h) - 2 * var(--g-pad) - 8px) * var(--media-ratio) + 8px))!important;}
+
+/* Wheel at the end of an open viewer must not scroll the page behind it. */
+:root .case-image-viewer,:root .studio-lightbox{overscroll-behavior:contain;}
