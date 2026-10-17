@@ -26,13 +26,20 @@ export function useGalleryMotion(root:RefObject<HTMLElement|null>,key:string,rtl
     if(shared||card.parentElement?.dataset.filtering==='true')return;
     contexts.push(gsap.context(()=>{
      // Card rises; its photograph is unmasked from below and settles from a slight zoom.
-     const link=card.querySelector('.gallery-project-link'),mask=card.querySelector('.gallery-media-mask'),img=card.querySelector('.gallery-media-depth'),delay=([...(card.parentElement?.children??[])].indexOf(card)%3)*.08;
-     gsap.fromTo(link,{y:48,opacity:0},{y:0,opacity:1,duration:1,delay,ease:'expo.out',clearProps:'transform,opacity'});
+     const link=card.querySelector('.gallery-project-link'),mask=card.querySelector('.gallery-media-mask'),img=card.querySelector('.gallery-media-depth');
+     // Direction follows the card's place in its row: edges slide in from their own side,
+     // a centred card rises with a little depth. Cards entering together keep a short stagger.
+     const box=card.getBoundingClientRect(),row=card.parentElement!.getBoundingClientRect(),centre=(box.left+box.width/2-row.left)/row.width;
+     const side=box.width>row.width*.9?'centre':centre<.4?'left':centre>.6?'right':'centre';
+     const peers=[...(card.parentElement?.children??[])].filter(c=>Math.abs(c.getBoundingClientRect().top-box.top)<4);
+     const delay=Math.max(0,peers.indexOf(card))*.09;
+     const from=side==='left'?{x:-90,opacity:0}:side==='right'?{x:90,opacity:0}:{y:70,scale:.96,opacity:0};
+     gsap.fromTo(link,from,{x:0,y:0,scale:1,opacity:1,duration:1.15,delay,ease:'expo.out',clearProps:'transform,opacity'});
      if(mask)gsap.fromTo(mask,{clipPath:'inset(100% 0% 0% 0% round 8px)'},{clipPath:'inset(0% 0% 0% 0% round 8px)',duration:1.15,delay:delay+.12,ease:'expo.out',clearProps:'clipPath'});
      if(img)gsap.fromTo(img,{scale:1.14},{scale:1,duration:1.4,delay:delay+.12,ease:'expo.out',clearProps:'transform'});
     },card));
    };
-   const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting)initialize(entry.target as HTMLElement);}),{rootMargin:'80px 0px'});
+   const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting)initialize(entry.target as HTMLElement);}),{rootMargin:'0px 0px -8% 0px'});
    el.querySelectorAll<HTMLElement>('.gallery-exhibit').forEach(card=>{
     observer.observe(card);const arrow=card.querySelector('.gallery-link-arrow');if(!arrow)return;
     const enter=()=>{gsap.to(arrow,{x:rtl?-3:3,y:-3,duration:.25,overwrite:true});},leave=()=>{gsap.to(arrow,{x:0,y:0,duration:.3,overwrite:true});};

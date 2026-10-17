@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
+<title>Fixes Review</title>
+<style>
+@font-face{font-family:'Libre Caslon Condensed';font-weight:400 700;src:url('/fonts/libre-caslon-condensed-v2.ttf') format('truetype');}
+:root{--ink:#f1eee7;--muted:#b2b7b5;--paper:#11171a;--raised:#1a2327;--line:#3b4649;--accent:#cdb58b;--ok:#8fc7a8}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:18px/1.6 'Libre Caslon Condensed',Georgia,serif}
+header,main{padding-inline:clamp(16px,4vw,72px)}
+header{padding-block:56px 28px;border-bottom:1px solid var(--line)}
+h1{font-weight:450;font-size:clamp(40px,5vw,72px);line-height:1;margin:0 0 14px;letter-spacing:-.02em}
+header p{margin:0;color:var(--muted);max-width:70ch}
+header a{color:var(--accent)}
+main{display:grid;gap:30px;padding-block:32px 96px}
+section{border:1px solid var(--line);border-radius:22px;background:var(--raised);padding:clamp(18px,2vw,32px);display:grid;gap:16px}
+h2{margin:0;font-weight:450;font-size:clamp(26px,2.2vw,36px);line-height:1.15}
+h2 small{font:500 12px/1 ui-monospace,Consolas,monospace;color:var(--accent);letter-spacing:.1em;margin-inline-end:12px;vertical-align:middle}
+p{margin:0;max-width:78ch}
+.muted{color:var(--muted)}
+.ok{color:var(--ok);font:500 13px/1.4 ui-monospace,Consolas,monospace}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+figure{margin:0;display:grid;gap:6px}
+figure img{width:100%;border-radius:14px;border:1px solid var(--line)}
+figcaption{font:500 11px/1 ui-monospace,Consolas,monospace;letter-spacing:.12em;color:var(--muted)}
+table{border-collapse:collapse;font:14px/1.5 ui-monospace,Consolas,monospace;width:100%}
+td,th{border-bottom:1px solid var(--line);padding:6px 10px;text-align:start}
+th{color:var(--muted);font-weight:500}
+@media(max-width:800px){.pair{grid-template-columns:1fr}}
+</style></head><body>
+<header><h1>Fixes review</h1><p>Everything below runs on the local build (not deployed). Before = live hashemkayyali.com, after = local. Logo directions: <a href="/preview/hk-logo-review.html">HK logo exploration</a>.</p></header>
+<main>
+
+<section><h2><small>01</small>Hero smoke: no jump, no flashing line</h2>
+<p><b>Cause.</b> The smoke canvas was resized to every hero's shape, so its composition was recalculated at the end of each page change (the “dumb jump”), and its hard edge showed as a line. While a lazy page loaded, the old hero also reported 0px and the smoke dipped.</p>
+<p><b>Fix.</b> The smoke is now a fixed field sized to the viewport; the hero is a window over it that glides to the next height. The vertical fades live on the window, so its edges are always soft. Lazy pages and Studio pages are followed correctly; zero-height readings are ignored.</p>
+<table><tr><th>Route</th><th>Smoke height</th><th>Direction changes</th><th>Canvas resized</th></tr>
+<tr><td>Home → Journal</td><td>533 → 420</td><td>0</td><td>no</td></tr><tr><td>Journal → About</td><td>420 → 417</td><td>0</td><td>no</td></tr>
+<tr><td>About → Gallery</td><td>417 → 420</td><td>0</td><td>no</td></tr><tr><td>Gallery → Projects</td><td>420 → 680</td><td>0</td><td>no</td></tr>
+<tr><td>Projects → Skills</td><td>680 → 420</td><td>0</td><td>no</td></tr><tr><td>Skills → Home</td><td>420 → 533</td><td>0</td><td>no</td></tr>
+<tr><td>Home → Contact</td><td>533 → 420</td><td>0</td><td>no</td></tr></table>
+<p class="ok">Verified at 1440 and 2000px across 10 page changes including Studio → main pages (the background no longer disappears).</p></section>
+
+<section><h2><small>02</small>Back: no scroll jump on the current page</h2>
+<p><b>Cause.</b> GSAP ScrollTrigger remembers the browser’s scroll-restoration mode from load time (“auto”) and writes it back on every refresh. On Back, the browser therefore scrolled the <i>current</i> page to the previous page’s position before the app switched pages.</p>
+<p><b>Fix.</b> ScrollTrigger is told the mode is manual; the app alone restores positions.</p>
+<table><tr><th>Back from</th><th>Current page during exit</th><th>Restored</th></tr>
+<tr><td>Experience (1939) → About</td><td>stays 1939</td><td>1076 ✓</td></tr><tr><td>Bike Tower (2150) → Projects</td><td>stays 2150</td><td>2400 ✓</td></tr>
+<tr><td>Skills (1210) → Home</td><td>stays 1210</td><td>2400 ✓</td></tr></table></section>
+
+<section><h2><small>03</small>“From the requirement to a working product”</h2>
+<p>Each step now owns a scroll beat, so the pinned board stays on screen and changes image three times. The step switches as its text reaches the board. The panel is bounded (400–640px) with a larger image and clearer type scale.</p>
+<p class="ok">Step sequence while pinned at 1440: 1 → 2 → 3 (board pinned at 306px). At 2000: 1 → 2 → 3. Phone: 1 → 2 → 3.</p>
+<div class="pair"><figure><img src="/preview/review-assets/method-before.jpg" alt=""><figcaption>BEFORE</figcaption></figure><figure><img src="/preview/review-assets/method-after.jpg" alt=""><figcaption>AFTER</figcaption></figure></div></section>
+
+<section><h2><small>04</small>Selected work cards share one height</h2>
+<p>All Home cards use the same media box (16:10, gentle centre crop), so Bike Tower and Basket Beats now align and the next section no longer shows early.</p>
+<div class="pair"><figure><img src="/preview/review-assets/home-cards-before.jpg" alt=""><figcaption>BEFORE</figcaption></figure><figure><img src="/preview/review-assets/home-cards-after.jpg" alt=""><figcaption>AFTER</figcaption></figure></div></section>
+
+<section><h2><small>05</small>Project card entrances</h2>
+<p>Cards enter from their own side of the row (left from the left, right from the right), centred cards rise with depth; the photograph unmasks from below and settles from a slight zoom. Same-row cards stagger by 90ms.</p>
+<p class="ok">Measured mid-entrance: Basket Beats x−44, Glitzz Lab x+90, Terminal NFC y+59 (centre), VR Cycling x−44, Bike-Land x+76…</p>
+<div class="pair"><figure><img src="/preview/review-assets/projects-grid-before.jpg" alt=""><figcaption>BEFORE</figcaption></figure><figure><img src="/preview/review-assets/projects-grid-after.jpg" alt=""><figcaption>AFTER</figcaption></figure></div></section>
+
+<section><h2><small>06</small>Skills and Contact heroes</h2>
+<p>Two real bugs: on wide screens the Skills/Contact/Studio openings stayed capped at the old 1280px column (title started 360px in while content started at 48px), and the page title showed a wide focus box after navigation. Every compact opening now shares the page column; route headings no longer paint a focus ring for pointer users.</p>
+<div class="pair"><figure><img src="/preview/review-assets/skills-hero-before.jpg" alt=""><figcaption>BEFORE</figcaption></figure><figure><img src="/preview/review-assets/skills-hero-after.jpg" alt=""><figcaption>AFTER</figcaption></figure></div></section>
+
+<section><h2><small>07</small>Studio heroes</h2>
+<p>Gallery and Journal now use the full opening with the shared smoke and their own art: fanned film frames for Gallery, stacked note sheets for Journal.</p>
+<div class="pair"><figure><img src="/preview/review-assets/gallery-hero-before.jpg" alt=""><figcaption>BEFORE</figcaption></figure><figure><img src="/preview/review-assets/gallery-hero-after.jpg" alt=""><figcaption>AFTER</figcaption></figure></div></section>
+
+<section><h2><small>08</small>Professional Journey</h2>
+<p>Desktop: a sticky career rail (company mark, name, period, four milestones) mirrors the chapter being read; a progress line fills with reading and lights each milestone. Chapters unfold in order: marker, period and title, context, then each role card is unmasked; points follow. Education, strengths and resume sit in a three-column strip below.</p>
+<div class="pair"><figure><img src="/preview/review-assets/experience-before.jpg" alt=""><figcaption>BEFORE</figcaption></figure><figure><img src="/preview/review-assets/experience-after.jpg" alt=""><figcaption>AFTER</figcaption></figure></div></section>
+
+<section><h2><small>09</small>Softer hero imagery</h2>
+<p>Portrait frame 24px (image 20px), collection covers 20/15px, case openings 22/18px, project media frames 16px.</p>
+<div class="pair"><figure><img src="/preview/review-assets/projects-hero-before.jpg" alt=""><figcaption>BEFORE</figcaption></figure><figure><img src="/preview/review-assets/projects-hero-after.jpg" alt=""><figcaption>AFTER</figcaption></figure></div></section>
+
+<section><h2><small>11</small>HK Monogram Tile: applied</h2>
+<p>The approved serif HK is outlined from Libre Caslon Condensed (no font dependency) inside the rounded tile with the accent rule. In the header its ink follows each edition's text colour and the rule follows the edition accent; favicons use a solid graphite tile with slightly heavier letters, and the 16px version drops the rule for legibility.</p>
+<p class="muted">Files: <code>/brand/hk-monogram-{ivory,graphite,wine}.svg</code>, <code>/brand/hk-app-icon.svg</code>, <code>/brand/hk-favicon.svg</code> + PNGs (16–1024), <code>/favicon.ico</code> (16/32/48), <code>/icon.svg</code>, <code>/apple-touch-icon.png</code>, <code>/icon-192.png</code>, <code>/icon-512.png</code>, updated <code>/og-image.png</code>.</p>
+<figure><img src="/preview/review-assets/hk-header-themes.png" alt=""><figcaption>HEADER · FIVE EDITIONS · PHONE · ARABIC</figcaption></figure>
+<figure><img src="/preview/review-assets/hk-favicons.png" alt="" style="max-width:600px"><figcaption>FAVICON 16 / 32 / 48 · 16 ENLARGED · BROWSER TAB · APPLE TOUCH</figcaption></figure></section>
+
+<section><h2><small>10</small>Verification</h2>
+<p>TypeScript, 75 unit tests, 14 content checks and the production build pass. 120 page × device × locale layout probes (320/390 phone, 820×1180 and 1180×820 tablet, 1440/1920 desktop, EN/AR) report no horizontal overflow and no console errors; hero alignment checked at 390/1440/2000/3440. Not verified: physical phones, Safari, real-GPU timing.</p></section>
+</main></body></html>

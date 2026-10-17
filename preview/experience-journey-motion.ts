@@ -18,7 +18,17 @@ export function useExperienceJourneyMotion(root:RefObject<HTMLElement|null>,loca
    const arrive=(group:HTMLElement)=>{
     if(!alive||seen.has(group))return;seen.add(group);
     if(document.hidden||group.contains(document.activeElement))return;
-    own(()=>{gsap.fromTo(group,{y:16,opacity:.6},{y:0,opacity:1,duration:.55,ease:'power3.out',clearProps:'transform,opacity'});});
+    own(()=>{
+     if(!group.matches('.journey-folio-arrival')){gsap.fromTo(group,{y:30,opacity:0},{y:0,opacity:1,duration:.9,ease:'expo.out',clearProps:'transform,opacity'});return;}
+     // A chapter unfolds in reading order: marker, period and title, context, then each role card.
+     const rtl=document.documentElement.dir==='rtl';
+     gsap.timeline({defaults:{ease:'expo.out'}})
+      .fromTo(group.querySelector('.journey-track-index'),{scale:0,opacity:0},{scale:1,opacity:1,duration:.7,clearProps:'transform,opacity'},0)
+      .fromTo(group.querySelectorAll('.journey-company-header>*'),{x:rtl?28:-28,opacity:0},{x:0,opacity:1,duration:.95,stagger:.08,clearProps:'transform,opacity'},.05)
+      .fromTo(group.querySelectorAll('.journey-responsibilities li,.journey-entry-context p'),{y:18,opacity:0},{y:0,opacity:1,duration:.8,stagger:.05,clearProps:'transform,opacity'},.2)
+      .fromTo(group.querySelectorAll('.journey-role'),{clipPath:'inset(0% 0% 100% 0% round 16px)',y:24},{clipPath:'inset(0% 0% 0% 0% round 16px)',y:0,duration:1.05,stagger:.14,clearProps:'clipPath,transform'},.28)
+      .fromTo(group.querySelectorAll('.journey-role-points li'),{y:14,opacity:0},{y:0,opacity:1,duration:.7,stagger:.04,clearProps:'transform,opacity'},.5);
+    });
    };
    const observe=()=>{
     if(!alive)return;readiness?.disconnect();
@@ -48,7 +58,19 @@ export function useExperienceJourneyMotion(root:RefObject<HTMLElement|null>,loca
    element.addEventListener('focusin',focus);addEventListener('resize',interrupt,{passive:true});addEventListener('popstate',interrupt);addEventListener('hashchange',interrupt);document.addEventListener('visibilitychange',visibility);
    cleanup=()=>{alive=false;cancelAnimationFrame(frame);observer?.disconnect();readiness?.disconnect();settle();pointerContext?.revert();stage?.removeEventListener('pointerenter',enter);stage?.removeEventListener('pointermove',move);stage?.removeEventListener('pointerleave',reset);element.removeEventListener('focusin',focus);removeEventListener('resize',interrupt);removeEventListener('popstate',interrupt);removeEventListener('hashchange',interrupt);document.removeEventListener('visibilitychange',visibility);};
   };
+  // Reading state: the chapter crossing the middle of the viewport drives the rail and
+  // the progress line. Transform-only writes, coalesced to one per frame.
+  const folios=[...element.querySelectorAll<HTMLElement>('.journey-folio-arrival')],list=element.querySelector<HTMLElement>('.journey-folios');
+  let readFrame=0;
+  const read=()=>{readFrame=0;if(!list)return;
+   const mid=innerHeight*.5,box=list.getBoundingClientRect();
+   list.style.setProperty('--journey-progress',String(Math.min(1,Math.max(0,(mid-box.top)/Math.max(1,box.height)))));
+   let active=0;folios.forEach((folio,index)=>{if(folio.getBoundingClientRect().top<=mid)active=index;});
+   if(element.dataset.journeyActive!==String(active)){element.dataset.journeyActive=String(active);folios.forEach((folio,index)=>folio.toggleAttribute('data-active',index===active));}
+  };
+  const scheduleRead=()=>{if(!readFrame)readFrame=requestAnimationFrame(read);};
+  addEventListener('scroll',scheduleRead,{passive:true});addEventListener('resize',scheduleRead,{passive:true});read();
   media.addEventListener('change',configure);pointer.addEventListener('change',configure);configure();
-  return()=>{cleanup?.();media.removeEventListener('change',configure);pointer.removeEventListener('change',configure);delete element.dataset.journeyMotion;};
+  return()=>{cancelAnimationFrame(readFrame);removeEventListener('scroll',scheduleRead);removeEventListener('resize',scheduleRead);delete element.dataset.journeyActive;cleanup?.();media.removeEventListener('change',configure);pointer.removeEventListener('change',configure);delete element.dataset.journeyMotion;};
  },[locale]);
 }

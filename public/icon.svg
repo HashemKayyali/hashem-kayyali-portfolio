@@ -1,16 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Hashem Kayyali">
-  <!-- Scalable monogram in the site's burgundy. Same mark as the raster icons,
-       drawn as vectors so it stays crisp at any tab or bookmark size. -->
-  <defs>
-    <linearGradient id="field" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#2a0710"/>
-      <stop offset="46%" stop-color="#4d0d1c"/>
-      <stop offset="100%" stop-color="#540e21"/>
-    </linearGradient>
-  </defs>
-  <rect width="512" height="512" rx="96" fill="url(#field)"/>
-  <text x="256" y="256" fill="#ffffff"
-        font-family="Roboto Slab, Georgia, 'Times New Roman', serif"
-        font-size="250" font-weight="800" letter-spacing="-7"
-        text-anchor="middle" dominant-baseline="central">HK</text>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="24" fill="#11171a"/><path d="M49.92 72L36.52 72L36.52 70.61L40.64 69.45L40.64 30.33L36.52 29.22L36.52 27.83L49.92 27.83L49.92 29.31L45.86 30.33L45.86 69.45L49.92 70.67L49.92 72ZM27.67 72L14.25 72L14.25 70.61L18.39 69.45L18.39 30.33L14.25 29.22L14.25 27.83L27.67 27.83L27.67 29.22L23.61 30.33L23.61 69.45L27.67 70.61L27.67 72ZM42.93 49.96L21.41 49.96L21.41 47.52L42.93 47.52L42.93 49.96ZM64.00 72L50.58 72L50.58 70.61L54.72 69.45L54.72 30.33L50.58 29.22L50.58 27.83L64.00 27.83L64.00 29.22L59.94 30.33L59.94 50.42L72.65 32.68Q73.05 32.18 73.23 31.73Q73.40 31.28 73.40 30.94L73.40 30.94Q73.40 29.52 69.57 29.22L69.57 29.22L69.57 27.83L81.84 27.83L81.84 29.22Q79.72 29.66 78.52 30.08Q77.31 30.50 76.59 31.11Q75.86 31.72 75.11 32.79L75.11 32.79L66.15 45.49L80.79 69.45L85.75 70.61L85.75 72L75.49 72L62.64 50.45L59.94 54.31L59.94 69.45L64.00 70.61L64.00 72Z" fill="#f1eee7" stroke="#f1eee7" stroke-width="1.6" stroke-linejoin="round"/><path d="M38 84h24" stroke="#cdb58b" stroke-width="5" stroke-linecap="round"/></svg>

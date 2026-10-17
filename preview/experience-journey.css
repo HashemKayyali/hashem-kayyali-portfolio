@@ -90,3 +90,53 @@ html[dir=rtl] .experience-journey .journey-read-link svg{scale:-1 1;}
  .experience-journey .journey-dossier .journey-strengths{border-block-start:1px solid var(--line);padding-block-start:22px;}
  .experience-journey .journey-downloads{grid-template-columns:1fr;}
 }
+
+/* ── Professional Journey v2 (17 Oct 2026) ─────────────────────────────────────
+   Desktop: sticky career rail | chapters, dossier strip below. A progress line
+   fills with reading; the chapter in view is mirrored in the rail. */
+.experience-journey .journey-rail{display:none;}
+.experience-journey .journey-folios{position:relative;}
+.experience-journey .journey-progress{position:absolute;inset-block:8px 0;inset-inline-start:5px;width:1px;background:var(--line);pointer-events:none;list-style:none;}
+.experience-journey .journey-progress i{position:absolute;inset:0;background:linear-gradient(var(--burgundy),color-mix(in srgb,var(--burgundy) 40%,transparent));transform-origin:50% 0;transform:scaleY(var(--journey-progress,0));}
+.experience-journey .journey-folio-arrival::before{display:none;}
+.experience-journey .journey-track-index i{width:11px;height:11px;border-width:1.5px;transition:background .4s ease,box-shadow .4s ease,transform .4s cubic-bezier(.22,1,.36,1);}
+.experience-journey .journey-folio-arrival[data-active] .journey-track-index i{background:var(--burgundy);transform:scale(1.15);box-shadow:0 0 0 6px color-mix(in srgb,var(--burgundy) 16%,transparent);}
+.experience-journey .journey-folio-arrival{padding-inline-start:44px;padding-block-end:clamp(36px,4vw,72px);}
+.experience-journey .journey-company-header .journey-date{font:400 clamp(15px,1vw,19px)/1.3 'Libre Caslon Condensed',Georgia,serif;letter-spacing:.02em;color:var(--burgundy);}
+.experience-journey .journey-company-title h2{font-size:clamp(30px,2.4vw,48px);line-height:1.08;}
+.experience-journey .journey-role{border-radius:16px;transition:transform .45s cubic-bezier(.22,1,.36,1),box-shadow .45s ease;}
+@media(hover:hover) and (pointer:fine){.experience-journey .journey-role:hover{transform:translateY(-3px);box-shadow:0 22px 40px -28px #000c;}}
+
+@media(min-width:1101px){
+ .experience-journey .journey-body{grid-template-columns:minmax(260px,.42fr) minmax(0,1fr);column-gap:clamp(40px,5vw,120px);row-gap:clamp(48px,5vw,96px);}
+ .experience-journey .journey-rail{display:block;min-width:0;align-self:stretch;}
+ .experience-journey .journey-rail-sticky{position:sticky;top:calc(var(--app-header-height,68px) + 40px);display:grid;gap:26px;}
+ .experience-journey .journey-rail-marks{position:relative;width:clamp(120px,9vw,170px);aspect-ratio:1;border-radius:24px;background:var(--atelier-raised,#1a2327);border:1px solid var(--line);box-shadow:0 30px 60px -36px #000;overflow:hidden;}
+ .experience-journey .journey-rail-mark{position:absolute;inset:14%;display:grid;place-items:center;opacity:0;transform:translateY(14px) scale(.94);transition:opacity .5s ease,transform .7s cubic-bezier(.22,1,.36,1);}
+ .experience-journey .journey-rail-mark img{width:100%;height:100%;object-fit:contain;border-radius:12px;}
+ .experience-journey .journey-rail-names{position:relative;min-height:5.2em;}
+ .experience-journey .journey-rail-name{position:absolute;inset:0;display:grid;align-content:start;gap:8px;opacity:0;transform:translateY(12px);transition:opacity .45s ease,transform .6s cubic-bezier(.22,1,.36,1);}
+ .experience-journey .journey-rail-name strong{font-size:clamp(26px,2vw,40px);font-weight:450;line-height:1.1;color:var(--ink);}
+ .experience-journey .journey-rail-name bdi{font-size:clamp(14px,.95vw,18px);color:var(--burgundy);}
+ .experience-journey .journey-rail-steps{list-style:none;margin:0;padding:0;display:grid;gap:2px;border-block-start:1px solid var(--line);padding-block-start:18px;}
+ .experience-journey .journey-rail-steps li{display:grid;grid-template-columns:14px 28px 1fr;align-items:center;gap:8px;min-height:34px;color:var(--muted);font-size:clamp(14px,.95vw,18px);transition:color .35s ease;}
+ .experience-journey .journey-rail-steps i{width:7px;height:7px;border-radius:50%;border:1px solid var(--muted);transition:background .35s ease,border-color .35s ease;}
+ .experience-journey .journey-rail-steps bdi{font:500 11px/1 ui-monospace,Consolas,monospace;color:var(--burgundy);}
+ .experience-journey[data-journey-active="0"] :is(.journey-rail-mark,.journey-rail-name)[data-index="0"],
+ .experience-journey[data-journey-active="1"] :is(.journey-rail-mark,.journey-rail-name)[data-index="1"],
+ .experience-journey[data-journey-active="2"] :is(.journey-rail-mark,.journey-rail-name)[data-index="2"],
+ .experience-journey[data-journey-active="3"] :is(.journey-rail-mark,.journey-rail-name)[data-index="3"]{opacity:1;transform:none;}
+ .experience-journey[data-journey-active="0"] .journey-rail-steps li[data-index="0"],
+ .experience-journey[data-journey-active="1"] .journey-rail-steps li[data-index="1"],
+ .experience-journey[data-journey-active="2"] .journey-rail-steps li[data-index="2"],
+ .experience-journey[data-journey-active="3"] .journey-rail-steps li[data-index="3"]{color:var(--ink);}
+ .experience-journey[data-journey-active="0"] .journey-rail-steps li[data-index="0"] i,
+ .experience-journey[data-journey-active="1"] .journey-rail-steps li[data-index="1"] i,
+ .experience-journey[data-journey-active="2"] .journey-rail-steps li[data-index="2"] i,
+ .experience-journey[data-journey-active="3"] .journey-rail-steps li[data-index="3"] i{background:var(--burgundy);border-color:var(--burgundy);}
+ .experience-journey .journey-dossier{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(24px,3vw,64px);padding-block-start:clamp(28px,3vw,48px);border-block-start:1px solid var(--line);}
+ .experience-journey .journey-dossier-block+.journey-dossier-block{margin:0;padding:0;border:0;}
+}
+/* Without the rail script (reduced motion / no JS) the first rail entry stays readable. */
+.experience-journey:not([data-journey-active]) :is(.journey-rail-mark,.journey-rail-name)[data-index="0"]{opacity:1;transform:none;}
+@media(prefers-reduced-motion:reduce){.experience-journey :is(.journey-rail-mark,.journey-rail-name,.journey-role,.journey-track-index i){transition:none;}}

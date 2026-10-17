@@ -3,6 +3,7 @@ import {gsap} from 'gsap';
 import {ChevronDown,Plus} from 'lucide-react';
 import {useI18n} from '../i18n/useI18n';
 import LanguageMenu from './LanguageMenu';
+import BrandMark from './BrandMark';
 import ThemeMenu from './ThemeMenu';
 import {profile} from '../data/profile';
 import {CORE_PAGES,previewUrl,type Navigate,type PreviewRoute} from './routes';
@@ -42,7 +43,7 @@ export function Header({route,navigate}:{route:PreviewRoute;navigate:Navigate}) 
   return()=>{cancelAnimationFrame(frame);removeEventListener('scroll',schedule);};
  },[]);
  return <header ref={header} className="site-header" onBlurCapture={event=>{if(open&&!event.currentTarget.contains(event.relatedTarget as Node))setOpen(false);}}><div className="container header-layout">
-  <NavLink className="signature" route={{locale,page:'home'}} navigate={navigate} aria-label={t.navigation.home}><span className="monogram" dir="ltr">HK<span>.</span></span><span>{t.identity.name}</span></NavLink>
+  <NavLink className="signature" route={{locale,page:'home'}} navigate={navigate} aria-label={t.navigation.home}><BrandMark className="monogram"/><span>{t.identity.name}</span></NavLink>
   <div className="header-preferences"><LanguageMenu/><ThemeMenu/></div>
   <button ref={toggle} className="navigation-toggle" aria-controls="primary-navigation" aria-expanded={open} aria-label={open?t.navigation.closeNavigation:t.navigation.openNavigation} onClick={()=>setOpen(value=>!value)}>{open?copy.closeMenu:copy.menu}<Plus className="navigation-toggle-icon" aria-hidden="true" size={16} strokeWidth={1.75}/></button>
   <nav id="primary-navigation" aria-label={t.navigation.primaryNavigation} data-open={open}>{CORE_PAGES.map(page=><NavLink key={page} route={{locale,page}} navigate={navigate} aria-current={(route.project?'projects':route.page)===page?'page':undefined} onClick={()=>setOpen(false)}>{copy.nav[page]}</NavLink>)}<StudioNav route={route} navigate={navigate} close={()=>setOpen(false)}/><div className="nav-sheet-foot"><a href={profile.social.email}>{t.contact.index.email}</a><a href={profile.social.whatsapp} target="_blank" rel="noopener noreferrer">WhatsApp</a><a href={profile.social.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a></div></nav>

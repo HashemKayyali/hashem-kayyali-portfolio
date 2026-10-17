@@ -34,7 +34,13 @@ export default function ExperienceJourney() {
    actions={<a className="journey-read-link" href={`#${companyAnchor(entries[0].id)}`}>{t.resume.title}<ArrowDownRight size={19} aria-hidden="true"/></a>}
    visual={<nav className="journey-plane-stage" aria-label={t.resume.journeyTitle}><div className="journey-plane-depth">{entries.map((entry,index)=><a key={entry.id} className={`journey-plane journey-plane--${index}`} href={`#${companyAnchor(entry.id)}`} data-company={entry.id}><span className="journey-plane-media"><CompanyImage entry={entry} hero/></span><span className="journey-plane-name">{entry.company}</span></a>)}</div></nav>}/>
   <div className="journey-body container">
-   <ol className="journey-folios" aria-label={t.resume.title}>{entries.map((entry,index)=><li className="journey-folio-arrival" key={entry.id} data-journey-reveal={entry.id}>
+   {/* Desktop reading companion: mirrors the chapter in view. Decorative; the list below is the content. */}
+   <aside className="journey-rail" aria-hidden="true"><div className="journey-rail-sticky">
+    <div className="journey-rail-marks">{entries.map((entry,index)=><span key={entry.id} className="journey-rail-mark" data-index={index}><CompanyImage entry={entry}/></span>)}</div>
+    <div className="journey-rail-names">{entries.map((entry,index)=><span key={entry.id} className="journey-rail-name" data-index={index}><strong>{entry.company}</strong><bdi>{entry.period}</bdi></span>)}</div>
+    <ol className="journey-rail-steps">{entries.map((entry,index)=><li key={entry.id} data-index={index}><i/><bdi>{String(index+1).padStart(2,'0')}</bdi><span>{entry.company}</span></li>)}</ol>
+   </div></aside>
+   <ol className="journey-folios" aria-label={t.resume.title}><li className="journey-progress" aria-hidden="true"><i/></li>{entries.map((entry,index)=><li className="journey-folio-arrival" key={entry.id} data-journey-reveal={entry.id} data-index={index}>
     <span className="journey-track-index" aria-hidden="true"><bdi>{String(index+1).padStart(2,'0')}</bdi><i/></span>
     <section id={companyAnchor(entry.id)} className="journey-company-anchor journey-folio" tabIndex={-1} aria-labelledby={`${companyAnchor(entry.id)}-title`}>
      <header className="journey-company-header"><span className="journey-company-image" aria-hidden="true"><CompanyImage entry={entry}/></span><div className="journey-company-heading"><div className="journey-company-title"><h2 id={`${companyAnchor(entry.id)}-title`} tabIndex={-1}>{entry.company}</h2>{entry.badge&&<span className="journey-current">{entry.badge}</span>}</div><p className="journey-date">{entry.period}</p></div></header>

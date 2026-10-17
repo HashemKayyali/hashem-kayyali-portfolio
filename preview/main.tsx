@@ -47,6 +47,7 @@ import {galleryMemory} from './gallery-memory';
 import {prepareProjectTransit} from './project-transit';
 import {captureReadingPosition,restoreReadingPosition} from './reading-position';
 import {startSmoothScroll,haltSmoothScroll} from './smooth-scroll';
+import {ScrollTrigger} from 'gsap/ScrollTrigger';
 import {startUiMotion} from './ui-motion';
 
 initializeTheme();
@@ -103,7 +104,9 @@ function Preview({ initialRoute, dictionary }: { initialRoute: PreviewRoute; dic
   }, [request,exit]);
   useEffect(()=>{const stopScroll=startSmoothScroll(),stopMotion=startUiMotion();return()=>{stopScroll();stopMotion();};},[]);
   useEffect(()=>{
-   const previous=history.scrollRestoration;history.scrollRestoration='manual';
+   // ScrollTrigger re-applies the mode it captured at load ('auto') on every refresh;
+   // the browser would then restore the old position on Back before the app swaps pages.
+   const previous=history.scrollRestoration;history.scrollRestoration='manual';ScrollTrigger.clearScrollMemory('manual');
    let timer:ReturnType<typeof setTimeout>;
    const save=()=>{clearTimeout(timer);timer=setTimeout(()=>{
     const actual=readRoute(),active=current.current;
@@ -111,7 +114,7 @@ function Preview({ initialRoute, dictionary }: { initialRoute: PreviewRoute; dic
      history.replaceState({...history.state,previewScroll:[scrollX,scrollY]},'');
    },120);};
    addEventListener('scroll',save,{passive:true});
-   return()=>{clearTimeout(timer);removeEventListener('scroll',save);history.scrollRestoration=previous;};
+   return()=>{clearTimeout(timer);removeEventListener('scroll',save);ScrollTrigger.clearScrollMemory(previous);};
   },[]);
   useEffect(() => {
     const pop = () => navigate(readRoute(), location.hash, false);

@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
+<title>HK Logo Exploration</title>
+<style>
+@font-face{font-family:'Libre Caslon Condensed';font-weight:400 700;src:url('/fonts/libre-caslon-condensed-v2.ttf') format('truetype');}
+:root{--ink:#f1eee7;--muted:#b2b7b5;--paper:#11171a;--raised:#1a2327;--line:#3b4649;--accent:#cdb58b;--wine:#1e0b13;--wine-accent:#e3d2b9;--ivory:#f1eee7;--ivory-ink:#17242b}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.55 'Libre Caslon Condensed',Georgia,serif}
+header.page{padding:56px clamp(16px,4vw,72px) 24px;border-bottom:1px solid var(--line)}
+header.page h1{font-weight:450;font-size:clamp(40px,5vw,72px);line-height:1;margin:0 0 12px;letter-spacing:-.02em}
+header.page p{margin:0;max-width:64ch;color:var(--muted)}
+main{padding:32px clamp(16px,4vw,72px) 80px;display:grid;gap:28px}
+.concept{border:1px solid var(--line);border-radius:22px;background:var(--raised);padding:clamp(18px,2vw,30px);display:grid;gap:20px}
+.concept h2{margin:0;font-weight:450;font-size:clamp(26px,2.4vw,38px);line-height:1.1}
+.concept h2 small{font:500 12px/1 ui-monospace,Consolas,monospace;color:var(--accent);letter-spacing:.1em;margin-inline-end:12px;vertical-align:middle}
+.concept>p{margin:-8px 0 0;color:var(--muted);max-width:70ch}
+.swatches{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.swatch{aspect-ratio:16/10;border-radius:16px;display:grid;place-items:center;position:relative}
+.swatch svg{width:auto;height:64%;max-width:62%}
+.swatch span{position:absolute;left:14px;bottom:10px;font:500 10px/1 ui-monospace,Consolas,monospace;letter-spacing:.12em;opacity:.6}
+.s-light{background:var(--ivory);color:var(--ivory-ink);--mark-accent:#795a33}
+.s-dark{background:#0d1214;color:var(--ink);--mark-accent:var(--accent)}
+.s-wine{background:var(--wine);color:var(--wine-accent);--mark-accent:#c98aa0}
+.row{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center}
+.favs{display:flex;gap:10px;align-items:end;flex-wrap:wrap}
+.fav{display:grid;place-items:center;border-radius:6px;border:1px solid var(--line)}
+.fav svg{width:100%;height:100%}
+.label{font:500 11px/1 ui-monospace,Consolas,monospace;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+.nav{display:flex;align-items:center;gap:22px;height:68px;padding:0 22px;border-radius:14px;background:#11171a;border:1px solid var(--line)}
+.nav .mark{height:30px;display:flex;align-items:center;gap:10px;color:var(--ink);--mark-accent:var(--accent)}
+.nav .mark svg{height:100%;width:auto}
+.nav .mark b{font-weight:450;font-size:16px;letter-spacing:.01em}
+.nav nav{margin-inline-start:auto;display:flex;gap:20px;color:var(--muted);font-size:16px}
+.nav nav span:first-child{color:var(--accent)}
+.in-site{display:grid;gap:12px}
+.in-site img{width:100%;border-radius:14px;border:1px solid var(--line)}
+@media(max-width:800px){.swatches{grid-template-columns:1fr}.nav nav{display:none}}
+</style></head><body>
+<header class="page"><h1>HK — logo exploration</h1><p>Eight directions for the personal mark. Each is shown on ivory, graphite and wine, at favicon sizes, and in a navbar. Nothing on the site changes until one is chosen; the final mark would be outlined to paths and exported as SVG/ICO/PNG.</p></header>
+<main id="concepts"></main>
+<section class="in-site" style="padding:0 clamp(16px,4vw,72px) 80px" id="in-site"></section>
+<script>
+const caslon="'Libre Caslon Condensed',Georgia,serif";
+const marks=[
+ {id:'01',name:'Shared Stem',note:'H and K share one vertical. Thin square-cut strokes; the cleanest, most engineered option.',
+  svg:`<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="square"><path d="M26 20v60M50 20v60M26 50h24M50 50 76 20M50 50l26 30"/></svg>`},
+ {id:'02',name:'Shared Stem · Nodes',note:'The same skeleton with two end nodes: a quiet nod to hardware and connected systems.',
+  svg:`<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="5.5" stroke-linecap="round"><path d="M26 20v60M50 20v60M26 50h24M50 50 72 25M50 50l22 25"/><circle cx="76" cy="21" r="5" fill="var(--mark-accent)" stroke="none"/><circle cx="76" cy="79" r="5" fill="var(--mark-accent)" stroke="none"/></svg>`},
+ {id:'03',name:'Caslon Ligature',note:'The site’s own serif, letters tucked into a ligature with the accent full stop already used in the header.',
+  svg:`<svg viewBox="0 0 120 100"><text x="6" y="74" font-family="${caslon}" font-size="78" font-weight="500" letter-spacing="-9" fill="currentColor">HK</text><circle cx="108" cy="70" r="5.5" fill="var(--mark-accent)"/></svg>`},
+ {id:'04',name:'Monogram Tile',note:'Serif HK inside a softly rounded tile with a hairline base: reads as a stamp, perfect for favicon and avatar.',
+  svg:`<svg viewBox="0 0 100 100"><rect x="5" y="5" width="90" height="90" rx="22" fill="none" stroke="currentColor" stroke-width="2.5"/><text x="50" y="64" text-anchor="middle" font-family="${caslon}" font-size="46" font-weight="500" letter-spacing="-3" fill="currentColor">HK</text><path d="M34 74h32" stroke="var(--mark-accent)" stroke-width="2.5" stroke-linecap="round"/></svg>`},
+ {id:'05',name:'Aperture',note:'Monoline H inside a circle whose stroke breaks where the K arms leave it, like light through a lens.',
+  svg:`<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round"><path d="M79 30A40 40 0 1 0 79 70"/><path d="M34 30v40M54 30v40M34 50h20M54 50l26-22M54 50l26 22"/></svg>`},
+ {id:'06',name:'Seal',note:'An editorial seal: HK at the centre, name and discipline set around it. For the social image and loading state.',
+  svg:`<svg viewBox="0 0 100 100"><defs><path id="ring" d="M50 50m-36 0a36 36 0 1 1 72 0a36 36 0 1 1-72 0"/></defs><circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" stroke-width="1.5"/><text font-family="ui-monospace,Consolas,monospace" font-size="6.6" fill="currentColor"><textPath href="#ring" textLength="222" lengthAdjust="spacing">HASHEM KAYYALI · PRODUCT ENGINEERING ·</textPath></text><text x="50" y="59" text-anchor="middle" font-family="${caslon}" font-size="30" font-weight="500" letter-spacing="-2" fill="currentColor">HK</text><circle cx="50" cy="70" r="2.4" fill="var(--mark-accent)"/></svg>`},
+ {id:'07',name:'Pillar',note:'H stacked over K in a tall narrow tile, echoing the portrait frame used across the hero.',
+  svg:`<svg viewBox="0 0 70 100"><rect x="4" y="3" width="62" height="94" rx="18" fill="none" stroke="currentColor" stroke-width="2.5"/><text x="35" y="47" text-anchor="middle" font-family="${caslon}" font-size="38" font-weight="500" fill="currentColor">H</text><text x="35" y="83" text-anchor="middle" font-family="${caslon}" font-size="38" font-weight="500" fill="var(--mark-accent)">K</text></svg>`},
+ {id:'08',name:'Cut',note:'A single diagonal cut runs through both letters: the K’s own stroke continued. Sharp, confident, still minimal.',
+  svg:`<svg viewBox="0 0 120 100"><defs><mask id="cut8"><rect width="120" height="100" fill="#fff"/><path d="M14 86 106 14" stroke="#000" stroke-width="7"/></mask></defs><text x="60" y="74" text-anchor="middle" font-family="${caslon}" font-size="80" font-weight="500" letter-spacing="-4" fill="currentColor" mask="url(#cut8)">HK</text><path d="M14 86 106 14" stroke="var(--mark-accent)" stroke-width="1.6"/></svg>`},
+];
+const root=document.getElementById('concepts');
+for(const m of marks){
+ const sw=(cls,label)=>`<div class="swatch ${cls}">${m.svg}<span>${label}</span></div>`;
+ const fav=(size,cls)=>`<div class="fav ${cls}" style="width:${size}px;height:${size}px;padding:${Math.max(1,size/10)}px">${m.svg}</div>`;
+ root.insertAdjacentHTML('beforeend',`<article class="concept" id="c${m.id}"><h2><small>${m.id}</small>${m.name}</h2><p>${m.note}</p>
+  <div class="swatches">${sw('s-light','IVORY')}${sw('s-dark','GRAPHITE')}${sw('s-wine','WINE')}</div>
+  <div class="row"><span class="label">Favicon</span><div class="favs">${fav(16,'s-dark')}${fav(32,'s-dark')}${fav(48,'s-dark')}${fav(16,'s-light')}${fav(32,'s-light')}${fav(48,'s-wine')}</div></div>
+  <div class="row"><span class="label">Navbar</span><div class="nav"><span class="mark">${m.svg}<b>Hashem Kayyali</b></span><nav><span>Home</span><span>About</span><span>Projects</span><span>Experience</span><span>Skills</span><span>Contact</span></nav></div></div></article>`);
+}
+// Real header integration screenshots, produced by the review script, appear here when present.
+const shots=document.getElementById('in-site');
+for(const id of ['02','04']){const img=new Image();img.alt=`Concept ${id} in the live header`;img.src=`/preview/review-assets/hk-logo-in-header-${id}.png`;img.onload=()=>{if(!shots.firstChild)shots.insertAdjacentHTML('afterbegin','<h2 style="font-weight:450;font-size:32px;margin:0 0 4px">In the real header</h2>');shots.append(img);};}
+</script>
+</body></html>

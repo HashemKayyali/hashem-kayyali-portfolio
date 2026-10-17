@@ -32,8 +32,11 @@ export function useHomeStoryMotion(root:RefObject<HTMLDivElement|null>,locale:st
   const measure=()=>{
    frame=0;if(!alive||!inView)return;
    // Follow the chapter beside the sticky image, just below the fixed header.
+   // The active step is the one passing the centre of the sticky board, so each image
+   // arrives while the board is actually on screen beside its text.
    const header=parseFloat(getComputedStyle(element).getPropertyValue('--app-header-height'))||68;
-   const line=Math.min(innerHeight*.35,header+120);
+   const board=element.querySelector<HTMLElement>('.story-visual')?.getBoundingClientRect();
+   const line=board&&board.height?Math.min(Math.max(board.top+board.height*.4,header+120),innerHeight*.72):Math.min(innerHeight*.35,header+120);
    let next=0;
    chapters.forEach((chapter,index)=>{if(chapter.getBoundingClientRect().top<=line)next=index;});
    if(next===selected)return;selected=next;
