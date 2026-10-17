@@ -77,8 +77,10 @@ function trackChapters(body:HTMLElement){
   for(const [id,link] of links){if(id===current?.id)link.setAttribute('aria-current','location');else link.removeAttribute('aria-current');}
   const link=current&&links.get(current.id);
   if(link&&nav.scrollWidth>nav.clientWidth+1){
-   const a=link.getBoundingClientRect(),n=nav.getBoundingClientRect();
-   nav.scrollBy({left:a.left+a.width/2-(n.left+n.width/2),behavior:allowsMotion()?'smooth':'auto'});
+   // Scroll only as far as needed to reveal the whole label; centring cut the first label in half.
+   const a=link.getBoundingClientRect(),n=nav.getBoundingClientRect(),pad=16;
+   const shift=a.left<n.left+pad?a.left-n.left-pad:a.right>n.right-pad?a.right-n.right+pad:0;
+   if(shift)nav.scrollBy({left:shift,behavior:allowsMotion()?'smooth':'auto'});
   }
  };
  // A thin band just below the sticky bar decides which chapter is being read.

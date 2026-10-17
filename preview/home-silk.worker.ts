@@ -4,10 +4,11 @@ import {V1_EDITORIAL_FRAGMENT_SHADER} from './v1-warp-shader';
 let gl:WebGLRenderingContext|null=null;
 let canvas:OffscreenCanvas,program:WebGLProgram,time:WebGLUniformLocation|null;
 let ramp:number[][]=[],fromRamp:number[][]=[],targetRamp:number[][]=[],paletteTime=0,paletteDuration=.4;
-let pigments:Array<WebGLUniformLocation|null>=[];
+let pigments:Array<WebGLUniformLocation|null>=[],resolution:WebGLUniformLocation|null=null,density:WebGLUniformLocation|null=null;
 const workerScope=self as unknown as {postMessage:(message:unknown,transfer?:Transferable[])=>void};
 self.onmessage=({data})=>{
  try{
+  if(data.type==='resize'){if(gl){canvas.width=data.width;canvas.height=data.height;gl.viewport(0,0,data.width,data.height);gl.uniform2f(resolution,data.width,data.height);gl.uniform1f(density,data.density??1);}return;}
   if(data.type==='palette'){fromRamp=ramp.map(rgb=>[...rgb]);targetRamp=data.ramp;paletteTime=data.time;paletteDuration=data.duration??.4;if(!paletteDuration)ramp=fromRamp=targetRamp;return;}
   if(data.type==='init'){
    canvas=new OffscreenCanvas(data.width,data.height);
@@ -29,8 +30,9 @@ self.onmessage=({data})=>{
    const buffer=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buffer);
    gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]),gl.STATIC_DRAW);
    const position=gl.getAttribLocation(program,'a_position');gl.enableVertexAttribArray(position);gl.vertexAttribPointer(position,2,gl.FLOAT,false,0,0);
-   gl.viewport(0,0,data.width,data.height);gl.uniform2f(gl.getUniformLocation(program,'u_resolution'),data.width,data.height);
-   gl.uniform1f(gl.getUniformLocation(program,'u_density'),1);
+   resolution=gl.getUniformLocation(program,'u_resolution');density=gl.getUniformLocation(program,'u_density');
+   gl.viewport(0,0,data.width,data.height);gl.uniform2f(resolution,data.width,data.height);
+   gl.uniform1f(density,data.density??1);
    ramp=data.ramp;fromRamp=data.ramp;targetRamp=data.ramp;
    pigments=ramp.map((_,index)=>gl!.getUniformLocation(program,'u_c'+index));
    time=gl.getUniformLocation(program,'u_time');

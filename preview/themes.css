@@ -3,7 +3,7 @@
 body{background:var(--paper);}
 /* Every edition uses the same exposure instead of legacy .motion-field opacity. */
 html[data-theme] .light-portfolio.luxury-portfolio.atelier-app-shell .app-atmosphere-paint{opacity:var(--theme-smoke-opacity);}
-@media(max-width:800px){html[data-theme] .light-portfolio.luxury-portfolio.atelier-app-shell .app-atmosphere-paint{opacity:.38;}}
+@media(max-width:800px){html[data-theme] .light-portfolio.luxury-portfolio.atelier-app-shell .app-atmosphere-paint{opacity:.62;}}
 html .light-portfolio.luxury-portfolio.atelier-compact{--media-frame-border:color-mix(in srgb,var(--frame-metal) 50%,transparent);}
 html .light-portfolio.luxury-portfolio.atelier-compact :is(.button-primary,.pulse-primary,.gallery-image-action,.evidence-expand,.gallery-filters button[aria-pressed=true],.language-options button[aria-checked=true],.skip-link){color:var(--on-accent);}
 html .light-portfolio.luxury-portfolio.atelier-compact .gallery-filters button[aria-pressed=true]:hover{color:var(--on-accent);}

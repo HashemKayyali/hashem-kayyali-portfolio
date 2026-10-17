@@ -89,3 +89,111 @@
 
 /* Magnetic lean for primary actions (driven by ui-motion.ts; zero on touch and reduced motion). */
 :root .light-portfolio :is(.pulse-primary,.pulse-resume,.pulse-case-link,.button-primary,.story-contact-action,.story-project-link){translate:var(--magnet-x,0px) var(--magnet-y,0px);}
+
+
+/* ── Fluid wide layout (1700px+) ──────────────────────────────────────────────
+   Edge-to-edge column with small gutters. Type grows on a capped fluid scale,
+   reading text keeps a comfortable measure, and image grids gain columns rather
+   than enlarging each item. No zoom/scale on page roots; laptop rules untouched. */
+@media(min-width:1700px){
+ :root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell{
+  --atelier-gutter:clamp(40px,2.4vw,88px);
+  --compact-measure:calc(100vw - var(--atelier-gutter)*2);
+  --fs-body:clamp(17px,calc(11px + .36vw),23px);
+  --fs-small:clamp(13px,calc(8.5px + .27vw),17px);
+  --fs-h3:clamp(28px,calc(10px + 1.4vw),58px);
+  --fs-h2:clamp(30px,calc(8px + 1.85vw),72px);
+  --fs-lead:clamp(19px,calc(9px + .6vw),30px);
+  --fs-display:clamp(60px,calc(14px + 2.6vw),112px);
+  --reading:64ch;
+  --app-hero-content-height:clamp(560px,min(40vw,64vh),820px);
+  font-size:var(--fs-body);
+ }
+ :root .light-portfolio.luxury-portfolio.atelier-compact :is(.dossier-body,.contact-desk>.desk-container.container){max-width:var(--compact-measure);}
+ :root .light-portfolio.luxury-portfolio.atelier-compact .signature-case .case-body{--case-body-width:var(--compact-measure);}
+ :root .studio-page .studio-container{width:var(--compact-measure);}
+
+ /* Reading measure: long-form copy never runs the full width. */
+ :root .light-portfolio.luxury-portfolio.atelier-compact :is(.pulse-statement,.pulse-scene-copy>p,.story-chapter p,.story-heading>p,.dossier-paragraphs p,.compact-hero-description,.gallery-intro-copy p,.case-story-reading p,.case-ownership-reading>p,.decision-list p,.journey-roles li li,.desk-introduction,.wb-scope p,.atelier-about-copy>p){max-width:var(--reading);}
+ :root .light-portfolio.luxury-portfolio.atelier-compact :is(.pulse-scene-copy>p,.story-chapter p,.dossier-paragraphs p,.case-story-reading p,.case-ownership-reading>p,.journey-roles li li,.desk-introduction,.wb-scope p){font-size:var(--fs-body);}
+ :root .light-portfolio.luxury-portfolio.atelier-compact :is(.story-career-entry p,.pulse-scene-copy li,.gallery-project-copy p){font-size:var(--fs-small);}
+ :root .light-portfolio.luxury-portfolio.atelier-compact :is(.pulse-scene-copy h3,.story-chapter h3,.case-chapter h2,.dossier-folio-header h2,.wb-section-heading h2){font-size:var(--fs-h3);}
+ :root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell :is(.pulse-work-heading h2,.story-heading h2){font-size:var(--fs-h2);}
+
+ /* Openings: headline, lead and portrait grow on the same capped scale. */
+ :root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .pulse-opening{grid-template-columns:minmax(0,1fr) minmax(0,1fr);min-height:clamp(416px,24vw,620px);}
+ :root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .pulse-name{font-size:var(--fs-display);}
+ :root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell :is(.pulse-statement,.atelier-about-copy>p,.compact-hero-description){font-size:var(--fs-lead);max-width:34ch;}
+ :root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .pulse-roles{font-size:clamp(16px,calc(8px + .45vw),24px);}
+ :root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .app-portrait-slot{width:clamp(176px,calc(40px + 7vw),290px);height:calc(clamp(176px,calc(40px + 7vw),290px)*2);}
+ :root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell :is(.atelier-about-copy h1,.compact-hero h1,.app-collection-copy h1){font-size:clamp(52px,calc(10px + 2.4vw),100px);max-width:none;}
+ :root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .pulse-scene-grid{grid-template-columns:minmax(0,1fr) auto;gap:clamp(28px,4vw,140px);align-items:center;}
+ :root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .pulse-scene-copy>p{font-size:var(--fs-lead);max-width:40ch;}
+ :root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .pulse-scene-copy h3{font-size:clamp(34px,calc(4px + 2.4vw),96px);}
+ :root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .pulse-scene-media .project-media-primary{--frame-height:clamp(280px,min(19vw,58vh),820px);}
+ :root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .pulse-scene-copy{max-width:min(100%,56ch);}
+
+ /* Projects: every row shares one height; cards fill their cell. */
+ :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibits{align-items:stretch;}
+ :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibit{display:flex;}
+ :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibit>.gallery-project-link{flex:1 1 auto;}
+}
+@media(min-width:2400px){
+ /* Ultrawide: more columns, not bigger items. */
+ :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index:not([data-gallery-filter-state=all]) .gallery-exhibits{grid-template-columns:repeat(4,minmax(0,1fr));}
+ :root .light-portfolio.luxury-portfolio.atelier-compact .dossier-folios{grid-template-columns:repeat(4,minmax(0,1fr));}
+ :root .light-portfolio.luxury-portfolio.atelier-compact .dossier-folios>.dossier-folio--0{grid-column:span 2;}
+ :root .light-portfolio.luxury-portfolio.atelier-compact .dossier-folios>.dossier-folio--3{grid-column:1/-1;}
+ :root .light-portfolio.luxury-portfolio.atelier-compact .dossier-tools{grid-template-columns:repeat(3,minmax(0,1fr));}
+ :root .light-portfolio.luxury-portfolio.atelier-compact .experience-journey .journey-roles:has(>li+li){grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;}
+ :root .light-portfolio.luxury-portfolio.atelier-compact .experience-journey .journey-roles:not(:has(>li+li)) li ul{columns:2;column-gap:56px;}
+ :root .light-portfolio.luxury-portfolio.atelier-compact .experience-journey .journey-roles li li{break-inside:avoid;}
+ :root .skills-workbench .wb-scope-grid{grid-template-columns:repeat(4,minmax(0,1fr));}
+}
+
+/* ── Projects collection: varied widths, one intentional height ────────────────
+   Row rhythm 7/5 · 4/4/4 · 5/7 · 8/4 · 6/6 on a 12-column grid. Every card shares
+   --card-h; each card picks its own layout from its width (container query), so
+   wide cards read side by side and narrow ones stack, at any viewport. */
+@media(min-width:1101px){
+ :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index{--card-h:clamp(470px,31vw,640px);}
+ :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibits{align-items:stretch;gap:16px;}
+ :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibit{display:flex;height:var(--card-h);container-type:inline-size;}
+ :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibit>.gallery-project-link{flex:1 1 auto;min-height:0!important;height:100%;display:grid;grid-template-columns:minmax(0,1fr)!important;grid-template-rows:auto minmax(0,1fr) auto!important;gap:14px!important;}
+ :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibit .gallery-project-link>*{grid-column:1!important;grid-row:auto!important;}
+ :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibit .gallery-artwork{height:auto;min-height:0;margin:0;align-self:stretch;display:flex;align-items:center;justify-content:center;}
+ :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibit .gallery-artwork{overflow:hidden;}
+ :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibit .gallery-media-mask{--frame-height:calc(var(--card-h)*.38);max-height:100%;}
+ :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibit .gallery-artwork figcaption{display:none;}
+ :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibit .gallery-project-copy p{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+ @container (min-width:640px){
+  :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibit>.gallery-project-link{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)!important;grid-template-rows:auto minmax(0,1fr)!important;column-gap:clamp(20px,3cqi,56px)!important;}
+  :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibit .gallery-project-meta{grid-column:1/-1!important;}
+  :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibit .gallery-project-copy{grid-column:1!important;grid-row:2!important;align-self:center;}
+  :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibit .gallery-artwork{grid-column:2!important;grid-row:2!important;}
+  :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibit .gallery-media-mask{--frame-height:calc(var(--card-h)*.66);}
+  :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibit .gallery-artwork figcaption{display:block;}
+  :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibit .gallery-project-copy p{-webkit-line-clamp:4;}
+  :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibit .gallery-project-copy p{font-size:clamp(15px,2.1cqi,21px);}
+  :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibit .gallery-project-copy h2{font-size:clamp(34px,5cqi,64px);}
+ }
+ :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index[data-gallery-filter-state=all] .gallery-exhibits{grid-template-columns:repeat(12,minmax(0,1fr));}
+ :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index[data-gallery-filter-state=all] .gallery-exhibit:nth-child(n){grid-column:span 4!important;}
+ :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index[data-gallery-filter-state=all] .gallery-exhibit:is(:nth-child(1),:nth-child(7)){grid-column:span 7!important;}
+ :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index[data-gallery-filter-state=all] .gallery-exhibit:is(:nth-child(2),:nth-child(6)){grid-column:span 5!important;}
+ :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index[data-gallery-filter-state=all] .gallery-exhibit:nth-child(8){grid-column:span 8!important;}
+ :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index[data-gallery-filter-state=all] .gallery-exhibit:is(:nth-child(10),:nth-child(11)){grid-column:span 6!important;}
+
+ /* Projects opening sized by its content, not the fixed shared hero height. */
+ :root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .app-collection-hero{height:auto;max-height:none;min-height:clamp(420px,30vw,620px);padding-block:clamp(36px,4vw,80px);align-items:center;}
+ :root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .app-collection-copy{display:grid;gap:clamp(14px,1.4vw,26px);align-content:center;}
+ :root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .app-collection-copy :is(h1,p,.gallery-intro-copy){margin:0;}
+ :root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .app-collection-copy .gallery-intro-copy{display:grid;gap:clamp(16px,1.6vw,28px);justify-items:start;}
+}
+
+/* Home method: the board travels with the reader from where it already sits, rather
+   than waiting to reach the header. Sticky offset = its natural distance below the
+   section heading, capped so it stays fully visible. */
+@media(min-width:801px) and (prefers-reduced-motion:no-preference){
+ :root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .home-story:not([data-story-motion=static]) .story-visual{top:clamp(calc(var(--app-header-height) + 24px),calc(100vh - var(--story-board-h,420px) - 48px),34vh);}
+}

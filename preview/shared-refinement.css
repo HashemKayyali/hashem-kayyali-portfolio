@@ -28,7 +28,7 @@ html[dir=rtl] .site-header .language-select select {padding:10px 36px 10px 30px;
 .light-portfolio .gallery-media-mask,.light-portfolio .case-image-depth {border-radius:var(--media-radius);overflow:clip;}
 
 /* A captured frame from the exact editorial V1 shader is the fallback, never CSS smoke. */
-.light-portfolio .motion-field,.light-portfolio.route--home .home-page .home-silk {background:var(--paper) url('/v2-media/v1-warp-still.webp') center/100% 100%;}
+.light-portfolio .motion-field,.light-portfolio.route--home .home-page .home-silk {background:var(--paper) url('/v2-media/v1-warp-still.webp') center/cover;}
 .light-portfolio .motion-field__paint {filter:none;animation:none!important;transform:none;width:100%;height:100%;margin:0;}
 .light-portfolio .motion-field:not(.home-silk) .motion-field__paint {opacity:0;}
 

@@ -39,8 +39,15 @@ export function usePortfolioMotion(root:RefObject<HTMLDivElement|null>,key:strin
      entryFrame=requestAnimationFrame(()=>{entryFrame=requestAnimationFrame(()=>enter.play(0));});
     }else if(element.dataset.portraitContinuation==='true'){
      gsap.set(stage,{clearProps:'opacity,transform'});
-     gsap.fromTo(stage.querySelectorAll('.pulse-identity,.pulse-actions,.atelier-about-copy'),{y:10,opacity:.15},{y:0,opacity:1,duration:.42,ease:'power3.out',id:'route:portrait-copy',clearProps:'opacity,transform',onComplete:()=>{stage.dataset.transition='idle';}});
-    }else{const stationary=heroElement||projectVisualInFlight();gsap.fromTo(stage,{opacity:0,y:stationary?0:12},{opacity:1,y:0,duration:.32,ease:'power2.out',id:'route:enter',clearProps:'opacity,transform',onComplete:()=>{stage.dataset.transition='idle';}});}
+     gsap.fromTo(stage.querySelectorAll('.pulse-identity>*,.pulse-actions,.atelier-about-copy>*'),{y:30,opacity:0},{y:0,opacity:1,duration:.9,stagger:.07,ease:'expo.out',id:'route:portrait-copy',clearProps:'opacity,transform',onComplete:()=>{stage.dataset.transition='idle';}});
+    }else{const stationary=heroElement||projectVisualInFlight();gsap.fromTo(stage,{opacity:0,y:stationary?0:12},{opacity:1,y:0,duration:.45,ease:'power2.out',id:'route:enter',clearProps:'opacity,transform',onComplete:()=>{stage.dataset.transition='idle';}});
+     // Opening choreography for page heroes (case openings and shared-image arrivals own theirs).
+     if(!projectVisualInFlight()&&!stage.querySelector('.signature-case')){
+      const copy=stage.querySelectorAll(':is(.compact-hero-copy,.app-collection-copy,.journey-opening .compact-hero-copy)>*,.app-collection-copy .gallery-intro-copy>*');
+      const visual=stage.querySelectorAll('.compact-hero-visual,.app-collection-visual');
+      if(copy.length)gsap.fromTo(copy,{y:34,opacity:0},{y:0,opacity:1,duration:.95,stagger:.07,delay:.05,ease:'expo.out',id:'route:hero-copy',clearProps:'opacity,transform'});
+      if(visual.length)gsap.fromTo(visual,{y:24,scale:.97,opacity:0},{y:0,scale:1,opacity:1,duration:1.1,delay:.12,ease:'expo.out',id:'route:hero-visual',clearProps:'opacity,transform'});
+     }}
    }
    const intro=element.querySelector('.projects .section-heading');
    if(intro)gsap.from(intro,{y:18,opacity:0,duration:.8,ease:'power3.out',delay:.08});

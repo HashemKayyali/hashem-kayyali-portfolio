@@ -14,13 +14,17 @@ export function useAboutMotion(root:RefObject<HTMLElement|null>,locale:string){
    if(!allowsMotion())return;
    const rtl=locale==='ar',owned=gsap.context(()=>{},el),pending=new Map<HTMLDetailsElement,{tween:gsap.core.Tween;open:boolean}>();
    gsap.fromTo('.dossier-signal-line',{scaleX:0},{scaleX:1,ease:'none',transformOrigin:rtl?'100% 50%':'0 50%',scrollTrigger:{id:'about:signal:line',trigger:'.dossier-signals',start:'top 90%',end:'bottom 60%',scrub:.25}});
-   gsap.from('.dossier-signals li',{y:12,duration:.6,stagger:.055,ease:'power3.out',clearProps:'transform',scrollTrigger:{id:'about:signal:reveal',trigger:'.dossier-signals',start:'top 90%'}});
+   gsap.from('.dossier-signals li',{y:36,opacity:0,duration:.95,stagger:.08,ease:'expo.out',clearProps:'transform,opacity',scrollTrigger:{id:'about:signal:reveal',trigger:'.dossier-signals',start:'top 90%'}});
+   gsap.from('.dossier-index a',{y:18,opacity:0,duration:.8,stagger:.06,ease:'expo.out',clearProps:'transform,opacity',scrollTrigger:{id:'about:index:reveal',trigger:'.dossier-index',start:'top 92%'}});
+   gsap.from('.dossier-tool',{y:30,opacity:0,duration:.9,stagger:.07,ease:'expo.out',clearProps:'transform,opacity',scrollTrigger:{id:'about:tools:reveal',trigger:'.dossier-tools',start:'top 88%'}});
    const folios=[...el.querySelectorAll<HTMLElement>('[data-dossier-folio]')],links=[...el.querySelectorAll<HTMLElement>('[data-dossier-link]')];
    const activate=(index:number)=>links.forEach((link,i)=>{if(i===index)link.setAttribute('aria-current','location');else link.removeAttribute('aria-current');});
    folios.forEach((folio,index)=>{
     const heading=folio.querySelector('h2'),ordinal=folio.querySelector('.dossier-ordinal');
-    const reveal=gsap.timeline({id:`about:folio:${index}:reveal`,scrollTrigger:{id:`about:folio:${index}:entry`,trigger:folio,start:'top 90%',once:true},defaults:{ease:'power3.out'}});
-    reveal.from(ordinal,{y:12,duration:.65,clearProps:'transform'},0).from(heading,{y:12,duration:.65,clearProps:'transform'},.05).from(folio.querySelectorAll('p'),{y:14,duration:.7,stagger:.08,clearProps:'transform'},.12);
+    const reveal=gsap.timeline({id:`about:folio:${index}:reveal`,scrollTrigger:{id:`about:folio:${index}:entry`,trigger:folio,start:'top 88%',once:true},defaults:{ease:'power3.out'}});
+    // The panel unfolds from its top edge, then ordinal, heading and paragraphs rise in order.
+    reveal.fromTo(folio,{clipPath:'inset(0% 0% 100% 0% round 12px)'},{clipPath:'inset(0% 0% 0% 0% round 12px)',duration:1.1,ease:'expo.out',clearProps:'clipPath'},0)
+     .from(ordinal,{yPercent:60,opacity:0,duration:.9,ease:'expo.out',clearProps:'transform,opacity'},.12).from(heading,{y:34,opacity:0,duration:.95,ease:'expo.out',clearProps:'transform,opacity'},.18).from(folio.querySelectorAll('p'),{y:26,opacity:0,duration:.9,stagger:.09,ease:'expo.out',clearProps:'transform,opacity'},.28);
     gsap.fromTo(folio.querySelector('.dossier-folio-rule'),{scaleX:0},{scaleX:1,transformOrigin:rtl?'100% 50%':'0 50%',ease:'none',scrollTrigger:{id:`about:folio:${index}:rule`,trigger:folio,start:'top 88%',end:'bottom 65%',scrub:.35}});
     ScrollTrigger.create({id:`about:folio:${index}:active`,trigger:folio,start:'top 55%',end:'bottom 55%',onEnter:()=>activate(index),onEnterBack:()=>activate(index)});
    });activate(0);

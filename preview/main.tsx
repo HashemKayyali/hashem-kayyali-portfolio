@@ -145,9 +145,11 @@ function Preview({ initialRoute, dictionary }: { initialRoute: PreviewRoute; dic
       // briefly expose the new content at the old page's deep scroll position.
       {
         if(!alive||current.current!==route||pending.version!==intent.current)return;
-        if(pending.hash){let id=pending.hash.slice(1);try{id=decodeURIComponent(id);}catch{}document.getElementById(id)?.scrollIntoView({behavior:'instant'});}
-        else if(pending.languageOnly&&restoreReadingPosition(root.current,readingPosition.current)){}
+        // Back/Forward and language changes return to the saved reading position; a URL
+        // fragment only decides the position on a fresh navigation to that fragment.
+        if(pending.languageOnly&&restoreReadingPosition(root.current,readingPosition.current)){}
         else if(pending.restore)scrollTo({left:pending.restore[0],top:pending.restore[1],behavior:'instant'});
+        else if(pending.hash){let id=pending.hash.slice(1);try{id=decodeURIComponent(id);}catch{}document.getElementById(id)?.scrollIntoView({behavior:'instant'});}
         else if(pending.top)scrollTo({top:0,behavior:'instant'});
         if(route.page==='projects'&&!route.project&&pending.restore&&!pending.languageOnly){
          const {origin,focus}=galleryMemory.read(route.locale);
