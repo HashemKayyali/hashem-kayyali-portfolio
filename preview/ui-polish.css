@@ -282,3 +282,12 @@
 :root .light-portfolio .studio-post .brand-mark.studio-author-mark{width:40px;height:40px;border:0;border-radius:0;color:var(--ink);}
 @media(max-width:800px){:root .light-portfolio .site-header .brand-mark.monogram{width:32px;height:32px;}}
 @media(prefers-reduced-motion:reduce){:root .light-portfolio .site-header .brand-mark{transition:none;}}
+
+/* Case "Selected projects" neighbours: the image fills its shared frame (light crop). */
+:root .light-portfolio.luxury-portfolio.atelier-compact .signature-case .case-body .neighbor-visual{padding:4px;border-radius:14px;overflow:hidden;width:auto;max-width:100%;aspect-ratio:1.6!important;justify-self:center;}
+:root .light-portfolio.luxury-portfolio.atelier-compact .signature-case .case-body .neighbor-visual img{width:100%!important;height:100%!important;max-height:none!important;aspect-ratio:auto!important;padding:0;object-fit:cover!important;object-position:50% 40%!important;border-radius:10px;}
+/* Phones: the neighbour image keeps its landscape 16:10 frame under the text instead of a narrow column. */
+@media(max-width:560px){
+ :root .light-portfolio.luxury-portfolio.atelier-compact .signature-case .case-body .case-neighbor{grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto auto auto;}
+ :root .light-portfolio.luxury-portfolio.atelier-compact .signature-case .case-body .neighbor-visual{grid-column:1;grid-row:4;width:100%;max-width:none;height:auto!important;aspect-ratio:1.6!important;justify-self:stretch;margin-block-start:6px;}
+}
