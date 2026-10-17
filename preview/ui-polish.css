@@ -191,11 +191,6 @@
  :root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .app-collection-copy .gallery-intro-copy{display:grid;gap:clamp(16px,1.6vw,28px);justify-items:start;}
 }
 
-/* Home method: the board travels with the reader from where it already sits, rather
-   than waiting to reach the header. Sticky offset = its natural distance below the
-   section heading, capped so it stays fully visible. */
-@media(min-width:801px) and (prefers-reduced-motion:no-preference){
- :root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .home-story:not([data-story-motion=static]) .story-visual{top:clamp(calc(var(--app-header-height) + 24px),calc(100vh - var(--story-board-h,420px) - 48px),34vh);}
 }
 
 /* ── Hero smoke as a window, not a stretched surface ───────────────────────────
@@ -243,19 +238,6 @@
  :root .studio-hero-art{height:200px;transform:scale(.72);transform-origin:50% 40%;}
 }
 
-/* Method board: a bounded, image-led panel instead of a column-wide strip. */
-@media(min-width:801px){
- :root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-method-layout{grid-template-columns:minmax(0,1fr) minmax(0,clamp(400px,34vw,640px));gap:clamp(40px,6vw,160px);}
- :root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-board{padding:clamp(16px,1.4vw,26px);border-radius:18px;}
- :root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell :is(.story-evidence,.home-story[data-story-motion=static] .story-evidence){height:clamp(300px,min(28vw,52vh),500px);}
- :root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-sheet{padding:clamp(12px,1.1vw,20px);border-radius:14px;}
- :root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell :is(.story-sheet-image :is(picture,img),.home-story[data-story-motion=static] .story-sheet-image :is(picture,img)){max-height:100%;max-width:100%;border-radius:10px;}
- :root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-sheet-top{font-size:clamp(17px,1.2vw,24px);}
- :root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-chapter h3{font-size:clamp(24px,1.9vw,40px);}
- /* Each step owns a scroll beat, so the pinned board changes three times while visible. */
- :root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .home-story:not([data-story-motion=static]) .story-chapter{min-height:clamp(260px,46vh,520px);align-content:start;}
- :root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .home-story:not([data-story-motion=static]) .story-chapter:last-child{min-height:clamp(260px,52vh,600px);}
-}
 
 /* Home selected work: one media box for every card, so stacked cards share a height.
    Photographs fill it (gentle crop) instead of each card taking its image's own ratio. */
@@ -291,3 +273,87 @@
  :root .light-portfolio.luxury-portfolio.atelier-compact .signature-case .case-body .case-neighbor{grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto auto auto;}
  :root .light-portfolio.luxury-portfolio.atelier-compact .signature-case .case-body .neighbor-visual{grid-column:1;grid-row:4;width:100%;max-width:none;height:auto!important;aspect-ratio:1.6!important;justify-self:stretch;margin-block-start:6px;}
 }
+
+/* ── Engineering approach: compact pinned board beside three connected steps ──
+   The board pins just below the real header (--app-header-height) and is capped to the
+   viewport so it can never slide under it. Steps keep a modest rhythm; the last step
+   holds the board long enough for its image to arrive. */
+@media(min-width:801px){
+ :root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-method-layout{grid-template-columns:minmax(0,1fr) clamp(340px,28vw,500px);gap:clamp(40px,6vw,140px);align-items:start;}
+ :root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell :is(.story-visual,.home-story[data-story-motion=static] .story-visual){position:sticky;top:calc(var(--app-header-height,68px) + 28px);margin:8px 0 0;}
+ :root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-board{padding:clamp(14px,1.1vw,20px);border-radius:18px;max-height:calc(100vh - var(--app-header-height,68px) - 56px);}
+ :root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell :is(.story-evidence,.home-story[data-story-motion=static] .story-evidence){height:min(clamp(230px,21vw,360px),calc(100vh - var(--app-header-height,68px) - 200px));margin:12px 0 14px;}
+ :root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-sheet{padding:12px;border-radius:14px;gap:10px;}
+ :root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-sheet-top{font-size:clamp(16px,1.05vw,21px);}
+ :root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell :is(.story-sheet-image :is(picture,img),.home-story[data-story-motion=static] .story-sheet-image :is(picture,img)){max-height:100%;max-width:100%;border-radius:10px;}
+ :root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-chapter h3{font-size:clamp(24px,1.8vw,36px);}
+ :root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-chapter p{max-width:46ch;}
+ :root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .home-story:not([data-story-motion=static]) .story-chapter{min-height:clamp(190px,26vh,280px);padding-block:10px 22px;align-content:start;}
+ :root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .home-story:not([data-story-motion=static]) .story-chapter:last-child{min-height:clamp(300px,46vh,460px);}
+}
+
+/* ── Signature stacking deck (Home + Projects, every viewport) ───────────────────
+   card-stack.ts sets data-stack, --stack-top/--stack-offset/--stack-i and scrubs depth
+   (scale + --stack-dim). Reduced motion or cards taller than the viewport keep normal flow. */
+:root .light-portfolio.luxury-portfolio.atelier-compact .pulse-scenes[data-stack=active] .pulse-scene{top:calc(var(--stack-top,86px) + var(--stack-i,0)*var(--stack-offset,14px));z-index:calc(1 + var(--stack-i,0));}
+:root .light-portfolio.luxury-portfolio.atelier-compact .pulse-scene-surface{position:relative;}
+:root .light-portfolio.luxury-portfolio.atelier-compact :is(.pulse-scene-surface,.gallery-exhibits[data-stack=active] .gallery-exhibit)::after{content:'';position:absolute;inset:0;border-radius:inherit;background:#000;opacity:calc(var(--stack-dim,0)*.32);pointer-events:none;}
+:root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibits[data-stack]{grid-template-columns:minmax(0,1fr)!important;gap:0!important;align-items:start;}
+:root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibits[data-stack=active]::after{content:'';display:block;height:var(--stack-tail,48px);}
+:root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibits[data-stack] .gallery-exhibit{grid-column:1/-1!important;height:auto!important;margin-block-end:clamp(18px,3.5vh,40px);border-radius:16px;container-type:inline-size;display:flex;transform-origin:50% 0;}
+:root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibits[data-stack=active] .gallery-exhibit{position:sticky;top:calc(var(--stack-top,86px) + var(--stack-i,0)*var(--stack-offset,14px));z-index:calc(1 + var(--stack-i,0));}
+:root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibits[data-stack] .gallery-exhibit[data-filtered=true]{display:none;}
+:root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibits[data-stack] .gallery-exhibit:last-of-type{margin-block-end:0;}
+:root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibits[data-stack] .gallery-project-link{flex:1;height:auto!important;min-height:0!important;border-radius:16px;background:linear-gradient(155deg,var(--atelier-petrol),var(--paper) 70%);box-shadow:0 -18px 40px -30px #000c;display:grid;grid-template-columns:minmax(0,1fr)!important;grid-template-rows:auto auto auto!important;gap:12px!important;padding:clamp(14px,1.6vw,26px)!important;}
+:root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibits[data-stack] .gallery-project-link>*{grid-column:1!important;grid-row:auto!important;}
+:root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibits[data-stack] .gallery-artwork{height:auto!important;min-height:0;margin:0;overflow:visible;display:flex;justify-content:center;}
+:root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibits[data-stack] .gallery-artwork figcaption{display:none;}
+:root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibits[data-stack] .gallery-media-mask{--frame-height:clamp(150px,44vw,210px);max-height:none;border-radius:12px;}
+:root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibits[data-stack] .gallery-project-copy p{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;}
+@container (min-width:640px){
+ :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibits[data-stack] .gallery-project-link{grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr)!important;grid-template-rows:auto minmax(0,1fr)!important;column-gap:clamp(24px,4cqi,72px)!important;}
+ :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibits[data-stack] .gallery-project-meta{grid-column:1/-1!important;}
+ :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibits[data-stack] .gallery-project-copy{grid-column:1!important;grid-row:2!important;align-self:center;}
+ :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibits[data-stack] .gallery-artwork{grid-column:2!important;grid-row:2!important;align-self:center;}
+ :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibits[data-stack] .gallery-media-mask{--frame-height:clamp(220px,min(28cqi,calc(100vh - var(--stack-top,86px) - 210px)),420px);}
+ :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibits[data-stack] .gallery-project-copy h2{font-size:clamp(30px,4.2cqi,60px);}
+ :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibits[data-stack] .gallery-project-copy p{-webkit-line-clamp:3;font-size:clamp(16px,1.9cqi,21px);}
+ /* Alternate the image side for an editorial rhythm through the deck. */
+ :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibits[data-stack] .gallery-exhibit:nth-of-type(even) .gallery-project-link{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr)!important;}
+ :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibits[data-stack] .gallery-exhibit:nth-of-type(even) .gallery-project-copy{grid-column:2!important;}
+ :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibits[data-stack] .gallery-exhibit:nth-of-type(even) .gallery-artwork{grid-column:1!important;}
+}
+/* Phones: Home cards compact enough to stack below the header. */
+@media(max-width:800px){
+ :root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .pulse-scene-surface{padding:14px;}
+ :root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .pulse-scene-top{margin-block-end:12px;padding-block-end:10px;}
+ :root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .pulse-scene-grid{gap:14px;}
+ :root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .pulse-scene-copy h3{font-size:clamp(26px,7vw,32px);margin:0;}
+ :root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .pulse-scene-copy>p{font-size:16px;line-height:1.5;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;margin-block:8px;}
+ :root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .pulse-scene-copy ul{margin-block-end:10px;}
+ :root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .pulse-scene-bottom{display:none;}
+ :root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .pulse-scene-media .project-media-primary{--frame-height:min(190px,46vw);}
+}
+@media(prefers-reduced-motion:reduce){:root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibit{position:relative!important;top:auto!important;}}
+/* Small phones: project cards stay short enough to stack below the header. */
+@media(max-width:420px){
+ :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibits[data-stack] .gallery-media-mask{--frame-height:min(150px,40vw);}
+ :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibits[data-stack] .gallery-project-status{display:none;}
+ :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibits[data-stack] .gallery-technologies{flex-wrap:nowrap;overflow:hidden;white-space:nowrap;}
+ :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibits[data-stack] .gallery-project-copy h2{font-size:clamp(22px,6.6vw,28px);line-height:1.15;}
+ :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibits[data-stack] .gallery-project-copy p{font-size:15px;line-height:1.5;margin-block:6px;}
+}
+
+/* Image flight: the destination frame's chrome stays invisible while the image travels into it
+   (an empty frame waiting behind the moving image read as a discontinuity), then settles in. */
+:root .light-portfolio .case-opening-visual,:root .light-portfolio .case-opening-visual .case-image-depth{transition:background-color .4s ease,border-color .4s ease,box-shadow .4s ease;}
+:root[data-project-transit] .light-portfolio .case-opening-visual,:root[data-project-transit] .light-portfolio .case-opening-visual .case-image-depth{background-color:transparent!important;border-color:transparent!important;box-shadow:none!important;transition:none;}
+
+/* Case "Build & details" gallery: the stage takes the screenshots' landscape proportion, so each
+   image fills the frame's width (complete, uncropped) instead of floating in a wide, short panel. */
+/* Build & details gallery: the stage is as tall as a 4:3 image at full width (bounded by the
+   viewport), and each frame fills that height at its own ratio, so images are never cropped. */
+:root .light-portfolio.luxury-portfolio.atelier-compact .signature-case .case-body .case-gallery{container-type:inline-size;max-width:min(100%,1180px);--g-pad:clamp(8px,1.4cqi,18px);--g-h:min(calc(100cqi * .75 + 2 * var(--g-pad) + 8px),calc(100vh - var(--app-header-height,68px) - 150px),780px);}
+:root .light-portfolio.luxury-portfolio.atelier-compact .signature-case .case-body .case-gallery .evidence-stage{height:var(--g-h)!important;border-radius:16px;}
+:root .light-portfolio.luxury-portfolio.atelier-compact .signature-case .case-body .case-gallery .evidence-slide{padding:var(--g-pad)!important;}
+:root .light-portfolio.luxury-portfolio.atelier-compact .signature-case .case-body .case-gallery .evidence-native-frame{width:min(100%,calc((var(--g-h) - 2 * var(--g-pad) - 8px) * var(--media-ratio) + 8px))!important;}

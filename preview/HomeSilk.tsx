@@ -1,6 +1,7 @@
 import React,{useEffect,useRef} from 'react';
 import {readBrandPalette,colorVector} from './brand-palette';
 import {THEMES,themeSmokeRamp} from './themes';
+import {startSmokeStage} from './smoke-stage';
 
 type Surface={canvas:HTMLCanvasElement;context:CanvasRenderingContext2D;visible:boolean};
 const surfaces=new Map<HTMLCanvasElement,Surface>();
@@ -98,8 +99,9 @@ function launch(){
   activeWorker.postMessage({type:'init',width:size.width,height:size.height,density:size.density,time:elapsed,ramp:ramp.map(colorVector)});
  }catch{failed=true;}
 }
-export default function HomeSilk({className=''}:{className?:string}){
+export default function HomeSilk({className='',stage=false}:{className?:string;stage?:boolean}){
  const canvas=useRef<HTMLCanvasElement>(null);
- useEffect(()=>canvas.current?registerSilk(canvas.current):undefined,[]);
+ // The persistent hero atmosphere renders in its own worker (smoke-stage); other fields share the bitmap renderer.
+ useEffect(()=>{if(!canvas.current)return;const live=stage?startSmokeStage(canvas.current):false;return live||registerSilk(canvas.current);},[stage]);
  return <div className={`motion-field home-silk ${className}`} data-look="v1-silk" data-motion="offscreen" aria-hidden="true"><canvas ref={canvas} className="motion-field__paint"/></div>;
 }

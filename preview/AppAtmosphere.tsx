@@ -44,5 +44,5 @@ export default function AppAtmosphere({route}:{route:PreviewRoute}){
   const resized=()=>{resizing=true;clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{resizing=false;},250);measure();};addEventListener('resize',resized,{passive:true});
   return()=>{cancelAnimationFrame(frame);clearTimeout(resizeTimer);insertion?.disconnect();resize?.disconnect();removeEventListener('resize',resized);};
  },[route.page,route.project,route.locale]);
- return <div ref={root} className="app-atmosphere" data-visible={visible} aria-hidden="true"><HomeSilk className="app-atmosphere-paint"/></div>;
+ return <div ref={root} className="app-atmosphere" data-visible={visible} aria-hidden="true"><HomeSilk className="app-atmosphere-paint" stage/></div>;
 }

@@ -20,7 +20,7 @@ const Up=()=> <ArrowUpRight size={20} strokeWidth={1.5} aria-hidden="true"/>;
 
 const Scene:React.FC<{asset:ProjectAsset;index:number}&Props>=({asset,index,route,navigate})=>{
  const {t,locale}=useI18n(),copy=t.projects[asset.id],labels=engineeringHomeCopy[locale];
- return <><span className="pulse-scene-marker" id={`home-work-${asset.id}`} data-scene-marker={asset.id} aria-hidden="true"/><article className={`pulse-scene pulse-scene--${index}`} data-home-scene={asset.id} style={{'--stack-order':index} as React.CSSProperties} aria-labelledby={`scene-title-${asset.id}`}>
+ return <><span className="pulse-scene-marker" id={`home-work-${asset.id}`} data-scene-marker={asset.id} aria-hidden="true"/><article className={`pulse-scene pulse-scene--${index}`} data-home-scene={asset.id} data-stack-item style={{'--stack-order':index} as React.CSSProperties} aria-labelledby={`scene-title-${asset.id}`}>
   <div className="pulse-scene-surface">
    <div className="pulse-scene-top"><span><bdi>0{index+1}</bdi> / {labels.choices[asset.id==='eventies'?1:0]}</span><span>{t.projectsSection.filters[asset.categoryKey]}</span></div>
    <div className="pulse-scene-grid"><div className="pulse-scene-copy"><h3 id={`scene-title-${asset.id}`}><span className="pulse-line-mask"><span>{copy.title}</span></span></h3><p>{copy.short}</p><ul>{copy.technology.slice(0,3).map(tech=><li key={tech}><bdi>{tech}</bdi></li>)}</ul><NavLink className="pulse-case-link" route={{...route,page:'projects',project:asset.id}} navigate={navigate}><span>{labels.readCase}</span><Up/></NavLink></div>

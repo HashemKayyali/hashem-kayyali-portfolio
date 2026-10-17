@@ -12,13 +12,13 @@
   <link rel="stylesheet" href="/fonts/v2-fonts.css" />
   <script>
     // Set the locale before CSS evaluation; Arabic never requests the V2 Latin fonts.
-    const v2Segments = location.pathname.split('/').filter(Boolean);
-    const v2Locale = v2Segments[v2Segments[1] === 'creative' ? 2 : 1] || new URLSearchParams(location.search).get('lang') || 'en';
+    const v2Segments = location.pathname.replace(/^\/preview\/?/, '/').split('/').filter(Boolean);
+    const v2Locale = v2Segments[v2Segments[0] === 'creative' ? 1 : 0] || new URLSearchParams(location.search).get('lang') || 'en';
     if (['en','ar','de','fr','es'].includes(v2Locale)) {
       document.documentElement.lang = v2Locale;
       document.documentElement.dir = v2Locale === 'ar' ? 'rtl' : 'ltr';
     }
-    if (/^\/preview\/(creative\/)?(en|ar|de|fr|es)\/?$/.test(location.pathname)) {
+    if (/^\/(preview\/)?(creative\/)?(en|ar|de|fr|es)\/?$/.test(location.pathname)) {
       const project = document.createElement('link');project.rel='preload';project.as='image';
       project.href='/images/hashem-profile.webp';project.fetchPriority='high';document.head.append(project);
     }

@@ -11,12 +11,13 @@ import {cancelProjectTransit} from './project-transit';
 import type {Navigate,PreviewRoute} from './routes';
 import {mediaFrameStyle,productMediaSource} from './media-frame';
 import {useGalleryFilterMotion} from './gallery-filter-motion';
+import {useGalleryStack} from './gallery-stack';
 const projectOrder=['eventies','bike-tower','basket-beats','terminal-nfc','glitzz-lab','vr-cycling','bike-land-trainer','umniah-youthconnect','financial-operations','outreach-automation','traffic-flow-analytics'];
 const ordered=projectOrder.map(id=>projectAssets.find(asset=>asset.id===id)!);
 const Exhibit:React.FC<{asset:ProjectAsset;route:PreviewRoute;navigate:Navigate;index:number;filtered:boolean}>=({asset,route,navigate,index,filtered})=>{
  const {t,locale}=useI18n(),copy=t.projects[asset.id];
  const evidence=asset.id==='terminal-nfc'?storyCopy[locale].redacted:['umniah-youthconnect','financial-operations','outreach-automation'].includes(asset.id)?caseCopy[locale].illustration:asset.id==='vr-cycling'?caseCopy[locale].supplied:undefined;
- return <article className={'gallery-exhibit gallery-project--'+asset.id} data-project={filtered?undefined:asset.id} data-flip-id={asset.id} data-filtered={filtered} aria-hidden={filtered}>
+ return <article className={'gallery-exhibit gallery-project--'+asset.id} data-project={filtered?undefined:asset.id} data-flip-id={asset.id} data-filtered={filtered} aria-hidden={filtered} data-stack-item>
   <NavLink className="gallery-project-link" tabIndex={filtered?-1:undefined} aria-label={copy.title+' — '+galleryCopy[locale].view} data-gallery-project={filtered?undefined:asset.id} route={{...route,page:'projects',project:asset.id}} navigate={navigate}>
    <div className="gallery-project-meta"><span className="index" dir="ltr">{String(projectOrder.indexOf(asset.id)+1).padStart(2,'0')}</span><span>{t.projectsSection.filters[asset.categoryKey]}</span><ArrowUpRight className="gallery-link-arrow" size={19} aria-hidden="true"/></div>
    <figure className="gallery-artwork"><div className="gallery-media-mask" style={mediaFrameStyle(productMediaSource(asset))}><div className="gallery-media-depth"><ProductImage asset={asset} full eager={index<3} sizes="(max-width:600px) 92vw, (max-width:1000px) 46vw, 31vw"/></div></div>{evidence&&<figcaption>{evidence}</figcaption>}</figure>
@@ -29,6 +30,8 @@ export default function ProjectGallery({route,navigate}:{route:PreviewRoute;navi
  const [filter,setFilter]=useState<FilterKey>(()=>{const saved=history.state?.previewGallery;if(saved?.locale===locale)galleryMemory.restore(locale,saved);return galleryMemory.read(locale).filter;});
  useEffect(()=>{const saved=history.state?.previewGallery;if(saved?.locale===locale){galleryMemory.restore(locale,saved);setFilter(galleryMemory.read(locale).filter);}},[route,locale]);
  const visible=ordered.filter(a=>filter==='all'||a.categoryKey===filter);
+ // The deck geometry is set first, so entrance directions are measured on the final layout.
+ useGalleryStack(root,filter,locale);
  useGalleryMotion(root,locale,locale==='ar');
  const prepareFilter=useGalleryFilterMotion(root,filter,locale);
  const choose=(key:FilterKey)=>{if(key===filter)return;cancelProjectTransit();prepareFilter();galleryMemory.setFilter(locale,key);history.replaceState({...history.state,previewGallery:{locale,...galleryMemory.read(locale)}},'');setFilter(key);};

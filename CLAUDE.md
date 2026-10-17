@@ -10,7 +10,7 @@ Node24 is the verified local runtime. Dependencies are installed here; on anothe
 npm run dev
 ```
 
-Open `http://127.0.0.1:5176/` (redirects to `/preview/en/`) or `/preview/ar/`. `npm run build` generates `dist-light-preview`; `npm run preview` serves it at4176. `npm run check` runs TypeScript, all current tests and content validation. The `*:light` commands remain compatible aliases.
+Open `http://127.0.0.1:5176/` (redirects to `/en/`) or `/ar/`. Public URLs are `/<locale>/...`; the former `/preview/<locale>/...` URLs permanently redirect (see `vercel.json`). `npm run build` generates `dist-light-preview`; `npm run preview` serves it at4176. `npm run check` runs TypeScript, all current tests and content validation. The `*:light` commands remain compatible aliases.
 
 ## Active architecture
 
@@ -18,7 +18,7 @@ Open `http://127.0.0.1:5176/` (redirects to `/preview/en/`) or `/preview/ar/`. `
 - Root `App.tsx`, `sections/`, `index.tsx` and `vite.config.ts` are historical and only run through explicitly named `*:legacy` scripts. When the owner refers to the current website, work in `preview/`.
 - Eleven coded projects, five locales and five semantic themes. Preserve factual content, authentic company/R&D assets, existing typography, redactions and approved smoke/portrait behavior. Shared Home/About portrait stays mounted. Existing case hero composition is protected.
 - Compact Home phone story has three changing sticky images. Experience exposes all six roles without disclosures. Skills has compact chips with immediately adjacent phone evidence. Case galleries use Embla8.6; GSAP owns established page and interaction choreography. The compact redesign added no ScrollTrigger.
-- Gallery, Journal and Admin: `/preview/<locale>/gallery/`, `/journal/`, `/admin/`. Five-locale labels: `preview/studio-copy.ts`.
+- Gallery, Journal and Admin: `/<locale>/gallery/`, `/journal/`, `/admin/`. Five-locale labels: `preview/studio-copy.ts`.
 - Studio foundation: Supabase data, Cloudinary media, Vercel hosting. No live accounts, secrets or deployment yet. Empty public/read-only admin states are intentional. Read `docs/design/CLOUD-STUDIO-SETUP.md`, `.env.example`, `studio/contracts.ts`, `server/studio/` and `supabase/migrations/` before connecting services. Admin password defaults to8080 with a separate required server session secret. Never put provider secrets in `VITE_` variables.
 - Admin edits project images/order/cover/alt only; project prose stays in code. Journal/Gallery manage their own media/captions/publication. Website record deletion retains Cloudinary originals.
 

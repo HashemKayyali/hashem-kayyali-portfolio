@@ -55,3 +55,6 @@ Hashem_Portfolio_Content_Master_v3_5LANG.json
 
 # SSR bundle produced by `npm run build:ssr`, consumed by the prerender step.
 dist-ssr
+
+# Local review evidence (videos and captures, not website media)
+preview/review-assets/r3/

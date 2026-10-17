@@ -7,5 +7,5 @@ let checked=0;for(const locale of LOCALES){const t=(await import('../content/loc
  const files=[...html.matchAll(/(?:href|src)="(\/assets\/[^"#]+|\/fonts\/[^"#]+)"/g)].map(m=>m[1]);for(const path of files)await readFile('dist-light-preview'+path);
  if(locale==='ar'&&html.includes('as="font"'))throw Error('Arabic V2 font preload');checked++;
  }}const sitemap=await readFile('dist-light-preview/sitemap.xml','utf8'),robots=await readFile('dist-light-preview/robots.txt','utf8');
-if(sitemap.includes('/admin/')||sitemap.includes('/creative/')||!sitemap.includes(origin+'/preview/en/')||!robots.includes('Sitemap: '+origin+'/sitemap.xml'))throw Error('Sitemap/robots mismatch');
+if(sitemap.includes('/admin/')||sitemap.includes('/creative/')||!sitemap.includes(origin+'/en/')||sitemap.includes('/preview/')||!robots.includes('Sitemap: '+origin+'/sitemap.xml'))throw Error('Sitemap/robots mismatch');
 console.log('PASS active V2 SEO route shells, localized metadata, canonical/hreflang, robots, asset/font references:',checked);

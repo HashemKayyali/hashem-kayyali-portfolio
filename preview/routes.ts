@@ -9,6 +9,7 @@ export interface PreviewRoute { locale: Locale; page:PreviewPage; project?: Proj
 export type Navigate = (route: PreviewRoute, hash?: string, push?: boolean) => void;
 export const parsePreviewRoute = (url:string):PreviewRoute => {
   const {pathname,searchParams,hash}=new URL(url);
+  // Public URLs are /<locale>/...; the former /preview/<locale>/... form still parses.
   const parts=pathname.replace(/^\/preview\/?/,'').split('/').filter(Boolean);
   const experience=parts[0]==='creative'?(parts.shift(),{experience:'creative' as const}):{};
   const queryLocale=searchParams.get('lang');
@@ -25,5 +26,5 @@ export const parsePreviewRoute = (url:string):PreviewRoute => {
 export const readRoute = (): PreviewRoute => parsePreviewRoute(window.location.href);
 export const previewUrl = (route: PreviewRoute, hash = '') => {
   const path=route.project ? `projects/${route.project}/`:route.page==='home'?'':`${route.page}/`;
-  return `/preview/${route.experience==='creative'?'creative/':''}${route.locale}/${path}${hash}`;
+  return `/${route.experience==='creative'?'creative/':''}${route.locale}/${path}${hash}`;
 };

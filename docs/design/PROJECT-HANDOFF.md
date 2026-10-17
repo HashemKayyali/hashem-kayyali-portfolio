@@ -15,7 +15,7 @@ Verified: `npm run check` (TypeScript, 75 tests, 14/14 content), `npm run build`
 
 The owner requested consolidation for Claude Code. The authoritative writable folder is now `C:/Users/hashe/Desktop/portfolio-v2`, an independent repository on one `main` branch with no linked worktrees or remote. All18 prior local branch tips are in its history; the approved current V2 tree wins over incompatible older designs. Other uncommitted drafts and the verified923-file source snapshot are preserved in ignored, HTTP-withheld `archive/`. Original folders remain unchanged. Read `CLAUDE.md` and `docs/CONSOLIDATION.md` for exact decisions and recovery.
 
-Default `npm run dev/build/preview` commands now run the current V2 app in `preview/`; `/` redirects to `/preview/en/`. `npm run check` passes TypeScript,75 tests and14 content checks; build200 route shells and32 actual-browser size/locale samples pass. Dev5176 and built4176 are running from this final folder. No visual redesign, cloud connection or deployment occurred during consolidation. Existing cloud account/key limits and noindex policy remain.
+Default `npm run dev/build/preview` commands now run the current V2 app in `preview/`; `/` redirects to `/en/` (clean public URLs since 18 Oct 2026; `/preview/...` permanently redirects). `npm run check` passes TypeScript,75 tests and14 content checks; build200 route shells and32 actual-browser size/locale samples pass. Dev5176 and built4176 are running from this final folder. No visual redesign, cloud connection or deployment occurred during consolidation. Existing cloud account/key limits and noindex policy remain.
 
 ## Latest approved compact portfolio and cloud Studio —16 October2026
 

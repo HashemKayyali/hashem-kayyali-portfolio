@@ -21,22 +21,29 @@ export function useGalleryMotion(root:RefObject<HTMLElement|null>,key:string,rtl
     cover.addEventListener('pointerenter',enter);cover.addEventListener('pointerleave',leave);cover.addEventListener('focus',enter);cover.addEventListener('blur',leave);
     disposers.push(()=>{cover.removeEventListener('pointerenter',enter);cover.removeEventListener('pointerleave',leave);cover.removeEventListener('focus',enter);cover.removeEventListener('blur',leave);gsap.killTweensOf(cover);gsap.set(cover,{clearProps:'transform'});});
    });
+   // Every card is put in its pre-entrance state before the first paint, then revealed once on
+   // approach. (Revealing from an already painted card made each card blink, then replay.)
+   const prepared=new Map<HTMLElement,{link:Element|null;mask:Element|null;img:Element|null}>();
+   const exhibits=[...el.querySelectorAll<HTMLElement>('.gallery-exhibit')];
+   if(!shared){const visible=exhibits.filter(card=>card.offsetParent!==null);contexts.push(gsap.context(()=>{visible.forEach((card,index)=>{
+    const link=card.querySelector('.gallery-project-link'),mask=card.querySelector('.gallery-media-mask'),img=card.querySelector('.gallery-media-depth');
+    // Direction follows the card's place in its row; full-width cards (stack deck, phones) alternate sides.
+    const box=card.getBoundingClientRect(),row=card.parentElement!.getBoundingClientRect(),centre=(box.left+box.width/2-row.left)/row.width;
+    const side=box.width>row.width*.9?(index%2===0?'left':'right'):centre<.4?'left':centre>.6?'right':'centre';
+    const travel=Math.min(90,innerWidth*.12);
+    gsap.set(link,side==='left'?{x:-travel,opacity:0}:side==='right'?{x:travel,opacity:0}:{y:70,scale:.96,opacity:0});
+    if(mask)gsap.set(mask,{clipPath:'inset(100% 0% 0% 0% round 12px)'});if(img)gsap.set(img,{scale:1.14});
+    prepared.set(card,{link,mask,img});
+   });},el));}
    const initialize=(card:HTMLElement)=>{
     if(!alive||initialized.has(card))return;initialized.add(card);observer.unobserve(card);
-    if(shared||card.parentElement?.dataset.filtering==='true')return;
+    const parts=prepared.get(card);if(!parts)return;
+    const peers=[...(card.parentElement?.children??[])].filter(c=>(c as HTMLElement).offsetParent!==null&&Math.abs(c.getBoundingClientRect().top-card.getBoundingClientRect().top)<4);
+    const delay=Math.max(0,peers.indexOf(card))*.09,instant=card.parentElement?.dataset.filtering==='true';
     contexts.push(gsap.context(()=>{
-     // Card rises; its photograph is unmasked from below and settles from a slight zoom.
-     const link=card.querySelector('.gallery-project-link'),mask=card.querySelector('.gallery-media-mask'),img=card.querySelector('.gallery-media-depth');
-     // Direction follows the card's place in its row: edges slide in from their own side,
-     // a centred card rises with a little depth. Cards entering together keep a short stagger.
-     const box=card.getBoundingClientRect(),row=card.parentElement!.getBoundingClientRect(),centre=(box.left+box.width/2-row.left)/row.width;
-     const side=box.width>row.width*.9?'centre':centre<.4?'left':centre>.6?'right':'centre';
-     const peers=[...(card.parentElement?.children??[])].filter(c=>Math.abs(c.getBoundingClientRect().top-box.top)<4);
-     const delay=Math.max(0,peers.indexOf(card))*.09;
-     const from=side==='left'?{x:-90,opacity:0}:side==='right'?{x:90,opacity:0}:{y:70,scale:.96,opacity:0};
-     gsap.fromTo(link,from,{x:0,y:0,scale:1,opacity:1,duration:1.15,delay,ease:'expo.out',clearProps:'transform,opacity'});
-     if(mask)gsap.fromTo(mask,{clipPath:'inset(100% 0% 0% 0% round 8px)'},{clipPath:'inset(0% 0% 0% 0% round 8px)',duration:1.15,delay:delay+.12,ease:'expo.out',clearProps:'clipPath'});
-     if(img)gsap.fromTo(img,{scale:1.14},{scale:1,duration:1.4,delay:delay+.12,ease:'expo.out',clearProps:'transform'});
+     gsap.to(parts.link,{x:0,y:0,scale:1,opacity:1,duration:instant?0:1.15,delay,ease:'expo.out',clearProps:'transform,opacity'});
+     if(parts.mask)gsap.to(parts.mask,{clipPath:'inset(0% 0% 0% 0% round 12px)',duration:instant?0:1.15,delay:delay+.12,ease:'expo.out',clearProps:'clipPath'});
+     if(parts.img)gsap.to(parts.img,{scale:1,duration:instant?0:1.4,delay:delay+.12,ease:'expo.out',clearProps:'transform'});
     },card));
    };
    const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting)initialize(entry.target as HTMLElement);}),{rootMargin:'0px 0px -8% 0px'});
@@ -46,7 +53,7 @@ export function useGalleryMotion(root:RefObject<HTMLElement|null>,key:string,rtl
     card.addEventListener('pointerenter',enter);card.addEventListener('pointerleave',leave);card.addEventListener('focusin',enter);card.addEventListener('focusout',leave);
     disposers.push(()=>{card.removeEventListener('pointerenter',enter);card.removeEventListener('pointerleave',leave);card.removeEventListener('focusin',enter);card.removeEventListener('focusout',leave);gsap.killTweensOf(arrow);gsap.set(arrow,{clearProps:'transform'});});
    });
-   const focus=(event:FocusEvent)=>{const card=(event.target as HTMLElement).closest<HTMLElement>('.gallery-exhibit');if(card){initialize(card);gsap.killTweensOf(card);gsap.set(card,{clearProps:'transform,opacity'});}};
+   const focus=(event:FocusEvent)=>{const card=(event.target as HTMLElement).closest<HTMLElement>('.gallery-exhibit');if(card){initialize(card);const parts=prepared.get(card);if(parts){gsap.killTweensOf([parts.link,parts.mask,parts.img]);gsap.set([parts.link,parts.mask,parts.img],{clearProps:'transform,opacity,clipPath'});}}};
    el.addEventListener('focusin',focus);
    return()=>{alive=false;cancelAnimationFrame(frame);observer.disconnect();el.removeEventListener('focusin',focus);disposers.forEach(dispose=>dispose());contexts.forEach(context=>context.revert());};
   },el);return()=>mm.revert();

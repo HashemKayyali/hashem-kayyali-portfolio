@@ -5,9 +5,12 @@ import {projectAssets} from '../data/projectAssets.ts';
 test('Creative review routes stay isolated through every locale, page and project',()=>{
  for(const locale of ['en','ar','de','fr','es'])for(const destination of [...PAGES.map(page=>({page})),...projectAssets.map(asset=>({page:'projects',project:asset.id}))]){
   const route={locale,...destination,experience:'creative'};
-  assert.ok(previewUrl(route).startsWith('/preview/creative/'));
+  assert.ok(previewUrl(route).startsWith('/creative/'));
   assert.deepEqual(parsePreviewRoute('http://localhost'+previewUrl(route)),route);
  }
  assert.deepEqual(parsePreviewRoute('http://localhost/preview/creative/ar/unknown/'),{locale:'ar',page:'not-found',experience:'creative'});
  assert.deepEqual(parsePreviewRoute('http://localhost/preview/ar/'),{locale:'ar',page:'home'});
+ assert.deepEqual(parsePreviewRoute('http://localhost/ar/'),{locale:'ar',page:'home'});
+ assert.deepEqual(parsePreviewRoute('http://localhost/ar/projects/bike-tower/'),{locale:'ar',page:'projects',project:'bike-tower'});
+ assert.equal(previewUrl({locale:'ar',page:'about'}),'/ar/about/');
 });

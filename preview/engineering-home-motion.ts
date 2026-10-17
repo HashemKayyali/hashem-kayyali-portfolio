@@ -2,6 +2,7 @@ import type {RefObject} from 'react';
 import {useGSAP} from '@gsap/react';
 import {gsap} from 'gsap';
 import {ScrollTrigger} from 'gsap/ScrollTrigger';
+import {createCardStack} from './card-stack';
 import {allowsMotion} from './route-motion';
 
 gsap.registerPlugin(useGSAP,ScrollTrigger);
@@ -41,24 +42,9 @@ export function useEngineeringHomeMotion(root:RefObject<HTMLElement|null>,locale
       gsap.fromTo(scene.querySelector('.project-media-set'),{y:6},{y:0,ease:'none',scrollTrigger:{id:'signal:image-depth:'+index,trigger:marker,start:'top bottom',end:()=>'+='+scene.offsetHeight,scrub:.65}});
      }));
      const deck=element.querySelector<HTMLElement>('.pulse-scenes')!;
-     let stackContext:gsap.Context|undefined,stackFrame=0;
-     const rebuildStack=()=>{
-      if(!alive)return;stackContext?.revert();stackContext=undefined;
-      const top=(document.querySelector('.site-header')?.getBoundingClientRect().height??66)+16;
-      const fits=Math.max(...scenes.map(scene=>scene.offsetHeight))+top+42<innerHeight;
-      deck.dataset.stack=fits?'active':'static';deck.style.setProperty('--stack-top',top+'px');
-      deck.style.setProperty('--stack-tail',Math.max(60,Math.max(...scenes.map(scene=>scene.offsetHeight))-scenes.at(-1)!.offsetHeight+28+48)+'px');
-      if(fits)stackContext=gsap.context(()=>{
-       scenes.slice(0,-1).forEach((scene,index)=>{
-        const next=markers[index+1],surface=scene.querySelector('.pulse-scene-surface');
-        gsap.fromTo(surface,{scale:1},{scale:.965,ease:'none',scrollTrigger:{id:'signal:scene-layer:'+index,trigger:next,start:'top 78%',end:()=>`top ${top+(index+1)*14}px`,scrub:.45,onUpdate:trigger=>{scene.dataset.stackProgress=trigger.progress.toFixed(3);}}});
-       });
-      },element);
-      ScrollTrigger.refresh();
-     };
-     const resizeStack=()=>{cancelAnimationFrame(stackFrame);stackFrame=requestAnimationFrame(rebuildStack);};
-     rebuildStack();addEventListener('resize',resizeStack,{passive:true});
-     disposers.push(()=>{cancelAnimationFrame(stackFrame);removeEventListener('resize',resizeStack);stackContext?.revert();delete deck.dataset.stack;deck.style.removeProperty('--stack-top');deck.style.removeProperty('--stack-tail');scenes.forEach(scene=>delete scene.dataset.stackProgress);});
+     // Shared signature deck (also used by Projects): sticky layering with scrubbed depth, all viewports.
+     const stack=createCardStack(deck,{id:'signal',surface:'.pulse-scene-surface',offset:14,mobileOffset:8,depth:.035});
+     disposers.push(()=>stack.dispose());
      const sceneTargets=new Map<Element,Element>(scenes.map((scene,index)=>[scene,markers[index]]));
      const lazyObserver=new IntersectionObserver(entries=>{if(alive&&allowsMotion())for(const entry of entries)if(entry.isIntersecting){lazyObserver.unobserve(entry.target);ensure(sceneTargets.get(entry.target)??entry.target);}},{rootMargin:'220px 0px'});
      for(const target of setups.keys())lazyObserver.observe(target);

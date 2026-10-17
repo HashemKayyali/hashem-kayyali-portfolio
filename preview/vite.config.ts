@@ -12,8 +12,19 @@ const safeMedia={name:'v2-public-media-policy',configureServer(server:any){serve
  const walk=async(directory:string)=>{for(const entry of await readdir(directory,{withFileTypes:true})){const full=path.resolve(directory,entry.name);if(!full.startsWith(target+path.sep))throw new Error('Unsafe build media path');if(entry.isDirectory())await walk(full);else if(entry.isFile()&&withheldMedia('/'+path.relative(target,full).replaceAll(path.sep,'/')))await unlink(full);}};
  if(existsSync(target))await walk(target);
 }};
-// V1's root index remains untouched. Deep V2 links must resolve to V2's entry.
-const previewRoutes={name:'light-burgundy-page-routes',configureServer(server:any){server.middlewares.use((request:any,response:any,next:()=>void)=>{const pathname=new URL(request.url,'http://localhost').pathname;if(pathname==='/'){response.statusCode=302;response.setHeader('Location','/preview/en/');response.end();return;}if(/^\/preview\/(creative\/)?(en|ar|de|fr|es)(\/|$)/.test(pathname)&&request.headers.accept?.includes('text/html'))request.url='/preview/index.html';next();});},configurePreviewServer(server:any){server.middlewares.use((request:any,response:any,next:()=>void)=>{const pathname=new URL(request.url,'http://localhost').pathname;if(pathname==='/'){response.statusCode=302;response.setHeader('Location','/preview/en/');response.end();return;}const staticFile=path.join(root,'dist-light-preview',pathname,'index.html');if(/^\/preview\/(creative\/)?(en|ar|de|fr|es)(\/|$)/.test(pathname)&&request.headers.accept?.includes('text/html')&&!existsSync(staticFile))request.url='/preview/index.html';next();});}};
+// Public pages live at /<locale>/... (served by preview/index.html); legacy /preview/<locale>/ links
+// redirect there, matching vercel.json. V1's root index stays untouched.
+const LOCALE_PAGE=/^\/(creative\/)?(en|ar|de|fr|es)(\/|$)/,LEGACY_PAGE=/^\/preview\/((?:creative\/)?(?:en|ar|de|fr|es)(?:\/.*)?)$/;
+const routePages=(builtShells:boolean)=>(request:any,response:any,next:()=>void)=>{
+ const url=new URL(request.url,'http://localhost'),pathname=url.pathname;
+ const redirect=(to:string,status=301)=>{response.statusCode=status;response.setHeader('Location',to+url.search);response.end();};
+ if(pathname==='/'||pathname==='/preview'||pathname==='/preview/')return redirect('/en/',pathname==='/'?302:301);
+ const legacy=pathname.match(LEGACY_PAGE);if(legacy)return redirect('/'+legacy[1]);
+ if(/^\/(en|ar|de|fr|es)$/.test(pathname))return redirect(pathname+'/');
+ if(LOCALE_PAGE.test(pathname)&&request.headers.accept?.includes('text/html')&&!(builtShells&&existsSync(path.join(root,'dist-light-preview',pathname,'index.html'))))request.url='/preview/index.html';
+ next();
+};
+const previewRoutes={name:'light-burgundy-page-routes',configureServer(server:any){server.middlewares.use(routePages(false));},configurePreviewServer(server:any){server.middlewares.use(routePages(true));}};
 
 export default defineConfig(({mode})=>({
   root,

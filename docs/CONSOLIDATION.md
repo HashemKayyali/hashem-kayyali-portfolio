@@ -13,7 +13,7 @@ All other worktrees were inspected read-only. Verified recovery of287 changed/un
 ## Final-folder changes
 
 - Default dev/build/preview commands now select `preview/vite.config.ts`, the actual approved app. Explicit `*:legacy` scripts retain the old root application's commands.
-- `/` redirects to `/preview/en/` in development and built preview, matching existing Vercel root routing.
+- `/` redirects to `/en/` in development, built preview and Vercel; former `/preview/<locale>/...` URLs permanently redirect to `/<locale>/...`.
 - `npm test` includes both root and preview suites; `npm run check` includes TypeScript, tests and content validation.
 - `CLAUDE.md`, the current README and the final workspace ruling in AGENTS identify the correct app, design contract, cloud limits and continuation path.
 - Recovery archives are explicitly withheld by the existing dev/preview media policy, including encoded and Vite filesystem aliases. A regression test covers these paths. They remain outside the production public folder.
@@ -34,7 +34,7 @@ Source baseline:74 tests passed before consolidation. Verified final-folder resu
 | Target comparison | five handoff files changed intentionally: package.json, Vite route config, README, AGENTS and .gitignore. Final review added a narrow archive-policy fix and regression test. Other additions are handoff/audit documents |
 | Repository independence | real local .git directory; no commondir, linked worktrees, symlinks or object alternates; one main branch; original-folder remote removed |
 | Actual Chromium |32 EN/AR route/size samples across320/390/1440/1920: no horizontal page overflow, headings/header visible; current Home/Skills/Experience/Admin/case routes load |
-| Root/API | dev5176 and built4176 roots redirect to /preview/en/; missing-cloud status/public API remain honest setup/empty states |
+| Root/API | dev5176 and built4176 roots redirect to /en/; missing-cloud status/public API remain honest setup/empty states |
 | Recovery privacy |12 actual HTTP checks across dev/preview return404 for plain, encoded, double-encoded, case and filesystem archive paths |
 | Independent review | repository/ancestry/source completeness verified; archive exposure and inventory-link findings corrected and rechecked; no remaining finding |
 

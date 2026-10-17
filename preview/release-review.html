@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
+<title>SEO and Motion Review</title>
+<style>
+@font-face{font-family:'Libre Caslon Condensed';font-weight:400 700;src:url('/fonts/libre-caslon-condensed-v2.ttf') format('truetype');}
+:root{--ink:#f1eee7;--muted:#b2b7b5;--paper:#11171a;--raised:#1a2327;--line:#3b4649;--accent:#cdb58b;--ok:#8fc7a8;--warn:#e0b27a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:18px/1.6 'Libre Caslon Condensed',Georgia,serif}
+header,main{padding-inline:clamp(16px,4vw,72px)}
+header{padding-block:56px 28px;border-bottom:1px solid var(--line)}
+h1{font-weight:450;font-size:clamp(40px,5vw,72px);line-height:1;margin:0 0 14px;letter-spacing:-.02em}
+header p{margin:0 0 8px;color:var(--muted);max-width:76ch}
+a{color:var(--accent)}
+nav.toc{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:18px;font:13px/1.4 ui-monospace,Consolas,monospace}
+main{display:grid;grid-template-columns:minmax(0,1fr);gap:30px;padding-block:32px 96px}
+section{border:1px solid var(--line);border-radius:22px;background:var(--raised);padding:clamp(18px,2vw,32px);display:grid;gap:16px;min-width:0}
+h2{margin:0;font-weight:450;font-size:clamp(26px,2.2vw,36px);line-height:1.15}
+h2 small{font:500 12px/1 ui-monospace,Consolas,monospace;color:var(--accent);letter-spacing:.1em;margin-inline-end:12px;vertical-align:middle}
+p,ol,ul{margin:0;max-width:80ch}
+.muted{color:var(--muted)}
+.ok{color:var(--ok);font:500 13px/1.5 ui-monospace,Consolas,monospace}
+.warn{color:var(--warn);font:500 13px/1.5 ui-monospace,Consolas,monospace}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+figure{margin:0;display:grid;gap:6px;min-width:0}
+figure img,figure video{width:100%;border-radius:14px;border:1px solid var(--line);background:#000}
+figcaption{font:500 11px/1.3 ui-monospace,Consolas,monospace;letter-spacing:.1em;color:var(--muted)}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;font:13px/1.5 ui-monospace,Consolas,monospace;width:100%}
+td,th{border-bottom:1px solid var(--line);padding:6px 10px;text-align:start;vertical-align:top}
+th{color:var(--muted);font-weight:500}
+code{font:13px ui-monospace,Consolas,monospace;color:var(--accent)}
+@media(max-width:800px){.pair,.trio{grid-template-columns:1fr}}
+</style></head><body>
+<header><h1>SEO repair and motion pass</h1>
+<p>Local build only: nothing is pushed or deployed. “Before” is the live hashemkayyali.com, “after” is local. Links open the local dev server (<code>npm run dev</code>, port 5176).</p>
+<p>Direct links: <a href="/en/">/en/</a> · <a href="/ar/">/ar/</a> · <a href="/en/projects/">/en/projects/</a> · <a href="/ar/projects/">/ar/projects/</a> · <a href="/en/projects/bike-tower/">/en/projects/bike-tower/</a> · <a href="/ar/projects/bike-tower/">/ar/projects/bike-tower/</a> · <a href="/preview/ar/">/preview/ar/ (old URL, redirects)</a> · <a href="/ar">/ar (redirects)</a></p>
+<nav class="toc"><a href="#seo">01 URLs and SEO</a><a href="#console">02 Search Console</a><a href="#smoke">03 Smoke</a><a href="#method">04 Engineering Focus</a><a href="#entrance">05 Projects entrances</a><a href="#stack">06 Stacking cards</a><a href="#cards">07 Laptop cards</a><a href="#flight">08 Image flight</a><a href="#gallery">09 Project gallery</a><a href="#tests">10 Tests and limits</a></nav></header>
+<main>
+
+<section id="seo"><h2><small>01</small>URLs, redirects and SEO</h2>
+<p><b>Cause of the Google 404.</b> Vercel matches routes strictly, and the rewrite <code>/:locale/:path*</code> does not match <code>/ar/</code> (an empty trailing segment). Live <code>/ar/</code> therefore fell through to a 404, and so did every <code>/&lt;locale&gt;/</code> root Google had indexed.</p>
+<p><b>Fix.</b> Public URLs are now clean: <code>/&lt;locale&gt;/…</code>. The former <code>/preview/&lt;locale&gt;/…</code> URLs permanently redirect (308, which Google treats like 301) to the matching clean URL, project paths included. Unrelated missing URLs still return 404; they are not sent to the homepage.</p>
+<div class="scroll"><table><tr><th>Request</th><th>Result</th><th>Local check</th></tr>
+<tr><td>/</td><td>308 → /en/</td><td>dev/preview 302 → /en/ ✓</td></tr>
+<tr><td>/ar (and /en /de /fr /es)</td><td>308 → /ar/</td><td>301 → /ar/ ✓</td></tr>
+<tr><td>/ar/</td><td>200, prerendered Arabic shell</td><td>200 ✓</td></tr>
+<tr><td>/ar/projects/bike-tower/</td><td>200, prerendered shell</td><td>200 ✓</td></tr>
+<tr><td>/preview, /preview/</td><td>308 → /en/</td><td>301 ✓</td></tr>
+<tr><td>/preview/ar/</td><td>308 → /ar/</td><td>301 ✓</td></tr>
+<tr><td>/preview/en/projects/bike-tower/</td><td>308 → /en/projects/bike-tower/</td><td>301 ✓</td></tr>
+<tr><td>/creative/&lt;locale&gt;/…</td><td>200, noindex, disallowed in robots.txt</td><td>✓</td></tr>
+<tr><td>/about (unrelated)</td><td>404</td><td>404 ✓</td></tr>
+<tr><td>/api/studio</td><td>unchanged</td><td>route rules modelled with path-to-regexp ✓</td></tr></table></div>
+<p><b>Every shell now has</b> a self canonical, hreflang alternates for all five languages plus <code>x-default</code> (/en/), <code>index,follow</code> (creative, admin and not-found are <code>noindex</code>), Open Graph (url, type, image 1200×630 with alt, site name) and X/Twitter <code>summary_large_image</code> with the existing HK social image. Titles are shorter: <i>Hashem Kayyali — R&amp;D Product Engineer · Software Engineer</i> on Home, <i>Page | Hashem Kayyali</i> elsewhere. The sitemap lists 95 approved URLs (no admin, creative or /preview/). robots.txt allows /preview/ so Google can follow the redirects.</p>
+<p class="ok">Verified on the built preview server: redirects above, /ar/ head contains canonical https://hashemkayyali.com/ar/, six hreflang links, og:url, twitter:card. verify-exhibition-seo passes on 100 shells.</p>
+<p class="warn">Not verified yet: the production HTTP responses. They can only be checked after you approve a deploy; I will rerun the same table against hashemkayyali.com then.</p></section>
+
+<section id="console"><h2><small>02</small>Google Search Console, after deploy</h2>
+<ol>
+<li>Open Search Console for <code>hashemkayyali.com</code> (Domain property, or URL-prefix property for https://hashemkayyali.com/).</li>
+<li>Sitemaps → submit <code>https://hashemkayyali.com/sitemap.xml</code>. If an older sitemap with /preview/ URLs is listed, remove it.</li>
+<li>URL Inspection → <code>https://hashemkayyali.com/ar/</code> → Test live URL. It should say “URL is available to Google”. Then Request indexing. Repeat for <code>/en/</code> and one project page.</li>
+<li>Inspect an old URL such as <code>https://hashemkayyali.com/preview/ar/</code>: it should report “Page with redirect”. That status is expected, not an error.</li>
+<li>Pages report → “Not found (404)” → Validate fix once the live checks pass.</li>
+</ol>
+<p class="muted">Google decides when it recrawls. Results usually move over days to a few weeks; requesting indexing does not guarantee timing or ranking. The old /preview/ URLs will drop out as Google follows the redirects.</p></section>
+
+<section id="smoke"><h2><small>03</small>Hero smoke: smooth, sharp, continuous</h2>
+<p><b>Change.</b> The smoke now renders in a worker on its own clock (OffscreenCanvas), so React page changes on the main thread cannot pause it. Resolution adapts to measured frame time while the composition stays fixed, and sub-pixel dithering removes banding. The V1 shader is unchanged; the digest test still guards it.</p>
+<div class="scroll"><table><tr><th>Real GPU (Chromium, D3D11)</th><th>Render / CSS size</th><th>Median frame</th><th>p95</th><th>Frames &gt;33ms</th></tr>
+<tr><td>1920×1080, five themes</td><td>1219×1080 / 1219×1080 (1:1)</td><td>14ms</td><td>14ms (onyx 21ms)</td><td>0–2 of 240</td></tr>
+<tr><td>390×844 phone emulation, five themes</td><td>461×997 / 390×844 (1.18×)</td><td>14ms</td><td>14ms</td><td>0–1</td></tr>
+<tr><td>Route change (Home → Projects)</td><td colspan="4">frames keep arriving during the 1.2s transition; earlier round measured no freeze</td></tr></table></div>
+<p class="muted">14ms is about 70 fps: this display refreshes at 144Hz, so the worker draws every second refresh. Phones now target 60 fps as well and lower their resolution, not their frame rate, when the GPU is slow.</p>
+<figure><img src="/preview/review-assets/r3/s-themes.png" alt=""><figcaption>FIVE THEMES · 1920 · ATELIER / BURGUNDY / METAL / ONYX / ROSE</figcaption></figure>
+<figure><img src="/preview/review-assets/r3/smoke-sharpness.png" alt=""><figcaption>SHARPNESS · BEFORE / AFTER · 1440 AND 390</figcaption></figure>
+<div class="pair"><figure><video src="/preview/review-assets/r3/seam-before.webm" controls muted playsinline preload="metadata"></video><figcaption>BEFORE · HERO TO HERO</figcaption></figure><figure><video src="/preview/review-assets/r3/seam-after.webm" controls muted playsinline preload="metadata"></video><figcaption>AFTER · HERO TO HERO</figcaption></figure></div>
+<p class="warn">Separator line near the Projects hero: across 18 recorded hero-to-hero transitions (before and after), frame by frame, I could not capture a transient line. I am not claiming it is fixed. If you still see it, a screen recording with the browser and display named would let me reproduce it.</p>
+<figure><img src="/preview/review-assets/r3/seam-frames.png" alt=""><figcaption>TRANSITION FRAMES AROUND THE PROJECTS HERO EDGE</figcaption></figure></section>
+
+<section id="method"><h2><small>04</small>Engineering Focus: “From the requirement to a working product”</h2>
+<p>The panel's sticky top now follows the real header height (it can no longer slide under the navbar). The panel is narrower (340–500px) and shorter, with less space between the three steps. The image changes when a step reaches the panel, and the last step is tall enough that the panel stays pinned through step 3.</p>
+<div class="pair"><figure><video src="/preview/review-assets/r3/engineering-focus.webm" controls muted playsinline preload="metadata"></video><figcaption>RECORDING · 1366×768</figcaption></figure><figure><img src="/preview/review-assets/r3/engineering-states.png" alt=""><figcaption>THREE STATES · 1366 / 1536 / 1920 / 2560</figcaption></figure></div></section>
+
+<section id="entrance"><h2><small>05</small>Projects cards: one clean entrance</h2>
+<p><b>Cause of the blink.</b> Cards painted visible, were then hidden by the entrance setup, and then revealed: two entrances. They are now prepared before the first paint, so each card enters once: left cards from the left, right cards from the right, centre cards rise with depth.</p>
+<p class="ok">Counter (cold load, navigation and scroll): 0 double entrances, 0 blinks.</p>
+<div class="trio"><figure><video src="/preview/review-assets/r3/projects-entrance-1.webm" controls muted playsinline preload="metadata"></video><figcaption>COLD LOAD 1</figcaption></figure><figure><video src="/preview/review-assets/r3/projects-entrance-2.webm" controls muted playsinline preload="metadata"></video><figcaption>COLD LOAD 2</figcaption></figure><figure><video src="/preview/review-assets/r3/projects-entrance-3.webm" controls muted playsinline preload="metadata"></video><figcaption>COLD LOAD 3</figcaption></figure></div></section>
+
+<section id="stack"><h2><small>06</small>Signature stacking cards (Home and Projects, every size)</h2>
+<p>Each card sticks below the header with a small offset; covered cards recede slightly and dim. One scrubbed timeline per covered card, so scrolling up unstacks exactly. If a card cannot fit under the header, the deck falls back to normal flow. Reduced motion keeps the same folio cards without sticking or depth.</p>
+<div class="scroll"><table><tr><th>Viewport</th><th>Home</th><th>Projects</th><th>Overflow</th></tr>
+<tr><td>320×640</td><td>stacked, 3 cards</td><td>stacked, 11 cards</td><td>0</td></tr>
+<tr><td>390×844</td><td>stacked</td><td>stacked</td><td>0</td></tr>
+<tr><td>1366×768</td><td>stacked</td><td>stacked</td><td>0</td></tr>
+<tr><td>1920×1080</td><td>stacked</td><td>stacked</td><td>0</td></tr>
+<tr><td>3440×1440</td><td>stacked</td><td>stacked</td><td>0</td></tr></table></div>
+<div class="scroll"><table><tr><th>Interaction (390 and 1440)</th><th>Result</th></tr>
+<tr><td>Each filter</td><td>Only matching cards stack (2 / 3 / 4); a single result sits flat ✓ (this pass fixed hidden cards showing in stack mode)</td></tr>
+<tr><td>Open a stacked card → Back</td><td>Returns to the same scroll position, deck still stacked ✓</td></tr>
+<tr><td>English → Arabic</td><td>Stacked, RTL ✓</td></tr>
+<tr><td>Resize 1440 ↔ 390</td><td>Offset switches 14px ↔ 8px, no overflow ✓</td></tr>
+<tr><td>Console errors</td><td>0</td></tr></table></div>
+<div class="pair"><figure><video src="/preview/review-assets/r3/stack-phone-390.webm" controls muted playsinline preload="metadata"></video><figcaption>390 PHONE · DOWN AND BACK UP</figcaption></figure><figure><img src="/preview/review-assets/r3/stack-sizes.png" alt=""><figcaption>MID-DECK · 320 TO 3440</figcaption></figure></div></section>
+
+<section id="cards"><h2><small>07</small>Laptop project cards</h2>
+<p>At 1366×768, cards were up to 470px tall with screenshots as small as 238×179. Each card is now a 451px folio with the full screenshot at 573×358 (contain, never cropped). Photos and UI keep their whole frame.</p>
+<div class="pair"><figure><img src="/preview/review-assets/r3/cards-1366-before.png" alt=""><figcaption>BEFORE · LIVE · 1366</figcaption></figure><figure><img src="/preview/review-assets/r3/cards-1366-after.png" alt=""><figcaption>AFTER · 1366</figcaption></figure></div>
+<figure style="max-width:680px"><img src="/preview/review-assets/r3/cards-1366-reduced-motion.png" alt=""><figcaption>AFTER · REDUCED MOTION · SAME CARDS, NO STACKING</figcaption></figure></section>
+
+<section id="flight"><h2><small>08</small>Project image flight</h2>
+<p><b>Cause.</b> The flying image was an upscaled bitmap (blur), and the empty destination frame showed behind it. The flight now lays the image out at its destination size and scales it down to the source (no resampling at the end), follows the visible image rectangle (including letterboxing), interpolates the corner radius, and hides the destination frame chrome during the flight.</p>
+<div class="pair"><figure><img src="/preview/review-assets/r3/flight-frames-before.png" alt=""><figcaption>BEFORE · FRAME BY FRAME</figcaption></figure><figure><img src="/preview/review-assets/r3/flight-frames-after.png" alt=""><figcaption>AFTER · FRAME BY FRAME</figcaption></figure></div>
+<div class="pair"><figure><video src="/preview/review-assets/r3/flight-before.webm" controls muted playsinline preload="metadata"></video><figcaption>BEFORE</figcaption></figure><figure><video src="/preview/review-assets/r3/flight-after.webm" controls muted playsinline preload="metadata"></video><figcaption>AFTER</figcaption></figure></div></section>
+
+<section id="gallery"><h2><small>09</small>Project gallery fills its frame</h2>
+<p>The “Build &amp; details” stage is now as tall as a 4:3 image at full width (bounded by the viewport), and each image fills that height at its own proportions, so it is never cropped or stretched. Bike Tower at 1366: 435×327 → 680×511. At 1920: 986×741. Phone 390: 332px wide (93%).</p>
+<div class="pair"><figure><img src="/preview/review-assets/r3/gallery-1366-before.png" alt=""><figcaption>BEFORE · LIVE · 1366</figcaption></figure><figure><img src="/preview/review-assets/r3/gallery-1366-after.png" alt=""><figcaption>AFTER · 1366</figcaption></figure></div>
+<figure style="max-width:320px"><img src="/preview/review-assets/r3/gallery-390-after.png" alt=""><figcaption>AFTER · 390 · ARABIC</figcaption></figure></section>
+
+<section id="tests"><h2><small>10</small>Tests and limitations</h2>
+<ul>
+<li class="ok">TypeScript, 75/75 unit tests, 14/14 content checks, production build (200 shells, sitemap 95 URLs).</li>
+<li class="ok">120 page × device × locale probes (320/390 phone, 820×1180 and 1180×820 tablet, 1440/1920 desktop, EN/AR): 0 horizontal overflow, 0 console errors.</li>
+<li class="ok">Stacking at 320/390/1366/1920/3440, filter, Back, language and resize: verified (table above).</li>
+<li>Minor, unchanged from before: the HK logo link is 32px wide (below the 44px touch guideline); the Skills selection line truncates on narrow phones.</li>
+<li class="warn">Not verified: production HTTP (needs a deploy), physical phones, Safari/iOS, and the transient separator line (not reproducible here).</li>
+</ul>
+<p class="muted">Earlier rounds: <a href="/preview/fixes-review.html">Fixes review</a> · <a href="/preview/hk-logo-review.html">HK logo exploration</a></p></section>
+</main></body></html>
