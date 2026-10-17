@@ -3,6 +3,8 @@ import {LOCALES,LOCALE_META} from '../i18n/config.ts';
 import {pageCopy} from './page-copy.ts';
 import {previewUrl,type PreviewRoute} from './routes.ts';
 import {studioCopy} from './studio-copy.ts';
+/** Social card (Sterling edition). A new filename makes X/LinkedIn/Facebook fetch it fresh. */
+export const OG_IMAGE='/og-image-sterling.png';
 
 export function pageMetadata(route:PreviewRoute,t:Dictionary) {
  const title=route.project?t.projects[route.project].title:route.page==='home'?t.identity.name:route.page==='not-found'?pageCopy[route.locale].notFound:['gallery','journal','admin'].includes(route.page)?studioCopy[route.locale][route.page]:pageCopy[route.locale].nav[route.page];
@@ -16,8 +18,8 @@ export function pageMetadata(route:PreviewRoute,t:Dictionary) {
 export function updatePreviewHead(route:PreviewRoute,t:Dictionary) {
  const data=pageMetadata(route,t);document.title=data.title;
  const meta=(name:string,value:string,property=false)=>{const key=property?'property':'name';let element=document.head.querySelector<HTMLMetaElement>(`meta[${key}="${name}"]`);if(!element){element=document.createElement('meta');element.setAttribute(key,name);document.head.append(element);}element.content=value;};
- meta('description',data.description);meta('robots',data.robots);meta('theme-color','#FCFAF9');
- meta('og:title',data.title,true);meta('og:description',data.description,true);meta('og:type','website',true);meta('og:locale',LOCALE_META[route.locale].ogLocale,true);meta('og:url',new URL(previewUrl(route),location.origin).href,true);meta('og:image',new URL('/og-image.png',location.origin).href,true);meta('og:site_name',t.identity.name,true);meta('twitter:card','summary_large_image');meta('twitter:title',data.title);meta('twitter:description',data.description);meta('twitter:image',new URL('/og-image.png',location.origin).href);
+ meta('description',data.description);meta('robots',data.robots);
+ meta('og:title',data.title,true);meta('og:description',data.description,true);meta('og:type','website',true);meta('og:locale',LOCALE_META[route.locale].ogLocale,true);meta('og:url',new URL(previewUrl(route),location.origin).href,true);meta('og:image',new URL(OG_IMAGE,location.origin).href,true);meta('og:site_name',t.identity.name,true);meta('twitter:card','summary_large_image');meta('twitter:title',data.title);meta('twitter:description',data.description);meta('twitter:image',new URL(OG_IMAGE,location.origin).href);
  document.head.querySelectorAll('link[data-preview-alternate]').forEach(link=>link.remove());
  for(const locale of LOCALES){const link=document.createElement('link');link.rel='alternate';link.hreflang=locale;link.href=new URL(previewUrl({...route,locale}),location.origin).href;link.dataset.previewAlternate='';document.head.append(link);}
  let canonical=document.head.querySelector<HTMLLinkElement>('link[rel=canonical]');if(!canonical){canonical=document.createElement('link');canonical.rel='canonical';document.head.append(canonical);}canonical.href=new URL(previewUrl(route),location.origin).href;

@@ -1,11 +1,11 @@
 import React,{useEffect,useRef,useState} from 'react';
 import {Check,ChevronDown,Contrast} from 'lucide-react';
 import {useI18n} from '../i18n/useI18n';
-import {applyTheme,THEMES,type ThemeId} from './themes';
+import {applyTheme,DEFAULT_THEME,THEMES,type ThemeId} from './themes';
 const labels={en:{title:'Appearance',names:['Champagne','Bordeaux','Petrol','Aubergine','Sterling']},ar:{title:'المظهر',names:['شامبانيا','بوردو','بترولي','باذنجاني','سترلينغ']},de:{title:'Darstellung',names:['Champagner','Bordeaux','Petrol','Aubergine','Sterling']},fr:{title:'Apparence',names:['Champagne','Bordeaux','Pétrole','Aubergine','Sterling']},es:{title:'Apariencia',names:['Champán','Burdeos','Petróleo','Berenjena','Sterling']}};
 export default function ThemeMenu(){
  const {locale}=useI18n(),copy=labels[locale];
- const [id,setId]=useState<ThemeId>(()=>document.documentElement.dataset.theme as ThemeId||'atelier'),[open,setOpen]=useState(false),[active,setActive]=useState(0);
+ const [id,setId]=useState<ThemeId>(()=>document.documentElement.dataset.theme as ThemeId||DEFAULT_THEME),[open,setOpen]=useState(false),[active,setActive]=useState(0);
  const root=useRef<HTMLDivElement>(null),trigger=useRef<HTMLButtonElement>(null);
  const selected=THEMES.findIndex(t=>t.id===id),theme=THEMES[selected]??THEMES[0];
  const focus=(index:number)=>{const i=(index+THEMES.length)%THEMES.length;setActive(i);root.current?.querySelectorAll<HTMLButtonElement>('[role=menuitemradio]')[i]?.focus({preventScroll:true});};

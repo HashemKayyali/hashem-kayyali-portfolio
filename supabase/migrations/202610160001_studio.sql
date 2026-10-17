@@ -96,6 +96,7 @@ begin
   raise exception 'Invalid display order' using errcode='22023';
  end if;
  target=case when p_resource='posts' then 'studio_posts' else 'studio_gallery' end;
+ perform pg_advisory_xact_lock(hashtext('studio-order:'||target));
  execute format('select count(*) from public.%I where id=any($1)',target) into total using p_ids;
  if total<>cardinality(p_ids) then raise exception 'Missing ordered item' using errcode='22023';end if;
  execute format('update public.%I t set sort_order=s.position-1 from unnest($1) with ordinality s(id,position) where t.id=s.id',target) using p_ids;

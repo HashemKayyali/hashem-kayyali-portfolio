@@ -49,8 +49,28 @@ import {captureReadingPosition,restoreReadingPosition} from './reading-position'
 import {startSmoothScroll,haltSmoothScroll} from './smooth-scroll';
 import {ScrollTrigger} from 'gsap/ScrollTrigger';
 import {startUiMotion} from './ui-motion';
+import {startThemeCycle} from './theme-cycle';
 
 initializeTheme();
+
+const RELOAD_KEY='portfolio-chunk-reload';
+const failedCopy:Record<Locale,[string,string]>={en:['This page could not load.','Reload'],ar:['تعذّر تحميل هذه الصفحة.','إعادة التحميل'],de:['Diese Seite konnte nicht geladen werden.','Neu laden'],fr:['Cette page n’a pas pu se charger.','Recharger'],es:['No se pudo cargar esta página.','Recargar']};
+/** A lazy page whose code fails to load (usually an open tab after a deploy) reloads once instead of blanking the app. */
+class RouteBoundary extends React.Component<{locale:Locale;children:React.ReactNode},{failed:boolean}>{
+ declare props:{locale:Locale;children:React.ReactNode};
+ state={failed:false};
+ static getDerivedStateFromError(){return {failed:true};}
+ componentDidCatch(error:unknown){
+  console.error(error);
+  let last=0;try{last=Number(sessionStorage.getItem(RELOAD_KEY))||0;}catch{}
+  if(Date.now()-last>15_000){try{sessionStorage.setItem(RELOAD_KEY,String(Date.now()));}catch{}location.reload();}
+ }
+ render(){
+  if(!this.state.failed)return this.props.children;
+  const [message,action]=failedCopy[this.props.locale];
+  return <main id="main" className="container case-loading"><p role="alert">{message}</p><button type="button" className="button-primary" onClick={()=>location.reload()}>{action}</button></main>;
+ }
+}
 
 function Preview({ initialRoute, dictionary }: { initialRoute: PreviewRoute; dictionary: Dictionary }) {
   const [route, setRoute] = useState(initialRoute);
@@ -83,10 +103,13 @@ function Preview({ initialRoute, dictionary }: { initialRoute: PreviewRoute; dic
     transitioning.current=changed;
     const fontReady=previous.locale===next.locale?Promise.resolve():Promise.all(next.locale==='ar'?[document.fonts.load('16px Almarai','هاشم'),document.fonts.load('700 16px Almarai','هاشم')]:[document.fonts.load('16px "Libre Caslon Condensed"')]);
     const pageReady=Promise.all([next.project?prefetchCaseStudy():Promise.resolve(),next.experience==='creative'?prefetchCreative():Promise.resolve(),fontReady]).then(()=>true,()=>false);
+    // A chunk or dictionary that fails to load (typically an old tab after a deploy) falls
+    // back to a full page load of the destination instead of a click that does nothing.
+    const hardNavigate=()=>{if(version!==intent.current)return;if(push)location.assign(previewUrl(next,hash));else location.reload();};
     void request(next.locale, dictionary => {
      void pageReady.then(ready=>{
       if(version!==intent.current)return;
-      if(!ready){transitioning.current=false;return;}
+      if(!ready){hardNavigate();return;}
       const commit=()=>{
        if(version!==intent.current)return;
        pendingScroll.current={version,hash,restore,top:pageChanged,languageOnly};
@@ -100,9 +123,9 @@ function Preview({ initialRoute, dictionary }: { initialRoute: PreviewRoute; dic
       if(shell)shell.dataset.languageTransition=String(languageOnly);
       exit(commit,languageOnly?'language':changed);
      });
-    });
+    }).then(result=>{if(result==='failed')hardNavigate();});
   }, [request,exit]);
-  useEffect(()=>{const stopScroll=startSmoothScroll(),stopMotion=startUiMotion();return()=>{stopScroll();stopMotion();};},[]);
+  useEffect(()=>{const stopScroll=startSmoothScroll(),stopMotion=startUiMotion(),stopCycle=startThemeCycle();return()=>{stopScroll();stopMotion();stopCycle();};},[]);
   useEffect(()=>{
    // ScrollTrigger re-applies the mode it captured at load ('auto') on every refresh;
    // the browser would then restore the old position on Back before the app swaps pages.
@@ -170,7 +193,7 @@ function Preview({ initialRoute, dictionary }: { initialRoute: PreviewRoute; dic
     return()=>{alive=false;observer.disconnect();};
   }, [route]);
   const value = useMemo(() => ({ locale: route.locale, dir: directionOf(route.locale), t, setLocale: (locale: Locale) => navigate({ ...route, locale }) }), [route, t, navigate]);
-  return <I18nContext.Provider value={value}><StudioProvider><div ref={root}><LightPortfolio route={route} navigate={navigate} /></div></StudioProvider></I18nContext.Provider>;
+  return <I18nContext.Provider value={value}><StudioProvider><div ref={root}><RouteBoundary locale={route.locale}><LightPortfolio route={route} navigate={navigate} /></RouteBoundary></div></StudioProvider></I18nContext.Provider>;
 }
 const initialRoute = readRoute();
 // Fetch the tiny case chunk alongside its dictionary on a cold detail link.
