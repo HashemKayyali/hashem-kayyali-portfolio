@@ -260,7 +260,7 @@
 /* Home selected work: one media box for every card, so stacked cards share a height.
    Photographs fill it (gentle crop) instead of each card taking its image's own ratio. */
 :root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .pulse-scene-media .project-media-primary{width:min(100%,calc(var(--frame-height)*1.6));aspect-ratio:1.6!important;height:auto;}
-:root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .pulse-scene-media .project-media-primary :is(picture,img){display:block;width:100%;height:100%;object-fit:cover;object-position:50% 45%;}
+:root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .pulse-scene-media .project-media-primary :is(picture,img){display:block;width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;object-fit:cover!important;object-position:50% 45%;border-radius:calc(var(--media-frame-radius,16px) - 3px);}
 
 /* Softer hero imagery: portrait, collection covers and case openings. */
 :root .light-portfolio .shared-portrait-frame{border-radius:24px!important;padding:4px!important;}
