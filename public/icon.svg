@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Hashem Kayyali">
+  <!-- Scalable monogram in the site's burgundy. Same mark as the raster icons,
+       drawn as vectors so it stays crisp at any tab or bookmark size. -->
+  <defs>
+    <linearGradient id="field" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2a0710"/>
+      <stop offset="46%" stop-color="#4d0d1c"/>
+      <stop offset="100%" stop-color="#540e21"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="96" fill="url(#field)"/>
+  <text x="256" y="256" fill="#ffffff"
+        font-family="Roboto Slab, Georgia, 'Times New Roman', serif"
+        font-size="250" font-weight="800" letter-spacing="-7"
+        text-anchor="middle" dominant-baseline="central">HK</text>
+</svg>

@@ -1,0 +1,96 @@
+/* Home-only art direction. Existing page/case architecture and compositions stay intact. */
+.home-art-directed {position:relative;overflow:clip;}
+.home-page .motion-field {opacity:1;filter:none;mix-blend-mode:normal;mask-image:none;}
+.home-page .hero {padding-block-start:29px;}
+.home-page .hero-layout {gap:46px;align-items:start;}
+.home-page .hero-copy {padding-block-start:8px;}
+.home-page .hero h1 {font-size:clamp(78px,8.5vw,126px);line-height:.98;letter-spacing:-.075em;}
+.home-page .hero-name-part--1 {padding-inline-start:24px;}
+.home-page .hero-role-primary {font-weight:500;}
+.home-page .hero .portrait {max-width:470px;padding-block-start:52px;}
+.home-page .hero .portrait-frame {height:528px;}
+.home-page .hero-field {width:1150px;height:860px;inset-block-start:-78px;inset-inline-end:-20px;}
+.home-page .hero-footnote {margin-block-start:21px;border-block-end:1px solid var(--line);}
+.home-page .home-about {position:relative;isolation:isolate;border:0;padding-block:53px 57px;gap:70px;}
+.home-page .home-about>div:not(.motion-field) {position:relative;z-index:1;}
+.home-transition-field {width:1200px;height:420px;inset-inline-end:-170px;bottom:-340px;}
+.home-section-rule {position:absolute;inset-inline:0;bottom:0;height:1px;background:var(--burgundy);transform-origin:left;}
+.home-page .home-about>div>p {font-size:22px;line-height:1.78;max-width:59ch;color:var(--ink);}
+.home-page .home-projects {position:relative;isolation:isolate;padding-block:60px 54px;}
+.home-page .page-section-title {position:relative;align-items:center;margin-block-end:43px;padding-block-start:23px;}
+.home-page .page-section-title .home-section-rule {top:0;bottom:auto;width:72px;}
+.home-page .featured-projects {gap:94px;}
+.home-page .spotlight-copy>p {font-size:17px;line-height:1.85;}
+.home-page .spotlight-copy h3 {text-wrap:balance;}
+.home-page .featured-project--1 .spotlight-copy {padding-block-start:28px;}
+.home-page .featured-project--2 .spotlight-field {inset:-80px -80px;width:calc(100% + 130px);height:calc(100% + 160px);}
+.home-page .project-secondary {border-width:7px;}
+.home-page .project-bottom {font-size:11px;}
+.home-page .home-bottom {gap:80px;padding-block:58px 64px;}
+.home-page .home-toolkit .skill-tags {gap:8px 24px;}
+.home-page .home-toolkit .skill-tags li {padding:8px 0;background:transparent;border:0;border-block-end:1px solid var(--line);font-size:12px;}
+.home-page .home-invitation {background:var(--paper);border-block-start:1px solid var(--line);padding-block:69px 75px;}
+.home-page .home-invitation h2 {max-width:750px;font-size:clamp(38px,4.3vw,62px);line-height:1.15;}
+.home-page .home-invitation .contact-field {width:900px;height:660px;inset-inline-end:-215px;top:-95px;}
+.home-page .home-invitation p {max-width:59ch;}
+.home-page .button-text {position:relative;}
+.home-page .button-text::after {content:'';position:absolute;inset-inline:0;bottom:-1px;height:1px;background:var(--burgundy);transform:scaleX(0);transform-origin:var(--flow-origin,left);transition:transform .3s;}
+.home-page .button-text:focus-visible::after {transform:scaleX(1);}
+html[dir=rtl] .home-page {--flow-origin:right;}
+html[dir=rtl] .home-page .hero h1 {font-size:clamp(72px,7.5vw,108px);line-height:1.25;letter-spacing:0;}
+html[dir=rtl] .home-page .hero-name-part--1 {padding-inline-start:20px;letter-spacing:0;}
+html[dir=rtl] .home-page :is(h2,h3,.hero-role) {letter-spacing:0;font-family:Tahoma,Arial,sans-serif;line-height:1.5;}
+html[dir=rtl] .home-page .home-about>div>p {line-height:1.98;font-size:21px;}
+html[dir=rtl] .home-page .home-invitation h2 {font-size:clamp(38px,4vw,56px);line-height:1.45;}
+@media(hover:hover) and (pointer:fine){
+ .home-page .button-text:hover::after {transform:scaleX(1);}
+ .home-page .project-destination .image-link .arrow {transition:transform .4s cubic-bezier(.2,.7,.2,1);}
+ .home-page .project-destination:is(:hover,:focus-visible) .image-link .arrow {transform:translate(3px,-3px);}
+ html[dir=rtl] .home-page .project-destination:is(:hover,:focus-visible) .image-link .arrow {transform:translate(-3px,-3px);}
+}
+@media(max-width:1100px) and (min-width:701px){
+ .home-page .hero h1 {font-size:75px;}.home-page .hero .portrait-frame {height:480px;}
+ .home-page .hero-field {width:900px;inset-inline-end:-175px;}.home-page .home-about {gap:40px;}
+ .home-page .spotlight-copy>p {font-size:15px;}
+}
+@media(max-width:700px){
+ .home-page .hero {padding-block-start:25px;}
+ .home-page .hero-layout {gap:0 14px;}
+ .home-page .hero h1 {font-size:44px;line-height:1.02;letter-spacing:-.055em;}
+ .home-page .hero-name-part--1 {padding-inline-start:0;}
+ .home-page .hero .portrait {padding:0;max-width:none;}
+ .home-page .hero .portrait-frame {height:210px;}
+ .home-page .hero-field {width:580px;height:660px;inset-inline-end:-235px;inset-block-start:-80px;}
+ .home-page .hero-role {font-size:20px;}.home-page .hero-scope {margin-block-start:19px;}
+ .home-page .hero-statement {font-size:19px;margin-block:19px 22px;}
+ .home-page .hero-footnote {margin-block-start:21px;}
+ .home-page .home-about {padding-block:38px 43px;gap:25px;}
+ .home-page .home-about>div>p {font-size:18px;line-height:1.87;}
+ .home-transition-field {width:580px;height:350px;inset-inline-end:-170px;bottom:-300px;}
+ .home-page .home-projects {padding-block:37px 41px;}
+ .home-page .page-section-title {margin-block-end:29px;}
+ .home-page .page-section-title h2 {font-size:36px;}
+ .home-page .featured-projects {gap:61px;}
+ .home-page .spotlight-copy>p {font-size:15px;line-height:1.85;}
+ .home-page .featured-project--1 .spotlight-copy {padding-block-start:0;}
+ .home-page .featured-project--2 .spotlight-field {inset:-35px -10px;width:calc(100% + 20px);height:calc(100% + 90px);}
+ .home-page .home-bottom {gap:36px;padding-block:40px 45px;}
+ .home-page .home-invitation {padding-block:48px 53px;}
+ .home-page .home-invitation h2 {font-size:38px;line-height:1.25;max-width:12ch;}
+ .home-page .home-invitation p {font-size:14px;max-width:37ch;}
+ .home-page .home-invitation .contact-field {width:570px;height:540px;inset-inline-end:-310px;top:-60px;}
+ html[dir=rtl] .home-page .hero h1 {font-size:43px;line-height:1.25;}
+ html[dir=rtl] .home-page .hero-name-part--1 {padding-inline-start:0;}
+ html[dir=rtl] .home-page .hero-role {font-size:19px;line-height:1.6;}
+ html[dir=rtl] .home-page .home-about>div>p {font-size:18px;line-height:2;}
+ html[dir=rtl] .home-page .home-invitation h2 {font-size:35px;line-height:1.5;max-width:15ch;}
+}
+@media(max-width:360px){
+ .home-page .hero h1 {font-size:37px;}.home-page .hero-role {font-size:18px;}.home-page .hero .portrait-frame {height:192px;}
+ .home-page .page-section-title {align-items:start;gap:15px;}.home-page .page-section-title h2 {font-size:31px;}
+ html[dir=rtl] .home-page .hero h1 {font-size:36px;}
+}
+@media(prefers-reduced-motion:reduce){
+ .home-page .button-text::after,.home-page .project-destination .image-link .arrow {transition:none;}
+ .home-page .home-section-rule {transform:none!important;}
+}

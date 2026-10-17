@@ -1,0 +1,26 @@
+/* Atelier: primitive → semantic tokens. Existing renderer/controls read aliases. */
+:root {
+ --atelier-graphite:#11171a;
+ --atelier-raised:#1a2327;
+ --atelier-ivory:#f1eee7;
+ --atelier-champagne:#cdb58b;
+ --atelier-petrol:#223a3d;
+ --atelier-light:#e9e0d0;
+ --atelier-on-light:#17242b;
+ --atelier-light-muted:#475153;
+ --atelier-light-accent:#795a33;
+ --paper:#11171a;
+ --white:#1a2327;
+ --ink:#f1eee7;
+ --muted:#b2b7b5;
+ --burgundy:#cdb58b;
+ --burgundy-secondary:#e0cab1;
+ --wine:#d7c2a2;
+ --surface:#192329;
+ --surface-strong:#243038;
+ --line:#3b4649;
+ --motion-highlight:#8eafa7;
+ /* Legacy semantic names retain existing route and renderer compatibility. */
+ --rose:var(--burgundy-secondary);
+ --blush:var(--surface);
+}

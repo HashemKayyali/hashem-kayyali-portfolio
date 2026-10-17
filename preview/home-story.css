@@ -1,0 +1,133 @@
+/* Home02–04: editorial engineering chapters, compact career rail, correspondence finale. */
+html .luxury-portfolio.atelier-compact .home-story{color:var(--ink);}
+html .luxury-portfolio.atelier-compact .home-story :is(section,article){scroll-margin-top:90px;}
+html .luxury-portfolio.atelier-compact .story-method{padding-block:60px 28px;background:linear-gradient(135deg,var(--surface),var(--paper) 65%);border-block:1px solid var(--line);}
+html .luxury-portfolio.atelier-compact .story-heading{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.68fr);gap:40px;align-items:end;margin-bottom:38px;}
+html .luxury-portfolio.atelier-compact .story-heading h2{font-size:clamp(36px,3.5vw,62px);line-height:1.08;font-weight:450;margin:14px 0 0;max-width:22ch;}
+html .luxury-portfolio.atelier-compact .story-heading>p{font-size:21px;line-height:1.55;color:var(--muted);margin:0;max-width:44ch;}
+html .luxury-portfolio.atelier-compact .story-method-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:clamp(36px,5vw,100px);align-items:start;}
+html .luxury-portfolio.atelier-compact .story-chapters{position:relative;min-width:0;}
+html .luxury-portfolio.atelier-compact .story-spine{position:absolute;inset-inline-start:18px;top:20px;bottom:35px;width:1px;background:var(--line);}
+html .luxury-portfolio.atelier-compact .story-spine i{display:block;width:100%;height:100%;background:var(--burgundy);transform-origin:50% 0%;}
+html .luxury-portfolio.atelier-compact .story-chapter{display:grid;grid-template-columns:38px minmax(0,1fr);gap:24px;min-height:280px;padding:28px 0 44px;align-items:start;}
+html .luxury-portfolio.atelier-compact .story-step-number{position:relative;display:grid;place-items:center;width:38px;height:38px;background:var(--paper);border:1px solid var(--burgundy);border-radius:50%;font:11px/1 ui-monospace,Consolas,monospace;color:var(--burgundy);}
+html .luxury-portfolio.atelier-compact .story-step-label{display:flex;align-items:center;gap:8px;color:var(--burgundy);font-size:15px;min-height:30px;}
+html .luxury-portfolio.atelier-compact .story-chapter h3{font-size:clamp(28px,2.5vw,43px);line-height:1.15;font-weight:450;margin:12px 0;}
+html .luxury-portfolio.atelier-compact .story-chapter p{font-size:21px;line-height:1.6;color:var(--muted);max-width:45ch;margin:0 0 18px;}
+html .luxury-portfolio.atelier-compact .story-visual{position:sticky;top:104px;margin-block:28px;min-width:0;}
+html .luxury-portfolio.atelier-compact .story-board{padding:22px;border:1px solid var(--line);border-radius:16px;background:var(--atelier-petrol);overflow:hidden;}
+html .luxury-portfolio.atelier-compact .story-board-heading{display:flex;justify-content:space-between;gap:15px;color:var(--muted);font-size:15px;}
+html .luxury-portfolio.atelier-compact .story-board-counter{font:11px/1.5 ui-monospace,Consolas,monospace;color:var(--burgundy);}
+html .luxury-portfolio.atelier-compact .story-evidence{position:relative;height:340px;margin:20px 0 18px;}
+html .luxury-portfolio.atelier-compact .story-sheet{position:absolute;inset:0;margin:0;border:1px solid var(--media-frame-border);border-radius:10px;padding:14px 16px;background:var(--white);box-shadow:0 14px 30px #0002;display:flex;flex-direction:column;gap:12px;}
+html .luxury-portfolio.atelier-compact .story-sheet-top{display:flex;gap:18px;align-items:center;color:var(--burgundy);font-size:20px;}
+html .luxury-portfolio.atelier-compact .story-sheet-top>span:first-child{font:11px/1.5 ui-monospace,Consolas,monospace;}
+html .luxury-portfolio.atelier-compact .story-sheet-image{display:grid;place-items:center;min-width:0;min-height:0;flex:1;overflow:hidden;}
+html .luxury-portfolio.atelier-compact .story-sheet-image :is(picture,img){max-width:100%;max-height:220px;width:auto;height:auto;object-fit:contain;}
+html .luxury-portfolio.atelier-compact .story-sheet-image img{display:block;margin:auto;border:1px solid var(--media-frame-border);border-radius:6px;padding:3px;background:var(--media-mat);}
+html .luxury-portfolio.atelier-compact .story-sheet figcaption{display:flex;flex-wrap:wrap;gap:6px 15px;color:var(--muted);font-size:15px;line-height:1.5;}
+html .luxury-portfolio.atelier-compact .story-board-meter{height:2px;width:100%;background:var(--line);}
+html .luxury-portfolio.atelier-compact .story-board-meter i{display:block;background:var(--burgundy);width:100%;height:100%;transform-origin:0 50%;}
+html .luxury-portfolio.atelier-compact .story-board-footer{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:14px;color:var(--muted);font-size:15px;}
+html .luxury-portfolio.atelier-compact .story-method-foot{display:flex;justify-content:space-between;align-items:center;gap:18px;border-top:1px solid var(--line);padding-top:16px;}
+html .luxury-portfolio.atelier-compact .story-method-foot>span{color:var(--muted);font-size:17px;}
+html .luxury-portfolio.atelier-compact .story-career{padding-block:60px;}
+html .luxury-portfolio.atelier-compact .story-career .story-heading{grid-template-columns:minmax(0,1fr) auto;margin-bottom:28px;}
+html .luxury-portfolio.atelier-compact .story-career-list{padding:0;margin:0;list-style:none;}
+html .luxury-portfolio.atelier-compact .story-career-entry{position:relative;display:grid;grid-template-columns:35px minmax(0,1fr) minmax(0,1.05fr) minmax(100px,.5fr);column-gap:24px;align-items:start;border-bottom:1px solid var(--line);padding:26px 0;}
+html .luxury-portfolio.atelier-compact .story-career-number{font:11px/1.6 ui-monospace,Consolas,monospace;color:var(--burgundy);padding-top:5px;}
+html .luxury-portfolio.atelier-compact .story-career-company--branded{display:grid;grid-template-columns:60px minmax(0,1fr);gap:14px;align-items:start;}
+html .luxury-portfolio.atelier-compact .story-career-logo{display:grid;place-items:center;inline-size:60px;block-size:60px;border:1px solid var(--line);border-radius:12px;background:var(--theme-field);}
+html .luxury-portfolio.atelier-compact .story-career-logo img{display:block;inline-size:52px;block-size:52px;object-fit:contain;border-radius:8px;}
+html .luxury-portfolio.atelier-compact .story-career-company h3{font-size:clamp(25px,2.1vw,35px);font-weight:450;line-height:1.2;margin:0;}
+html .luxury-portfolio.atelier-compact .story-career-role h4{font-size:22px;font-weight:400;line-height:1.35;margin:0;}
+html .luxury-portfolio.atelier-compact .story-career-entry p{font-size:16px;line-height:1.6;color:var(--muted);margin:8px 0 0;}
+html .luxury-portfolio.atelier-compact .story-career-period{font-size:17px;color:var(--burgundy);line-height:1.6;text-align:end;}
+html .luxury-portfolio.atelier-compact .story-career-rule{position:absolute;top:0;inset-inline-start:0;width:100%;height:1px;background:var(--burgundy);transform-origin:0 50%;}
+html .luxury-portfolio.atelier-compact .story-contact{position:relative;padding-block:34px 26px;background:var(--atelier-light);color:var(--atelier-on-light);border-top:1px solid var(--media-frame-border);overflow:hidden;}
+html .luxury-portfolio.atelier-compact .story-contact :is(a,button):focus-visible{outline-color:var(--atelier-on-light);}
+html .luxury-portfolio.atelier-compact .story-contact-heading{display:flex;justify-content:space-between;gap:18px;font-size:15px;color:var(--atelier-light-muted);}
+html .luxury-portfolio.atelier-compact .story-contact-heading .pulse-kicker{color:var(--atelier-light-accent);}
+html .luxury-portfolio.atelier-compact .story-contact-layout{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:40px;align-items:center;padding-block:36px 40px;}
+html .luxury-portfolio.atelier-compact .story-contact-prompt{color:var(--atelier-light-accent);font-size:23px;margin:0 0 10px;line-height:1.5;}
+html .luxury-portfolio.atelier-compact .story-contact h2{font-size:clamp(66px,8vw,140px);line-height:1;letter-spacing:-.035em;font-weight:450;margin:0 0 15px;color:var(--atelier-on-light);}
+html .luxury-portfolio.atelier-compact .story-word-mask{display:inline-block;overflow:hidden;vertical-align:bottom;padding-bottom:.08em;margin-bottom:-.08em;}
+html .luxury-portfolio.atelier-compact .story-contact-word{display:inline-block;}
+html .luxury-portfolio.atelier-compact .story-contact-intro{font-size:22px;line-height:1.5;max-width:48ch;margin:0;color:var(--atelier-light-muted);}
+html .luxury-portfolio.atelier-compact .story-contact-action{display:flex;align-items:center;gap:24px;min-height:64px;font-size:21px;}
+html .luxury-portfolio.atelier-compact .story-arrow-disc{display:grid;place-items:center;width:76px;height:76px;border:1px solid var(--atelier-light-accent);border-radius:50%;flex-shrink:0;transition:background .2s;}
+html .luxury-portfolio.atelier-compact .story-contact-action:hover .story-arrow-disc{background:var(--theme-field);}
+html .luxury-portfolio.atelier-compact .story-correspondence{position:relative;display:flex;align-items:center;gap:32px;padding-top:20px;}
+html .luxury-portfolio.atelier-compact .story-correspondence-rule{position:absolute;top:0;inset-inline-start:0;width:100%;height:1px;background:var(--atelier-light-accent);transform-origin:0 50%;}
+html .luxury-portfolio.atelier-compact .story-correspondence a{display:flex;align-items:center;gap:12px;min-height:44px;font-size:19px;line-height:1.5;}
+html .luxury-portfolio.atelier-compact .story-correspondence .story-email{margin-inline-end:auto;font-size:clamp(22px,2.5vw,37px);min-width:0;}
+html .luxury-portfolio.atelier-compact .story-email bdi{overflow-wrap:anywhere;}
+html .luxury-portfolio.atelier-compact .story-correspondence a:hover{color:var(--atelier-light-accent);}
+html[lang=ar] .luxury-portfolio.atelier-compact .story-heading h2{font-size:clamp(28px,2.7vw,47px);line-height:1.5;max-width:24ch;}
+html[lang=ar] .luxury-portfolio.atelier-compact .story-chapter h3{font-size:clamp(25px,2.1vw,36px);line-height:1.5;}
+html[lang=ar] .luxury-portfolio.atelier-compact :is(.story-heading>p,.story-chapter p,.story-contact-intro){font-size:17px;line-height:1.9;}
+html[lang=ar] .luxury-portfolio.atelier-compact .story-career-company h3{font-size:23px;line-height:1.6;}
+html[lang=ar] .luxury-portfolio.atelier-compact .story-career-role h4{font-size:18px;line-height:1.8;}
+html[lang=ar] .luxury-portfolio.atelier-compact :is(.story-step-label,.story-board-heading,.story-board-footer,.story-career-entry p,.story-career-period,.story-method-foot>span,.story-contact-heading){font-size:13px;line-height:1.8;}
+html[lang=ar] .luxury-portfolio.atelier-compact .story-contact h2{font-size:clamp(50px,6vw,100px);line-height:1.5;}
+html[lang=ar] .luxury-portfolio.atelier-compact :is(.story-contact-prompt,.story-contact-action){font-size:18px;line-height:1.6;}
+html[lang=ar] .luxury-portfolio.atelier-compact :is(.story-board-meter i,.story-career-rule,.story-correspondence-rule){transform-origin:100% 50%;}
+html[lang=ar] .luxury-portfolio.atelier-compact .story-arrow-disc>svg{rotate:180deg;}
+html .luxury-portfolio.atelier-compact .home-story[data-story-motion=static] .story-visual{position:relative;top:0;}
+html .luxury-portfolio.atelier-compact .home-story[data-story-motion=static] .story-evidence{height:auto;display:grid;gap:12px;}
+html .luxury-portfolio.atelier-compact .home-story[data-story-motion=static] .story-sheet{position:relative;}
+html .luxury-portfolio.atelier-compact .home-story[data-story-motion=static] .story-sheet-image :is(picture,img){max-height:140px;}
+@media(max-width:899px),(max-height:649px){
+ html .luxury-portfolio.atelier-compact .story-heading{grid-template-columns:1fr;gap:20px;margin-bottom:24px;}
+ html .luxury-portfolio.atelier-compact .story-method-layout{grid-template-columns:1fr;gap:14px;}
+ html .luxury-portfolio.atelier-compact .story-visual{position:relative;top:0;margin:0;order:-1;}
+ html .luxury-portfolio.atelier-compact .story-board{padding:16px;}
+ html .luxury-portfolio.atelier-compact .story-evidence,html .luxury-portfolio.atelier-compact .home-story[data-story-motion=static] .story-evidence{height:auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;}
+ html .luxury-portfolio.atelier-compact .story-sheet{position:relative;padding:8px;box-shadow:none;gap:8px;min-width:0;}
+ html .luxury-portfolio.atelier-compact .story-sheet-top{font-size:18px;gap:6px;flex-wrap:wrap;}
+ html .luxury-portfolio.atelier-compact .story-sheet-image :is(picture,img){max-height:120px;}
+ html .luxury-portfolio.atelier-compact .story-sheet figcaption{display:none;}
+ html .luxury-portfolio.atelier-compact .story-chapter{min-height:0;padding:24px 0 32px;}
+ html .luxury-portfolio.atelier-compact .story-career-entry{grid-template-columns:28px minmax(0,1fr) minmax(100px,.5fr);gap:12px;}
+ html .luxury-portfolio.atelier-compact .story-career-company{grid-column:2;}.story-career-role{grid-column:2;}.story-career-period{grid-column:3;grid-row:1/3;}
+ html .luxury-portfolio.atelier-compact .story-contact-layout{gap:20px;}
+}
+@media(max-width:600px){
+ html .luxury-portfolio.atelier-compact :is(.story-method,.story-career){padding-block:36px 25px;}
+ html .luxury-portfolio.atelier-compact .story-heading h2{font-size:36px;}
+ html .luxury-portfolio.atelier-compact .story-heading>p{font-size:19px;}
+ html .luxury-portfolio.atelier-compact .story-board{padding:12px;border-radius:10px;}
+ html .luxury-portfolio.atelier-compact .story-board-heading{font-size:13px;}
+ html .luxury-portfolio.atelier-compact .story-evidence{gap:6px;margin:12px 0;}
+ html .luxury-portfolio.atelier-compact .story-sheet{padding:5px;gap:6px;}
+ html .luxury-portfolio.atelier-compact .story-sheet-top{font-size:14px;}
+ html .luxury-portfolio.atelier-compact .story-sheet-image :is(picture,img){max-height:80px;}
+ html .luxury-portfolio.atelier-compact .story-board-footer{font-size:13px;gap:6px 12px;}
+ html .luxury-portfolio.atelier-compact .story-chapter{gap:16px;}
+ html .luxury-portfolio.atelier-compact .story-chapter h3{font-size:30px;}
+ html .luxury-portfolio.atelier-compact .story-chapter p{font-size:19px;}
+ html .luxury-portfolio.atelier-compact .story-method-foot{flex-wrap:wrap;}
+ html .luxury-portfolio.atelier-compact .story-method-foot>span{font-size:15px;}
+ html .luxury-portfolio.atelier-compact .story-career .story-heading{grid-template-columns:1fr;}
+ html .luxury-portfolio.atelier-compact .story-career-entry{grid-template-columns:24px minmax(0,1fr);padding:20px 0;}
+ html .luxury-portfolio.atelier-compact .story-career-company h3{font-size:25px;}
+ html .luxury-portfolio.atelier-compact .story-career-company--branded{grid-template-columns:48px minmax(0,1fr);gap:10px;}
+ html .luxury-portfolio.atelier-compact .story-career-logo{inline-size:48px;block-size:48px;border-radius:10px;}
+ html .luxury-portfolio.atelier-compact .story-career-logo img{inline-size:40px;block-size:40px;border-radius:6px;}
+ html .luxury-portfolio.atelier-compact .story-career-role h4{font-size:21px;}
+ html .luxury-portfolio.atelier-compact .story-career-period{grid-column:2;grid-row:auto;text-align:start;font-size:16px;}
+ html .luxury-portfolio.atelier-compact .story-contact{padding-block:25px;}
+ html .luxury-portfolio.atelier-compact .story-contact-layout{grid-template-columns:1fr;padding-block:24px;}
+ html .luxury-portfolio.atelier-compact .story-contact h2{font-size:70px;}
+ html .luxury-portfolio.atelier-compact .story-contact-intro{font-size:19px;}
+ html .luxury-portfolio.atelier-compact .story-contact-action{justify-content:space-between;font-size:20px;}
+ html .luxury-portfolio.atelier-compact .story-arrow-disc{width:58px;height:58px;}
+ html .luxury-portfolio.atelier-compact .story-correspondence{flex-wrap:wrap;gap:6px 26px;}
+ html .luxury-portfolio.atelier-compact .story-correspondence .story-email{width:100%;font-size:25px;}
+ html .luxury-portfolio.atelier-compact .story-contact-heading>span{font-size:13px;}
+ html[lang=ar] .luxury-portfolio.atelier-compact .story-heading h2{font-size:27px;}
+ html[lang=ar] .luxury-portfolio.atelier-compact .story-contact h2{font-size:54px;}
+ html[lang=ar] .luxury-portfolio.atelier-compact .story-career-company h3{font-size:20px;}
+ html[lang=ar] .luxury-portfolio.atelier-compact .story-career-role h4{font-size:16px;}
+ html[lang=ar] .luxury-portfolio.atelier-compact :is(.story-heading>p,.story-chapter p,.story-contact-intro){font-size:15px;}
+}

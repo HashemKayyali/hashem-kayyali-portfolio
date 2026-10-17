@@ -1,0 +1,7 @@
+import {readFile,writeFile} from 'node:fs/promises';import {createHash} from 'node:crypto';import {execFileSync} from 'node:child_process';
+const manifest=JSON.parse(await readFile('output/checkpoints/projects-before-2026-10-13-manifest.json','utf8'));
+const allowed=new Set(['preview/LightPortfolio.tsx','preview/PortfolioSections.tsx','preview/PageShell.tsx','preview/main.tsx','preview/route-motion.ts','preview/route-motion.test.mjs','preview/case-motion.ts','preview/motion.ts']);
+const changed=[],unexpected=[];for(const [path,hash] of Object.entries(manifest.files)){const actual=createHash('sha256').update(await readFile(path)).digest('hex');if(actual!==hash){changed.push(path);if(!allowed.has(path))unexpected.push(path);}}
+const branch=execFileSync('git',['branch','--show-current'],{encoding:'utf8'}).trim(),head=execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim();
+const v1=execFileSync('git',['-C','C:/Users/hashe/Desktop/site','status','--porcelain'],{encoding:'utf8'}).trim();
+const result={compared:Object.keys(manifest.files).length,changed,unexpected,branch,head,v1Clean:v1==='',protectedUnchanged:unexpected.length===0};await writeFile('output/playwright/projects-upgrade/preservation.json',JSON.stringify(result,null,2));if(unexpected.length||branch!==manifest.branch||head!==manifest.head||v1)throw Error(JSON.stringify(result));console.log(JSON.stringify(result));

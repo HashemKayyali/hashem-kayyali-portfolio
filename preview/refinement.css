@@ -1,0 +1,109 @@
+/* First review: Hero + Bike Tower / Terminal NFC / Eventies only. */
+.motion-field__paint { display:block;width:100%;height:100%;margin:0;animation:none!important;transform:none; }
+.hero {padding-block-start:40px;}
+.hero-layout {grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:54px;}
+.hero-copy {padding-block:14px 0;}
+.hero h1 {margin-block:21px 20px;line-height:.96;letter-spacing:-.065em;font-size:clamp(58px,5.4vw,80px);font-weight:450;}
+.hero-name-part {display:block;}
+.hero-name-part--1 {font-family:'Roboto Slab',Georgia,serif;font-size:1.13em;color:var(--burgundy);font-weight:450;letter-spacing:-.06em;margin-block-start:7px;}
+.hero-role {font-size:clamp(21px,1.9vw,27px);font-weight:500;line-height:1.32;letter-spacing:-.04em;}
+.hero-role span {font-weight:400;font-size:.79em;color:var(--ink);margin-block-start:5px;}
+.hero-scope {max-width:470px;font-size:12px;line-height:1.7;margin-block-start:12px;}
+.hero-statement {margin-block:20px 23px;font-size:19px;max-width:450px;line-height:1.55;}
+.hero-location {margin-block-start:19px;}
+.hero-footnote {margin-block-start:23px;padding-block:21px 25px;}
+.hero-field {width:980px;height:740px;inset-block-start:-80px;inset-inline-end:-130px;opacity:.88;mask-image:radial-gradient(ellipse at 63% 50%,#000 20%,transparent 73%);}
+.portrait {position:relative;max-width:435px;padding-block-start:20px;}
+.portrait-frame {height:482px;border-start-start-radius:100px;border-start-end-radius:7px;border-end-end-radius:76px;border-end-start-radius:7px;}
+.portrait-frame img {object-position:50% 65%;}
+.portrait-edition {display:block;position:absolute;top:0;inset-inline-end:12px;font-size:9px;letter-spacing:.18em;color:var(--burgundy);}
+.portrait figcaption {font-size:11px;margin-block-start:16px;}
+.connected-signature {display:block;width:min(300px,100%);background:none;border:0;border-block-start:1px solid var(--line);padding:15px 0 0;margin-block-start:24px;color:var(--rose);text-align:inherit;}
+.connected-signature:hover,.connected-signature:focus-visible,.connected-signature[aria-pressed=true] {color:var(--burgundy);}
+.connected-signature canvas {width:100%;height:65px;}
+.signature-fallback svg {display:block;width:100%;height:28px;fill:var(--paper);stroke:currentColor;stroke-width:1.3;}
+.connected-signature[aria-pressed=true] svg {fill:var(--burgundy);}
+.signature-fallback > span {display:flex;justify-content:space-between;gap:15px;color:var(--muted);font-size:9px;margin-block-start:6px;}
+[hidden] {display:none!important;}
+.featured-projects {gap:72px;}
+.featured-project--0 .spotlight-image {padding:0;background:var(--paper);}
+.featured-project--0 .product-image {border:0;border-radius:4px;}
+.featured-project--1 .spotlight-image {padding:25px;background:#eee8e7;}
+.featured-project--1 .product-image img {object-fit:contain;max-height:none;}
+.featured-project--2 .project-destination {width:100%;grid-template-columns:minmax(0,1.65fr) minmax(0,1fr);}
+.featured-project--2 .spotlight-image {padding:36px;background:var(--surface);}
+.spotlight-copy h3 {font-family:'Roboto Slab',Georgia,serif;font-weight:450;font-size:34px;letter-spacing:-.045em;}
+.spotlight-copy >p {color:#51464d;}
+.evidence-note {font-size:11px;line-height:1.7;color:var(--muted);margin-block-start:12px;}
+.case-study:is(.case-study--bike-tower,.case-study--terminal-nfc,.case-study--eventies) .case-intro {padding-block:43px 35px;}
+.case-study:is(.case-study--bike-tower,.case-study--terminal-nfc,.case-study--eventies) .case-intro h1 {font-family:'Roboto Slab',Georgia,serif;font-size:clamp(38px,4.5vw,65px);font-weight:450;letter-spacing:-.045em;max-width:100%;}
+.case-study:is(.case-study--bike-tower,.case-study--terminal-nfc,.case-study--eventies) .case-overview {font-size:18px;line-height:1.8;max-width:83ch;}
+.case-study--bike-tower .case-cover {width:min(1331px,calc(100% - 64px));}
+.case-study--bike-tower .case-cover img {max-height:690px;object-fit:cover;object-position:center;}
+.case-study--terminal-nfc .case-cover,.case-study--eventies .case-cover {padding:32px;background:var(--surface);}
+.case-study--terminal-nfc .case-cover img,.case-study--eventies .case-cover img {max-height:640px;object-fit:contain;}
+.engineering-story {padding-block:86px 32px;}
+.story-heading {border-block-start:1px solid var(--line);padding-block-start:28px;margin-block-end:48px;}
+.story-heading h2 {font-size:40px;font-weight:450;letter-spacing:-.045em;margin-block-start:14px;}
+.story-track {position:relative;border-inline-start:1px solid var(--line);margin-inline-start:12px;}
+.story-progress {position:absolute;top:0;inset-inline-start:-1px;width:2px;height:100%;background:var(--burgundy);transform-origin:top center;}
+.story-step {position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.9fr);align-items:center;gap:46px;padding-inline-start:47px;padding-block:15px 60px;min-width:0;}
+.story-node {position:absolute;top:35px;inset-inline-start:-17px;width:32px;height:32px;display:grid;place-items:center;color:var(--burgundy);font-size:10px;background:var(--paper);border:1px solid var(--rose);border-radius:50%;}
+.story-step-copy h3 {font-size:26px;font-weight:450;line-height:1.25;letter-spacing:-.035em;margin-block-end:17px;}
+.story-step-copy p {font-size:14px;color:var(--muted);line-height:1.85;}
+.story-step-copy .story-technology {font-size:10px;color:var(--burgundy);margin-block-start:20px;padding-block-start:15px;border-block-start:1px solid var(--line);line-height:1.9;}
+.story-visual {position:relative;isolation:isolate;min-width:0;}
+.story-media-mask {position:relative;z-index:1;overflow:hidden;border-radius:4px;}
+.story-visual img {width:100%;height:auto;}
+.story-visual figcaption,.architecture figcaption {position:relative;z-index:1;font-size:10px;color:var(--muted);line-height:1.8;margin-block-start:14px;}
+.story--eventies .story-step--1 .story-visual {padding:27px;background:var(--surface);border-radius:4px;}
+.architecture {padding:27px;background:var(--surface);min-width:0;}
+.architecture-clients {display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px;}
+.architecture-clients>span {display:flex;flex-direction:column;gap:9px;border:1px solid var(--line);padding:19px 14px;border-radius:4px;text-align:center;background:var(--paper);}
+.architecture b {font-size:14px;font-weight:500;line-height:1.5;}
+.architecture small {font-size:10px;color:var(--muted);line-height:1.7;}
+.architecture-links {display:flex;justify-content:space-around;padding-block:15px;color:var(--burgundy);font-size:24px;}
+.architecture-api {border:1px solid var(--rose);border-radius:4px;display:flex;align-items:center;flex-direction:column;gap:12px;padding:22px;background:var(--paper);}
+.architecture-api strong {font-size:26px;color:var(--burgundy);font-weight:450;letter-spacing:-.035em;}
+.architecture-api p {font-size:12px;line-height:1.7;color:var(--muted);}
+html[dir=rtl] .hero-name-part--1,html[dir=rtl] .spotlight-copy h3,html[dir=rtl] .case-intro h1 {font-family:Tahoma,Arial,sans-serif;letter-spacing:0;}
+html[dir=rtl] .hero h1 {line-height:1.15;letter-spacing:0;}
+html[dir=rtl] .signature-fallback svg {transform:scaleX(-1);}
+@media (max-width:1100px) {
+ .hero-layout {gap:36px;}.hero h1 {font-size:64px;}.portrait-frame {height:450px;}.story-step {gap:30px;}.story-heading h2 {font-size:34px;}
+}
+@media (max-width:800px) and (min-width:701px) {
+ .hero h1 {font-size:55px;}.portrait-frame {height:410px;}.hero-role {font-size:20px;}.hero-statement {font-size:17px;}.portrait figcaption {font-size:9px;}.story-step {grid-template-columns:1fr 1.5fr;gap:24px;}
+}
+@media (max-width:700px) {
+ .hero {padding-block-start:30px;}.hero-layout {display:grid;grid-template-columns:minmax(0,1fr) 128px;gap:0 14px;align-items:start;}
+ .hero-copy {display:contents;}.hero .eyebrow {grid-column:1/-1;margin-block-end:24px;font-size:11px;}
+ .hero h1 {grid-column:1;grid-row:2;font-size:42px;margin-block:0 17px;letter-spacing:-.055em;}
+ .hero-name-part--1 {font-size:1.07em;margin-block-start:7px;}
+ .hero-role {grid-column:1;grid-row:3;font-size:19px;line-height:1.4;letter-spacing:-.045em;}
+ .hero-role span {font-size:.82em;}
+ .hero-scope {grid-column:1/-1;font-size:11px;line-height:1.75;margin-block-start:23px;max-width:100%;}
+ .hero-statement {grid-column:1/-1;font-size:20px;line-height:1.5;margin-block:21px 23px;max-width:100%;}
+ .hero .actions {grid-column:1/-1;gap:21px;}.hero .button-primary {padding:14px 17px;gap:20px;font-size:12px;}.hero .button-text {font-size:12px;gap:16px;}
+ .hero-location {grid-column:1/-1;font-size:10px;}
+ .connected-signature {grid-column:1/-1;width:min(290px,100%);margin-block-start:21px;padding-block-start:12px;}
+ .portrait {grid-column:2;grid-row:2/4;width:100%;max-width:none;margin:0;padding:0;}
+ .portrait-frame {height:205px;border-start-start-radius:42px;border-end-end-radius:35px;}
+ .portrait-frame img {object-position:50% 65%;}
+ .portrait-edition {top:-17px;inset-inline-end:0;font-size:8px;letter-spacing:.1em;}
+ .portrait figcaption {display:none;}
+ .hero-footnote {margin-block-start:22px;padding-block:20px;gap:15px;}.hero-footnote p {font-size:11px;line-height:1.85;}
+ .hero-field {width:620px;height:560px;inset-block-start:-75px;inset-inline-end:-160px;opacity:.85;mask-image:radial-gradient(ellipse at 65% 40%,#000 20%,transparent 70%);}
+ .featured-projects {gap:51px;}.featured-project--1 .spotlight-image {padding:17px;}.featured-project--2 .spotlight-image {padding:22px;}.featured-project--2 .project-destination {grid-template-columns:1fr;}
+ .spotlight-copy h3 {font-size:30px;}.featured-project--1 .spotlight-image,.featured-project--1 .spotlight-copy {grid-column:1;grid-row:auto;}
+ .case-study:is(.case-study--bike-tower,.case-study--terminal-nfc,.case-study--eventies) .case-intro {padding-block:31px;}
+ .case-study:is(.case-study--bike-tower,.case-study--terminal-nfc,.case-study--eventies) .case-overview {font-size:16px;line-height:1.85;}
+ .case-study--bike-tower .case-cover {width:calc(100% - 32px);}.case-study--terminal-nfc .case-cover,.case-study--eventies .case-cover {padding:15px;}
+ .engineering-story {padding-block:52px 16px;}.story-heading {margin-block-end:30px;padding-block-start:20px;}.story-heading h2 {font-size:30px;}
+ .story-track {margin-inline-start:9px;}.story-step {grid-template-columns:1fr;gap:22px;padding-inline-start:30px;padding-block:5px 41px;}
+ .story-node {top:7px;inset-inline-start:-13px;width:25px;height:25px;font-size:8px;}.story-step-copy h3 {font-size:25px;margin-block-end:13px;}.story-step-copy p {font-size:13px;line-height:1.85;}
+ .architecture {padding:17px 12px;}.architecture-clients {gap:12px;}.architecture-clients>span {padding:13px 9px;}.architecture b {font-size:12px;}.architecture small {font-size:9px;}.architecture-api strong {font-size:23px;}
+ .story--eventies .story-step--1 .story-visual {padding:15px;}
+}
+@media (max-width:360px) {.hero-layout {grid-template-columns:minmax(0,1fr) 105px;gap:0 12px;}.hero h1 {font-size:36px;}.hero-role {font-size:17px;}.portrait-frame {height:194px;}.hero .actions {gap:18px;}.hero .button-primary {padding-inline:12px;gap:13px;}.hero .button-text {font-size:11px;gap:10px;}}
+@media (prefers-reduced-motion:reduce) {.story-progress {transform:none!important;}.story-node {transform:none!important;}.story-media-mask img {transform:none!important;}}

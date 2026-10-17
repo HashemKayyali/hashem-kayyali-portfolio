@@ -1,0 +1,47 @@
+/* Bounded shared refinements; use the existing semantic Wine / paper tokens. */
+:root {--media-radius:12px;--control-radius:8px;--control-duration:160ms;}
+.site-header .container {width:min(1320px,calc(100% - 96px));}
+.site-header .header-layout {gap:28px;}
+.site-header .signature {font-size:14px;min-height:44px;}
+.site-header nav {gap:20px;margin-inline-start:0;}
+.site-header nav a {position:relative;border-block-end:0!important;border-radius:var(--control-radius);font-size:14px!important;min-height:44px;padding:13px 10px;color:var(--muted);transition:color var(--control-duration),background-color var(--control-duration);}
+.site-header nav a::after {content:'';position:absolute;inset-inline:10px;inset-block-end:4px;height:2px;background:var(--burgundy);transform:scaleX(0);transform-origin:center;transition:transform var(--control-duration);}
+.site-header nav a[aria-current=page] {color:var(--burgundy);}
+.site-header nav a[aria-current=page]::after,.site-header nav a:hover::after {transform:scaleX(1);}
+.site-header nav a:hover,.site-header nav a:focus-visible {background:var(--surface);color:var(--burgundy);}
+.site-header nav a:active {background:var(--surface-strong);}
+.site-header .language-select {position:relative;display:flex;align-items:center;flex:none;color:var(--burgundy);margin-inline-start:auto;}
+.site-header .language-select select {appearance:none;border:1px solid var(--line);border-radius:var(--control-radius);width:142px;max-width:none;min-height:44px;padding:10px 30px 10px 36px;background:var(--white);color:var(--ink);font-size:13px!important;line-height:1.5;transition:border-color var(--control-duration),background-color var(--control-duration);}
+.site-header .language-select select:hover {border-color:var(--burgundy-secondary);background:var(--paper);}
+.site-header .language-select:focus-within {color:var(--wine);}
+.site-header .language-icon,.site-header .language-chevron {position:absolute;pointer-events:none;}
+.site-header .language-icon {inset-inline-start:12px;}
+.site-header .language-chevron {inset-inline-end:10px;}
+html[dir=rtl] .site-header .language-select select {padding:10px 36px 10px 30px;}
+.site-header .navigation-toggle {border-radius:var(--control-radius);transition:background-color var(--control-duration);}
+.site-header .navigation-toggle:hover,.site-header .navigation-toggle[aria-expanded=true] {background:var(--surface);}
+
+/* The frame sits on the current reveal wrapper; GSAP masks and depth stay intact. */
+.light-portfolio .featured-project .project-media-reveal,.light-portfolio .featured-project .product-image {border-radius:var(--media-radius);overflow:clip;}
+.light-portfolio .featured-project .project-secondary-media {border-radius:var(--media-radius);overflow:hidden;outline:1px solid var(--line);outline-offset:-1px;}
+.light-portfolio .story-media-mask {border-radius:var(--media-radius);overflow:hidden;}
+.light-portfolio .gallery-media-mask,.light-portfolio .case-image-depth {border-radius:var(--media-radius);overflow:clip;}
+
+/* A captured frame from the exact editorial V1 shader is the fallback, never CSS smoke. */
+.light-portfolio .motion-field,.light-portfolio.route--home .home-page .home-silk {background:var(--paper) url('/v2-media/v1-warp-still.webp') center/100% 100%;}
+.light-portfolio .motion-field__paint {filter:none;animation:none!important;transform:none;width:100%;height:100%;margin:0;}
+.light-portfolio .motion-field:not(.home-silk) .motion-field__paint {opacity:0;}
+
+@media(max-width:1100px){
+ .site-header .signature>span:last-child {display:none;}.site-header nav {gap:8px!important;}.site-header nav a {font-size:13px!important;padding-inline:8px;}.site-header .header-layout {gap:20px;}
+ .site-header .container {width:calc(100% - 64px);}
+}
+@media(max-width:800px){
+ .site-header .container {width:calc(100% - 40px);}.site-header .header-layout {gap:12px;min-height:76px;}.site-header .signature {font-size:12px;}
+ .site-header .language-select select {width:132px;font-size:12px!important;}.site-header .navigation-toggle {font-size:12px;min-width:68px;padding-inline:10px;}
+ .site-header nav {gap:4px 8px!important;padding-block:12px 4px;}.site-header nav a {font-size:13px!important;line-height:1.5;padding:13px 4px;}
+ .site-header nav a::after {inset-inline:18px;}
+ :root {--media-radius:8px;}
+}
+@media(max-width:360px){.site-header .container {width:calc(100% - 32px);}.site-header .header-layout {gap:8px;}.site-header .language-select select {width:124px;}.site-header .navigation-toggle {min-width:64px;font-size:11px;}}
+@media(prefers-reduced-motion:reduce){.site-header nav a,.site-header nav a::after,.site-header .language-select select,.site-header .navigation-toggle {transition:none;}.light-portfolio .motion-field canvas {opacity:0!important;}}

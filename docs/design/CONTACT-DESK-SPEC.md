@@ -1,0 +1,9 @@
+# Compact contact desk — 14 October 2026
+
+Owner requests a complete Contact-only UI redesign and smaller components. Autonomous design authorization persists. Keep approved graphite/champagne/petrol/ivory, Libre Caslon Condensed/Almarai, real contact details and existing local email-draft workflow; other pages and shared navigation/image motion are outside scope.
+
+Current1440 baseline: main1070.7px, form722.2px. Large duplicated headings and stacked full-width fields dominate. Locale-keyed form resets entered values. Candidate: short Contact title and professional lead above a compact two-column correspondence desk. Left has actual Email/WhatsApp first, LinkedIn/Instagram as compact channels, and existing identity/location. Right is an ivory compose sheet, two-column name/email, small resizable message area, explicit prepare/open draft states. Existing explanatory copy clarifies that the email app opens only after the user's next action. All essential content remains visible without hover. Clipboard email copy is an optional direct utility with localized accessible feedback; no sending, storage, analytics or backend.
+
+Motion: Contact-owned GSAP context for short entrance choreography and small arrow/mark interactions; no additional shader or global ScrollTrigger refresh. Native inputs,16px fields,44px targets, readable contrast, RTL, narrow/zoom reflow and live reduced motion. Controlled values/draft survive locale updates without persisting private content beyond component memory.
+
+Checkpoint: output/checkpoints/design-intelligence-before-2026-10-14-134930.zip,746 verified entries. Verify failing compact/value-preservation browser probe, then production visual EN/AR1920/1440/390/320, remaining locales, native validation, local draft URI/no automatic email-app launch, copy feedback, keyboard, reduced motion, language and route transitions. No V1 writes, dependencies, commit/push/merge/deploy or new review site.

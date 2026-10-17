@@ -1,0 +1,10 @@
+/* Shared Home/About/collection density. Project detail openings are explicitly excluded. */
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell:not([data-route-project]):is(.route--home,.route--about,.route--projects){--app-hero-content-height:clamp(500px,34vw,660px);--app-portrait-width:clamp(220px,17vw,320px);}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell:not([data-route-project]) .app-collection-copy .gallery-intro-copy{background:transparent;}
+@media(max-width:800px){
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell:not([data-route-project]):is(.route--home,.route--about,.route--projects){--app-hero-content-height:540px;--app-portrait-width:clamp(118px,36vw,150px);}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell:not([data-route-project]) .app-collection-hero{gap:18px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell:not([data-route-project]) .app-collection-visual{width:100%;max-width:420px;height:260px;justify-self:center;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell:not([data-route-project]) .app-cover--1{top:45px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell:not([data-route-project]) .app-cover--2{top:90px;}
+}

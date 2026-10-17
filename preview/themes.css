@@ -1,0 +1,39 @@
+/* Whole-site role mapping. Authentic photographs and official brand marks are excluded. */
+:root{--paper:var(--theme-paper);--white:var(--theme-raised);--surface:var(--theme-surface);--surface-strong:var(--theme-strong);--ink:var(--theme-ink);--muted:var(--theme-muted);--burgundy:var(--theme-accent);--wine:var(--theme-hover);--burgundy-secondary:var(--theme-secondary);--line:var(--theme-line);--atelier-graphite:var(--theme-paper);--atelier-raised:var(--theme-raised);--atelier-ivory:var(--theme-ink);--atelier-champagne:var(--theme-accent);--atelier-petrol:var(--theme-tonal);--atelier-light:var(--theme-panel);--atelier-on-light:var(--theme-panel-ink);--atelier-light-muted:var(--theme-panel-muted);--atelier-light-accent:var(--theme-panel-accent);--motion-highlight:var(--theme-smoke-b);--on-accent:var(--theme-on-accent);--media-mat:var(--theme-paper);--field-paper:var(--theme-field);--field-border:var(--theme-field-border);--panel-alt:var(--theme-panel-alt);--frame-metal:var(--theme-accent);--smoke-a:var(--theme-smoke-a);--smoke-b:var(--theme-smoke-b);}
+body{background:var(--paper);}
+/* Every edition uses the same exposure instead of legacy .motion-field opacity. */
+html[data-theme] .light-portfolio.luxury-portfolio.atelier-app-shell .app-atmosphere-paint{opacity:var(--theme-smoke-opacity);}
+@media(max-width:800px){html[data-theme] .light-portfolio.luxury-portfolio.atelier-app-shell .app-atmosphere-paint{opacity:.38;}}
+html .light-portfolio.luxury-portfolio.atelier-compact{--media-frame-border:color-mix(in srgb,var(--frame-metal) 50%,transparent);}
+html .light-portfolio.luxury-portfolio.atelier-compact :is(.button-primary,.pulse-primary,.gallery-image-action,.evidence-expand,.gallery-filters button[aria-pressed=true],.language-options button[aria-checked=true],.skip-link){color:var(--on-accent);}
+html .light-portfolio.luxury-portfolio.atelier-compact .gallery-filters button[aria-pressed=true]:hover{color:var(--on-accent);}
+html .light-portfolio.luxury-portfolio.atelier-compact .desk-compose .desk-form .button-primary{background:var(--atelier-on-light);color:var(--field-paper);}
+html .light-portfolio.luxury-portfolio.atelier-compact .header-preferences{display:flex;align-items:center;gap:8px;margin-inline-start:auto;min-width:0;}
+html .light-portfolio.luxury-portfolio.atelier-compact .header-preferences .language-select{margin:0;order:0;}
+html .light-portfolio.luxury-portfolio.atelier-compact .theme-menu{position:relative;min-width:0;}
+html .light-portfolio.luxury-portfolio.atelier-compact .theme-trigger{display:flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:9px 12px;border:1px solid var(--line);border-radius:24px;background:transparent;color:var(--ink);font-size:15px;cursor:pointer;}
+html .light-portfolio.luxury-portfolio.atelier-compact .theme-trigger:is(:hover,[aria-expanded=true]){border-color:var(--burgundy);background:var(--surface);}
+.theme-swatches{display:flex;align-items:center;direction:ltr;flex-shrink:0;border:1px solid var(--line);border-radius:4px;overflow:hidden;}
+.theme-swatches i{display:block;width:18px;height:23px;border:0;border-radius:0;margin:0;}
+.theme-swatches i:first-child{margin:0;}
+html .light-portfolio.luxury-portfolio.atelier-compact .theme-options{position:absolute;inset-inline-end:0;top:calc(100% + 10px);z-index:100;width:280px;max-width:calc(100vw - 32px);padding:7px;border:1px solid var(--line);border-radius:12px;background:var(--white);color:var(--ink);box-shadow:0 18px 40px #0004;animation:theme-menu-in .18s cubic-bezier(.2,.7,.1,1);}
+@keyframes theme-menu-in{from{opacity:0;transform:translateY(-5px);}to{opacity:1;transform:translateY(0);}}
+html .light-portfolio.luxury-portfolio.atelier-compact .theme-options button{display:flex;align-items:center;gap:12px;width:100%;min-height:48px;padding:11px 12px;border:0;border-radius:6px;background:transparent;color:var(--ink);font-size:17px;text-align:start;cursor:pointer;}
+html .light-portfolio.luxury-portfolio.atelier-compact .theme-options button>span:nth-child(2){flex:1;}
+html .light-portfolio.luxury-portfolio.atelier-compact .theme-options button[aria-checked=true]{background:var(--surface-strong);}
+html .light-portfolio.luxury-portfolio.atelier-compact .theme-options button:is(:hover,:focus-visible){background:var(--atelier-petrol);outline:1px solid var(--burgundy);outline-offset:-2px;}
+html .light-portfolio.luxury-portfolio.atelier-compact .theme-options .theme-swatches i{width:18px;height:23px;}
+html[lang=ar] .light-portfolio.luxury-portfolio.atelier-compact :is(.theme-trigger,.theme-options button){font-size:13px;line-height:1.7;}
+html[data-theme=burgundy] .light-portfolio.luxury-portfolio.atelier-compact ::selection{background:var(--burgundy);color:var(--on-accent);}
+@media(max-width:1150px){html .light-portfolio.luxury-portfolio.atelier-compact .theme-trigger-label{display:none;}html .light-portfolio.luxury-portfolio.atelier-compact .header-layout{gap:10px;}}
+@media(max-width:800px){html .light-portfolio.luxury-portfolio.atelier-compact .header-preferences{order:1;gap:6px;}html .light-portfolio.luxury-portfolio.atelier-compact .theme-trigger{width:46px;padding:8px;gap:0;}html .light-portfolio.luxury-portfolio.atelier-compact .theme-trigger>.theme-chevron{display:none;}.theme-trigger>.theme-emblem{display:block;}html .light-portfolio.luxury-portfolio.atelier-compact .theme-options{position:fixed;top:calc(var(--app-header-height) + 6px);inset-inline-end:16px;}html .light-portfolio.luxury-portfolio.atelier-compact .header-preferences .language-trigger{width:108px;min-height:44px;gap:6px;padding-inline:9px;}html .light-portfolio.luxury-portfolio.atelier-compact .header-layout{gap:7px;}}
+@media(prefers-reduced-motion:reduce){html{transition:none!important;}.theme-options{animation:none!important;}}
+
+/* Theme changes repaint the token system once; the viewport snapshot blends on the compositor. */
+html[data-theme-transition=true]::view-transition-group(root){animation-duration:.32s;}
+html[data-theme-transition=true]::view-transition-old(root){animation:theme-out .32s ease both;mix-blend-mode:normal;}
+html[data-theme-transition=true]::view-transition-new(root){animation:theme-in .32s ease both;mix-blend-mode:normal;}
+html[data-theme-transition=true]::view-transition{pointer-events:none;}
+@keyframes theme-out{to{opacity:0;}}
+@keyframes theme-in{from{opacity:0;}to{opacity:1;}}
+@media(prefers-reduced-motion:reduce){::view-transition-old(root),::view-transition-new(root){animation:none!important;}}

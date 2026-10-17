@@ -1,0 +1,5 @@
+/* V2 Latin-only variable WOFF2. Sources, restricted axes and licenses in V2-SOURCES.md. */
+@font-face {font-family:'Instrument Sans';font-style:normal;font-weight:500 700;font-display:swap;src:url('/fonts/instrument-sans-v2.woff2') format('woff2');}
+@font-face {font-family:'Instrument Fallback';src:local('Arial');font-style:normal;font-weight:500 700;size-adjust:104.2785%;ascent-override:93.0201%;descent-override:23.9743%;line-gap-override:0%;}
+@font-face {font-family:'Geist Sans';font-style:normal;font-weight:400 600;font-display:swap;src:url('/fonts/geist-sans-v2.woff2') format('woff2');}
+@font-face {font-family:'Geist Fallback';src:local('Arial');font-style:normal;font-weight:400 600;size-adjust:104.2194%;ascent-override:96.4312%;descent-override:28.3057%;line-gap-override:0%;}

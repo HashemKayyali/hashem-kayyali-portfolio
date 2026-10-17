@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Financial Operations &amp; Accounting System — illustrative architecture</title>
+  <desc id="desc">An illustrative accounting flow: sales, expenses, partner movements, and inventory adjustments pass through a chart of accounts and balanced journal entries. General ledger, trial balance, and reconciliation support review. Controlled reversals create linked mirror entries and retain an audit trail. No real financial records are shown.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#1a060f"/>
+      <stop offset=".58" stop-color="#4d0d1c"/>
+      <stop offset="1" stop-color="#220810"/>
+    </linearGradient>
+    <radialGradient id="glow">
+      <stop stop-color="#c9879c" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#c9879c" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#ffffff" stop-opacity=".09"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity=".035"/>
+    </linearGradient>
+    <linearGradient id="core" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#ac536e" stop-opacity=".27"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity=".05"/>
+    </linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#e0b6c3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#background)"/>
+  <ellipse cx="820" cy="420" rx="800" ry="570" fill="url(#glow)"/>
+  <g fill="none" stroke="#ffffff" stroke-opacity=".045" stroke-width="1">
+    <path d="M0 240H1600M0 700H1600M0 960H1600M72 0V1000M1528 0V1000"/>
+    <path d="M0 0L1600 1000M0 1000L1600 0"/>
+  </g>
+  <g font-family="Inter, Arial, sans-serif">
+    <circle cx="102" cy="87" r="7" fill="#e2b2c0"/>
+    <text x="125" y="96" fill="#e2b2c0" font-size="26" font-weight="500" letter-spacing="2">SYSTEM ARCHITECTURE · ILLUSTRATIVE</text>
+    <text x="96" y="181" fill="#ffffff" font-size="60" font-weight="600" letter-spacing="-1.8">Financial operations &amp; accounting</text>
+    <text x="98" y="228" fill="#d9c4cb" font-size="29">From business movements to traceable financial records.</text>
+
+    <g stroke="#f6dce4" stroke-opacity=".24" stroke-width="2">
+      <rect x="96" y="312" width="382" height="344" rx="28" fill="url(#glass)"/>
+      <rect x="586" y="312" width="428" height="344" rx="28" fill="url(#core)" stroke-opacity=".45"/>
+      <rect x="1122" y="312" width="382" height="344" rx="28" fill="url(#glass)"/>
+    </g>
+    <g fill="#ffffff" font-size="35" font-weight="600">
+      <text x="130" y="375">Operations</text>
+      <text x="622" y="375">Accounting core</text>
+      <text x="1156" y="375" font-size="31">Review &amp; reporting</text>
+    </g>
+    <g stroke="#ffffff" stroke-opacity=".15" stroke-width="1.5">
+      <path d="M130 400H444M622 400H978M1156 400H1470"/>
+    </g>
+    <g fill="#f0e4e8" font-size="28">
+      <text x="130" y="460">Sales &amp; expenses</text>
+      <text x="130" y="527">Partner movements</text>
+      <text x="130" y="594">Inventory adjustments</text>
+      <text x="622" y="460">Chart of accounts</text>
+      <text x="622" y="519">Journal entries</text>
+      <text x="1156" y="460">General ledger</text>
+      <text x="1156" y="527">Trial balance</text>
+      <text x="1156" y="594">Reconciliation</text>
+    </g>
+    <rect x="622" y="550" width="356" height="69" rx="14" fill="#ffffff" fill-opacity=".075" stroke="#e2b2c0" stroke-opacity=".3"/>
+    <text x="800" y="595" text-anchor="middle" fill="#ffffff" font-size="29" font-weight="600">Debit = Credit</text>
+    <g fill="none" stroke="#e0b6c3" stroke-width="2.5" marker-end="url(#arrow)">
+      <path d="M478 484H574"/>
+      <path d="M1014 484H1110"/>
+      <path d="M800 656V717"/>
+    </g>
+    <g fill="#d9bcc7" font-size="23">
+      <text x="532" y="460" text-anchor="middle">post</text>
+      <text x="1068" y="460" text-anchor="middle">review</text>
+    </g>
+
+    <rect x="368" y="733" width="864" height="150" rx="28" fill="url(#glass)" stroke="#f6dce4" stroke-opacity=".24" stroke-width="2"/>
+    <path d="M1232 809H1400Q1432 809 1432 777V696Q1432 680 1416 680H1028Q1014 680 1000 656" fill="none" stroke="#e0b6c3" stroke-width="2.5" stroke-dasharray="7 8" marker-end="url(#arrow)"/>
+    <g fill="none" stroke="#e2b2c0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M412 784H443Q459 784 459 799V816M459 816L450 807M459 816L468 807"/>
+      <path d="M462 834H431Q415 834 415 819V803M415 803L406 812M415 803L424 812"/>
+    </g>
+    <text x="500" y="793" fill="#ffffff" font-size="34" font-weight="600">Controlled reversals</text>
+    <text x="500" y="843" fill="#e2cbd3" font-size="27">Linked mirror entries · references · audit trail</text>
+
+    <text x="96" y="949" fill="#d6bbc5" font-size="25">React / TypeScript</text>
+    <path d="M346 940H407" fill="none" stroke="#d6bbc5" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="427" y="949" fill="#d6bbc5" font-size="25">Supabase / PostgreSQL</text>
+    <text x="1504" y="949" text-anchor="end" fill="#d6bbc5" font-size="24">Conceptual flow · no business data</text>
+  </g>
+</svg>

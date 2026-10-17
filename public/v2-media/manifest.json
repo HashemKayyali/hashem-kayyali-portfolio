@@ -1,0 +1,498 @@
+[
+  {
+    "source": "public/projects/the-terminal-nfc/cover.webp",
+    "stem": "terminal-cover",
+    "classification": "actual interface, privacy redacted",
+    "purpose": "Account-linked sale in the genuine WPF POS",
+    "redactions": [
+      [
+        482,
+        187,
+        650,
+        217
+      ],
+      [
+        703,
+        187,
+        897,
+        217
+      ],
+      [
+        1510,
+        66,
+        1568,
+        91
+      ]
+    ],
+    "derivatives": [
+      {
+        "src": "/v2-media/terminal-cover-320.webp",
+        "width": 320,
+        "height": 200,
+        "bytes": 4424
+      },
+      {
+        "src": "/v2-media/terminal-cover-640.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 11416
+      },
+      {
+        "src": "/v2-media/terminal-cover-1280.webp",
+        "width": 1280,
+        "height": 801,
+        "bytes": 29298
+      },
+      {
+        "src": "/v2-media/terminal-cover-1586.webp",
+        "width": 1586,
+        "height": 992,
+        "bytes": 37750
+      }
+    ]
+  },
+  {
+    "source": "public/projects/the-terminal-nfc/screenshot-01.webp",
+    "stem": "terminal-invoices",
+    "classification": "actual interface, privacy redacted",
+    "purpose": "Existing central invoice workflow",
+    "redactions": [
+      [
+        553,
+        309,
+        716,
+        338
+      ],
+      [
+        553,
+        379,
+        716,
+        408
+      ],
+      [
+        553,
+        450,
+        716,
+        479
+      ],
+      [
+        553,
+        521,
+        716,
+        550
+      ],
+      [
+        553,
+        592,
+        716,
+        621
+      ],
+      [
+        553,
+        664,
+        716,
+        693
+      ],
+      [
+        855,
+        309,
+        997,
+        338
+      ],
+      [
+        855,
+        379,
+        997,
+        408
+      ],
+      [
+        855,
+        450,
+        997,
+        479
+      ],
+      [
+        855,
+        521,
+        997,
+        550
+      ],
+      [
+        855,
+        592,
+        997,
+        621
+      ],
+      [
+        855,
+        664,
+        997,
+        693
+      ]
+    ],
+    "derivatives": [
+      {
+        "src": "/v2-media/terminal-invoices-320.webp",
+        "width": 320,
+        "height": 200,
+        "bytes": 4130
+      },
+      {
+        "src": "/v2-media/terminal-invoices-640.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 9862
+      },
+      {
+        "src": "/v2-media/terminal-invoices-1280.webp",
+        "width": 1280,
+        "height": 801,
+        "bytes": 25974
+      },
+      {
+        "src": "/v2-media/terminal-invoices-1586.webp",
+        "width": 1586,
+        "height": 992,
+        "bytes": 34538
+      }
+    ]
+  },
+  {
+    "source": "public/projects/bike-tower/screenshot-01.webp",
+    "stem": "bike-interface-1",
+    "classification": "actual interface, privacy redacted",
+    "purpose": "Existing Flutter controller and competitive modes",
+    "redactions": [
+      [
+        200,
+        48,
+        362,
+        98
+      ]
+    ],
+    "derivatives": [
+      {
+        "src": "/v2-media/bike-interface-1-320.webp",
+        "width": 320,
+        "height": 180,
+        "bytes": 5282
+      },
+      {
+        "src": "/v2-media/bike-interface-1-640.webp",
+        "width": 640,
+        "height": 360,
+        "bytes": 12502
+      },
+      {
+        "src": "/v2-media/bike-interface-1-1280.webp",
+        "width": 1280,
+        "height": 720,
+        "bytes": 28322
+      },
+      {
+        "src": "/v2-media/bike-interface-1-1600.webp",
+        "width": 1600,
+        "height": 900,
+        "bytes": 38022
+      }
+    ]
+  },
+  {
+    "source": "public/projects/bike-tower/screenshot-02.webp",
+    "stem": "bike-interface-2",
+    "classification": "actual interface, privacy redacted",
+    "purpose": "Existing Flutter controller and competitive modes",
+    "redactions": [
+      [
+        200,
+        48,
+        362,
+        98
+      ]
+    ],
+    "derivatives": [
+      {
+        "src": "/v2-media/bike-interface-2-320.webp",
+        "width": 320,
+        "height": 180,
+        "bytes": 5354
+      },
+      {
+        "src": "/v2-media/bike-interface-2-640.webp",
+        "width": 640,
+        "height": 360,
+        "bytes": 12664
+      },
+      {
+        "src": "/v2-media/bike-interface-2-1280.webp",
+        "width": 1280,
+        "height": 720,
+        "bytes": 29042
+      },
+      {
+        "src": "/v2-media/bike-interface-2-1600.webp",
+        "width": 1600,
+        "height": 900,
+        "bytes": 38508
+      }
+    ]
+  },
+  {
+    "source": "public/projects/bike-tower/screenshot-03.webp",
+    "stem": "bike-interface-3",
+    "classification": "actual interface, privacy redacted",
+    "purpose": "Existing Flutter controller and competitive modes",
+    "redactions": [],
+    "derivatives": [
+      {
+        "src": "/v2-media/bike-interface-3-320.webp",
+        "width": 320,
+        "height": 180,
+        "bytes": 4672
+      },
+      {
+        "src": "/v2-media/bike-interface-3-640.webp",
+        "width": 640,
+        "height": 360,
+        "bytes": 11764
+      },
+      {
+        "src": "/v2-media/bike-interface-3-1280.webp",
+        "width": 1280,
+        "height": 720,
+        "bytes": 27480
+      },
+      {
+        "src": "/v2-media/bike-interface-3-1600.webp",
+        "width": 1600,
+        "height": 900,
+        "bytes": 35672
+      }
+    ]
+  },
+  {
+    "source": "public/projects/bike-tower/screenshot-04.webp",
+    "stem": "bike-interface-4",
+    "classification": "actual interface, privacy redacted",
+    "purpose": "Existing Flutter controller and competitive modes",
+    "redactions": [],
+    "derivatives": [
+      {
+        "src": "/v2-media/bike-interface-4-320.webp",
+        "width": 320,
+        "height": 180,
+        "bytes": 4084
+      },
+      {
+        "src": "/v2-media/bike-interface-4-640.webp",
+        "width": 640,
+        "height": 360,
+        "bytes": 9552
+      },
+      {
+        "src": "/v2-media/bike-interface-4-1280.webp",
+        "width": 1280,
+        "height": 720,
+        "bytes": 22438
+      },
+      {
+        "src": "/v2-media/bike-interface-4-1600.webp",
+        "width": 1600,
+        "height": 900,
+        "bytes": 29630
+      }
+    ]
+  },
+  {
+    "source": "preview/media-sources/bike-concept.png",
+    "stem": "bike-concept",
+    "classification": "AI-generated conceptual artwork via imagegen",
+    "purpose": "Symbolic physical input \u2192 coordinated light; not real hardware or installation",
+    "redactions": [],
+    "derivatives": [
+      {
+        "src": "/v2-media/bike-concept-320.webp",
+        "width": 320,
+        "height": 213,
+        "bytes": 8290
+      },
+      {
+        "src": "/v2-media/bike-concept-640.webp",
+        "width": 640,
+        "height": 427,
+        "bytes": 19692
+      },
+      {
+        "src": "/v2-media/bike-concept-1280.webp",
+        "width": 1280,
+        "height": 853,
+        "bytes": 47942
+      },
+      {
+        "src": "/v2-media/bike-concept-1536.webp",
+        "width": 1536,
+        "height": 1024,
+        "bytes": 61022
+      }
+    ]
+  },
+  {
+    "source": "preview/media-sources/eventies-concept.png",
+    "stem": "eventies-concept",
+    "classification": "AI-generated conceptual artwork via imagegen",
+    "purpose": "Conceptual event-service atmosphere; not a venue, client or commercial deployment",
+    "redactions": [],
+    "derivatives": [
+      {
+        "src": "/v2-media/eventies-concept-320.webp",
+        "width": 320,
+        "height": 213,
+        "bytes": 12322
+      },
+      {
+        "src": "/v2-media/eventies-concept-640.webp",
+        "width": 640,
+        "height": 427,
+        "bytes": 35988
+      },
+      {
+        "src": "/v2-media/eventies-concept-1280.webp",
+        "width": 1280,
+        "height": 853,
+        "bytes": 100506
+      },
+      {
+        "src": "/v2-media/eventies-concept-1536.webp",
+        "width": 1536,
+        "height": 1024,
+        "bytes": 131580
+      }
+    ]
+  },
+  {
+    "source": "public/projects/bike-tower/cover.webp",
+    "classification": "existing real project evidence",
+    "purpose": "Actual multiplayer cycling installation: bikes and LED structures",
+    "redactions": [],
+    "derivatives": [
+      {
+        "src": "/projects/bike-tower/cover.webp",
+        "width": 1331,
+        "height": 1000,
+        "bytes": 100244
+      }
+    ]
+  },
+  {
+    "source": "public/images/hashem-profile.webp",
+    "classification": "owner-provided portrait",
+    "purpose": "Owner-provided portrait; crop adjusted by CSS only",
+    "redactions": [],
+    "derivatives": [
+      {
+        "src": "/images/hashem-profile.webp",
+        "width": 720,
+        "height": 1280,
+        "bytes": 82653
+      }
+    ]
+  },
+  {
+    "source": "public/projects/eventies/cover.webp",
+    "classification": "existing real project evidence",
+    "purpose": "Authentic existing platform interface",
+    "redactions": [],
+    "derivatives": [
+      {
+        "src": "/projects/eventies/cover.webp",
+        "width": 1600,
+        "height": 1000,
+        "bytes": 91930
+      }
+    ]
+  },
+  {
+    "source": "public/projects/eventies/screenshot-01.webp",
+    "classification": "existing real project evidence",
+    "purpose": "Authentic existing platform interface",
+    "redactions": [],
+    "derivatives": [
+      {
+        "src": "/projects/eventies/screenshot-01.webp",
+        "width": 1920,
+        "height": 1200,
+        "bytes": 260736
+      }
+    ]
+  },
+  {
+    "source": "public/projects/eventies/screenshot-02.webp",
+    "classification": "existing real project evidence",
+    "purpose": "Authentic existing platform interface",
+    "redactions": [],
+    "derivatives": [
+      {
+        "src": "/projects/eventies/screenshot-02.webp",
+        "width": 1920,
+        "height": 1200,
+        "bytes": 134178
+      }
+    ]
+  },
+  {
+    "source": "public/projects/eventies/screenshot-03.webp",
+    "classification": "existing real project evidence",
+    "purpose": "Authentic existing platform interface",
+    "redactions": [],
+    "derivatives": [
+      {
+        "src": "/projects/eventies/screenshot-03.webp",
+        "width": 1920,
+        "height": 1200,
+        "bytes": 228824
+      }
+    ]
+  },
+  {
+    "source": "public/projects/eventies/screenshot-04.webp",
+    "classification": "existing real project evidence",
+    "purpose": "Authentic existing platform interface",
+    "redactions": [],
+    "derivatives": [
+      {
+        "src": "/projects/eventies/screenshot-04.webp",
+        "width": 1920,
+        "height": 1200,
+        "bytes": 113186
+      }
+    ]
+  },
+  {
+    "source": "preview/light-warp.ts",
+    "classification": "procedural decorative artwork, captured from the implemented renderer",
+    "purpose": "Static fallback for reduced-motion, constrained devices and missing WebGL",
+    "redactions": [],
+    "derivatives": [
+      {
+        "src": "/v2-media/fluid-still.webp",
+        "width": 384,
+        "height": 256,
+        "bytes": 7848
+      }
+    ]
+  },
+  {
+    "source": "preview/v1-warp-shader.ts",
+    "classification": "procedural decorative field, captured from the recovered original V1 GLSL",
+    "purpose": "Authentic editorial static fallback at time 4.2s, density 1; reduced-motion, constrained devices and unavailable WebGL",
+    "redactions": [],
+    "derivatives": [
+      {
+        "src": "/v2-media/v1-warp-still.webp",
+        "width": 512,
+        "height": 384,
+        "bytes": 30538
+      }
+    ]
+  }
+]

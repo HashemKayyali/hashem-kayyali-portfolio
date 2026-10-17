@@ -1,0 +1,39 @@
+/* Close identity grouping and a single-cover product deck. */
+html .light-portfolio.luxury-portfolio.atelier-compact .pulse-roles{margin-block:12px 5px;}
+html .light-portfolio.luxury-portfolio.atelier-compact .pulse-statement{margin-block-start:8px;}
+html .light-portfolio.luxury-portfolio.atelier-compact .pulse-scene-surface{border-radius:12px;box-shadow:0 14px 35px #0002;}
+html .light-portfolio.luxury-portfolio.atelier-compact .pulse-scene-top{border-block-end:1px solid #ffffff24;padding-block-end:14px;margin-block-end:22px;}
+html .light-portfolio.luxury-portfolio.atelier-compact .pulse-scene-top bdi{color:inherit;}
+html .light-portfolio.luxury-portfolio.atelier-compact .pulse-scene-grid{grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);gap:clamp(28px,4vw,80px);align-items:center;}
+html .light-portfolio.luxury-portfolio.atelier-compact .pulse-scene-media{justify-self:center;width:100%;}
+html .light-portfolio.luxury-portfolio.atelier-compact :is(.project-media-primary,.gallery-media-mask,.case-opening-visual .case-image-depth,.case-evidence .case-image-depth,.neighbor-visual) img{aspect-ratio:var(--media-ratio,auto)!important;}
+html .light-portfolio.luxury-portfolio.atelier-compact .pulse-scene-media .project-media-primary{--frame-height:clamp(270px,calc(270px + var(--wide-step)),390px);}
+html .light-portfolio.luxury-portfolio.atelier-compact .pulse-scene-copy>p{max-width:46ch;}
+html .light-portfolio.luxury-portfolio.atelier-compact .pulse-scene-copy ul{margin-block-end:18px;}
+html .light-portfolio.luxury-portfolio.atelier-compact .pulse-scene-bottom{border-block-start:1px solid #ffffff24;margin-block-start:22px;padding-block-start:12px;}
+html .light-portfolio.luxury-portfolio.atelier-compact :is(.pulse-scene--1,.pulse-scene--2) :is(.pulse-scene-top,.pulse-scene-bottom){border-color:color-mix(in srgb,var(--atelier-on-light) 18.824%,transparent);}
+html .light-portfolio.luxury-portfolio.atelier-compact .pulse-scenes{isolation:isolate;}
+html .light-portfolio.luxury-portfolio.atelier-compact .pulse-scenes[data-stack=active]{padding-block-end:0;}
+html .light-portfolio.luxury-portfolio.atelier-compact .pulse-scenes[data-stack=active]::after{content:'';display:block;height:var(--stack-tail,76px);}
+html .light-portfolio.luxury-portfolio.atelier-compact .pulse-scenes[data-stack=active] .pulse-scene{position:sticky;top:calc(var(--stack-top,86px) + var(--stack-order)*14px);z-index:calc(1 + var(--stack-order));margin-block-end:clamp(28px,5vh,50px);}
+html .light-portfolio.luxury-portfolio.atelier-compact .pulse-scene-marker{scroll-margin-top:96px;}
+/* The portrait no longer sets the spacing between the three identity lines. */
+@media(max-width:800px){
+ html .light-portfolio.luxury-portfolio.atelier-compact .pulse-opening{grid-template-rows:auto auto;row-gap:16px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact .pulse-identity{grid-column:1;grid-row:1;align-self:start;}
+ html .light-portfolio.luxury-portfolio.atelier-compact .pulse-identity>.pulse-kicker{margin-block-end:10px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact .pulse-roles{display:block;margin-block:0 5px;line-height:1.45;font-size:14px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact .pulse-roles span{display:block;}
+ html[lang=ar] .light-portfolio.luxury-portfolio.atelier-compact .pulse-roles{font-size:12px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact .pulse-name{margin:0;font-size:clamp(29px,7.6vw,43px);}
+ html .light-portfolio.luxury-portfolio.atelier-compact .pulse-statement{font-size:17px;line-height:1.5;margin-block:7px 0;max-width:none;}
+ html[lang=ar] .light-portfolio.luxury-portfolio.atelier-compact .pulse-statement{font-size:14px;line-height:1.7;}
+ html .light-portfolio.luxury-portfolio.atelier-compact .pulse-portrait{grid-row:1;align-self:start;margin-block-start:42px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact .pulse-actions{grid-row:2;margin:0;}
+ html .light-portfolio.luxury-portfolio.atelier-compact .pulse-scene-grid{grid-template-columns:1fr;gap:22px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact .pulse-scene-surface{padding:18px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact .pulse-scene-top{margin-block-end:18px;font-size:9px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact .pulse-scene-media .project-media-primary{--frame-height:250px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact .pulse-scene-bottom{font-size:9px;margin-block-start:18px;}
+}
+@media(prefers-reduced-motion:reduce){html .light-portfolio.luxury-portfolio.atelier-compact .pulse-scenes .pulse-scene{position:relative;top:auto;}}

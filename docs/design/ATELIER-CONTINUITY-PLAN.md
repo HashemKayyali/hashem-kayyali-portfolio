@@ -1,0 +1,9 @@
+# Stationary portrait and fixed hero correction —14 October2026
+
+User request: same hero height across the shown Home/About/Projects, inline Projects title, no visible portrait/smoke change between Home/About, smooth component navigation; preserve project image walking. Bug fix within accepted graphite/champagne/petrol, Almarai/Libre system; no new aesthetic direction or facts.
+
+Reproduction at1920 Arabic: Home737.49px, About576px, Projects595.20px and Glitzz detail731.60px. Home portrait345.6×641.49 versus About243.85×459.20. min-height let intrinsic content/photo dimensions enlarge openings; separate portrait components remounted inside the fading content stage. Projects h1 max-width15ch forced the break. Existing shared-image path remains outside scope.
+
+Correction: shared responsive exact-height tokens for all four openings and smoke, fixed header geometry; remove dynamic smoke-bound measurement. One always-mounted shared portrait outside the changing stage, with common Home/About reserved slots and fixed vertical position/frame. Home portrait parallax is explicitly superseded by the requested stationary image; keep cold text choreography, scroll stack and other successful GSAP. Home/About continuity changes copy only, with original cold Home entrance retained. Remove Projects title width constraint. Do not touch project-transit.ts, facts/assets/fonts/dependencies or V1.
+
+Verify1920/1440/390/320 EN/AR and other locales; actual stationary image/canvas identities and bounding boxes across sampled transition frames, exact hero heights, title line count, rapid navigation/header interruption/Back/filters/locale/reduced motion, all narrow case copy/cover bounds, shared-image path and cleanup, production trace and visual inspection. Recoverable checkpoint: output/checkpoints/design-intelligence-before-2026-10-14-122328.zip,733 files.

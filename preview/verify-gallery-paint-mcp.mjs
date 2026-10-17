@@ -1,0 +1,11 @@
+import {connect} from './mcp-client.mjs';import {writeFile} from 'node:fs/promises';
+const c=await connect('playwright');
+try {const r=await c.call('browser_run_code_unsafe',{code:`async(page)=>{
+const rows=[],errors=[];page.on('pageerror',e=>errors.push(e.message));
+for(const locale of ['en','ar','de','fr','es'])for(const width of [1440,390,320])for(const motion of ['no-preference','reduce']){
+await page.setViewportSize({width,height:width===1440?1000:844});await page.emulateMedia({reducedMotion:motion});await page.goto('http://127.0.0.1:4176/preview/'+locale+'/projects/');await page.locator('.project-exhibition').waitFor();await page.evaluate(()=>document.fonts.ready);await page.waitForTimeout(1100);
+const row=await page.evaluate(()=>{const h=document.querySelector('h1'),filter=document.querySelector('.gallery-wayfinding'),copy=document.querySelector('.gallery-intro-copy');return {width:innerWidth,locale:document.documentElement.lang,headingOverflow:h.scrollWidth>h.clientWidth+1,heading:h.textContent,filterZ:getComputedStyle(filter).zIndex,copyPaper:getComputedStyle(copy).backgroundColor,filters:[...document.querySelectorAll('[data-gallery-filter]')].map(e=>{const r=e.getBoundingClientRect();return {key:e.dataset.galleryFilter,width:r.width,left:r.left,right:r.right};}),overflow:document.documentElement.scrollWidth>innerWidth+1,triggers:window.__portfolioMotion().triggers};});
+if(row.headingOverflow||row.overflow||row.filterZ!=='1'||row.copyPaper!=='rgb(252, 250, 249)'||row.filters.length!==6||row.filters.some(f=>f.width<1||f.left<0||f.right>width)||row.triggers.some(t=>!t.connected)||motion==='reduce'&&row.triggers.length)throw Error(JSON.stringify(row));rows.push({...row,motion});
+if(motion==='no-preference'&&['de','fr','es'].includes(locale)&&width===320)await page.screenshot({path:'output/playwright/projects-upgrade/final-'+locale+'-320-opening.png'});
+}return {rows,errors};}`});await writeFile('output/playwright/projects-upgrade/paint-verification-mcp.json',JSON.stringify(r,null,2));if(r.isError)throw Error(JSON.stringify(r));console.log('PASS 30 final language/viewport/motion heading, filter paint and lifecycle layouts');
+}finally{await c.call('browser_close');c.close();}

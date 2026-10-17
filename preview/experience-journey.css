@@ -1,0 +1,92 @@
+/* Compact readable career timeline. Shared CompactHero owns the opening rhythm. */
+html .light-portfolio.luxury-portfolio.atelier-compact .experience-journey{padding-block:0 40px;}
+.experience-journey .journey-read-link{display:inline-flex;align-items:center;gap:16px;color:var(--burgundy);font-size:17px;min-height:44px;border-block-end:1px solid var(--line);}
+.experience-journey .journey-plane-stage{width:100%;max-width:510px;margin-inline:auto;perspective:1100px;}
+.experience-journey .journey-plane-depth{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:center;gap:26px 28px;transform-style:preserve-3d;}
+.experience-journey .journey-plane{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;min-width:0;min-height:140px;color:var(--muted);text-align:center;text-decoration:none;transform-origin:center;}
+.experience-journey .journey-plane:nth-child(even){translate:0 13px;}
+.experience-journey .journey-plane-media{display:grid;place-items:center;width:100%;height:100px;}
+.experience-journey .journey-plane-media img{display:block;width:auto;height:auto;max-width:155px;max-height:98px;object-fit:contain;}
+.experience-journey .journey-plane[data-company=independent] img{max-width:116px;max-height:110px;border-radius:3px;}
+.experience-journey .journey-plane-name{font-size:16px;line-height:1.3;max-width:22ch;overflow-wrap:anywhere;}
+.experience-journey .journey-plane:hover{color:var(--burgundy);}
+.experience-journey .journey-body{display:grid;grid-template-columns:minmax(0,2.3fr) minmax(240px,1fr);gap:40px;align-items:start;border-block-start:1px solid var(--line);padding-block-start:32px;max-width:1280px;}
+.experience-journey .journey-folios{list-style:none;padding:0;margin:0;min-width:0;}
+.experience-journey .journey-folio-arrival{position:relative;padding-inline-start:26px;padding-block-end:28px;}
+.experience-journey .journey-folio-arrival::before{content:'';position:absolute;inset-block:25px 0;inset-inline-start:5px;border-inline-start:1px solid var(--line);}
+.experience-journey .journey-folio-arrival:last-child{padding-block-end:0;}
+.experience-journey .journey-track-index{position:absolute;inset-inline-start:0;inset-block-start:4px;display:grid;justify-items:center;gap:9px;color:var(--burgundy);font-size:11px;}
+.experience-journey .journey-track-index i{width:4px;height:4px;border:1px solid var(--burgundy);border-radius:50%;background:var(--paper);}
+.experience-journey .journey-company-anchor{scroll-margin-block-start:calc(var(--app-header-height,76px) + 20px);min-width:0;}
+.experience-journey .journey-company-anchor:focus-visible{outline:2px solid var(--burgundy);outline-offset:6px;}
+.experience-journey .journey-company-header{display:flex;align-items:center;gap:16px;margin-block-end:16px;}
+.experience-journey .journey-company-image{display:grid;place-items:center;flex:none;width:48px;height:48px;}
+.experience-journey .journey-company-image img{width:100%;height:100%;object-fit:contain;}
+.experience-journey .journey-company-heading{min-width:0;}
+.experience-journey .journey-company-title{display:flex;align-items:baseline;flex-wrap:wrap;gap:6px 12px;}
+.experience-journey .journey-company-title h2{font-size:28px;line-height:1.2;font-weight:450;margin:0;overflow-wrap:anywhere;}
+.experience-journey .journey-current{font-size:13px;color:var(--burgundy);border-block-end:1px solid currentColor;}
+.experience-journey .journey-date{color:var(--muted);font-size:15px;line-height:1.5;margin:5px 0 0;font-variant-numeric:tabular-nums;}
+.experience-journey .journey-responsibilities{list-style:none;display:flex;flex-wrap:wrap;gap:4px 16px;padding:0;margin:0 0 13px;font-size:15px;color:var(--burgundy);line-height:1.5;}
+.experience-journey .journey-entry-context p{font-size:18px;line-height:1.6;color:var(--muted);margin:0 0 14px;}
+.experience-journey .journey-roles{list-style:none;padding:0;margin:0;display:grid;gap:12px;}
+.experience-journey .journey-role{--ink:var(--theme-panel-ink);--muted:var(--theme-panel-muted);--burgundy:var(--theme-panel-accent);padding:18px 20px;background:var(--theme-panel);color:var(--ink);border-radius:6px;min-width:0;}
+.experience-journey .journey-role-heading{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 16px;align-items:baseline;}
+.experience-journey .journey-role-heading h3{font-size:23px;font-weight:450;line-height:1.25;margin:0;overflow-wrap:anywhere;}
+.experience-journey .journey-role-heading .journey-date{font-size:14px;margin:0;}
+.experience-journey .journey-role-context{display:flex;flex-wrap:wrap;gap:3px 14px;font-size:15px;line-height:1.6;color:var(--muted);margin:8px 0 12px;}
+.experience-journey .journey-role-context>span+span::before{content:'·';margin-inline-end:10px;}
+.experience-journey .journey-role-points{display:grid;gap:8px;margin:0;padding-inline-start:18px;font-size:18px;line-height:1.55;overflow-wrap:anywhere;}
+.experience-journey .journey-role-points li::marker{color:var(--burgundy);font-size:.7em;}
+.experience-journey .journey-dossier{min-width:0;padding-block-start:3px;}
+.experience-journey .journey-dossier-block+.journey-dossier-block{border-block-start:1px solid var(--line);margin-block-start:23px;padding-block-start:23px;}
+.experience-journey .journey-dossier h2{font-size:24px;font-weight:450;line-height:1.25;margin:0 0 14px;}
+.experience-journey .journey-dossier p{font-size:17px;line-height:1.55;color:var(--muted);margin:9px 0 0;overflow-wrap:anywhere;}
+.experience-journey .journey-dossier .journey-degree{font-size:22px;line-height:1.3;color:var(--ink);}
+.experience-journey .journey-dossier .journey-date{font-size:15px;}
+.experience-journey .journey-dossier .journey-graduated{font-size:14px;color:var(--burgundy);}
+.experience-journey .journey-strengths ul{list-style:none;padding:0;margin:0;display:grid;gap:7px;}
+.experience-journey .journey-strengths li{font-size:17px;line-height:1.45;color:var(--muted);padding-inline-start:12px;border-inline-start:1px solid var(--line);overflow-wrap:anywhere;}
+.experience-journey .journey-downloads{display:grid;gap:7px;margin-block-start:16px;}
+.experience-journey .journey-downloads a{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:44px;padding:7px 11px;border:1px solid var(--line);border-radius:5px;font-size:16px;color:var(--ink);}
+.experience-journey .journey-downloads svg{flex:none;color:var(--burgundy);}
+.experience-journey :is(.journey-plane,.journey-read-link,.journey-downloads a):focus-visible{outline:2px solid var(--burgundy);outline-offset:4px;border-radius:3px;}
+html[lang=ar] .experience-journey :is(.journey-company-title h2,.journey-role-heading h3,.journey-dossier h2,.journey-degree){line-height:1.65;}
+html[lang=ar] .experience-journey :is(.journey-role-points,.journey-entry-context p){font-size:16px;line-height:1.9;}
+html[lang=ar] .experience-journey :is(.journey-plane-name,.journey-dossier p,.journey-strengths li,.journey-role-context){font-size:14px;line-height:1.85;}
+html[dir=rtl] .experience-journey .journey-read-link svg{scale:-1 1;}
+@media(max-width:1000px){
+ .experience-journey .journey-body{grid-template-columns:minmax(0,1fr);gap:30px;}
+ .experience-journey .journey-dossier{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;padding-block-start:24px;border-block-start:1px solid var(--line);}
+ .experience-journey .journey-dossier-block+.journey-dossier-block{padding:0;margin:0;border:0;}
+}
+@media(max-width:800px){
+ .experience-journey .journey-plane-stage{max-width:340px;}
+ .experience-journey .journey-plane-depth{grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;}
+ .experience-journey .journey-plane{gap:7px;min-height:94px;}
+ .experience-journey .journey-plane:nth-child(even){translate:0 0;}
+ .experience-journey .journey-plane-media{height:58px;}
+ .experience-journey .journey-plane-media img{max-width:100%;max-height:57px;}
+ .experience-journey .journey-plane[data-company=independent] img{max-width:58px;max-height:58px;}
+ .experience-journey .journey-plane-name{font-size:12px;line-height:1.35;}
+ html[lang=ar] .experience-journey .journey-plane-name{font-size:10px;line-height:1.8;}
+ .experience-journey .journey-body{padding-block-start:24px;}
+ .experience-journey .journey-company-title h2{font-size:25px;}
+ .experience-journey .journey-role-heading h3{font-size:22px;}
+ .experience-journey .journey-role{padding:16px;}
+ .experience-journey .journey-role-points{font-size:17px;line-height:1.6;}
+ .experience-journey .journey-dossier{grid-template-columns:repeat(2,minmax(0,1fr));}
+ .experience-journey .journey-dossier .journey-resume{grid-column:1/-1;border-block-start:1px solid var(--line);padding-block-start:22px;}
+ .experience-journey .journey-downloads{grid-template-columns:repeat(2,minmax(0,1fr));}
+}
+@media(max-width:480px){
+ .experience-journey .journey-folio-arrival{padding-inline-start:20px;padding-block-end:24px;}
+ .experience-journey .journey-company-header{gap:12px;}
+ .experience-journey .journey-company-image{width:40px;height:40px;}
+ .experience-journey .journey-role{padding:14px;}
+ .experience-journey .journey-role-heading h3{font-size:21px;}
+ .experience-journey .journey-role-context{font-size:14px;gap:3px 10px;}
+ .experience-journey .journey-dossier{grid-template-columns:1fr;gap:24px;}
+ .experience-journey .journey-dossier .journey-strengths{border-block-start:1px solid var(--line);padding-block-start:22px;}
+ .experience-journey .journey-downloads{grid-template-columns:1fr;}
+}

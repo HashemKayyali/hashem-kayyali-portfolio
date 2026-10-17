@@ -1,0 +1,9 @@
+# Shared Atelier hero and app shell —14 October2026
+
+Requested scope: Home-like smoke heroes for About/Projects/details, persistent single-page interface and preserved existing shared-image travel. Retain native deep URLs, five locales, factual content, evidence gallery and dense project sheet. Checkpoint before changes: output/checkpoints/design-intelligence-before-2026-10-14-013428.zip,727 files.
+
+Implementation: one persistent HomeSilk canvas in AppAtmosphere, measured against the current hero by owned ResizeObserver/child mutations. Home/About remove their route-local duplicate surfaces. Header, background and Footer survive component route changes. Keep the keyed content stage because the unchanged project-transit contract waits for a new settled stage; native history still changes the URL without document reloads. Do not change project-transit.ts or its motion path/timing.
+
+Common composition: laptop480px opening, two columns, Arabic physical mirror, full native-ratio portrait/cover, graphite/champagne/petrol smoke tapering at the midpoint and bottom. Projects gets an authentic three-cover composition with keyboard focus lifting an obscured layer; actual catalogue remains the existing eleven-card grid without selected studies. Mobile stacks content naturally and keeps hero images visible. Existing case metadata/evidence/privacy remain.
+
+Verification: persistent DOM identities across Home→About→Projects→detail→Back, one paint surface, worker frame count continuity, hidden atmosphere on unrelated routes, shared-image moving frames/constant box/endpoint/cleanup, no repeated title entrance, filters/Back/focus/locale/anchors/dialog/reduced preference, all cases and responsive widths, actual Chrome visual inspection, typecheck/build/existing tests and checkpoint hash audit.

@@ -1,0 +1,151 @@
+/* Atelier — luxury technical identity across V2, with route-specific composition. */
+:root{color-scheme:dark;}
+.light-portfolio.luxury-portfolio{--atelier-gutter:clamp(24px,2.4vw,48px);background:var(--paper);color:var(--ink);overflow-x:clip;}
+.light-portfolio.luxury-portfolio .container,.light-portfolio.luxury-portfolio .site-header .container{width:calc(100% - 2*var(--atelier-gutter));max-width:1800px;}
+.light-portfolio.luxury-portfolio .site-header{background:var(--paper);border-color:var(--line);}
+.light-portfolio.luxury-portfolio .header-layout{min-height:76px;gap:24px;padding-block:0;}
+.light-portfolio.luxury-portfolio .signature{color:var(--ink);}
+.light-portfolio.luxury-portfolio .signature::after{display:none;}
+.light-portfolio.luxury-portfolio .monogram span{color:var(--burgundy);}
+.light-portfolio.luxury-portfolio .site-header nav{order:0;margin-inline:0;gap:16px;width:auto;}
+.light-portfolio.luxury-portfolio .site-header nav a{color:var(--muted);font-size:13px!important;border-radius:2px;padding-inline:8px;}
+.light-portfolio.luxury-portfolio .site-header nav a[aria-current=page]{color:var(--burgundy);background:transparent;}
+.light-portfolio.luxury-portfolio .site-header nav a:hover,.light-portfolio.luxury-portfolio .site-header nav a:focus-visible{background:var(--surface-strong);color:var(--burgundy);}
+.light-portfolio.luxury-portfolio .site-header nav a::after{background:var(--burgundy);}
+.light-portfolio.luxury-portfolio .language-select{order:0;margin-inline-start:auto;color:var(--burgundy);}
+.light-portfolio.luxury-portfolio .language-select select{background:transparent;color:var(--ink);border-color:var(--line);border-radius:24px;width:132px;}
+.light-portfolio.luxury-portfolio .language-select select:hover{background:var(--surface);border-color:var(--burgundy);}
+.light-portfolio.luxury-portfolio .navigation-toggle{border:1px solid var(--line);color:var(--ink);border-radius:24px;background:transparent;}
+.light-portfolio.luxury-portfolio .navigation-toggle:hover,.light-portfolio.luxury-portfolio .navigation-toggle[aria-expanded=true]{background:var(--surface);}
+.light-portfolio.luxury-portfolio :is(a,button,select,input,textarea,summary):focus-visible{outline:2px solid var(--burgundy);outline-offset:5px;}
+.light-portfolio.luxury-portfolio :is(.button-primary,.skip-link){background:var(--burgundy);color:var(--atelier-on-light);}
+.light-portfolio.luxury-portfolio .button-primary:hover{background:var(--wine);}
+.luxury-portfolio ::selection{background:var(--burgundy);color:var(--atelier-on-light);}
+.light-portfolio.luxury-portfolio .motion-field:not(.app-atmosphere-paint){background:none;opacity:.14;}
+.light-portfolio.luxury-portfolio .compact-footer{background:var(--paper);color:var(--muted);border-color:var(--line);}
+.light-portfolio.luxury-portfolio .compact-footer a{color:var(--burgundy);}
+.light-portfolio.luxury-portfolio :is(.page-intro h1,.section-heading h1,.gallery-intro h1,.case-opening h1){font-weight:500;color:var(--ink);}
+.light-portfolio.luxury-portfolio :is(.section-heading,.page-intro,.gallery-intro){padding-block-start:46px;}
+.light-portfolio.luxury-portfolio .gallery-intro h1{font-size:clamp(44px,5.4vw,76px);}
+.light-portfolio.luxury-portfolio .profile-heading h1{font-size:clamp(42px,4.5vw,64px);}
+
+/* Preserve Product Signal's choreography; give the portrait a warm metal surround. */
+.light-portfolio.luxury-portfolio.homepage-redesign{--signal-paper:var(--paper);--signal-ink:var(--ink);--signal-blue:var(--burgundy);--signal-green:var(--atelier-petrol);--signal-coral:var(--atelier-champagne);--signal-line:var(--line);--signal-muted:var(--muted);}
+.light-portfolio.luxury-portfolio.homepage-redesign .pulse-primary{color:var(--atelier-on-light);}
+.light-portfolio.luxury-portfolio.homepage-redesign .pulse-primary::before{background:var(--wine);}
+.light-portfolio.luxury-portfolio.homepage-redesign .pulse-portrait-frame{border:1px solid var(--burgundy);}
+.light-portfolio.luxury-portfolio.homepage-redesign .pulse-portrait-plate{background:var(--atelier-champagne);}
+.light-portfolio.luxury-portfolio.homepage-redesign .pulse-portrait figcaption{color:var(--burgundy);}
+.light-portfolio.luxury-portfolio.homepage-redesign .pulse-fragment{background:var(--atelier-petrol);color:var(--ink);border:1px solid var(--line);box-shadow:0 16px 30px #0002;}
+.light-portfolio.luxury-portfolio.homepage-redesign .pulse-fragment--1{background:var(--atelier-light);color:var(--atelier-on-light);border-color:var(--atelier-light);}
+.light-portfolio.luxury-portfolio.homepage-redesign .pulse-signal-band{background:var(--atelier-petrol);}
+.light-portfolio.luxury-portfolio.homepage-redesign .pulse-scene-surface{background:var(--atelier-petrol);color:var(--ink);border:1px solid var(--line);border-radius:8px;}
+.light-portfolio.luxury-portfolio.homepage-redesign :is(.pulse-scene--1,.pulse-scene--2) .pulse-scene-surface{--ink:var(--atelier-on-light);--muted:var(--atelier-light-muted);background:var(--atelier-light);color:var(--atelier-on-light);border-color:var(--atelier-light);}
+.light-portfolio.luxury-portfolio.homepage-redesign .pulse-scene--2 .pulse-scene-surface{background:var(--panel-alt);}
+.light-portfolio.luxury-portfolio.homepage-redesign .pulse-media-corner{background:var(--atelier-light);color:var(--atelier-on-light);}
+.light-portfolio.luxury-portfolio.homepage-redesign :is(.pulse-scene--1,.pulse-scene--2) .pulse-media-depth img{background:var(--atelier-light);}
+.light-portfolio.luxury-portfolio.homepage-redesign .pulse-scene-detail figcaption{background:var(--atelier-on-light);color:var(--atelier-ivory);}
+.light-portfolio.luxury-portfolio.homepage-redesign .pulse-approach{background:var(--surface);color:var(--ink);border-block:1px solid var(--line);}
+.light-portfolio.luxury-portfolio.homepage-redesign :is(.pulse-approach-heading>.pulse-kicker,.pulse-focus-number){color:var(--burgundy);}
+.light-portfolio.luxury-portfolio.homepage-redesign .pulse-approach-heading>p{color:var(--muted);}
+.light-portfolio.luxury-portfolio.homepage-redesign .pulse-focus-line{background:var(--burgundy);}
+.light-portfolio.luxury-portfolio.homepage-redesign .pulse-contact{background:var(--atelier-champagne);color:var(--atelier-on-light);}
+.light-portfolio.luxury-portfolio.homepage-redesign .pulse-contact-arrow:hover{background:var(--atelier-light);}
+.light-portfolio.luxury-portfolio.homepage-redesign .pulse-contact-links{border-color:var(--atelier-light-accent);}
+.light-portfolio.luxury-portfolio.homepage-redesign :is(.pulse-scene--1,.pulse-scene--2,.pulse-fragment--1,.pulse-contact) :is(a,button):focus-visible{outline-color:var(--atelier-on-light);}
+.light-portfolio.luxury-portfolio.homepage-redesign .pulse-fragment--1:focus-visible{outline-color:var(--burgundy);}
+
+/* A dedicated personal portrait opening, separate from the reading chapters. */
+.light-portfolio.luxury-portfolio .profile-about{background:var(--paper);padding-block:0 70px;}
+.light-portfolio.luxury-portfolio .atelier-about-opening{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,.85fr);gap:80px;align-items:center;padding-block:46px 45px;margin-block-end:50px;}
+.light-portfolio.luxury-portfolio .atelier-about-copy{display:block;}
+.light-portfolio.luxury-portfolio .atelier-about-copy h1{margin-block:25px;}
+.light-portfolio.luxury-portfolio .atelier-about-copy>p{font-size:19px;line-height:1.8;color:var(--muted);max-width:57ch;}
+.light-portfolio.luxury-portfolio .atelier-person-meta{border-block-start:1px solid var(--line);margin-block-start:32px;padding-block-start:18px;color:var(--burgundy);font-size:14px;}
+.light-portfolio.luxury-portfolio .atelier-person-meta p{font-size:12px;line-height:1.8;color:var(--muted);margin-block-start:8px;}
+.light-portfolio.luxury-portfolio .atelier-profile-portrait{border:1px solid var(--frame-metal);background:var(--atelier-raised);padding:12px;margin:0;}
+.light-portfolio.luxury-portfolio .atelier-profile-portrait img{width:100%;height:360px;object-fit:cover;object-position:50% 35%;border-radius:64px 0 0 0;}
+.light-portfolio.luxury-portfolio .atelier-profile-portrait figcaption{display:flex;justify-content:space-between;gap:12px;padding-block-start:14px;font:11px/1.6 ui-monospace,Consolas,monospace;color:var(--burgundy);}
+.light-portfolio.luxury-portfolio .profile-chapter-heading h2{color:var(--ink);}
+.light-portfolio.luxury-portfolio .profile-reading{border-color:var(--line);}
+.light-portfolio.luxury-portfolio .profile-toolkit{padding:24px 28px;background:var(--surface);border:1px solid var(--line);border-radius:6px;}
+
+/* Career dossier: role chronology and contrasting academic/CV desk. */
+.light-portfolio.luxury-portfolio .profile-journey{padding-block:0 70px;}
+.light-portfolio.luxury-portfolio .profile-company{background:var(--surface);border:1px solid var(--line);border-inline-start:2px solid var(--burgundy);border-radius:6px;padding:28px 30px;margin-block-end:24px;}
+.light-portfolio.luxury-portfolio .profile-career-track{margin-inline-start:36px;padding-inline-start:52px;}
+.light-portfolio.luxury-portfolio .profile-company-marker{inset-inline-start:-119px;inline-size:72px;block-size:72px;background:var(--paper);}
+.light-portfolio.luxury-portfolio .profile-company-marker>img{inline-size:60px;block-size:60px;object-fit:contain;border-radius:0;}
+.light-portfolio.luxury-portfolio .profile-company:last-child{border:1px solid var(--line);border-inline-start:2px solid var(--burgundy);padding-block-end:28px;}
+.light-portfolio.luxury-portfolio .profile-education{background:var(--atelier-petrol);border:1px solid var(--line);border-block-start:2px solid var(--burgundy);border-radius:6px;}
+.light-portfolio.luxury-portfolio .profile-education .profile-graduated{color:var(--burgundy);}
+.light-portfolio.luxury-portfolio .profile-role-details summary{min-height:44px;}
+
+/* Skills: precise grouped evidence, with no invented proficiency meters. */
+.light-portfolio.luxury-portfolio .profile-skill-section{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:28px;margin-block-end:24px;}
+.light-portfolio.luxury-portfolio .profile-skill-list{gap:9px;}
+.light-portfolio.luxury-portfolio .profile-skill-list li{background:var(--paper);border:1px solid var(--line);border-radius:3px;padding:7px 11px;font-size:14px;}
+.light-portfolio.luxury-portfolio .skill-project-evidence{padding:20px 24px;background:var(--paper);border-inline-start:2px solid var(--burgundy);}
+.light-portfolio.luxury-portfolio .skill-category-nav a{padding-inline:14px;}
+.light-portfolio.luxury-portfolio .skill-category-nav a[aria-current=location]{background:var(--surface);color:var(--burgundy);}
+.light-portfolio.luxury-portfolio .skills-approach article{padding:24px;background:var(--atelier-petrol);border:1px solid var(--line);border-radius:6px;}
+
+/* Contact desk: accurate direct channels alongside a native draft form. */
+.light-portfolio.luxury-portfolio .contact-page-grid{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:32px;align-items:stretch;}
+.light-portfolio.luxury-portfolio .direct-contact{padding:30px;background:var(--atelier-petrol);border:1px solid var(--line);border-radius:6px;}
+.light-portfolio.luxury-portfolio .contact-form-region{padding:30px;background:var(--atelier-light);color:var(--atelier-on-light);border-radius:6px;--ink:var(--atelier-on-light);--muted:var(--atelier-light-muted);--burgundy:var(--atelier-light-accent);--line:var(--theme-field-border);--white:var(--field-paper);color-scheme:light;}
+.light-portfolio.luxury-portfolio .contact-form-region :is(h2,label){color:var(--atelier-on-light);}
+.light-portfolio.luxury-portfolio .contact-form :is(input,textarea){background:var(--field-paper);color:var(--atelier-on-light);border:1px solid var(--field-border);border-radius:3px;font-size:16px;}
+.light-portfolio.luxury-portfolio .contact-form-region .button-primary{background:var(--atelier-on-light);color:var(--atelier-ivory);}
+.light-portfolio.luxury-portfolio .contact-form-region :is(a,button,input,textarea):focus-visible{outline-color:var(--atelier-on-light);}
+.light-portfolio.luxury-portfolio .contact-form-region .button-text{color:var(--atelier-light-accent);}
+
+/* Genuine work: exhibition frames and technical case plates share the identity. */
+.light-portfolio.luxury-portfolio .gallery-filters button{background:transparent;border:1px solid var(--line);color:var(--muted);border-radius:3px;padding:11px 14px;min-width:48px;min-height:44px;gap:9px;font-size:12px;}
+.light-portfolio.luxury-portfolio .gallery-filters button .filter-count{font-size:11px;}
+.light-portfolio.luxury-portfolio .gallery-filters button[aria-pressed=true]{background:var(--burgundy);color:var(--atelier-on-light);border-color:var(--burgundy);}
+.light-portfolio.luxury-portfolio .gallery-filters button .filter-count{color:inherit;}
+.light-portfolio.luxury-portfolio .gallery-filters button:hover{border-color:var(--burgundy);color:var(--ink);background:var(--surface);}
+.light-portfolio.luxury-portfolio .gallery-filters button[aria-pressed=true]:hover{background:var(--wine);color:var(--atelier-on-light);}
+.light-portfolio.luxury-portfolio :is(.gallery-project-link,.lab-exhibit-link){background:var(--surface);border:1px solid var(--line);border-radius:7px;padding:24px;}
+.light-portfolio.luxury-portfolio :is(.gallery-media-mask,.case-image-depth){border-radius:4px;}
+.light-portfolio.luxury-portfolio .lab-exhibit-link{gap:40px;}
+.light-portfolio.luxury-portfolio :is(.gallery-image-action,.evidence-expand){background:var(--burgundy);color:var(--atelier-on-light);}
+.light-portfolio.luxury-portfolio .case-opening h1{color:var(--ink);}
+.light-portfolio.luxury-portfolio .case-opening-visual{background:var(--surface);border:1px solid var(--line);border-radius:7px;}
+.light-portfolio.luxury-portfolio .opening--landscape .case-opening-visual{margin-block-start:10px;}
+.light-portfolio.luxury-portfolio :is(.case-architecture,.case-evidence-button,.case-context-card){background:var(--surface);border:1px solid var(--line);border-radius:6px;}
+.light-portfolio.luxury-portfolio .case-chapter h2{color:var(--ink);}
+.light-portfolio.luxury-portfolio .case-opening-inset{background:var(--paper);border-color:var(--paper);}
+.light-portfolio.luxury-portfolio .case-image-viewer{color:var(--ink);background:color-mix(in srgb,var(--paper) 96%,transparent);}
+.light-portfolio.luxury-portfolio .case-image-viewer figcaption{color:var(--atelier-ivory);}
+html[dir=rtl] .luxury-portfolio .atelier-profile-portrait img{border-radius:0 64px 0 0;}
+@media(min-width:1800px){.light-portfolio.luxury-portfolio .atelier-profile-portrait img{height:440px;}.light-portfolio.luxury-portfolio .atelier-about-opening{gap:110px;}}
+@media(max-width:1100px){.light-portfolio.luxury-portfolio .atelier-about-opening{gap:35px;}.light-portfolio.luxury-portfolio .header-layout{gap:15px;}.light-portfolio.luxury-portfolio .gallery-filters{flex-wrap:wrap;}.light-portfolio.luxury-portfolio .lab-exhibit-link{gap:25px;}}
+@media(max-width:800px){
+ .light-portfolio.luxury-portfolio{--atelier-gutter:16px;}
+ .light-portfolio.luxury-portfolio .header-layout{min-height:66px;gap:8px;}
+ .light-portfolio.luxury-portfolio .language-select{order:1;}.light-portfolio.luxury-portfolio .language-select select{width:126px;}
+ .light-portfolio.luxury-portfolio .navigation-toggle{order:2;min-width:62px;padding:10px;}
+ .light-portfolio.luxury-portfolio .site-header nav{order:3;display:none;width:100%;margin:0;padding-block:10px;}
+ .light-portfolio.luxury-portfolio .site-header nav[data-open=true]{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));}
+ .light-portfolio.luxury-portfolio .site-header nav a{text-align:center;font-size:12px!important;}
+ .light-portfolio.luxury-portfolio :is(.page-intro,.profile-heading,.gallery-intro){padding-block-start:28px;}
+ .light-portfolio.luxury-portfolio .atelier-about-opening{grid-template-columns:1fr;gap:28px;padding-block:28px 30px;margin-block-end:35px;}
+ .light-portfolio.luxury-portfolio .atelier-about-copy h1{font-size:43px;margin-block:20px;}
+ .light-portfolio.luxury-portfolio .atelier-about-copy>p{font-size:16px;}
+ .light-portfolio.luxury-portfolio .atelier-profile-portrait{max-width:440px;width:100%;}
+ .light-portfolio.luxury-portfolio .atelier-profile-portrait img{height:310px;}
+ .light-portfolio.luxury-portfolio .profile-company{padding:22px 20px;}
+ .light-portfolio.luxury-portfolio .profile-career-track{margin-inline-start:28px;padding-inline-start:36px;}
+ .light-portfolio.luxury-portfolio .profile-company-marker{inset-inline-start:-86px;inline-size:56px;block-size:56px;}
+ .light-portfolio.luxury-portfolio .profile-company-marker>img{inline-size:48px;block-size:48px;}
+ .light-portfolio.luxury-portfolio .profile-skill-section{padding:22px 18px;}
+ .light-portfolio.luxury-portfolio .skill-project-evidence{padding:18px;}
+ .light-portfolio.luxury-portfolio .contact-page-grid{grid-template-columns:1fr;gap:25px;}
+ .light-portfolio.luxury-portfolio :is(.direct-contact,.contact-form-region){padding:24px 20px;}
+ .light-portfolio.luxury-portfolio :is(.gallery-project-link,.lab-exhibit-link){padding:16px;}
+ .light-portfolio.luxury-portfolio .gallery-intro h1{font-size:42px;}
+}
+@media(max-width:360px){.light-portfolio.luxury-portfolio .language-select select{width:112px;}}
+@media(prefers-reduced-motion:reduce){.light-portfolio.luxury-portfolio *,.light-portfolio.luxury-portfolio *::before,.light-portfolio.luxury-portfolio *::after{transition:none!important;}}

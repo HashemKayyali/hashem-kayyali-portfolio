@@ -1,0 +1,180 @@
+/* Approved compact scale. Imported after the historical presentation layers. */
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell{--compact-measure:1280px;--atelier-gutter:32px;}
+/* Smaller evidence cards and rails retain the authentic media and motion owners. */
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .pulse-scene-surface{padding:20px;min-height:0;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .pulse-scene-grid{gap:28px;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .pulse-scene-copy h3{font-size:clamp(28px,2.6vw,38px);line-height:1.15;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .pulse-scene-copy>p{font-size:18px;line-height:1.6;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .pulse-scene-copy li{font-size:13px;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .pulse-scene-media .project-media-primary{--frame-height:clamp(220px,20vw,280px);}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .pulse-scene-top{margin-block-end:16px;padding-block-end:10px;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .pulse-scene-bottom{margin-block-start:16px;padding-block-start:10px;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .toolbelt-header h2{font-size:16px;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .toolbelt-item{min-height:44px;font-size:15px;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .toolbelt-mark{width:32px;height:32px;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .toolbelt-mark img{width:26px;height:26px;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-career-entry{padding-inline:18px;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-career-rule{inset-inline-start:18px;width:calc(100% - 36px);}
+@media(max-width:800px){
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .pulse-scene-surface{padding:16px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .pulse-scene-grid{gap:18px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .pulse-scene-copy h3{font-size:28px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .pulse-scene-copy>p{font-size:17px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .pulse-scene-media .project-media-primary{--frame-height:200px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-career-entry{padding-inline:14px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-career-rule{inset-inline-start:14px;width:calc(100% - 28px);}
+}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell :is(.container,.vision-canvas,.site-header .container,.compact-footer):not(.case-opening *){max-width:var(--compact-measure);}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .case-opening{--atelier-gutter:clamp(20px,2.4vw,40px);}
+@media(min-width:1500px){html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .case-opening{--atelier-gutter:clamp(40px,2.5vw,72px);}}
+@media(max-width:800px){html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .case-opening{--atelier-gutter:16px;}}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .section-pad{padding-block:40px;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell :is(.pulse-primary,.pulse-case-link,.pulse-resume,.pulse-text-link,.button-primary,.button-text,.story-contact-action,.profile-resume a):not(.case-opening *){position:relative;min-height:44px;padding:7px 12px;gap:10px;font-size:16px;border-radius:8px;box-sizing:border-box;}
+/* Compact padding and inline arrows preserve the complete 44px hit surface. */
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell :is(.pulse-action-text,.pulse-case-link,.pulse-resume,.pulse-text-link)>svg,
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell :is(.button-primary,.button-text):not(.case-opening *)>span[aria-hidden=true],
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .profile-resume a>span{width:16px;height:16px;padding:3px;border-radius:5px;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .pulse-action-text{gap:10px;}
+/* These openings are independent of the protected detail-hero variables. */
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell :is(.pulse-opening,.atelier-about-opening){height:auto;min-height:416px;max-height:none;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);grid-template-rows:auto;gap:40px;padding-block:28px;align-items:center;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .app-home-hero{height:auto;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .app-portrait-slot{width:176px;height:352px;grid-column:2;grid-row:1;margin:0;align-self:center;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .shared-hero-portrait figcaption{padding-top:8px;font-size:9px;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .pulse-hero-copy{padding:0;gap:18px;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .pulse-name{font-size:clamp(44px,4.2vw,60px);line-height:1.07;max-width:none;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .pulse-name .pulse-line-mask{display:inline-block;margin-inline-end:0;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .pulse-roles{font-size:16px;margin:12px 0 8px;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .pulse-statement{font-size:19px;max-width:43ch;margin:10px 0 0;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .pulse-hero-foot{height:auto;min-height:48px;padding-block:4px;align-items:center;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .atelier-about-opening{margin-block:0 28px;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .atelier-about-copy h1{font-size:clamp(36px,3.5vw,52px);}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .atelier-about-copy>p{font-size:19px;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .profile-about{padding-top:0;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell :is(.pulse-work,.story-method,.story-career){padding-block:40px 32px;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell :is(.pulse-work-heading h2,.story-heading h2){font-size:clamp(28px,2.7vw,38px);line-height:1.2;max-width:none;margin-top:10px;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-heading{gap:24px;margin-bottom:24px;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-heading>p{font-size:18px;line-height:1.6;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-method-layout{grid-template-columns:minmax(0,1fr) minmax(0,.85fr);gap:40px;align-items:start;padding-bottom:28px;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-chapter{min-height:224px;padding:24px 0 32px;gap:16px;grid-template-columns:30px minmax(0,1fr);}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-step-number{width:30px;height:30px;font-size:10px;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-spine{inset-inline-start:14px;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-chapter h3{font-size:27px;line-height:1.25;margin:9px 0;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-chapter p{font-size:18px;line-height:1.6;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-visual,
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .home-story[data-story-motion=static] .story-visual{position:sticky;top:calc(var(--app-header-height) + 24px);margin:24px 0 0;order:0;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-board{padding:16px;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-evidence,
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .home-story[data-story-motion=static] .story-evidence{height:268px;display:block;margin:14px 0;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-sheet{position:absolute;inset:0;padding:12px;gap:9px;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-sheet:not(:first-child){visibility:hidden;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-sheet-top{font-size:17px;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-sheet-image :is(picture,img),
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .home-story[data-story-motion=static] .story-sheet-image :is(picture,img){max-height:176px;max-width:100%;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-career-list{display:grid;grid-auto-rows:1fr;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-career-entry{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr) minmax(130px,.55fr);grid-template-rows:auto;min-height:112px;padding:18px;gap:20px;align-items:center;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-career-company{display:grid;grid-template-columns:44px minmax(0,1fr);gap:12px;grid-column:1;grid-row:1;align-items:center;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-career-company>div{grid-column:2;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-career-number{display:inline-block;font-size:9px;line-height:1;margin-bottom:5px;padding:0;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-career-logo{width:44px;height:44px;border-radius:8px;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-career-logo img{width:38px;height:38px;border-radius:4px;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-career-company h3{font-size:21px;line-height:1.25;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-career-role{grid-column:2;grid-row:1;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-career-role h4{font-size:18px;line-height:1.4;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-career-entry p{font-size:14px;line-height:1.5;margin:5px 0 0;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-career-period{grid-column:3;grid-row:1;font-size:15px;line-height:1.5;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-career-rule{inset-inline-start:18px;width:calc(100% - 36px);}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-contact-layout{padding-block:24px;gap:24px;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-contact h2{font-size:clamp(38px,4.6vw,64px);line-height:1.15;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell :is(.story-contact-prompt,.story-contact-intro){font-size:18px;line-height:1.6;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-correspondence{gap:20px;flex-wrap:wrap;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-correspondence a{font-size:16px;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-correspondence .story-email{font-size:22px;}
+html[lang=ar] .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .pulse-name{font-size:43px;line-height:1.45;}
+html[lang=ar] .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell :is(.pulse-roles,.pulse-statement,.atelier-about-copy>p,.story-chapter p,.story-heading>p){font-size:17px;line-height:1.85;}
+html[lang=ar] .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell :is(.story-heading h2,.atelier-about-copy h1){font-size:30px;line-height:1.5;}
+html[lang=ar] .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-chapter h3{font-size:23px;line-height:1.6;}
+html[lang=ar] .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-career-company h3{font-size:19px;line-height:1.65;}
+html[lang=ar] .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-career-role h4{font-size:17px;line-height:1.8;}
+@media(max-width:800px){
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell{--atelier-gutter:16px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .section-pad{padding-block:28px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell :is(.pulse-opening,.atelier-about-opening){grid-template-columns:minmax(0,1fr);grid-template-rows:auto;min-height:0;height:auto;max-height:none;gap:10px;padding-block:24px 20px;justify-items:center;text-align:center;align-content:start;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell :is(.pulse-hero-copy,.pulse-identity,.atelier-about-copy){display:contents;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell :is(.pulse-identity>.pulse-kicker,.atelier-about-copy>.index){grid-column:1;grid-row:1;font-size:11px;margin:0;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .app-portrait-slot{grid-column:1;grid-row:2;width:90px;height:155px;margin:4px 0 0;align-self:start;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .shared-hero-portrait figcaption{display:none;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .pulse-roles{grid-column:1;grid-row:3;margin:4px 0 0;font-size:14px;line-height:1.4;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .pulse-name{grid-column:1;grid-row:4;font-size:clamp(28px,8vw,40px);max-width:100%;width:100%;margin:0;line-height:1.15;justify-content:center;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .pulse-statement{grid-column:1;grid-row:5;font-size:17px;line-height:1.55;margin:0;max-width:42ch;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .pulse-actions{grid-column:1;grid-row:6;display:flex;justify-content:center;flex-wrap:nowrap;gap:8px;margin:3px 0 0;max-width:100%;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .pulse-home .pulse-actions :is(.pulse-primary,.pulse-resume){font-size:13px;padding:7px 9px;min-height:44px;gap:6px;text-align:start;white-space:nowrap;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .pulse-action-text{gap:6px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .pulse-hero-foot{min-height:44px;font-size:9px;gap:10px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .pulse-hero-foot a{font-size:11px;gap:7px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .atelier-about-copy h1{grid-column:1;grid-row:3;font-size:32px;margin:6px 0 0;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .atelier-about-copy>p{grid-column:1;grid-row:4;font-size:17px;line-height:1.6;margin:0;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .atelier-about-copy .atelier-person-meta{grid-column:1;grid-row:5;margin:3px 0 0;padding-top:9px;width:100%;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .atelier-person-meta p{font-size:12px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .profile-about{padding-top:0;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell :is(.pulse-work,.story-method,.story-career){padding-block:28px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell :is(.pulse-work-heading h2,.story-heading h2){font-size:27px;line-height:1.25;white-space:normal;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-heading{grid-template-columns:1fr;gap:12px;margin-bottom:20px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-heading>p{font-size:17px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-method-layout{grid-template-columns:minmax(0,1fr) minmax(96px,32%);gap:14px;padding-bottom:28px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-chapter{grid-template-columns:minmax(0,1fr);min-height:180px;padding:14px 0 28px;gap:8px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell :is(.story-chapter p,.story-spine){display:none;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-step-number{width:24px;height:24px;font-size:9px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-step-label{font-size:12px;line-height:1.5;gap:6px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-step-label svg{width:15px;height:15px;flex-shrink:0;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-chapter h3{font-size:22px;line-height:1.3;margin:7px 0 0;overflow-wrap:anywhere;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-visual{margin-top:14px;top:calc(var(--app-header-height) + 24px);}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-board{padding:0;border:0;background:transparent;box-shadow:none;overflow:visible;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell :is(.story-board-heading,.story-board-footer,.story-board-meter,.story-sheet-top,.story-sheet figcaption){display:none;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-evidence,
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .home-story[data-story-motion=static] .story-evidence{height:auto;aspect-ratio:3/4;max-height:calc(100svh - var(--app-header-height) - 64px);margin:0;display:block;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-sheet{padding:0;border:0;box-shadow:none;background:transparent;display:grid;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-sheet-image :is(picture,img),
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .home-story[data-story-motion=static] .story-sheet-image :is(picture,img){max-height:calc(100svh - var(--app-header-height) - 72px);width:100%;height:auto;padding:2px;object-fit:contain;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-method-foot{align-items:start;gap:12px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-method-foot>span{font-size:13px;line-height:1.6;max-width:48%;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-career .story-heading{grid-template-columns:minmax(0,1fr);gap:12px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-career-entry{grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto auto;min-height:174px;padding:16px 14px;gap:8px;align-content:center;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-career-rule{inset-inline-start:14px;width:calc(100% - 28px);}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-career-company{grid-column:1;grid-row:1;grid-template-columns:38px minmax(0,1fr);gap:10px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-career-logo{width:38px;height:38px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-career-logo img{width:32px;height:32px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-career-company h3{font-size:19px;line-height:1.3;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-career-number{margin-bottom:4px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-career-role{grid-column:1;grid-row:2;padding-inline-start:48px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-career-role h4{font-size:16px;line-height:1.4;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-career-entry p{font-size:12px;line-height:1.5;margin-top:3px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-career-period{grid-column:1;grid-row:3;text-align:start;font-size:13px;padding-inline-start:48px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-contact-layout{grid-template-columns:1fr;gap:20px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-contact h2{font-size:36px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell :is(.story-contact-prompt,.story-contact-intro){font-size:17px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-correspondence{gap:8px 16px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-correspondence .story-email{width:100%;font-size:19px;}
+ html[lang=ar] .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .pulse-name{font-size:30px;line-height:1.45;}
+ html[lang=ar] .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .pulse-roles{font-size:12px;line-height:1.7;}
+ html[lang=ar] .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell :is(.pulse-statement,.atelier-about-copy>p,.story-heading>p){font-size:16px;line-height:1.85;}
+ html[lang=ar] .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-chapter h3{font-size:20px;line-height:1.65;}
+ html[lang=ar] .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-career-company h3{font-size:18px;}
+ html[lang=ar] .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-career-role h4{font-size:15px;}
+}
+@media(min-width:801px) and (max-height:649px){
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell :is(.story-board-heading,.story-board-footer){display:none;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-board{padding:10px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-evidence,html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .home-story[data-story-motion=static] .story-evidence{height:clamp(120px,38vh,220px);margin:0 0 10px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-sheet-image :is(picture,img){max-height:clamp(64px,20vh,120px);}
+}
+@media(max-width:380px){
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .site-header .header-layout{flex-wrap:nowrap;gap:6px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .site-header .language-trigger{min-width:94px;width:94px;padding-inline:6px;font-size:13px;gap:4px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .site-header .navigation-toggle{min-width:58px;min-height:44px;height:44px;padding:6px;gap:5px;font-size:12px;}
+}
+@media(max-width:480px){
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .experience-journey .journey-plane-stage{max-width:270px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .experience-journey .journey-plane-depth{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 18px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .experience-journey .journey-plane-name{font-size:12px;line-height:1.35;}
+ html[lang=ar] .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .experience-journey .journey-plane-name{font-size:11px;line-height:1.65;}
+}

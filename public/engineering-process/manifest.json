@@ -1,0 +1,62 @@
+{
+  "kind": "Temporary generated conceptual process illustrations; not project evidence",
+  "tool": "image_gen built-in",
+  "originals": [
+    {
+      "file": "originals/01-context.png",
+      "sha256": "689d1c869ff6eead4edf191f69ac094e914113e20477cd64ba19c038665208f9"
+    },
+    {
+      "file": "originals/02-system.png",
+      "sha256": "a09ebf9f343f9b55f3a4d0b275cc0f2ce01a1bc5c7c99f2e4db753e6dd2e813e"
+    },
+    {
+      "file": "originals/03-iteration.png",
+      "sha256": "8f3bc11439aa243926c98a8ba4c3980739f2aa00e5ffe20f49c2c9f620f2b749"
+    }
+  ],
+  "delivery": [
+    {
+      "file": "01-context.webp",
+      "width": 1280,
+      "height": 853,
+      "bytes": 63506,
+      "sha256": "3535018694e6e6a597c46ae2347a8b487556b8bc78810e138871fc4fb5c906b7"
+    },
+    {
+      "file": "01-context-640.webp",
+      "width": 640,
+      "height": 427,
+      "bytes": 22812,
+      "sha256": "cea4021d402c0007feda2083598770036799f547a297e229f74bd602d4b93ed1"
+    },
+    {
+      "file": "02-system.webp",
+      "width": 1280,
+      "height": 853,
+      "bytes": 63444,
+      "sha256": "ab1b692c57137076ba87d08df9e3df26773d837b6aa6784ff097c43bfdc06441"
+    },
+    {
+      "file": "02-system-640.webp",
+      "width": 640,
+      "height": 427,
+      "bytes": 21510,
+      "sha256": "1c3087288ebc7c1fc707667af7951ce9c38e68d3332e159103f89679b23bb197"
+    },
+    {
+      "file": "03-iteration.webp",
+      "width": 1280,
+      "height": 853,
+      "bytes": 79574,
+      "sha256": "4bcf70d2e8a324ef57faf35ce1d830b72613e57b67957583f267e9924d90d598"
+    },
+    {
+      "file": "03-iteration-640.webp",
+      "width": 640,
+      "height": 427,
+      "bytes": 26986,
+      "sha256": "d236c694a01b309fe92ebdcc1011c88fbc307d9832d93af368930a3fad3b5a60"
+    }
+  ]
+}

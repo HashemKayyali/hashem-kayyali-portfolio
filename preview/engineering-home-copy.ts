@@ -1,0 +1,11 @@
+import type {Locale} from '../content/types';
+
+type HomeCopy={edition:string;choices:[string,string,string];work:string;selected:string;approach:string;profile:string;conversation:string;readCase:string;software:string;hardware:string;product:string};
+/** Presentation labels only; professional claims remain in the source dictionaries. */
+export const engineeringHomeCopy:Record<Locale,HomeCopy>={
+ en:{edition:'Portfolio / Product engineering',choices:['Connected products','Software platforms','Operational systems'],work:'Selected work',selected:'A closer look at the work.',approach:'Engineering approach',profile:'The engineer behind the work',conversation:'Let’s talk.',readCase:'Explore project',software:'Software',hardware:'Hardware',product:'Product'},
+ ar:{edition:'ملف أعمال / هندسة المنتجات',choices:['منتجات متصلة','منصات برمجية','أنظمة تشغيلية'],work:'أعمال مختارة',selected:'نظرة أقرب إلى المشاريع.',approach:'النهج الهندسي',profile:'المهندس وراء هذه المشاريع',conversation:'لنتحدث.',readCase:'استكشف المشروع',software:'برمجيات',hardware:'أجهزة',product:'منتجات'},
+ de:{edition:'Portfolio / Produktentwicklung',choices:['Vernetzte Produkte','Softwareplattformen','Betriebliche Systeme'],work:'Ausgewählte Arbeiten',selected:'Ein näherer Blick auf die Arbeit.',approach:'Engineering-Ansatz',profile:'Der Ingenieur hinter der Arbeit',conversation:'Sprechen wir.',readCase:'Projekt entdecken',software:'Software',hardware:'Hardware',product:'Produkt'},
+ fr:{edition:'Portfolio / Ingénierie produit',choices:['Produits connectés','Plateformes logicielles','Systèmes opérationnels'],work:'Travaux sélectionnés',selected:'Les projets, de plus près.',approach:'Approche d’ingénierie',profile:'L’ingénieur derrière les projets',conversation:'Parlons-en.',readCase:'Explorer le projet',software:'Logiciels',hardware:'Matériel',product:'Produit'},
+ es:{edition:'Portafolio / Ingeniería de producto',choices:['Productos conectados','Plataformas de software','Sistemas de gestión'],work:'Trabajos seleccionados',selected:'Los proyectos, de cerca.',approach:'Enfoque de ingeniería',profile:'El ingeniero detrás del trabajo',conversation:'Hablemos.',readCase:'Explorar proyecto',software:'Software',hardware:'Hardware',product:'Producto'},
+};

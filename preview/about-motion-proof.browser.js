@@ -1,0 +1,9 @@
+async page=>{
+ await page.setViewportSize({width:1440,height:900});await page.goto('http://127.0.0.1:4176/preview/en/about/');await page.locator('.dossier-folios').waitFor();await page.evaluate(()=>document.fonts.ready);await page.waitForTimeout(550);
+ await page.evaluate(()=>{window.__aboutMotion={run:true,samples:[]};const tick=t=>{const s=window.__aboutMotion;s.samples.push({t,text:getComputedStyle(document.querySelector('.dossier-folio p')).transform,signal:getComputedStyle(document.querySelector('.dossier-signal-line')).transform,rule:getComputedStyle(document.querySelector('.dossier-folio-rule')).transform});if(s.run)requestAnimationFrame(tick)};requestAnimationFrame(tick)});
+ await page.mouse.wheel(0,400);await page.waitForTimeout(150);await page.mouse.wheel(0,160);await page.waitForTimeout(900);
+ const scroll=await page.evaluate(()=>{const s=window.__aboutMotion;s.run=false;const intervals=s.samples.slice(1).map((f,i)=>f.t-s.samples[i].t).sort((a,b)=>a-b);return {paragraphStates:new Set(s.samples.map(f=>f.text)).size,signalStates:new Set(s.samples.map(f=>f.signal)).size,ruleStates:new Set(s.samples.map(f=>f.rule)).size,rafP95:intervals[Math.floor(intervals.length*.95)],rafMax:intervals.at(-1)}});
+ if(scroll.paragraphStates<8||scroll.signalStates<8||scroll.ruleStates<8)throw Error('About scroll choreography '+JSON.stringify(scroll));
+ await page.locator('.dossier-tool summary').last().click();await page.waitForTimeout(60);await page.setViewportSize({width:390,height:844});await page.waitForTimeout(350);
+ const resize=await page.locator('.dossier-tool').last().evaluate(e=>({open:e.open,panel:e.querySelector('.dossier-tool-panel').getBoundingClientRect().height,style:e.querySelector('.dossier-tool-panel').getAttribute('style'),inert:e.querySelector('.dossier-tool-panel').inert}));if(!resize.open||resize.panel<20||resize.inert||resize.style)throw Error('Resize disclosure '+JSON.stringify(resize));return {passed:true,scroll,resize};
+}

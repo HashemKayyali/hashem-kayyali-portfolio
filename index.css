@@ -1,0 +1,5241 @@
+:root {
+  /* Display face. Overrides the frozen Tailwind build's --font-heading
+     (Manrope), which index.css is loaded after. Body copy stays Inter. */
+  --font-heading: 'Roboto Slab', Georgia, 'Times New Roman', serif;
+  color-scheme: light;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  --burgundy: #4d0d1c;
+  --burgundy-deep: #540e21;
+  --silver: #adadad;
+  --white: #ffffff;
+}
+
+* { box-sizing: border-box; }
+/* The fixed warp only covers the layout viewport. iOS exposes the canvas
+   outside it — rubber-band overscroll, and the area around the layout
+   viewport while pinch-zoomed — so the canvas itself has to be Burgundy,
+   never the white default. overscroll-behavior removes the bounce on top. */
+html {
+  scroll-behavior: smooth;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+  background: var(--burgundy);
+  overscroll-behavior-y: none;
+}
+
+/* Lenis sets the scroll position itself, one frame at a time. Leaving the
+   browser's own smooth scrolling on would make it interpolate towards each of
+   those frames in turn, so the two ease against each other and the page feels
+   heavy. Only applies while Lenis is actually mounted — with reduced motion it
+   never is, and the native smooth scroll above stays in charge. */
+html.lenis,
+html.lenis body {
+  scroll-behavior: auto;
+}
+
+/* Lenis' own requirements for the scroll root and for opted-out scrollers. */
+html.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+[data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+body {
+  margin: 0;
+  min-width: 320px;
+  width: 100%;
+  max-width: 100%;
+  background: var(--burgundy);
+  color: var(--burgundy);
+  font-family: Inter, sans-serif;
+  overflow-x: clip;
+}
+button, a, input, textarea { font: inherit; }
+img { display: block; max-width: 100%; }
+::selection { background: var(--burgundy); color: white; }
+
+::-webkit-scrollbar { width: 9px; }
+::-webkit-scrollbar-track { background: #ffffff; }
+::-webkit-scrollbar-thumb { background: var(--burgundy); border: 2px solid #ffffff; border-radius: 999px; }
+
+/* Desktop sidebar: dark frosted Burgundy. It always sits over the animated
+   environment, so it takes the dark material and light type. */
+.glass-panel {
+  background: var(--glass-dark-solid);
+  border: 1px solid var(--glass-dark-border);
+  box-shadow: var(--glass-dark-shadow);
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .glass-panel {
+    -webkit-backdrop-filter: blur(var(--glass-dark-blur)) saturate(var(--glass-saturate));
+    backdrop-filter: blur(var(--glass-dark-blur)) saturate(var(--glass-saturate));
+    background: var(--glass-dark);
+  }
+}
+
+/* Edge light: thin highlight that reads as glass thickness. */
+.glass-panel::before {
+  content: '';
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  border-radius: inherit;
+  border-top: 1px solid var(--glass-dark-edge);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  pointer-events: none;
+}
+
+/* Type tone for the dark sidebar material (desktop only; the drawer keeps the
+   neutral frost and its Burgundy type). */
+.glass-panel .sidebar-surface {
+  color: #ffffff;
+}
+
+.glass-panel .sidebar-surface p {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.glass-panel .sidebar-surface div.rounded-full {
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.glass-panel .sidebar-surface a[aria-label] {
+  border-color: rgba(255, 255, 255, 0.26);
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.glass-panel .sidebar-surface a[aria-label]:hover {
+  border-color: #ffffff;
+  background: #ffffff;
+  color: var(--burgundy);
+}
+
+.glass-panel nav button {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.glass-panel nav button:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+
+/* The active item carries the animated Burgundy surface: keep it full white. */
+.glass-panel nav button:has(canvas) {
+  color: #ffffff;
+}
+
+/* Drawer close button — only rendered below the sidebar breakpoint. */
+.glass-panel .sidebar-surface button[aria-label='Close navigation'] {
+  border-color: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+.custom-scrollbar { scrollbar-width: thin; scrollbar-color: var(--burgundy) transparent; }
+.focus-ring:focus-visible,
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid rgba(77, 13, 28, 0.35);
+  outline-offset: 4px;
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Responsive scaling without changing the visual language */
+html {
+  font-size: clamp(14px, 0.18vw + 11.5px, 16px);
+}
+
+section {
+  min-width: 0;
+}
+
+@media (max-width: 767px) {
+  html {
+    font-size: 15px;
+  }
+
+  .glass-panel {
+    box-shadow: 0 18px 48px rgba(38, 2, 12, 0.2);
+  }
+}
+
+@media (min-width: 1280px) and (max-height: 820px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 1536px) and (min-height: 960px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+/* Pinned to the LARGE viewport, the one measured with browser chrome
+   retracted, so retracting it while scrolling cannot change this box. A plain
+   fixed inset:0 tracks the dynamic viewport on iOS and Android, and the
+   background visibly rescaled on every scroll because of it. */
+.global-warp {
+  height: 100vh;
+  height: 100lvh;
+}
+
+/* --------------------------------------------------------------------------
+   Opt-in animated surfaces. A record carrying a warpRamp renders its own
+   frame in that palette instead of sharing the burgundy field, so these two
+   layers exist only where one is set.
+
+   Styled here rather than through the component's utility classes: the frozen
+   Tailwind build has no opacity-0, transition-opacity, or bg-[#300510], so
+   those would be silent no-ops.
+   -------------------------------------------------------------------------- */
+.project-card__warp,
+.section-sticky__warp,
+.about__story-warp {
+  z-index: -1;
+  border-radius: inherit;
+  background: #1a060f;
+}
+
+.project-card__warp .burgundy-warp-canvas,
+.section-sticky__warp .burgundy-warp-canvas,
+.about__story-warp .burgundy-warp-canvas,
+.capability__warp .burgundy-warp-canvas,
+.contact__warp .burgundy-warp-canvas {
+  opacity: 0;
+  transition: opacity 300ms var(--motion-ease);
+}
+
+/* The header is a rounded floating card, so its warp has to be clipped to that
+   silhouette. Its ::before edge light sits at z-index 2 and stays on top. */
+.section-sticky--glass:has(.section-sticky__warp) {
+  overflow: hidden;
+}
+
+/* The story sheet is rounded and does not clip, so its field needs the same
+   treatment the cards get. */
+.about__story:has(.about__story-warp) {
+  isolation: isolate;
+  overflow: hidden;
+}
+
+/* Card warp canvases copy the single shared WebGL surface only while near the viewport. */
+.burgundy-warp-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+/* Skip layout/paint work for sections until they approach the viewport. */
+.content-section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
+}
+
+/* A section hosting sticky controls must never be size-contained: containment
+   collapses the section box while its content keeps its real height, so the
+   sticky containing block goes stale and the controls escape into the next
+   section instead of releasing with their own. */
+.content-section--sticky {
+  content-visibility: visible;
+  contain-intrinsic-size: auto;
+}
+
+/* Cards deliberately opt OUT of content-visibility: size containment fixed their
+   height to the intrinsic estimate and clipped the real content. The section-level
+   containment above already provides the paint savings. */
+
+
+/* ==========================================================================
+   SITE FOOTER — the closing chrome panel.
+
+   No field of its own. The footer is the same floating liquid-glass card as the
+   sidebar and the pinned section headers — it takes that material by joining
+   their selector list rather than restating it — so the page ends on the chrome
+   it was navigated by instead of on a fourth kind of surface. The animated
+   Burgundy it used to paint is simply the page showing through the glass.
+
+   Three bands inside one card: who, where to go, how to reach. Then a base rule
+   carrying copyright and the way back up.
+   ========================================================================== */
+.site-footer {
+  padding: 0 clamp(0.75rem, 2vw, 1rem) clamp(0.75rem, 2vw, 1rem);
+  color: #ffffff;
+}
+
+.site-footer__card {
+  border-radius: clamp(1.15rem, 2vw, 1.6rem);
+  padding: clamp(1.1rem, 2.5vw, 1.9rem) clamp(1rem, 2.5vw, 2rem) clamp(0.85rem, 1.5vw, 1.1rem);
+}
+
+.site-footer__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.4rem;
+}
+
+@media (min-width: 700px) {
+  .site-footer__grid {
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.85fr) minmax(0, 1fr);
+    gap: clamp(1.5rem, 4vw, 3.25rem);
+    align-items: start;
+  }
+}
+
+.footer-heading {
+  margin: 0 0 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* --------------------------------------------------------------------------
+   Identity: the same face the sidebar leads with, so the page closes on the
+   person rather than on a slogan.
+   -------------------------------------------------------------------------- */
+.footer-identity__head {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.footer-identity__avatar {
+  display: block;
+  overflow: hidden;
+  width: 2.9rem;
+  height: 2.9rem;
+  flex: none;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 20px rgba(6, 0, 3, 0.42);
+}
+
+.footer-identity__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 22%;
+}
+
+.footer-identity__name {
+  margin: 0;
+  color: #ffffff;
+  font-family: var(--font-heading);
+  font-size: 1.02rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.footer-identity__role {
+  margin: 0.2rem 0 0;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  line-height: 1.35;
+  text-transform: uppercase;
+}
+
+.footer-identity__status {
+  margin: 0.85rem 0 0;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.footer-socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.9rem;
+}
+
+.footer-socials a {
+  display: grid;
+  width: 2.4rem;
+  height: 2.4rem;
+  min-width: 40px;
+  min-height: 40px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.07);
+  color: #ffffff;
+  transition:
+    transform 200ms var(--motion-ease),
+    background 200ms ease,
+    color 200ms ease,
+    border-color 200ms ease;
+}
+
+@media (hover: hover) {
+  .footer-socials a:hover {
+    transform: translateY(-2px);
+    border-color: #ffffff;
+    background: #ffffff;
+    color: #14040b;
+  }
+}
+
+.footer-socials a:active {
+  transform: translateY(1px);
+}
+
+/* --------------------------------------------------------------------------
+   Navigate: two columns at every width. Six links in a single stack ran the
+   card half again as tall as its other two columns and left the identity
+   block sitting in a hole of its own whitespace.
+   -------------------------------------------------------------------------- */
+.footer-nav__links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.15rem 1rem;
+}
+
+.footer-nav__links a {
+  display: flex;
+  min-height: 32px;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.84rem;
+  font-weight: 650;
+  text-decoration: none;
+  transition: color 180ms ease, transform 180ms var(--motion-ease);
+}
+
+@media (hover: hover) {
+  .footer-nav__links a:hover {
+    color: #ffffff;
+    transform: translateX(3px);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Reach: the three details worth repeating at the very bottom, as real links.
+   -------------------------------------------------------------------------- */
+.footer-reach__row {
+  display: flex;
+  min-height: 32px;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 0.82rem;
+  font-weight: 600;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+  text-decoration: none;
+  transition: color 180ms ease;
+}
+
+.footer-reach__row svg {
+  flex: none;
+  color: rgba(255, 255, 255, 0.6);
+  transition: color 180ms ease;
+}
+
+.footer-reach__row--static {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+@media (hover: hover) {
+  a.footer-reach__row:hover,
+  a.footer-reach__row:hover svg {
+    color: #ffffff;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Base rule
+   -------------------------------------------------------------------------- */
+.site-footer__base {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1.5rem;
+  margin-top: clamp(1.1rem, 2.5vw, 1.6rem);
+  padding-top: 0.9rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+  color: rgba(255, 255, 255, 0.64);
+  font-size: 0.72rem;
+  line-height: 1.5;
+}
+
+.site-footer__base p {
+  margin: 0;
+}
+
+.site-footer__top {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  margin-inline-start: auto;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.07);
+  color: #ffffff;
+  transition:
+    transform 200ms var(--motion-ease),
+    background 200ms ease,
+    color 200ms ease;
+}
+
+@media (hover: hover) {
+  .site-footer__top:hover {
+    transform: translateY(-3px);
+    background: #ffffff;
+    color: #14040b;
+  }
+}
+
+.site-footer__top:active {
+  transform: translateY(1px);
+}
+
+/* The global focus ring is Burgundy at 35%, written for the white sections.
+   Nothing in this footer is white. */
+.site-footer a:focus-visible {
+  outline-color: rgba(255, 255, 255, 0.9);
+}
+
+@media (max-width: 699px) {
+  .site-footer__base {
+    gap: 0.4rem 1rem;
+  }
+}
+
+
+
+
+#root {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+.content-section > div,
+.content-section .grid {
+  min-width: 0;
+  max-width: 100%;
+}
+
+@media (max-width: 767px) {
+  .content-section {
+    content-visibility: visible;
+    contain-intrinsic-size: auto;
+  }
+}
+
+
+/* ==========================================================================
+   Intentional layering. Project cards stay below navigation, which stays
+   below the drawer, which stays below the project modal (z-[1000]).
+   ========================================================================== */
+:root {
+  --mobile-nav-height: 4.25rem;
+  /* Top of the sticky column: below the mobile navbar, flush on desktop. */
+  --sticky-top-base: var(--mobile-nav-height);
+  /* Gap a pinned card leaves under the sticky section controls. */
+  --stack-gap: 0.9rem;
+  --z-section-controls: 40;
+  --z-mobile-nav: 60;
+  --z-drawer-backdrop: 70;
+  --z-drawer: 80;
+}
+
+/* The desktop layout navigates from the sidebar, so there is no top bar to
+   dock under. The pinned header takes the sidebar's own inset instead of the
+   window edge — `top-4` on the rail, 1rem here — so the two float at one
+   height and read as the same layer over the page. Everything that stacks
+   below a pinned header derives its offset from this, so the whole column
+   moves with it. */
+@media (min-width: 1280px) {
+  :root {
+    --sticky-top-base: 1rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Section controls that stay visible while the section body scrolls.
+   Bounded by the section's own content box, so they release with the section.
+   -------------------------------------------------------------------------- */
+.section-sticky {
+  position: sticky;
+  z-index: var(--z-section-controls);
+  top: var(--sticky-top-base);
+  padding-top: var(--stack-gap);
+  background: #ffffff;
+}
+
+/* White-to-transparent fade: invisible at rest, softens cards passing under. */
+/* Zero-cost marker at the header's resting position. SectionWrapper observes it
+   to know when the header is pinned; it must not affect layout. */
+.section-sticky__sentinel {
+  height: 1px;
+  margin-bottom: -1px;
+  pointer-events: none;
+}
+
+/* A pinned header casts a real shadow instead of sitting on a painted band.
+   Earlier attempts used a full-width gradient strip, which ended in hard
+   vertical edges where it met the background and read as a rendering artefact
+   rather than depth.
+
+   A box-shadow follows the card's rounded silhouette for free, and one
+   declaration covers both directions: the ambient layer (no offset, positive
+   spread) darkens the strip above the card left by its float gap under the
+   navbar, and the directional layer darkens content sliding beneath it.
+
+   It also never becomes the card's own backdrop, which matters: the card's
+   backdrop-filter samples whatever is painted behind it, so an overlay there
+   would flatten the glass into an opaque panel and kill the Burgundy
+   transmission.
+
+   Only the pinned state carries it, so nothing is darkened while the header is
+   not actually covering anything. Every sticky section header inherits this. */
+.section-sticky {
+  transition: box-shadow 220ms ease;
+}
+
+.section-sticky--pinned {
+  box-shadow:
+    0 0 18px 7px rgba(38, 2, 12, 0.16),
+    0 18px 34px -12px rgba(38, 2, 12, 0.34);
+}
+
+.section-sticky__heading {
+  max-width: 48rem;
+  margin-bottom: 1.1rem;
+}
+
+@media (min-width: 900px) {
+  .section-sticky__heading {
+    margin-bottom: 1.5rem;
+  }
+}
+
+.portfolio-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.1rem;
+}
+
+/* Below the desktop split the six filters ride one scrollable rail. Wrapping
+   them cost three rows; this costs one. The mask tells the reader there is
+   more to the right without spending a row on a scrollbar. */
+@media (max-width: 899px) {
+  .portfolio-filters {
+    flex-wrap: nowrap;
+    gap: 0.35rem;
+    /* Aligned with the heading, not bled to the card edge. The negative margins
+       pulled the rail 12px outside the card's padding, so the All chip sat on
+       the border while the text above it started 12px further in. */
+    margin-top: 0.7rem;
+    margin-bottom: 0;
+    padding-inline-end: 0.25rem;
+    overflow-x: auto;
+    /* Horizontal only. Without this a swipe that is a few degrees off axis is
+       handed to the page instead of the rail, so dragging the filters scrolled
+       the section up and down under the finger. */
+    touch-action: pan-x;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+    /* Fades on the right only. The rail rests at scroll 0, so a left fade had
+       nothing to hide and instead ate the first 12.8px of the All chip, which
+       sits flush against that edge. */
+    -webkit-mask-image: linear-gradient(
+      to right,
+      #000 calc(100% - 1.6rem),
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to right,
+      #000 calc(100% - 1.6rem),
+      transparent 100%
+    );
+    -ms-overflow-style: none;
+  }
+
+  .portfolio-filters::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Compact phone treatment. The sticky controls sit under the mobile navbar,
+   so every row they save is a row of project card the user actually sees.
+   -------------------------------------------------------------------------- */
+@media (max-width: 639px) {
+  .section-sticky {
+    padding-top: 0.55rem;
+  }
+
+  .section-sticky__heading {
+    margin-bottom: 0.7rem;
+  }
+
+  .section-sticky__heading h2 {
+    font-size: 1.45rem;
+    line-height: 1.15;
+  }
+
+  /* Accent underline: supports the title instead of costing a whole row. */
+  .section-sticky__heading > div {
+    width: 2.75rem;
+    height: 3px;
+    margin-top: 0.5rem;
+  }
+
+  .section-sticky__heading p {
+    margin-top: 0.5rem;
+    font-size: 0.82rem;
+    line-height: 1.45;
+  }
+
+  /* Chips tightened enough to wrap into two rows without shrinking the tap
+     target below ~31px. */
+  .portfolio-filters {
+    gap: 0.35rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .portfolio-filters button {
+    padding: 0.38rem 0.62rem;
+    font-size: 0.72rem;
+  }
+}
+
+/* Short phones only: the subtitle is the one control that can go, and it is
+   what stands between the user and a whole project card. Taller phones
+   (812px and up) keep it. */
+@media (max-width: 639px) and (max-height: 779px) {
+  .section-sticky__heading p {
+    display: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Mobile / tablet top navigation bar (below the desktop sidebar breakpoint).
+   -------------------------------------------------------------------------- */
+.mobile-nav {
+  position: sticky;
+  z-index: var(--z-mobile-nav);
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  height: var(--mobile-nav-height);
+  padding: 0 clamp(0.9rem, 3vw, 1.5rem);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(48, 7, 22, 0.94);
+  backdrop-filter: blur(8.5px);
+  box-shadow: 0 12px 30px rgba(12, 0, 5, 0.28);
+}
+
+@media (min-width: 1280px) {
+  .mobile-nav {
+    display: none;
+  }
+}
+
+/* Holds its space so opening the drawer never shifts the page. */
+.mobile-nav--inert {
+  visibility: hidden;
+}
+
+.mobile-nav__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  min-width: 0;
+}
+
+.mobile-nav__avatar {
+  flex: none;
+  width: 2.35rem;
+  height: 2.35rem;
+  overflow: hidden;
+  border: 2px solid var(--burgundy);
+  border-radius: 999px;
+  background: #f7f2f4;
+}
+
+.mobile-nav__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mobile-nav__text {
+  min-width: 0;
+}
+
+.mobile-nav__name {
+  margin: 0;
+  overflow: hidden;
+  color: var(--burgundy);
+  font-family: var(--font-heading);
+  font-size: 0.92rem;
+  font-weight: 800;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mobile-nav__role {
+  display: block;
+  margin-top: 0.12rem;
+  overflow: hidden;
+  color: rgba(77, 13, 28, 0.55);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  line-height: 1.3;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* Language and the drawer trigger travel together on the end edge, spaced
+   far enough apart that neither is hit by accident. */
+.mobile-nav__actions {
+  display: flex;
+  flex: none;
+  /* Full bar height, so the language panel inside can hang off the bar's own
+     bottom edge; the controls themselves stay centred within it. */
+  align-self: stretch;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.mobile-nav__menu {
+  display: grid;
+  flex: none;
+  width: 2.6rem;
+  height: 2.6rem;
+  place-items: center;
+  padding: 0;
+  border: 1px solid rgba(77, 13, 28, 0.16);
+  border-radius: 0.85rem;
+  background: #ffffff;
+  color: var(--burgundy);
+  cursor: pointer;
+  transition: background 180ms ease, color 180ms ease, border-color 180ms ease,
+    transform 120ms var(--motion-ease);
+}
+
+.mobile-nav__menu:hover {
+  border-color: var(--burgundy);
+  background: var(--burgundy);
+  color: #ffffff;
+}
+
+@media (max-width: 359px) {
+  .mobile-nav__role {
+    display: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Sticky project stack: each card pins, the next one rises over it.
+   -------------------------------------------------------------------------- */
+.project-index {
+  margin: 0 0 1.4rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 1rem;
+  background: rgba(35, 5, 16, 0.7);
+}
+
+.project-index summary { cursor: pointer; font-weight: 700; }
+.project-index summary span { color: rgba(255, 255, 255, 0.65); }
+.project-index ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  gap: 0.5rem;
+  padding: 0;
+  margin: 0.8rem 0 0;
+  list-style: none;
+}
+.project-index button {
+  display: grid;
+  gap: 0.3rem;
+  width: 100%;
+  height: 100%;
+  padding: 0.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 0.6rem;
+  background: rgba(255, 255, 255, 0.04);
+  color: #ffffff;
+  text-align: start;
+  font-weight: 600;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+}
+.project-index small { color: rgba(255, 255, 255, 0.65); font-weight: 400; }
+.project-index button:hover { background: rgba(255, 255, 255, 0.12); }
+.project-index button:focus-visible,
+.project-index summary:focus-visible { outline: 2px solid #ffffff; outline-offset: 3px; }
+.project-detail__media-caption { color: rgba(255, 255, 255, 0.7); font-size: 0.75rem; margin: 0.6rem 0; line-height: 1.5; }
+
+.project-stack {
+  position: relative;
+  min-width: 0;
+  /* Filtering adds/removes cards; browser scroll anchoring would fight the
+     deliberate scroll correction that keeps the filters on screen. */
+  overflow-anchor: none;
+}
+
+/* Pins below the sticky section controls, whose real height is published by
+   SectionWrapper as --section-controls-height. */
+.project-stack__item {
+  position: sticky;
+  top: calc(var(--sticky-top-base) + var(--section-controls-height, 0px) + var(--stack-gap));
+  width: min(100%, 58.5rem);
+  min-width: 0;
+  /* The gap is the scroll distance between one card pinning and the next
+     covering it, so a wider gap also slows the stacking and lets each card be
+     read on its own before the next arrives. */
+  margin: 0 auto clamp(3rem, 7vw, 6rem);
+}
+
+.project-stack__item:last-child {
+  margin-bottom: 0;
+}
+
+/* Scaled separately from the sticky element so stickiness is never affected. */
+.project-stack__inner {
+  transform-origin: center center;
+  will-change: transform;
+}
+
+/* --------------------------------------------------------------------------
+   Project card: image left, content right, one cohesive surface.
+   -------------------------------------------------------------------------- */
+/* The card sits on the animated Burgundy environment now, so it needs a
+   surface of its own — a transparent card would read as a hole in the page.
+   Glass for the material, neumorphic inner lighting for the volume: a lit top
+   edge, a shaded bottom edge, and a soft outer depth shadow. */
+.project-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: 1px solid var(--glass-prism-border);
+  border-radius: 20px;
+  background: var(--glass-prism-solid);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.26),
+    inset 0 -1px 0 rgba(12, 0, 5, 0.4),
+    0 18px 40px rgba(12, 0, 5, 0.34);
+  transition: border-color 300ms ease, box-shadow 300ms ease, transform 300ms ease;
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .project-card {
+    -webkit-backdrop-filter: blur(var(--glass-prism-blur)) saturate(var(--glass-saturate));
+    backdrop-filter: blur(var(--glass-prism-blur)) saturate(var(--glass-saturate));
+    background: var(--glass-prism);
+  }
+}
+
+@media (hover: hover) {
+  .project-card:hover {
+    border-color: rgba(255, 255, 255, 0.42);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.34),
+      inset 0 -1px 0 rgba(12, 0, 5, 0.4),
+      0 26px 56px rgba(12, 0, 5, 0.44);
+  }
+}
+
+/* Inner hairline highlight keeps the edge crisp without a second border. */
+.project-card::after {
+  content: '';
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.project-card__button {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: stretch;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+
+.project-card__button:focus-visible {
+  border-radius: 19px;
+  outline: 3px solid rgba(255, 255, 255, 0.85);
+  outline-offset: -5px;
+}
+
+/* The media BOX keeps every card the same height — the sticky stack measures
+   one card and assumes the rest match. 16/10 is the modal ratio of the actual
+   covers (six of ten), so most fill it exactly and the rest lose nothing. */
+.project-card__media {
+  position: relative;
+  grid-row: 1;
+  grid-column: 1;
+  /* Centres the cover if the body column ever makes the row taller, so the
+     blurred fill takes the slack evenly instead of all of it below. */
+  display: grid;
+  align-content: center;
+  overflow: hidden;
+  min-width: 0;
+  aspect-ratio: 16 / 10;
+  background: #1a060f;
+}
+
+/* Whole cover, never cropped.
+
+   IN FLOW on purpose. When every child was absolutely positioned the box had
+   no content height, leaving aspect-ratio as the only thing that could size
+   it - and WebKit does not resolve aspect-ratio for a grid item in that state.
+   On iOS the media row collapsed to 0 and the covers vanished entirely in
+   portrait, while in landscape the row fell back to the body's height and the
+   contained image shrank inside a box that was no longer 16/10. A replaced
+   element carrying its own ratio sizes reliably in every engine. */
+.project-card__media-main {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  min-width: 0;
+  max-width: none;
+  aspect-ratio: 16 / 10;
+  object-fit: contain;
+  object-position: center;
+  transition: transform 600ms ease;
+}
+
+/* Fills whatever `contain` leaves over, so the box never shows dead bars.
+   Scaled past the edges because a blur samples transparent pixels outside its
+   own bounds and would otherwise fade at the rim. */
+.project-card__media-fill {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  max-width: none;
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1.18);
+  filter: blur(18px) saturate(1.25) brightness(0.42);
+  opacity: 0.85;
+}
+
+@media (hover: hover) {
+  .project-card:hover .project-card__media-main {
+    transform: scale(1.025);
+  }
+}
+
+.project-card__body {
+  position: relative;
+  isolation: isolate;
+  grid-row: 2;
+  grid-column: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  padding: clamp(1.15rem, 2.1vw, 1.7rem);
+  color: #ffffff;
+}
+
+/* Hairline divider at the media/content boundary, fading out at both ends. */
+.project-card__body::after {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 255, 255, 0.1) 18%,
+    rgba(255, 255, 255, 0.16) 50%,
+    rgba(255, 255, 255, 0.1) 82%,
+    transparent
+  );
+  pointer-events: none;
+}
+
+.project-card__eyebrow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.project-card__category {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.3rem 0.66rem;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.07);
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.project-card__count {
+  flex: none;
+  color: rgba(255, 255, 255, 0.42);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.project-card__title {
+  margin: 0.8rem 0 0;
+  font-family: Inter, sans-serif;
+  font-size: clamp(1.15rem, 1.7vw, 1.5rem);
+  font-weight: 850;
+  line-height: 1.18;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+
+/* Role held on the project: supporting metadata sitting between the title and
+   the description. Deliberately quieter than both — smaller than the body copy
+   and set in the label colour — so it identifies the relationship to the
+   product without competing with the product's name. It wraps rather than
+   truncating, because the German and Spanish forms are appreciably longer. */
+.project-card__role {
+  margin: 0.35rem 0 0;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: max(11px, 0.7rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.4;
+}
+
+.project-card__description {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  overflow: hidden;
+  margin: 0.5rem 0 0;
+  color: rgba(255, 255, 255, 0.74);
+  font-size: 0.85rem;
+  font-weight: 500;
+  line-height: 1.62;
+}
+
+/* A card carrying a role line gives up the third clamped line of description,
+   so the role costs no height.
+
+   This matters beyond tidiness: `Portfolio.tsx` measures the first card to
+   derive the step for the whole sticky stack, and the role line had made that
+   card the tallest in the set — every later card would then pin against a step
+   ~20px too large, drifting further with each one. The description was already
+   truncating at three lines, and the untruncated text is the modal's first
+   paragraph. */
+.project-card__body:has(.project-card__role) .project-card__description {
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+}
+
+/* Understated, not pills: technology reads as a quiet supporting line. */
+.project-card__tech {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.55rem;
+  margin-top: 0.9rem;
+  color: rgba(255, 255, 255, 0.52);
+  font-size: 0.72rem;
+  font-weight: 650;
+}
+
+.project-card__tech span + span::before {
+  content: '\00b7';
+  margin-inline-end: 0.55rem;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.project-card__footer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.project-card__status {
+  min-width: 0;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.72rem;
+  font-weight: 650;
+  line-height: 1.5;
+}
+
+.project-card__cta {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.project-card__cta svg {
+  transition: transform 250ms ease;
+}
+
+.project-card:hover .project-card__cta svg {
+  transform: translate(2px, -2px);
+}
+
+/* Scroll-linked dim for the card sitting behind the one rising over it. */
+.project-card__stack-dim {
+  position: absolute;
+  z-index: 4;
+  inset: 0;
+  background: #0b0206;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   Cover beside the copy from 768px up, the same single breakpoint the case
+   study sheet uses, so one number governs both. Below it the cover stacks
+   above the copy.
+
+   A landscape phone crosses 768px and gets the split too. That is the better
+   outcome anyway: stacked, the card is 693px tall on a 430px-tall screen and
+   never fits, while the split card is 352px and fits whole.
+   -------------------------------------------------------------------------- */
+@media (min-width: 768px) {
+  /* minmax(0, …) is load-bearing. A bare fr track keeps a min-content floor,
+     so a card with a longer title or status line widened its own text column
+     and stole width from the cover. Measured at 1180px, card 1 rendered a
+     422px cover and card 2 a 490px one, and the cards ended up 265px and
+     308px tall - which also broke the sticky stack, since its geometry
+     assumes every card is the same height. */
+  .project-card__button {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 3fr);
+  }
+
+  /* The box keeps the stacked layout's 16/10 because six of the ten covers are
+     exactly 16/10, and a contained image only fills its box edge to edge when
+     the two ratios match. The 7/5 box tried here earlier made the card taller
+     but put blurred fill above and below every one of those six.
+
+     Height comes from the column split instead: at 5fr the cover is wide
+     enough to keep the card near the proportion 7/5 gave it, without putting
+     a ratio between the image and its frame. */
+  .project-card__media {
+    grid-row: 1;
+    grid-column: 1;
+  }
+
+  .project-card__body {
+    grid-row: 1;
+    grid-column: 2;
+  }
+
+  /* The divider turns vertical alongside the horizontal split. */
+  .project-card__body::after {
+    top: 0;
+    inset-inline-end: auto;
+    bottom: 0;
+    inset-inline-start: 0;
+    width: 1px;
+    height: auto;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      rgba(255, 255, 255, 0.1) 18%,
+      rgba(255, 255, 255, 0.16) 50%,
+      rgba(255, 255, 255, 0.1) 82%,
+      transparent
+    );
+  }
+}
+
+/* ==========================================================================
+   Hero (Phase 1) — identity row on phones, two-area composition from 768px.
+   Tailwind is frozen in this repo, so the Hero is styled entirely here.
+   ========================================================================== */
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 1.15rem 1.25rem 1.35rem;
+  color: #ffffff;
+  background: transparent;
+}
+
+.hero__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    'headline figure'
+    'role     figure'
+    'summary  summary'
+    'actions  actions'
+    'meta     meta';
+  align-content: start;
+  width: 100%;
+  /* No cap: every section below runs to the section padding, so a 1180px cap
+     left the Hero 297px narrower and 148px further inset than About on a
+     1900px screen, which is what made it read as small and compressed. */
+  margin: 0 auto;
+  row-gap: 0;
+  column-gap: 1rem;
+}
+
+/* Base state is fully visible: if the animation never runs, nothing is hidden. */
+.hero__figure {
+  grid-area: figure;
+  align-self: start;
+  justify-self: end;
+  width: 104px;
+  margin: 0;
+  overflow: hidden;
+  border: 4px solid #ffffff;
+  border-radius: 1.15rem;
+  background: #ffffff;
+  box-shadow: 0 18px 42px rgba(20, 0, 6, 0.34);
+}
+
+.hero__figure img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: center 65%;
+}
+
+.hero__headline {
+  grid-area: headline;
+  margin: 0;
+  font-family: var(--font-heading);
+  /* Sized to the column beside the portrait, not to the viewport: the headline
+     is 63 characters, so a viewport-scaled size broke it over 7 lines here. */
+  font-size: clamp(1.05rem, 4.5vw, 1.92rem);
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  line-height: 1.09;
+  text-wrap: balance;
+}
+
+.hero__role {
+  grid-area: role;
+  margin: 0.7rem 0 0;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.hero__summary {
+  grid-area: summary;
+  margin: 0.5rem 0 0;
+  max-width: 42rem;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.92rem;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.hero__actions {
+  grid-area: actions;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.85rem;
+}
+
+.hero__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  border-radius: 999px;
+  font-weight: 800;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: transform 200ms ease, background 200ms ease, color 200ms ease, border-color 200ms ease;
+}
+
+/* Sized so primary + secondary stay on one row at 375px. The transparent
+   border matches the secondary's border box so both sit on the same baseline. */
+.hero__cta--primary {
+  padding: 0.68rem 0.95rem;
+  border: 1px solid transparent;
+  background: #ffffff;
+  color: var(--burgundy);
+  font-size: 0.82rem;
+}
+
+.hero__cta--secondary {
+  padding: 0.68rem 0.85rem;
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  color: #ffffff;
+  font-size: 0.82rem;
+}
+
+/* Quiet tertiary action: text weight, its own line on phones, but still a
+   comfortable tap target. */
+.hero__cta--tertiary {
+  flex-basis: 100%;
+  min-height: 2.4rem;
+  padding: 0.3rem 0;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+
+.hero__cta--primary:hover {
+  transform: translateY(-2px);
+}
+
+.hero__cta--secondary:hover {
+  border-color: #ffffff;
+  background: #ffffff;
+  color: var(--burgundy);
+}
+
+.hero__cta--tertiary:hover {
+  color: #ffffff;
+}
+
+.hero__meta {
+  grid-area: meta;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem 1.05rem;
+  margin-top: 0.85rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.72rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+/* Very small phones: keep the action row and metadata from spilling. */
+@media (max-width: 359px) {
+  .hero {
+    padding-inline: 1.05rem;
+  }
+
+  .hero__cta--primary {
+    padding: 0.62rem 0.7rem;
+    font-size: 0.76rem;
+  }
+
+  .hero__cta--secondary {
+    padding: 0.62rem 0.62rem;
+    font-size: 0.76rem;
+  }
+
+  .hero__meta {
+    gap: 0.15rem 0.8rem;
+    font-size: 0.68rem;
+  }
+}
+
+/* Slightly larger portrait as phone width allows, still portrait-scale. The
+   headline column keeps first claim on the extra width. */
+@media (min-width: 390px) {
+  .hero__figure {
+    width: 112px;
+  }
+}
+
+@media (min-width: 430px) {
+  .hero__figure {
+    width: 124px;
+  }
+}
+
+@media (min-width: 520px) {
+  .hero__figure {
+    width: 140px;
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   768px+: deliberate two-area composition. The portrait sits beside the upper
+   Hero content, never as a block underneath it.
+   -------------------------------------------------------------------------- */
+@media (min-width: 768px) {
+  .hero {
+    display: flex;
+    align-items: center;
+    /* Sized to the composition, not to the screen: at 680px the 356px content
+       left 162px of dead space under it, which read as a hole before About.
+       The tablet composition is only 356px tall, so it needs the least. */
+    min-height: 500px;
+    padding: 2.25rem 2rem;
+  }
+
+  .hero__inner {
+    grid-template-rows: none;
+    grid-template-columns: minmax(0, 1.06fr) minmax(210px, 0.58fr);
+    grid-template-areas:
+      'headline figure'
+      'role     figure'
+      'summary  figure'
+      'actions  figure'
+      'meta     meta';
+    column-gap: 2.25rem;
+  }
+
+  .hero__figure {
+    width: 100%;
+    max-width: 260px;
+    border-width: 6px;
+    border-radius: 1.5rem;
+  }
+
+  .hero__headline {
+    margin-top: 0;
+    font-size: clamp(2.15rem, 4.4vw, 2.75rem);
+  }
+
+  .hero__role {
+    font-size: 1.05rem;
+  }
+
+  .hero__summary {
+    font-size: 1rem;
+  }
+
+  .hero__cta--tertiary {
+    flex-basis: auto;
+    margin-inline-start: 0.35rem;
+    padding: 0.72rem 0.6rem;
+  }
+
+  .hero__meta {
+    gap: 0.3rem 1.6rem;
+    font-size: 0.76rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero {
+    /* Capped: a full 100svh reserve left ~190px of dead space below the last
+       hero line on a 900px viewport, which read as a hole before About. The cap
+       keeps the landing proportions and lets the next section signal itself. */
+    min-height: min(calc(100svh - 2rem), 42rem);
+    padding: 2.5rem 2.5rem;
+  }
+
+  .hero__inner {
+    column-gap: 3rem;
+  }
+
+  .hero__figure {
+    max-width: 320px;
+  }
+
+  .hero__headline {
+    font-size: clamp(2.6rem, 3.9vw, 3.5rem);
+  }
+}
+
+@media (min-width: 1280px) {
+  .hero {
+    padding: 2.5rem 3rem;
+  }
+
+  .hero__figure {
+    max-width: 360px;
+  }
+}
+
+/* Large screens: match the sections' own inset (px-16) and let the composition
+   grow with the extra width, instead of holding laptop-sized type and portrait
+   in the middle of a much wider column. */
+@media (min-width: 1536px) {
+  .hero {
+    min-height: min(calc(100svh - 2rem), 46rem);
+    padding: 3rem 4rem;
+  }
+
+  .hero__inner {
+    column-gap: 4rem;
+  }
+
+  .hero__headline {
+    font-size: clamp(3.2rem, 3.4vw, 4.1rem);
+  }
+
+  .hero__role {
+    font-size: 1.2rem;
+  }
+
+  .hero__summary {
+    max-width: 46rem;
+    font-size: 1.1rem;
+  }
+
+  .hero__figure {
+    max-width: 430px;
+  }
+
+  .hero__meta {
+    font-size: 0.86rem;
+  }
+}
+
+/* ==========================================================================
+   PHASE 2.7 - one Burgundy frosted-glass family.
+   Every surface is the same material at a different brightness: low-alpha
+   Burgundy tint + blur + restrained saturation + edge light + floating shadow.
+   White appears only as the highlight, never as the body of the glass.
+   Blur is ~30% below Phase 2.5 across the board: less fog, more of the
+   animated environment recognisable through the surface. Fallbacks (no
+   backdrop-filter) carry the alpha instead, so type stays readable.
+   ========================================================================== */
+:root {
+  /* Dark frost - surfaces that always sit over the environment. */
+  --glass-dark: linear-gradient(150deg, rgba(78, 13, 36, 0.40), rgba(28, 3, 13, 0.26));
+  --glass-dark-solid: rgba(46, 6, 20, 0.72);
+  --glass-dark-border: rgba(255, 255, 255, 0.24);
+  --glass-dark-edge: rgba(255, 255, 255, 0.40);
+  --glass-dark-shadow: 0 26px 60px rgba(12, 0, 5, 0.42);
+  --glass-dark-blur: 12.5px;
+
+  /* Prismatic frost - supporting cards. Burgundy transmits; the white is a
+     highlight only, so the environment stays legible through the card. */
+  --glass-prism: linear-gradient(140deg, rgba(126, 28, 62, 0.30), rgba(44, 6, 21, 0.19));
+  --glass-prism-solid: linear-gradient(140deg, rgba(84, 14, 40, 0.74), rgba(40, 5, 19, 0.66));
+  --glass-prism-border: rgba(255, 255, 255, 0.26);
+  --glass-prism-shadow: 0 16px 34px rgba(12, 0, 5, 0.28);
+  --glass-prism-blur: 14px;
+
+  /* Same material one step lighter, for large sheets (the About story). */
+  --glass-sheet: linear-gradient(150deg, rgba(146, 36, 78, 0.26), rgba(52, 8, 25, 0.17));
+  --glass-sheet-solid: linear-gradient(150deg, rgba(88, 16, 43, 0.74), rgba(42, 6, 20, 0.66));
+
+  /* Drawer + navbar. The drawer rides its own dark scrim, so it stays thin.
+     The navbar crosses white sections with nothing behind it, so it keeps more
+     body - that is what buys its type 4.5:1 over every section it passes. */
+  --glass-drawer: linear-gradient(150deg, rgba(70, 10, 32, 0.36), rgba(30, 3, 15, 0.22));
+  --glass-drawer-solid: rgba(44, 6, 20, 0.88);
+  --glass-drawer-blur: 15.5px;
+  --glass-navbar: linear-gradient(150deg, rgba(64, 10, 30, 0.74), rgba(34, 4, 17, 0.66));
+  --glass-navbar-solid: rgba(48, 7, 22, 0.94);
+  --glass-navbar-blur: 11px;
+
+  --glass-saturate: 1.4;
+}
+
+/* --------------------------------------------------------------------------
+   Sidebar + drawer surfaces
+   -------------------------------------------------------------------------- */
+.sidebar-surface {
+  background: transparent;
+}
+
+/* The drawer carries `glass-panel` too, so it inherits the desktop sidebar's
+   dark material and its light type wholesale. Only the differences live here. */
+.mobile-drawer {
+  border-inline-end: 1px solid var(--glass-dark-border);
+  border-radius: 0;
+  background: var(--glass-drawer-solid);
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .mobile-drawer {
+    -webkit-backdrop-filter: blur(var(--glass-drawer-blur)) saturate(var(--glass-saturate));
+    backdrop-filter: blur(var(--glass-drawer-blur)) saturate(var(--glass-saturate));
+    background: var(--glass-drawer);
+  }
+}
+
+/* Scrim behind the drawer. Was Tailwind's backdrop-blur-sm (8px). */
+/* Near-black rather than the burgundy it used to be. At bg-primary/80 the
+   scrim was the brand colour at 80%, so the covered page read as a big red
+   panel beside the drawer instead of as content pushed into the background.
+   Carries a trace of the burgundy so it still belongs to the palette. */
+.drawer-scrim {
+  background: rgba(6, 1, 3, 0.86);
+  -webkit-backdrop-filter: blur(5.5px);
+  backdrop-filter: blur(5.5px);
+}
+
+/* Mobile navbar: same family, more body. It is the one glass surface with no
+   guaranteed dark backdrop, so its alpha is set by the contrast it owes its
+   own type over the white sections it scrolls across. */
+.mobile-nav {
+  background: var(--glass-navbar-solid);
+  border-bottom: 1px solid var(--glass-dark-border);
+  box-shadow: 0 12px 30px rgba(12, 0, 5, 0.28);
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .mobile-nav {
+    -webkit-backdrop-filter: blur(var(--glass-navbar-blur)) saturate(var(--glass-saturate));
+    backdrop-filter: blur(var(--glass-navbar-blur)) saturate(var(--glass-saturate));
+    background: var(--glass-navbar);
+  }
+}
+
+/* Foreground flipped to light: the bar is dark Burgundy in every position now. */
+.mobile-nav__name {
+  color: #ffffff;
+  text-shadow: 0 1px 2px rgba(12, 0, 5, 0.35);
+}
+
+.mobile-nav__role {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.mobile-nav__avatar {
+  border-color: rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.mobile-nav__menu {
+  border-color: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.mobile-nav__menu:hover {
+  border-color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+/* --------------------------------------------------------------------------
+   Section sticky header — glass variant for sections over Burgundy.
+   The white variant used by Projects is untouched.
+   -------------------------------------------------------------------------- */
+.section-sticky--glass {
+  background: var(--glass-dark-solid);
+  border-bottom: 1px solid var(--glass-dark-border);
+  box-shadow: 0 18px 40px rgba(12, 0, 5, 0.28);
+}
+
+/* Edge light gives the header glass thickness. */
+.section-sticky--glass::before {
+  content: '';
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  border-top: 1px solid var(--glass-dark-edge);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  pointer-events: none;
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .section-sticky--glass {
+    -webkit-backdrop-filter: blur(var(--glass-dark-blur)) saturate(var(--glass-saturate));
+    backdrop-filter: blur(var(--glass-dark-blur)) saturate(var(--glass-saturate));
+    background: var(--glass-dark);
+  }
+}
+
+.section-sticky--glass.section-sticky--pinned {
+  box-shadow:
+    /* Ambient layer carries the strip above the card, so its alpha is set by
+       what shows through that ~6px float gap, not by taste. */
+    0 0 20px 10px rgba(14, 2, 8, 0.74),
+    0 16px 26px -6px rgba(14, 2, 8, 0.72),
+    0 34px 60px -18px rgba(14, 2, 8, 0.7);
+}
+
+/* Desktop floats the header a full 1rem clear of the window, to sit at the
+   sidebar's height. That is more than twice the gap the ambient layer above
+   was set for, and lines of the section were legible in the strip — content
+   sliding under the card and back out the top of it. This layer is aimed
+   upward and is nearly opaque: offset and spread put its full weight over the
+   strip before the blur softens it, so what passes through reads as depth
+   under glass instead of as a second column of text. */
+@media (min-width: 1280px) {
+  .section-sticky--glass.section-sticky--pinned {
+    box-shadow:
+      0 -14px 26px 14px rgba(10, 1, 5, 0.94),
+      0 0 20px 10px rgba(14, 2, 8, 0.74),
+      0 16px 26px -6px rgba(14, 2, 8, 0.72),
+      0 34px 60px -18px rgba(14, 2, 8, 0.7);
+  }
+}
+
+/* Compact heading: a rule, a title, and a full description — no header slab.
+   Sized here and nowhere else, so nothing downstream can put the height back. */
+.section-sticky--glass .section-sticky__heading {
+  margin-bottom: 0.35rem;
+}
+
+/* The glass sticky header is a floating card, not a band. Shared by every
+   Burgundy section that pins its heading (About, Resume).
+   It was reading as one block with the story card because `.section-sticky` is
+   a full-bleed strip: square corners, no bottom padding, no bottom margin, and
+   a next sibling (`.about`) whose row-gap only applies *between* rows — so
+   `story.top === header.bottom` exactly. Its only edges were two hairlines
+   spanning the full column width, which read as section dividers, and its
+   `::after` painted a dark gradient 13.5px *over* the story card, smearing even
+   that zero boundary. Geometry is fixed here; nothing above is changed, so the
+   white Projects variant keeps its band treatment. */
+.section-sticky--glass {
+  /* Spans the whole composition: capping it short left the card's right edge
+     floating inside the content below it. The description keeps its own
+     max-width so the reading measure stays right. */
+  width: 100%;
+  /* The gap belongs to the header, not to a spacer element. */
+  margin-bottom: 0.8rem;
+  padding: 0.4rem 0.8rem 0.45rem;
+  border: 1px solid var(--glass-dark-border);
+  border-radius: 1.05rem;
+  box-shadow: 0 12px 30px rgba(12, 0, 5, 0.22);
+}
+
+/* The card's inner width reflows the description to a third line, so the
+   heading's own rhythm is tightened to pay for it. */
+.section-sticky--glass .section-sticky__heading > div {
+  margin-top: 0.3rem;
+}
+
+.section-sticky--glass .section-sticky__heading p {
+  margin-top: 0.25rem;
+}
+
+/* Edge light follows the silhouette instead of ruling across the section. */
+.section-sticky--glass::before {
+  border: 1px solid var(--glass-dark-edge);
+  border-radius: inherit;
+  opacity: 0.55;
+}
+
+/* Padding now owns the inner spacing; this margin would double it. */
+.section-sticky--glass .section-sticky__heading {
+  margin-bottom: 0;
+}
+
+/* Pinned, it should still float clear of the navbar rather than dock onto it. */
+@media (max-width: 1279px) {
+  .section-sticky--glass {
+    top: calc(var(--sticky-top-base) + 0.4rem);
+  }
+}
+
+.section-sticky--glass .section-sticky__heading h2 {
+  font-size: clamp(1.3rem, 2.1vw, 1.7rem);
+  line-height: 1.15;
+}
+
+.section-sticky--glass .section-sticky__heading > div {
+  width: 2.25rem;
+  height: 2px;
+  margin-top: 0.45rem;
+}
+
+/* Always the full description: shown at every height, never clipped, never
+   ellipsised. It is kept to two lines by type size, not by truncation. */
+.section-sticky--glass .section-sticky__heading p {
+  display: block;
+  overflow: visible;
+  margin-top: 0.35rem;
+  max-width: 46rem;
+  font-size: 0.74rem;
+  line-height: 1.38;
+}
+
+@media (min-width: 900px) {
+  .section-sticky--glass .section-sticky__heading {
+    margin-bottom: 0.5rem;
+  }
+
+  .section-sticky--glass .section-sticky__heading p {
+    margin-top: 0.5rem;
+    font-size: 0.84rem;
+    line-height: 1.5;
+  }
+}
+
+
+/* ==========================================================================
+   PHASE 2.6 — navigation affordance + About composition
+   ========================================================================== */
+
+/* True circle: the frozen Tailwind build has w-20 but no h-20, so the old
+   avatar box had a width and no height. Sized here instead. */
+.nav-avatar {
+  width: 4.75rem;
+  height: 4.75rem;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
+  overflow: hidden;
+  border: 3px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 10px 26px rgba(12, 0, 5, 0.34);
+}
+
+.nav-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 22%;
+}
+
+@media (min-width: 1280px) {
+  .nav-avatar {
+    width: 4.25rem;
+    height: 4.25rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Navigation panel composition.
+
+   The panel held three unrelated jobs — who this is, where to go, and what to
+   take away — in one undivided column, at one spacing, with the current
+   section marked only by a slightly lighter fill. Hairlines separate the three
+   so the eye can find the list without reading it, and the current section
+   gets a mark rather than a shade.
+
+   Colour is untouched: the same ink glass, the same white type. Everything
+   here is division, weight and edge.
+   -------------------------------------------------------------------------- */
+.nav-identity {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-identity__name {
+  letter-spacing: -0.01em;
+}
+
+/* Two lines that break where the phrase does. The role is a compound title at
+   0.13em tracking in a 190px column, so left to itself it split mid-phrase —
+   `balance` gives the browser the whole box to even the lines over. */
+.nav-identity__role {
+  text-wrap: balance;
+}
+
+/* A ring of the panel's own light rather than a second border: it separates
+   the portrait from the material without adding a competing edge. */
+.nav-avatar {
+  box-shadow:
+    0 0 0 5px rgba(255, 255, 255, 0.045),
+    0 10px 26px rgba(12, 0, 5, 0.34);
+}
+
+.nav-socials a {
+  display: grid;
+  width: 2.4rem;
+  height: 2.4rem;
+  place-items: center;
+  padding: 0;
+}
+
+/* Inactive nav item */
+.nav-item {
+  position: relative;
+  border: 1px solid transparent;
+}
+
+.nav-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* The label steps toward the reading direction under the pointer. Small enough
+   to read as the row answering rather than as the row moving. */
+@media (hover: hover) {
+  .glass-panel nav button span {
+    transition: transform 200ms var(--motion-ease);
+  }
+
+  .glass-panel nav button:hover span {
+    transform: translateX(2px);
+  }
+
+  [dir='rtl'] .glass-panel nav button:hover span {
+    transform: translateX(-2px);
+  }
+}
+
+/* Where you are, as a mark on the edge. A fill alone had to be read against
+   five other fills; a bar on the inline-start edge is found without reading.
+   It clips to the row's own radius, which is why it lives inside the button
+   rather than beside it. */
+.nav-item--active::before {
+  content: '';
+  position: absolute;
+  z-index: 3;
+  top: 50%;
+  inset-inline-start: 0;
+  width: 3px;
+  height: 1.15rem;
+  transform: translateY(-50%);
+  border-radius: 999px;
+  background: #ffffff;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.45);
+}
+
+/* Closing group: the download and the line under it belong together, and
+   together they are separate from the list above. */
+.nav-foot {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Scoped through the panel: `.glass-panel .sidebar-surface p` already claims
+   every paragraph in here, and it outranks a lone class. */
+.glass-panel .sidebar-surface .nav-copyright {
+  color: rgba(255, 255, 255, 0.42);
+  letter-spacing: 0.04em;
+}
+
+/* Active item + Resume button: keep the animated Burgundy, add a real button
+   boundary so they read as controls rather than artefacts. */
+.nav-item--active,
+.nav-resume {
+  border: 1px solid rgba(255, 255, 255, 0.34);
+  background: #300510;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    0 10px 24px rgba(12, 0, 5, 0.38);
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+@media (hover: hover) {
+  .nav-item--active:hover,
+  .nav-resume:hover {
+    transform: translateY(-1px);
+    border-color: rgba(255, 255, 255, 0.55);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.36),
+      0 16px 32px rgba(12, 0, 5, 0.46);
+  }
+}
+
+.nav-item--active:active,
+.nav-resume:active {
+  transform: translateY(1px);
+  box-shadow:
+    inset 0 2px 5px rgba(0, 0, 0, 0.34),
+    0 4px 12px rgba(12, 0, 5, 0.3);
+}
+
+.nav-item--active:focus-visible,
+.nav-resume:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   PHASE 2.7 - About: one compact composition, not a stack of blocks.
+   Two glass sheets side by side from tablet up, a two-column toolkit at every
+   width, and a thin metadata rail. Nothing here owns a background of its own -
+   the global animated Burgundy is what shows through all of it.
+   ========================================================================== */
+
+/* About is deliberately denser than the shared section rhythm. The header now
+   carries its own top clearance as a floating card, so the section needs less. */
+#about {
+  padding-top: 1.4rem;
+  padding-bottom: 2.2rem;
+}
+
+@media (min-width: 768px) {
+  #about {
+    padding-top: 2rem;
+    padding-bottom: 3.5rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  #about {
+    padding-top: 2.25rem;
+    padding-bottom: 4.25rem;
+  }
+}
+
+.about {
+  display: grid;
+  gap: 0.5rem;
+}
+
+/* Story ~48% / toolkit ~52%, side by side from tablet so neither column has to
+   grow downwards to fit. */
+@media (min-width: 768px) {
+  .about {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.9rem;
+    /* Both columns run to the same baseline so the pair reads as one
+       composition instead of two blocks ending at different heights. */
+    align-items: stretch;
+  }
+
+  .about__story {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Story text stays at the top; the roles run settles on the bottom edge. */
+  .about__roles {
+    margin-top: auto;
+  }
+}
+
+@media (min-width: 1024px) {
+  .about {
+    gap: 1.15rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Story: a sheet of Burgundy-transmitting glass, one step lighter than the
+   toolkit cards but the same material.
+   -------------------------------------------------------------------------- */
+.about__story {
+  position: relative;
+  min-width: 0;
+  padding: 0.7rem 0.7rem 0.8rem;
+  border: 1px solid var(--glass-prism-border);
+  border-radius: 1.15rem;
+  background: var(--glass-sheet-solid);
+  color: #ffffff;
+  box-shadow: var(--glass-prism-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.26);
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .about__story {
+    -webkit-backdrop-filter: blur(var(--glass-prism-blur)) saturate(var(--glass-saturate));
+    backdrop-filter: blur(var(--glass-prism-blur)) saturate(var(--glass-saturate));
+    background: var(--glass-sheet);
+  }
+}
+
+@media (min-width: 1024px) {
+  .about__story {
+    padding: 1.3rem 1.35rem 1.4rem;
+  }
+}
+
+.about__story-body {
+  display: grid;
+  gap: 1.2rem;
+}
+
+.about__reading-group h3 {
+  margin: 0 0 0.5rem;
+  color: #ffffff;
+  font-size: 1rem;
+  line-height: 1.4;
+  font-weight: 750;
+}
+
+.about__reading-group p + p { margin-top: 0.65rem; }
+
+@media (min-width: 768px) {
+  .about__story-body { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem 2rem; }
+}
+
+.about__story-body p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 0.86rem;
+  line-height: 1.5;
+}
+
+@media (min-width: 1024px) {
+  .about__story-body p {
+    font-size: 0.9rem;
+    line-height: 1.64;
+  }
+}
+
+/* Engineering focus: an inline run, never five cards. Two rows at 375, one at
+   desktop. */
+.about__roles {
+  margin-top: 0.65rem;
+  padding-top: 0.52rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.about__roles-label {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* Separators are tightened rather than the labels shrunk: the gap is what was
+   pushing this run onto a third row at 375. */
+.about__roles-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.05rem 0.24rem;
+  margin-top: 0.35rem;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 0.7rem;
+  font-weight: 650;
+  line-height: 1.45;
+}
+
+.about__roles-list span + span::before {
+  content: '\00b7';
+  margin-inline-end: 0.24rem;
+  color: rgba(255, 255, 255, 0.38);
+}
+
+/* The 320px viewport has enough total inline room for two role lines, but the
+   normal inner padding makes the final role wrap alone. Let only this short
+   label run use the card's full width; type size and source order stay intact. */
+@media (max-width: 359px) {
+  .about__roles-list {
+    margin-right: -0.62rem;
+    margin-left: -0.62rem;
+    column-gap: 0.05rem;
+  }
+
+  .about__roles-list span + span::before {
+    margin-inline-end: 0.1rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Technical toolkit
+   -------------------------------------------------------------------------- */
+.about__toolkit-head h3 {
+  margin: 0;
+  color: #ffffff;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.about__toolkit-head p {
+  margin: 0.25rem 0 0;
+  max-width: 34rem;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.77rem;
+  line-height: 1.45;
+}
+
+/* Below 1024px the toolkit is one glass matrix. At 768px the former two-column
+   cards measured only 185px wide; at 1024px they reach a readable 248px, so
+   that measured threshold restores the approved desktop card composition. */
+.about__toolkit {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+  overflow: hidden;
+  margin-top: 0.52rem;
+  border: 1px solid var(--glass-prism-border);
+  border-radius: 1rem;
+  background: var(--glass-prism-solid);
+  box-shadow: var(--glass-prism-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.24);
+}
+
+.about__toolkit .toolkit-card:last-child {
+  grid-column: auto;
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .about__toolkit {
+    -webkit-backdrop-filter: blur(var(--glass-prism-blur)) saturate(var(--glass-saturate));
+    backdrop-filter: blur(var(--glass-prism-blur)) saturate(var(--glass-saturate));
+    background: var(--glass-prism);
+  }
+}
+
+.toolkit-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.62rem minmax(0, 1fr);
+  grid-template-areas:
+    'icon heading'
+    'icon items';
+  gap: 0.18rem 0.48rem;
+  min-width: 0;
+  padding: 0.32rem 0.65rem 0.36rem;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.toolkit-card + .toolkit-card {
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+/* Desktop keeps the same single panel, just breathing wider. The old 2+2+1
+   card grid was replaced because a five-item set never fills a two-column grid
+   evenly: the fifth had to span, and paired cards were force-matched to the
+   taller neighbour, which is what made the block read as ragged. */
+@media (min-width: 1024px) {
+  .about__toolkit {
+    margin-top: 0.75rem;
+    border-radius: 1.15rem;
+  }
+
+  .toolkit-card {
+    grid-template-columns: 1.85rem minmax(0, 1fr);
+    gap: 0.24rem 0.6rem;
+    padding: 0.62rem 0.95rem 0.66rem;
+  }
+
+  .toolkit-card__icon {
+    width: 1.85rem;
+    height: 1.85rem;
+    border-radius: 0.58rem;
+  }
+
+  .toolkit-card__head h4 {
+    font-size: 0.86rem;
+  }
+}
+
+/* A row highlights in place. Lifting it, as the old cards did, would tear a row
+   out of the surface it belongs to. */
+@media (hover: hover) {
+  .toolkit-card {
+    transition: background 200ms ease, transform 120ms var(--motion-ease);
+  }
+
+  .toolkit-card:hover {
+    background: rgba(255, 255, 255, 0.06);
+  }
+}
+
+.toolkit-card__head {
+  display: contents;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.toolkit-card__icon {
+  grid-area: icon;
+  display: grid;
+  flex: none;
+  width: 1.62rem;
+  height: 1.62rem;
+  place-items: center;
+  border-radius: 0.52rem;
+  background: var(--burgundy);
+  color: #ffffff;
+  box-shadow: 0 5px 12px rgba(77, 13, 28, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.toolkit-card__head h4 {
+  grid-area: heading;
+  align-self: center;
+  margin: 0;
+  color: #ffffff;
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+/* Technologies read as a quiet list, not pills. All of them, wrapping freely. */
+.toolkit-card__items {
+  grid-area: items;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 0.34rem;
+  margin: 0;
+  padding: 0;
+  border-top: 0;
+  list-style: none;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: max(0.82rem, 12px);
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.toolkit-card__items li + li::before {
+  content: '\00b7';
+  margin-inline-end: 0.34rem;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+
+/* --------------------------------------------------------------------------
+   Metadata: a thin rail, 2x2 on phones and four columns from desktop.
+   -------------------------------------------------------------------------- */
+.about__meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.35rem 0.9rem;
+  margin-top: 0.62rem;
+}
+
+@media (min-width: 1024px) {
+  .about__meta {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0 1.25rem;
+    margin-top: 1.1rem;
+  }
+}
+
+.about__meta-item {
+  min-width: 0;
+  padding-block: 0.38rem;
+  padding-inline-start: 0.7rem;
+  border-inline-start: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+.about__meta-item p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.about__meta-item a,
+.about__meta-item span {
+  display: block;
+  margin-top: 0.15rem;
+  overflow-wrap: anywhere;
+  color: #ffffff;
+  font-size: 0.78rem;
+  font-weight: 650;
+  line-height: 1.35;
+  text-decoration: none;
+}
+
+.about__meta-item a:hover {
+  color: var(--silver);
+}
+
+/* ==========================================================================
+   RESUME
+   Three surface tiers so the section reads as designed, not repeated:
+     primary  — the profile sheet (Burgundy glass); career rows use quiet glass
+     feature  — download card + lead metric (animated Burgundy shows through)
+     support  — education / strengths (soft neumorphic, no blur of their own)
+   The global animated Burgundy stays the environment; nothing here paints an
+   opaque white field over it.
+   ========================================================================== */
+#resume {
+  padding-top: 1.4rem;
+  padding-bottom: 2.4rem;
+}
+
+@media (min-width: 768px) {
+  #resume {
+    padding-top: 2rem;
+    padding-bottom: 3.25rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  #resume {
+    padding-top: 2.25rem;
+    padding-bottom: 4rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Primary sheet: profile + metrics
+   -------------------------------------------------------------------------- */
+.resume-profile {
+  display: grid;
+  gap: 0.85rem;
+  padding: 0.95rem 0.9rem 1rem;
+  border: 1px solid var(--glass-prism-border);
+  border-radius: 1.15rem;
+  background: var(--glass-sheet-solid);
+  color: #ffffff;
+  box-shadow: var(--glass-prism-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.26);
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .resume-profile {
+    -webkit-backdrop-filter: blur(var(--glass-prism-blur)) saturate(var(--glass-saturate));
+    backdrop-filter: blur(var(--glass-prism-blur)) saturate(var(--glass-saturate));
+    background: var(--glass-sheet);
+  }
+}
+
+@media (min-width: 900px) {
+  .resume-profile {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.3rem 1.4rem;
+  }
+}
+
+.resume-profile__eyebrow {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: max(10.5px, 0.66rem);
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.resume-profile__headline {
+  margin: 0.4rem 0 0;
+  max-width: 34rem;
+  font-family: var(--font-heading);
+  font-size: clamp(1.1rem, 3.2vw, 1.5rem);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.resume-profile__summary {
+  margin: 0.55rem 0 0;
+  max-width: 46rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: max(13px, 0.9rem);
+  line-height: 1.6;
+}
+
+@media (min-width: 1024px) {
+  .resume-profile__summary {
+    font-size: max(13.5px, 0.94rem);
+    line-height: 1.64;
+  }
+}
+
+/* Two tiles, deliberately unequal: the lead one carries the animation. */
+.resume-profile__metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
+@media (min-width: 900px) {
+  .resume-profile__metrics {
+    grid-template-columns: minmax(9.5rem, 1fr);
+    gap: 0.6rem;
+  }
+}
+
+.resume-metric {
+  position: relative;
+  min-width: 0;
+  padding: 0.7rem 0.85rem 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0.9rem;
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+.resume-metric--feature {
+  isolation: isolate;
+  overflow: hidden;
+  border-color: rgba(255, 255, 255, 0.34);
+  background: #300510;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    0 10px 24px rgba(12, 0, 5, 0.34);
+}
+
+.resume-metric__value {
+  margin: 0;
+  color: #ffffff;
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.resume-metric__label {
+  margin: 0.3rem 0 0;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: max(10.5px, 0.66rem);
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+/* --------------------------------------------------------------------------
+   Section layout: journey + support column
+   -------------------------------------------------------------------------- */
+.resume-layout {
+  display: grid;
+  gap: 1.1rem;
+  margin-top: 0.9rem;
+}
+
+@media (min-width: 1024px) {
+  .resume-layout {
+    grid-template-columns: minmax(0, 1fr) minmax(15rem, 19rem);
+    gap: 1.15rem;
+    align-items: start;
+  }
+}
+
+.resume-layout__main {
+  min-width: 0;
+}
+
+.resume-layout__aside {
+  display: grid;
+  gap: 0.7rem;
+  min-width: 0;
+}
+
+/* Phones and tablets: the support cards pair up instead of stacking, so the
+   section does not end in a column of full-width blocks. */
+@media (min-width: 560px) and (max-width: 1023px) {
+  .resume-layout__aside {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .resume-download {
+    grid-column: 1 / -1;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Professional journey
+   -------------------------------------------------------------------------- */
+.journey__head {
+  margin: 0 0 0.7rem;
+}
+
+.journey__head h3 {
+  margin: 0;
+  color: #ffffff;
+  font-family: var(--font-heading);
+  font-size: max(16.5px, 1.08rem);
+  font-weight: 800;
+}
+
+.journey__head p {
+  margin: 0.22rem 0 0;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: max(12.5px, 0.84rem);
+  line-height: 1.45;
+}
+
+/* --------------------------------------------------------------------------
+   Feature card: download
+   -------------------------------------------------------------------------- */
+.resume-download {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-width: 0;
+  padding: 1rem 1rem 1.05rem;
+  border: 1px solid rgba(255, 255, 255, 0.34);
+  border-radius: 1.15rem;
+  background: #300510;
+  color: #ffffff;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    0 16px 34px rgba(12, 0, 5, 0.36);
+}
+
+.resume-download__icon {
+  display: grid;
+  width: 2.2rem;
+  height: 2.2rem;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 0.7rem;
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.24);
+}
+
+.resume-download h3 {
+  margin: 0.7rem 0 0;
+  font-family: var(--font-heading);
+  font-size: max(16px, 1.06rem);
+  font-weight: 800;
+}
+
+.resume-download p {
+  margin: 0.4rem 0 0;
+  color: rgba(255, 255, 255, 0.76);
+  font-size: max(12.5px, 0.84rem);
+  line-height: 1.58;
+}
+
+.resume-download__actions {
+  display: grid;
+  gap: 0.45rem;
+  margin-top: 0.85rem;
+}
+
+.resume-download__note {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.35rem;
+  margin-top: 0.7rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: max(12px, 0.74rem);
+  line-height: 1.4;
+}
+
+.resume-download__note svg {
+  flex: none;
+  margin-top: 0.1rem;
+}
+
+/* Buttons read as buttons: a solid primary, a bordered secondary, both with
+   pressed and focus states. */
+.resume-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  min-height: 2.75rem;
+  padding: 0.6rem 0.9rem;
+  border: 1px solid transparent;
+  border-radius: 0.8rem;
+  font-size: max(13px, 0.86rem);
+  font-weight: 800;
+  text-decoration: none;
+  transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+}
+
+.resume-btn--primary {
+  border-color: rgba(255, 255, 255, 0.85);
+  background: #ffffff;
+  color: var(--burgundy);
+  box-shadow: 0 8px 20px rgba(12, 0, 5, 0.3);
+}
+
+.resume-btn--ghost {
+  border-color: rgba(255, 255, 255, 0.38);
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+@media (hover: hover) {
+  .resume-btn--primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 14px 26px rgba(12, 0, 5, 0.4);
+  }
+
+  .resume-btn--ghost:hover {
+    background: rgba(255, 255, 255, 0.18);
+    transform: translateY(-1px);
+  }
+}
+
+.resume-btn:active {
+  transform: translateY(1px);
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.28);
+}
+
+.resume-btn:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   Support cards: softer, no blur of their own, so they sit behind the feature
+   card in the hierarchy instead of competing with it.
+   -------------------------------------------------------------------------- */
+.resume-card {
+  min-width: 0;
+  padding: 0.85rem 0.9rem 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 1.05rem;
+  background: rgba(255, 255, 255, 0.07);
+  color: #ffffff;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 0 rgba(12, 0, 5, 0.2),
+    0 10px 22px rgba(12, 0, 5, 0.18);
+}
+
+.resume-card__head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.resume-card__icon {
+  display: grid;
+  flex: none;
+  width: 1.75rem;
+  height: 1.75rem;
+  place-items: center;
+  border-radius: 0.55rem;
+  background: var(--burgundy);
+  color: #ffffff;
+  box-shadow: 0 5px 12px rgba(77, 13, 28, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.resume-card h3 {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: 0.92rem;
+  font-weight: 800;
+}
+
+.resume-card__eyebrow {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: max(10.5px, 0.66rem);
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.resume-card__lead {
+  margin: 0.6rem 0 0;
+  font-size: max(13px, 0.88rem);
+  font-weight: 700;
+}
+
+.resume-card__note {
+  margin: 0.2rem 0 0;
+  color: rgba(255, 255, 255, 0.64);
+  font-size: max(12.5px, 0.8rem);
+  line-height: 1.45;
+}
+
+/* Strengths read as a quiet list, matching the toolkit language in About.
+
+   One row each rather than a `·`-separated inline run: there are now eight
+   multi-word strengths instead of six short ones, and inline they collapse into
+   a single unreadable line where the longer German and Spanish labels wrap
+   mid-item, leaving the separators marking nothing. The marker is the same one
+   the journey points use. */
+.resume-strengths {
+  display: grid;
+  gap: 0.32rem;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.resume-strengths li {
+  position: relative;
+  padding-inline-start: 0.75rem;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: max(12.5px, 0.82rem);
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.resume-strengths li::before {
+  content: '';
+  position: absolute;
+  top: 0.55em;
+  inset-inline-start: 0;
+  width: 3px;
+  height: 3px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.45);
+}
+
+/* ==========================================================================
+   MOTION SYSTEM
+   One vocabulary for Hero, About and Resume. Elements move in depth, not just
+   up: every reveal is a 3D swing (translate + rotateX + scale) around a
+   perspective, which is what makes it read as motion rather than a fade.
+
+   Tiers are assigned by an element's role, and travel/rotation/duration all
+   scale together, so weight in the layout and weight in the motion agree.
+
+   Speed is a hard constraint: no single element runs past 560ms and no section
+   finishes later than ~800ms including stagger. The easing does the work —
+   a near-expo curve covers most of the distance in the first third, so a large
+   movement still feels immediate.
+
+   Two triggers, one language: the Hero is above the fold and plays on load
+   (`animation`); everything else plays on scroll (`transition`, flipped by one
+   IntersectionObserver per group via `useReveal`). No scroll listeners, no
+   rAF, no per-scroll React state.
+
+   Persistent UI — the sticky section headers — is excluded on purpose. It must
+   never depend on a frame having run to be visible.
+   ========================================================================== */
+:root {
+  /* Fast out of the gate, long settle. */
+  --motion-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  /* A little overshoot, for things that should land with weight. */
+  --motion-ease-back: cubic-bezier(0.34, 1.42, 0.64, 1);
+  --motion-detail: 340ms;
+  --motion-support: 420ms;
+  --motion-primary: 480ms;
+  --motion-lead: 560ms;
+}
+
+/* --------------------------------------------------------------------------
+   Scroll-triggered reveal.
+   The start state lives inside `prefers-reduced-motion: no-preference`, so a
+   reader who asks for less motion is never served hidden content — there is no
+   frame to wait for and nothing to fail open from.
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  /* `data-reveal` is released by a revealed ancestor; `data-reveal-self`
+     carries its own observer and is released only by itself. Items in a long
+     list need the second kind — released by their container they would play
+     while still far below the fold, and the reader would never see them. */
+  [data-reveal],
+  [data-reveal-self] {
+    opacity: 0;
+    transform: perspective(1100px) translate3d(var(--reveal-x, 0px), var(--reveal-y, 24px), 0)
+      rotateX(var(--reveal-rx, 8deg)) scale(var(--reveal-scale, 0.975));
+    transform-origin: center top;
+    transition:
+      opacity var(--reveal-duration, var(--motion-primary)) var(--motion-ease)
+        var(--reveal-delay, 0ms),
+      transform var(--reveal-duration, var(--motion-primary))
+        var(--reveal-ease, var(--motion-ease)) var(--reveal-delay, 0ms);
+  }
+
+  [data-revealed='true'] [data-reveal],
+  [data-reveal][data-revealed='true'],
+  [data-reveal-self][data-revealed='true'] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Tiers. Only these set travel, rotation and duration; nothing else should. */
+.m-lead {
+  --reveal-y: 34px;
+  --reveal-rx: 12deg;
+  --reveal-scale: 0.955;
+  --reveal-duration: var(--motion-lead);
+}
+
+.m-primary {
+  --reveal-y: 28px;
+  --reveal-rx: 9deg;
+  --reveal-scale: 0.972;
+  --reveal-duration: var(--motion-primary);
+}
+
+/* Support surfaces arrive from the side, so they read as joining the main
+   column rather than repeating its move. */
+.m-support {
+  --reveal-x: 26px;
+  --reveal-y: 10px;
+  --reveal-rx: 0deg;
+  --reveal-scale: 0.985;
+  --reveal-duration: var(--motion-support);
+}
+
+.m-detail {
+  --reveal-y: 16px;
+  --reveal-rx: 0deg;
+  --reveal-scale: 1;
+  --reveal-duration: var(--motion-detail);
+}
+
+/* A target, not a sentence: it lands with a little weight. */
+.m-target {
+  --reveal-y: 18px;
+  --reveal-rx: 0deg;
+  --reveal-scale: 0.9;
+  --reveal-duration: 520ms;
+  --reveal-ease: var(--motion-ease-back);
+}
+
+/* Support surfaces travel from the inline end, so the direction reverses with
+   the page rather than always arriving from the right. */
+[dir='rtl'] .m-support {
+  --reveal-x: -26px;
+}
+
+/* --------------------------------------------------------------------------
+   Content beats — the second level of the system.
+
+   A tier above moves a whole surface. This moves what is written on it: once a
+   card has arrived, its lines play in reading order instead of being painted
+   flat with the box. The card is the sentence; the beats are the words.
+
+   No observer of its own. `data-revealed` is already flipped on the group by
+   `useReveal`, so `.m-beats` is a pure CSS consumer of a signal that is
+   published anyway — the whole layer costs zero extra JavaScript.
+
+   Reading order is DOM order in every card here, so the stagger runs over
+   direct children rather than a hand-written delay per element.
+   -------------------------------------------------------------------------- */
+:root {
+  --motion-beat: 300ms;
+  /* Far enough apart to read as a sequence, close enough that a six-line card
+     still finishes around 700ms — inside the ~1200ms ceiling. */
+  --motion-beat-step: 55ms;
+  /* Beats start while the card is still arriving, so the two overlap rather
+     than queue. */
+  --motion-beat-lead: 140ms;
+}
+
+@keyframes motion-beat {
+  from {
+    opacity: 0;
+    transform: translate3d(0, var(--beat-y, 12px), 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Rows, chips and list items travel along the reading direction instead of up:
+   they belong to a line, not to a stack. */
+@keyframes motion-beat-inline {
+  from {
+    opacity: 0;
+    transform: translate3d(var(--beat-x, -12px), 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Both selectors, for the same reason the reveal tiers need both: the flag
+     may sit on an ancestor group or on the element carrying `.m-beats`. */
+  [data-revealed='true'] .m-beats > *,
+  .m-beats[data-revealed='true'] > * {
+    animation: motion-beat var(--motion-beat) var(--motion-ease) both;
+    /* `--reveal-delay` is set on the surface and inherits, so a card that is
+       itself fourth in a stagger does not start writing its lines before it
+       has arrived. */
+    animation-delay: calc(
+      var(--reveal-delay, 0ms) + var(--motion-beat-lead) + var(--beat-index, 0) * var(--motion-beat-step)
+    );
+  }
+
+  /* An animated field is not a line of the card. Most surfaces carry theirs as
+     the first child, which costs the content one step of the ladder — cheaper
+     than a wrapper element on every card just to move the counting. */
+  .m-beats > [data-warp-surface] {
+    animation: none;
+  }
+
+  /* A group inside a group does not play itself — only the lines inside it do,
+     a step after the row they belong to is under way. Setting the longer lead
+     on the nested container instead put its own beat AFTER its children's,
+     so the container sat at opacity 0 through the whole stagger and the lines
+     all appeared together when it finally faded. */
+  .m-beats .m-beats {
+    animation: none;
+  }
+
+  .m-beats .m-beats > * {
+    --motion-beat-lead: 260ms;
+  }
+
+  [data-revealed='true'] .m-beats--inline > *,
+  .m-beats--inline[data-revealed='true'] > * {
+    animation-name: motion-beat-inline;
+  }
+
+  /* One ladder, every list. Anything past the tenth child arrives with the
+     tenth rather than trailing further behind. */
+  .m-beats > *:nth-child(1) { --beat-index: 0; }
+  .m-beats > *:nth-child(2) { --beat-index: 1; }
+  .m-beats > *:nth-child(3) { --beat-index: 2; }
+  .m-beats > *:nth-child(4) { --beat-index: 3; }
+  .m-beats > *:nth-child(5) { --beat-index: 4; }
+  .m-beats > *:nth-child(6) { --beat-index: 5; }
+  .m-beats > *:nth-child(7) { --beat-index: 6; }
+  .m-beats > *:nth-child(8) { --beat-index: 7; }
+  .m-beats > *:nth-child(9) { --beat-index: 8; }
+  .m-beats > *:nth-child(n + 10) { --beat-index: 9; }
+}
+
+/* Inline beats follow the page, so in RTL they arrive from the right. */
+[dir='rtl'] .m-beats--inline {
+  --beat-x: 12px;
+}
+
+/* Denser stagger for rows that are read as a list rather than as prose. */
+.m-beats--tight {
+  --motion-beat-step: 38ms;
+}
+
+/* --------------------------------------------------------------------------
+   Hero — plays on load, in reading order.
+   -------------------------------------------------------------------------- */
+@keyframes motion-rise {
+  from {
+    opacity: 0;
+    transform: perspective(1100px) translate3d(var(--reveal-x, 0px), var(--reveal-y, 24px), 0)
+      rotateX(var(--reveal-rx, 0deg)) scale(var(--reveal-scale, 1));
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* The portrait uncovers itself instead of sliding: a wipe plus a settle reads
+   as a photograph being revealed rather than a box moving. */
+@keyframes motion-uncover {
+  from {
+    opacity: 0;
+    clip-path: inset(0 0 100% 0 round var(--uncover-radius, 1.15rem));
+    transform: scale(1.06);
+  }
+  to {
+    opacity: 1;
+    clip-path: inset(0 0 0 0 round var(--uncover-radius, 1.15rem));
+    transform: none;
+  }
+}
+
+/* Each word swings up from flat, hinged at its own baseline. This is the
+   section's signature move, so it is the only place character-level motion is
+   used at all. */
+@keyframes motion-word {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 0.62em, 0) rotateX(-78deg);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Not in the frozen Tailwind build, so it is defined here. Carries the intact
+   headline for assistive tech while the visible copy is split into words. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.hero__headline {
+  perspective: 700px;
+}
+
+.hero__word {
+  display: inline-block;
+  transform-origin: 50% 100%;
+  /* 34ms apart: eleven words still finish inside 800ms. */
+  animation: motion-word 520ms var(--motion-ease) both;
+  animation-delay: calc(120ms + var(--word-index) * 34ms);
+  /* The space between words is collapsed by inline-block, so it is restored
+     here rather than with a literal space node. */
+  margin-inline-end: 0.26em;
+}
+
+.hero__figure {
+  --uncover-radius: 1.15rem;
+  animation: motion-uncover var(--motion-lead) var(--motion-ease) 40ms both;
+}
+
+@media (min-width: 768px) {
+  .hero__figure {
+    --uncover-radius: 1.5rem;
+  }
+}
+
+.hero__role,
+.hero__summary,
+.hero__actions,
+.hero__meta {
+  animation: motion-rise var(--motion-primary) var(--motion-ease) both;
+}
+
+.hero__role {
+  --reveal-y: 20px;
+  animation-delay: 420ms;
+}
+
+.hero__summary {
+  --reveal-y: 20px;
+  animation-delay: 480ms;
+}
+
+.hero__actions {
+  --reveal-y: 16px;
+  --reveal-scale: 0.94;
+  animation-duration: var(--motion-support);
+  animation-timing-function: var(--motion-ease-back);
+  animation-delay: 540ms;
+}
+
+.hero__meta {
+  --reveal-y: 12px;
+  animation-duration: var(--motion-detail);
+  animation-delay: 620ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__word,
+  .hero__figure,
+  .hero__role,
+  .hero__summary,
+  .hero__actions,
+  .hero__meta {
+    animation: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Journey rail: draws down once, quickly, as the first entry arrives. A slow
+   line-draw is the classic timeline cliché; at 420ms it reads as the spine
+   snapping into place instead.
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) and (min-width: 768px) {
+  .journey::before {
+    transform: scaleY(0);
+    transform-origin: 50% 0;
+    transition: transform 420ms var(--motion-ease) 60ms;
+  }
+
+  [data-revealed='true'] .journey::before {
+    transform: scaleY(1);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Rows inside a single surface: the panel has already arrived, so its contents
+   slide in from the edge rather than repeating the panel's own move.
+   -------------------------------------------------------------------------- */
+@keyframes motion-row {
+  from {
+    opacity: 0;
+    transform: translate3d(-14px, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-revealed='true'] .toolkit-card {
+    animation: motion-row var(--motion-detail) var(--motion-ease) both;
+  }
+
+  [data-revealed='true'] .toolkit-card:nth-child(1) { animation-delay: 180ms; }
+  [data-revealed='true'] .toolkit-card:nth-child(2) { animation-delay: 235ms; }
+  [data-revealed='true'] .toolkit-card:nth-child(3) { animation-delay: 290ms; }
+  [data-revealed='true'] .toolkit-card:nth-child(4) { animation-delay: 345ms; }
+  [data-revealed='true'] .toolkit-card:nth-child(5) { animation-delay: 400ms; }
+}
+
+@keyframes motion-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Beat exceptions.
+
+   A beat is a line of prose. The elements below are not lines — they are
+   marks, targets and photographs — so each takes the move that belongs to its
+   own kind instead of the default rise.
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  /* Markers and targets land with weight rather than sliding up. */
+  [data-revealed='true'] .capability__node,
+  [data-revealed='true'] .resume-metric__value,
+  [data-revealed='true'] .resume-download__icon {
+    animation: motion-pop 380ms var(--motion-ease-back) both;
+    animation-delay: calc(var(--reveal-delay, 0ms) + 200ms);
+  }
+
+  /* The project cover carries NO entrance of its own, and that is the fix for
+     a real bug rather than an omission. It holds a child under an 18px blur
+     inside a stack framer-motion re-transforms every scroll frame; a clip-path
+     uncover flickered outright, and even a plain opacity fade forced the
+     blurred subtree to be composited as a group while a lazily decoded image
+     was still arriving, which read as a blink. The card's own scroll-linked
+     scale is its entrance now — one composited transform, nothing to re-raster.
+
+     Call to action, so it lands with the same overshoot the hero's buttons
+     and the download card use. */
+  [data-revealed='true'] .contact__actions > *,
+  [data-revealed='true'] .resume-download__actions > * {
+    animation-timing-function: var(--motion-ease-back);
+  }
+}
+
+@keyframes motion-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Navigation surfaces. Both mount on open rather than on scroll, so they play
+   from `animation` on mount — the same trigger the Hero uses — and need no
+   observer at all.
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  .mobile-drawer nav ul li,
+  .lang-select__panel > li {
+    animation: motion-beat-inline 300ms var(--motion-ease) both;
+  }
+
+  .mobile-drawer nav ul li:nth-child(1) { animation-delay: 120ms; }
+  .mobile-drawer nav ul li:nth-child(2) { animation-delay: 158ms; }
+  .mobile-drawer nav ul li:nth-child(3) { animation-delay: 196ms; }
+  .mobile-drawer nav ul li:nth-child(4) { animation-delay: 234ms; }
+  .mobile-drawer nav ul li:nth-child(5) { animation-delay: 272ms; }
+  .mobile-drawer nav ul li:nth-child(6) { animation-delay: 310ms; }
+
+  /* The panel itself opens; its options follow it rather than with it. */
+  .lang-select__panel {
+    animation: motion-beat 180ms var(--motion-ease) both;
+  }
+
+  .lang-select__panel > li:nth-child(1) { animation-delay: 90ms; }
+  .lang-select__panel > li:nth-child(2) { animation-delay: 122ms; }
+  .lang-select__panel > li:nth-child(3) { animation-delay: 154ms; }
+  .lang-select__panel > li:nth-child(4) { animation-delay: 186ms; }
+  .lang-select__panel > li:nth-child(5) { animation-delay: 218ms; }
+}
+
+/* --------------------------------------------------------------------------
+   Press feedback.
+
+   Every hover state on this page is invisible on the devices it is most read
+   on: a touch screen has no pointer to hover with. These give the same
+   surfaces an answer to a finger. Short and small on purpose — a press
+   confirms a hit, it does not perform.
+   -------------------------------------------------------------------------- */
+/* Only the surfaces with no transition on the touch path — two of these declare
+   theirs inside `@media (hover: hover)`, which is exactly the branch a finger
+   never takes. Everywhere else the press is folded into the declaration that
+   already exists, so nothing here can silently drop a colour or border
+   transition on its way past. */
+.project-card__button,
+.capability,
+.toolkit-card,
+.about__meta-item {
+  transition: transform 120ms var(--motion-ease);
+}
+
+.project-card__button:active,
+.capability:active,
+a.contact-row:active,
+.toolkit-card:active,
+.footer-nav__links a:active,
+.lang-select__option:active,
+.portfolio-filter:active,
+.hero__cta:active,
+.mobile-nav__menu:active,
+.lang-select--bar .lang-select__trigger:active {
+  transform: scale(0.978);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-card__button:active,
+  .capability:active,
+  a.contact-row:active,
+  .toolkit-card:active,
+  .footer-nav__links a:active,
+  .lang-select__option:active,
+  .portfolio-filter:active,
+  .hero__cta:active,
+  .mobile-nav__menu:active,
+  .lang-select--bar .lang-select__trigger:active {
+    transform: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Projects: filter chips.
+   The section moved onto the Burgundy environment, so the old white/burgundy
+   chips no longer belong to it. Same glass family as the rest of the site.
+   -------------------------------------------------------------------------- */
+.portfolio-filter {
+  position: relative;
+  flex: none;
+  min-height: 30px;
+  padding: 0.3rem 0.68rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.72rem;
+  font-weight: 700;
+  white-space: nowrap;
+  scroll-snap-align: start;
+  cursor: pointer;
+  transition: background 200ms ease, border-color 200ms ease, color 200ms ease,
+    transform 120ms var(--motion-ease);
+}
+
+/* The tap target is 44px without the chip being 44px tall. Six 44px chips cost
+   three wrapped rows and 143px of a 742px screen; the hit area is expanded off
+   the visual bounds instead, which is the documented way to meet the minimum
+   without paying for it in layout. */
+.portfolio-filter::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 0;
+  left: 0;
+  height: 44px;
+  transform: translateY(-50%);
+}
+
+@media (hover: hover) {
+  .portfolio-filter:hover {
+    border-color: rgba(255, 255, 255, 0.42);
+    background: rgba(255, 255, 255, 0.14);
+    color: #ffffff;
+  }
+}
+
+/* Selected state is carried by fill and border weight, not colour alone. */
+.portfolio-filter--active {
+  border-color: rgba(255, 255, 255, 0.82);
+  background: #ffffff;
+  color: var(--burgundy);
+  box-shadow: 0 8px 18px rgba(12, 0, 5, 0.3);
+}
+
+.portfolio-filter:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
+/* Projects follows the same section rhythm as About and Resume. */
+#portfolio {
+  padding-top: 1.4rem;
+  padding-bottom: 2.4rem;
+}
+
+@media (min-width: 768px) {
+  #portfolio {
+    padding-top: 2rem;
+    padding-bottom: 3.25rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  #portfolio {
+    padding-top: 2.25rem;
+    padding-bottom: 4rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Project case study: a dark editorial sheet that continues the card language,
+   plus the full-screen image viewer it opens into. Written as plain CSS on
+   purpose - public/tailwind.generated.css is a committed artifact with no
+   build step, so new utility classes would never be emitted.
+   -------------------------------------------------------------------------- */
+.project-detail,
+.project-viewer {
+  /* The exact surface .project-card__media sits on, so opening a card reads
+     as the same object enlarged rather than a new, darker one. */
+  --pd-stage: #1a060f;
+  /* Burgundy-tinted scrim for controls. The site has no neutral black. */
+  --pd-scrim: rgba(26, 6, 15, 0.66);
+  --pd-line: var(--glass-prism-border);
+  --pd-line-strong: var(--glass-dark-edge);
+  --pd-text: rgba(255, 255, 255, 0.76);
+  --pd-muted: rgba(255, 255, 255, 0.5);
+  /* White is the site's only accent - the palette is white over burgundy and
+     nothing else. */
+  --pd-accent: #ffffff;
+}
+
+/* Above --z-drawer (80): the sheet is a portal over the whole app. */
+/* The scrim separates the sheet from the page, but at 0.84 it crushed the
+   burgundy environment to near-black, and the translucent panel then
+   composited over THAT - which is why the sheet measured 2.5x darker than a
+   project card. Blur does the separating; the tint only needs to take the
+   edge off. */
+.project-detail {
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: clamp(0.5rem, 2vw, 2rem);
+  background: rgba(24, 4, 13, 0.18);
+  backdrop-filter: blur(16px) saturate(var(--glass-saturate));
+  -webkit-backdrop-filter: blur(16px) saturate(var(--glass-saturate));
+}
+
+/* Exactly the .about__story recipe - the system's large-sheet material. The
+   case study is the same kind of surface, so it uses the same numbers rather
+   than the darker frost meant for chrome. */
+.project-detail__panel {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  width: min(100%, 76rem);
+  min-height: 0;
+  max-height: min(94svh, 58rem);
+  overflow: hidden;
+  border: 1px solid var(--glass-prism-border);
+  border-radius: 20px;
+  background: var(--glass-sheet-solid);
+  box-shadow: var(--glass-prism-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.26);
+  color: #ffffff;
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .project-detail__panel {
+    -webkit-backdrop-filter: blur(var(--glass-prism-blur))
+      saturate(var(--glass-saturate));
+    backdrop-filter: blur(var(--glass-prism-blur)) saturate(var(--glass-saturate));
+    background: var(--glass-sheet);
+  }
+}
+
+/* ---- Header -------------------------------------------------------------- */
+.project-detail__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: clamp(1rem, 2.4vw, 1.6rem) clamp(1rem, 2.6vw, 2rem);
+  border-bottom: 1px solid var(--pd-line);
+  /* Tint only - an opaque fill here would block the panel's frost. */
+  background:
+    radial-gradient(125% 190% at 0% 0%, rgba(146, 36, 78, 0.42), transparent 62%),
+    linear-gradient(rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0));
+}
+
+.project-detail__identity {
+  min-width: 0;
+}
+
+.project-detail__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.3rem 0.66rem;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.07);
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* 800 is the heaviest weight loaded for Roboto Slab, and font-synthesis is
+   off globally, so anything heavier would silently render lighter. */
+.project-detail__title {
+  margin: 0.7rem 0 0;
+  font-family: var(--font-heading);
+  font-size: clamp(1.3rem, 2.6vw, 2rem);
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  line-height: 1.14;
+}
+
+.project-detail__status {
+  margin: 0.5rem 0 0;
+  color: var(--pd-muted);
+  font-size: 0.78rem;
+  font-weight: 650;
+  line-height: 1.5;
+}
+
+.project-detail__close,
+.project-viewer__close {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  padding: 0;
+  border: 1px solid var(--pd-line-strong);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
+  cursor: pointer;
+  transition: background 200ms var(--motion-ease), color 200ms var(--motion-ease);
+}
+
+.project-detail__close:hover,
+.project-viewer__close:hover {
+  background: #ffffff;
+  color: var(--burgundy);
+}
+
+/* ---- Body split ---------------------------------------------------------- */
+.project-detail__body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
+}
+
+.project-detail__body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.project-detail__body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.project-detail__body::-webkit-scrollbar-thumb {
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.22);
+  background-clip: padding-box;
+}
+
+.project-detail__gallery {
+  min-width: 0;
+  padding: clamp(1rem, 2.4vw, 1.6rem) clamp(1rem, 2.6vw, 2rem);
+  border-bottom: 1px solid var(--pd-line);
+}
+
+/* ---- Stage: the box is fixed, the image is never cropped ----------------- */
+.project-stage {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  aspect-ratio: 16 / 10;
+  max-height: 62svh;
+  min-height: 0;
+  overflow: hidden;
+  border: 1px solid var(--pd-line);
+  border-radius: 16px;
+  background: var(--pd-stage);
+  touch-action: pan-y;
+}
+
+/* Blurred copy of the same asset fills whatever `contain` leaves over, so the
+   box never shows dead bars. Same recipe as .project-card__media-fill -
+   scaled past the edges because a blur samples transparent pixels outside its
+   own bounds and would otherwise fade at the rim. */
+.project-stage__wash {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1.18);
+  filter: blur(18px) saturate(1.25) brightness(0.42);
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+/* Absolutely filling the stage is what makes the trigger's height DEFINITE.
+   The image then FILLS that box and relies on object-fit rather than a
+   percentage max-height, which does not resolve for a centred grid item and
+   let tall screenshots overflow and get clipped. */
+.project-stage__trigger {
+  position: absolute;
+  inset: 0;
+  display: block;
+  padding: clamp(0.5rem, 1.4vw, 1rem);
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+}
+
+.project-stage__image {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: contain;
+  object-position: center;
+}
+
+.project-stage__hint,
+.project-stage__count {
+  position: absolute;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.34rem 0.62rem;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  background: var(--pd-scrim);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+.project-stage__hint {
+  top: 0.7rem;
+  inset-inline-start: 0.7rem;
+  opacity: 0;
+  transition: opacity 220ms var(--motion-ease);
+}
+
+.project-stage:hover .project-stage__hint,
+.project-stage__trigger:focus-visible ~ .project-stage__hint {
+  opacity: 1;
+}
+
+.project-stage__count {
+  inset-inline-end: 0.7rem;
+  bottom: 0.7rem;
+}
+
+.project-stage__nav {
+  position: absolute;
+  z-index: 3;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  padding: 0;
+  transform: translateY(-50%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  background: var(--pd-scrim);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: #ffffff;
+  cursor: pointer;
+  transition: background 200ms var(--motion-ease), color 200ms var(--motion-ease);
+}
+
+.project-stage__nav:hover {
+  background: #ffffff;
+  color: var(--burgundy);
+}
+
+.project-stage__nav--previous {
+  inset-inline-start: 0.65rem;
+}
+
+.project-stage__nav--next {
+  inset-inline-end: 0.65rem;
+}
+
+.project-stage--empty {
+  place-items: center;
+  padding: 1.5rem;
+  color: var(--pd-muted);
+  font-size: 0.85rem;
+  font-weight: 650;
+  text-align: center;
+}
+
+/* ---- Thumbnail strip, shared by the sheet and the viewer ----------------- */
+.project-thumbs {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.28) transparent;
+}
+
+.project-thumbs::-webkit-scrollbar {
+  height: 6px;
+}
+
+.project-thumbs::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.project-thumbs::-webkit-scrollbar-thumb {
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.24);
+}
+
+.project-thumbs__item {
+  position: relative;
+  flex: 0 0 auto;
+  width: clamp(4.4rem, 8.5vw, 5.9rem);
+  aspect-ratio: 16 / 10;
+  padding: 0;
+  overflow: hidden;
+  scroll-snap-align: center;
+  border: 1px solid var(--pd-line);
+  border-radius: 10px;
+  background: var(--pd-stage);
+  opacity: 0.55;
+  cursor: pointer;
+  transition: opacity 200ms var(--motion-ease), border-color 200ms var(--motion-ease);
+}
+
+.project-thumbs__item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.project-thumbs__item:hover {
+  opacity: 0.85;
+}
+
+.project-thumbs__item.is-active {
+  opacity: 1;
+  border-color: var(--pd-accent);
+  box-shadow: 0 0 0 1px var(--pd-accent);
+}
+
+.project-thumbs--panel {
+  margin-top: 0.75rem;
+  padding-bottom: 0.35rem;
+}
+
+.project-thumbs--viewer {
+  justify-content: safe center;
+  padding: 0.75rem clamp(0.75rem, 3vw, 1.5rem)
+    calc(0.75rem + env(safe-area-inset-bottom));
+  border-top: 1px solid var(--pd-line);
+  background: rgba(26, 6, 15, 0.62);
+}
+
+/* ---- Narrative column ---------------------------------------------------- */
+.project-detail__content {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.1rem, 2vw, 1.5rem);
+  min-width: 0;
+  padding: clamp(1.15rem, 2.6vw, 2rem);
+}
+
+/* ---- Case study ----------------------------------------------------------
+   Seven labelled sections in one reading order. No accordions and no tabs:
+   the content is the point of opening the modal, so none of it starts hidden.
+   Depth comes from the label hierarchy and one contrasting surface, not from
+   controls the reader has to operate.
+   -------------------------------------------------------------------------- */
+.case-study__block {
+  min-width: 0;
+}
+
+/* Matches the section-label pattern used across About, Resume, and the cards:
+   0.62rem at 0.62 alpha. */
+.case-study__label {
+  margin: 0 0 0.7rem;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* Arabic has no case and its letterforms do not survive wide tracking, so the
+   label keeps its size and weight but drops the Latin typographic treatment. */
+[dir='rtl'] .case-study__label {
+  letter-spacing: 0;
+  text-transform: none;
+  font-size: 0.72rem;
+}
+
+.case-study__block p {
+  margin: 0;
+  color: var(--pd-text);
+  font-size: 0.9rem;
+  line-height: 1.72;
+}
+
+.case-study__lede {
+  color: var(--pd-text);
+  font-size: clamp(0.92rem, 1.05vw, 1rem);
+  line-height: 1.75;
+}
+
+.case-study__capabilities {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.case-study__capabilities li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  padding: 0.62rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  color: var(--pd-text);
+  font-size: 0.87rem;
+  line-height: 1.6;
+}
+
+.case-study__capabilities li:last-child {
+  border-bottom: 0;
+}
+
+.case-study__capabilities li > span {
+  flex: none;
+  width: 0.34rem;
+  height: 0.34rem;
+  margin-top: 0.58rem;
+  border-radius: 999px;
+  background: var(--pd-accent);
+}
+
+/* Engineering trade-offs are a different kind of statement from the product
+   copy above, so they sit on their own surface rather than reading as more
+   marketing. */
+.case-study__considerations {
+  padding: clamp(0.85rem, 1.6vw, 1.15rem);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 0.9rem;
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.case-study__considerations ul {
+  display: grid;
+  gap: 0.55rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.case-study__considerations li {
+  position: relative;
+  padding-inline-start: 1rem;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.85rem;
+  line-height: 1.62;
+}
+
+.case-study__considerations li::before {
+  content: '';
+  position: absolute;
+  top: 0.62em;
+  inset-inline-start: 0;
+  width: 0.3rem;
+  height: 0.3rem;
+  border-radius: 999px;
+  background: var(--pd-accent);
+}
+
+.case-study__tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.case-study__tech span {
+  padding: 0.34rem 0.7rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+/* The two shorter prose blocks pair up only where each still gets a readable
+   measure. Driven by `auto-fit` rather than a viewport breakpoint: this column
+   is one half of a split modal, so its width does not track the viewport, and
+   a media query here would pair them at widths where neither block fits. */
+.case-study__pair {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  gap: clamp(1.1rem, 2vw, 1.5rem);
+  min-width: 0;
+}
+
+.project-detail__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  margin-top: auto;
+  padding-top: clamp(0.9rem, 2vw, 1.25rem);
+  border-top: 1px solid var(--pd-line);
+}
+
+.project-detail__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  /* Same primary action as .hero__cta--primary: white pill, burgundy label,
+     lifts 2px on hover. */
+  padding: 0.68rem 1.1rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--burgundy);
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: transform 200ms var(--motion-ease);
+}
+
+.project-detail__cta:hover {
+  transform: translateY(-2px);
+}
+
+.project-detail__private {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--pd-muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+/* ---- Full-screen viewer -------------------------------------------------- */
+.project-viewer {
+  position: fixed;
+  z-index: 110;
+  inset: 0;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  /* Deliberately near-opaque, unlike the sheet: a frosted backdrop behind a
+     screenshot competes with the thing the viewer exists to show. */
+  background: rgba(26, 6, 15, 0.97);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.project-viewer__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: calc(0.75rem + env(safe-area-inset-top)) clamp(0.75rem, 3vw, 1.5rem)
+    0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.project-viewer__caption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.3rem 0.75rem;
+  min-width: 0;
+  color: #ffffff;
+}
+
+.project-viewer__caption span:first-child {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 800;
+}
+
+.project-viewer__caption span + span {
+  color: var(--pd-muted);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+.project-viewer__stage {
+  position: relative;
+  display: block;
+  min-height: 0;
+  padding: clamp(0.6rem, 2.5vw, 1.75rem);
+  touch-action: pan-y;
+}
+
+/* Same rule as the stage: fill the definite box, let object-fit letterbox. */
+.project-viewer__image {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: contain;
+  object-position: center;
+}
+
+.project-viewer__nav {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  padding: 0;
+  transform: translateY(-50%);
+  /* Dark, not translucent white: screenshots are often light and a white
+     control would disappear into them. */
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+  background: var(--pd-scrim);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #ffffff;
+  cursor: pointer;
+  transition: background 200ms var(--motion-ease), color 200ms var(--motion-ease);
+}
+
+.project-viewer__nav:hover {
+  background: #ffffff;
+  color: var(--burgundy);
+}
+
+.project-viewer__nav--previous {
+  inset-inline-start: clamp(0.4rem, 2vw, 1.5rem);
+}
+
+.project-viewer__nav--next {
+  inset-inline-end: clamp(0.4rem, 2vw, 1.5rem);
+}
+
+/* ---- Responsive ---------------------------------------------------------- */
+/* Touch devices never fire hover, so the expand affordance stays visible. */
+@media (hover: none) {
+  .project-stage__hint {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 640px) {
+  .project-detail {
+    padding: 0;
+  }
+
+  .project-detail__panel {
+    width: 100%;
+    height: 100svh;
+    max-height: 100svh;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .project-detail__content {
+    padding-bottom: calc(1.15rem + env(safe-area-inset-bottom));
+  }
+
+  .project-viewer__nav {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .project-thumbs__item {
+    width: 4.4rem;
+  }
+}
+
+/* Stacked only. Full width goes to the stage here, so it needs a hard cap or
+   a 16/10 box eats the sheet before a word of the case study is visible. */
+@media (max-width: 767px) {
+  .project-stage {
+    max-height: 42svh;
+  }
+}
+
+/* Short landscape phones: the stage must not eat the whole sheet. */
+@media (max-height: 560px) {
+  .project-stage {
+    max-height: 46svh;
+  }
+}
+
+/* The split is the intended layout, so it starts at tablet portrait rather
+   than desktop - an iPad held upright is 768-834px and has room for both
+   columns. Stacking is the narrow-screen fallback, not the default. */
+@media (min-width: 768px) {
+  .project-detail__body {
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  }
+
+  /* The media column is one sticky block, so the images and the project's
+     action stay put while the case study scrolls beside them. */
+  .project-detail__media-col {
+    position: sticky;
+    top: 0;
+    align-self: start;
+    min-width: 0;
+  }
+
+  .project-detail__gallery {
+    border-bottom: 0;
+  }
+
+  .project-detail__media-col .project-detail__actions {
+    padding: 0 clamp(1.15rem, 2.6vw, 2rem) clamp(1.15rem, 2.6vw, 2rem);
+  }
+
+  /* The divider ends with the media rather than running the full height of the
+     case study.
+
+     A full-height rule down the middle framed everything below the thumbnails
+     as an empty tinted panel — on a 1440 desktop that was a ~555x250px void
+     held open by a border with nothing in it. Ending the line with the gallery
+     lets that space read as the modal's own margin, which is what it is. It
+     fades out rather than stopping square, so it reads as deliberate. */
+  .project-detail__media-col::after {
+    content: '';
+    position: absolute;
+    z-index: 2;
+    inset-block: 0;
+    inset-inline-end: 0;
+    width: 1px;
+    background: linear-gradient(
+      to bottom,
+      var(--pd-line) 0%,
+      var(--pd-line) 72%,
+      transparent 100%
+    );
+  }
+}
+
+/* Below the split there is one column, so the wrapper stops being a box and
+   its children join the body's own flow. Order is restated because the action
+   belongs after the case study when everything is stacked. */
+@media (max-width: 767px) {
+  .project-detail__media-col {
+    display: contents;
+  }
+
+  .project-detail__content {
+    order: 2;
+  }
+
+  .project-detail__body .project-detail__actions {
+    order: 3;
+    padding: 0 clamp(1.15rem, 2.6vw, 2rem) clamp(1.15rem, 2.6vw, 2rem);
+  }
+}
+
+/* The case study is the reason the modal opens, so the reading column takes the
+   larger share. The gallery previously held the wider half and then ran out of
+   content two thirds of the way down, which is what left the void beside the
+   text. */
+@media (min-width: 1024px) {
+  .project-detail__body {
+    grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Liquid glass: the chrome surfaces (sidebar, navbar, pinned section headers)
+   carry a dark tint with a real blur and a specular edge, instead of the warp
+   they briefly ran. The gloss is the highlight, not the transparency: a bright
+   inset line along the top edge reads as light catching a curved surface, and
+   a low sheen swept across the fill keeps it from looking like flat paint.
+   -------------------------------------------------------------------------- */
+.sidebar-surface,
+.mobile-nav,
+.section-sticky--glass,
+.site-footer__card {
+  isolation: isolate;
+  background:
+    linear-gradient(163deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0) 38%),
+    linear-gradient(160deg, rgba(34, 8, 17, 0.9), rgba(12, 2, 7, 0.94));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.26),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.5),
+    0 18px 40px rgba(6, 0, 3, 0.5);
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .sidebar-surface,
+  .mobile-nav,
+  .section-sticky--glass,
+  .site-footer__card {
+    -webkit-backdrop-filter: blur(18px) saturate(1.25);
+    backdrop-filter: blur(18px) saturate(1.25);
+    background:
+      linear-gradient(163deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0) 40%),
+      linear-gradient(160deg, rgba(34, 8, 17, 0.74), rgba(12, 2, 7, 0.82));
+  }
+}
+
+.sidebar-surface,
+.section-sticky--glass,
+.site-footer__card {
+  border: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+/* The selected page reads as a well pressed into the surface rather than a
+   pill laid on it: darker than its ground, lit along the top lip. */
+.nav-item--active {
+  border-color: rgba(255, 255, 255, 0.14);
+  background: rgba(0, 0, 0, 0.42);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 -6px 14px rgba(0, 0, 0, 0.3);
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .nav-item--active {
+    -webkit-backdrop-filter: blur(8px) saturate(0.9);
+    backdrop-filter: blur(8px) saturate(0.9);
+    background: rgba(0, 0, 0, 0.34);
+  }
+}
+
+@media (hover: hover) {
+  .nav-item--active:hover {
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+}
+
+
+/* ==========================================================================
+   INK
+   The chrome surfaces (sidebar, navbar, pinned headers) settled on a near-black
+   tinted glass. Naming that recipe here lets the two sections below reach for
+   the same material instead of re-mixing it, so ink stays one thing across the
+   page: the deepest surface in the stack, used only where something should read
+   as pressed out of the page rather than laid on it.
+   ========================================================================== */
+:root {
+  --ink: linear-gradient(163deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0) 38%),
+    linear-gradient(160deg, rgba(34, 8, 17, 0.92), rgba(10, 2, 6, 0.96));
+  --ink-solid: #100208;
+  --ink-border: rgba(255, 255, 255, 0.2);
+  --ink-edge: inset 0 1px 0 rgba(255, 255, 255, 0.24), inset 0 -1px 0 rgba(0, 0, 0, 0.5);
+  --ink-shadow: 0 20px 44px rgba(6, 0, 3, 0.5);
+}
+
+/* ==========================================================================
+   WHAT I BUILD — a descent through four stages.
+
+   Read down, not across. The four capabilities are the order a product is
+   actually delivered in, and a stacked list is already read as a sequence —
+   which is what the previous 4-up row had to fake with a hairline rail
+   threaded through half-overhanging nodes, plus fifty lines of nth-child
+   rules pulling that rail back at the ends of every breakpoint's row. The
+   order now sits in the index numeral, at a size that reads as structure.
+
+   The trade the layout makes: a full-width plate per stage instead of a
+   quarter-width one. That is what each palette needed — at card width the
+   field was a sliver behind two lines of copy, and the outlined ghost numeral
+   that filled the leftover space ran underneath the description instead of
+   beside it. Same material, same four ramps, four times the surface.
+   ========================================================================== */
+#services {
+  padding-top: 1.4rem;
+  padding-bottom: 2.4rem;
+}
+
+@media (min-width: 768px) {
+  #services {
+    padding-top: 2rem;
+    padding-bottom: 3.5rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  #services {
+    padding-top: 2.25rem;
+    padding-bottom: 4.25rem;
+  }
+}
+
+.capabilities {
+  display: grid;
+  gap: 0.2rem;
+}
+
+/* Names the path in one line above the stages that walk it. */
+.capabilities__legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.15rem 0.55rem;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  line-height: 1.6;
+  text-transform: uppercase;
+}
+
+.capabilities__legend span {
+  color: rgba(255, 255, 255, 0.94);
+}
+
+.capabilities__legend span + span::before,
+.capabilities__legend em::before {
+  margin-inline-end: 0.55rem;
+  color: rgba(255, 255, 255, 0.42);
+}
+
+.capabilities__legend span + span::before {
+  content: '→';
+}
+
+.capabilities__legend em {
+  color: rgba(255, 255, 255, 0.58);
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.capabilities__legend em::before {
+  content: '·';
+}
+
+.capability-flow {
+  display: grid;
+  gap: 0.7rem;
+  margin: 0;
+  padding: 1.15rem 0 0;
+  list-style: none;
+}
+
+@media (min-width: 900px) {
+  .capability-flow {
+    gap: 0.85rem;
+  }
+}
+
+/* Ink, each plate lit from inside by its own palette. `isolation` is what lets
+   the warp sit behind the copy on a negative layer without any of the text
+   needing a stacking context of its own.
+
+   Phone and tablet: the index and the icon share the top line, and the copy
+   runs full width beneath them — the only arrangement that leaves the
+   description a readable measure on a 360px screen. */
+.capability {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-areas:
+    'index index node'
+    'body  body  body';
+  align-items: center;
+  gap: 0.85rem 0.9rem;
+  min-width: 0;
+  padding: clamp(1rem, 3vw, 1.25rem) clamp(1rem, 3.2vw, 1.35rem);
+  border: 1px solid var(--ink-border);
+  border-radius: 1.15rem;
+  background: var(--ink-solid);
+  background-image: var(--ink);
+  color: #ffffff;
+  box-shadow: var(--ink-edge), var(--ink-shadow);
+}
+
+/* One line per stage once there is width for it: the mark leads, the copy
+   takes the middle, the icon closes. */
+@media (min-width: 900px) {
+  .capability {
+    grid-template-columns: minmax(6.5rem, auto) minmax(0, 1fr) auto;
+    grid-template-areas: 'index body node';
+    gap: clamp(1.25rem, 3vw, 2.4rem);
+    padding: clamp(1.25rem, 2vw, 1.6rem) clamp(1.35rem, 2.4vw, 1.9rem);
+  }
+}
+
+.capability__warp {
+  z-index: -2;
+  border-radius: inherit;
+  background: #0d0206;
+}
+
+.capability__index {
+  display: flex;
+  grid-area: index;
+  align-items: baseline;
+  gap: 0.6rem;
+  margin: 0;
+  min-width: 0;
+}
+
+/* Stacked once the plate is one line: the numeral becomes the column that
+   opens the row, with the stage word set under it as its caption. */
+@media (min-width: 900px) {
+  .capability__index {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+  }
+}
+
+/* Tabular, so the four indices sit on one vertical rhythm down the column. */
+.capability__num {
+  color: #ffffff;
+  font-family: var(--font-heading);
+  font-size: clamp(1.75rem, 5.5vw, 2.15rem);
+  font-variant-numeric: tabular-nums;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 0.9;
+}
+
+@media (min-width: 900px) {
+  .capability__num {
+    font-size: clamp(2.3rem, 3.4vw, 3.15rem);
+  }
+}
+
+.capability__stage {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* A hairline under the numeral, not a rule across the plate: it closes the
+   mark and separates it from the copy without drawing a second horizontal. */
+@media (min-width: 900px) {
+  .capability__stage {
+    padding-top: 0.42rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.28);
+  }
+}
+
+.capability__body {
+  grid-area: body;
+  min-width: 0;
+}
+
+/* Title and description share the line once the plate is wide enough to give
+   each a column. Stacked, a 140-character description wrapped at its reading
+   measure and left a third of the plate empty beside it; paired, the two fill
+   the width they were given and the row reads as an entry in a record rather
+   than a card that happens to be stretched. */
+@media (min-width: 1100px) {
+  .capability__body {
+    display: grid;
+    grid-template-columns: minmax(0, 15.5rem) minmax(0, 1fr);
+    align-items: baseline;
+    gap: 0.3rem 2rem;
+  }
+}
+
+.capability__title {
+  margin: 0;
+  color: #ffffff;
+  font-family: var(--font-heading);
+  font-size: clamp(1.02rem, 2.6vw, 1.2rem);
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.capability__text {
+  /* Held to a reading measure: the plate is now the full column, and a line
+     running its whole width would be far past what an eye tracks back. */
+  max-inline-size: 66ch;
+  margin: 0.4rem 0 0;
+  color: rgba(255, 255, 255, 0.84);
+  font-size: 0.85rem;
+  line-height: 1.58;
+}
+
+@media (min-width: 1100px) {
+  .capability__text {
+    margin-top: 0;
+  }
+}
+
+/* Ink capsule closing the row. It marks the stage's kind of work; the numeral
+   opposite it marks the stage's place in the order. */
+.capability__node {
+  display: grid;
+  grid-area: node;
+  align-self: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  place-items: center;
+  border: 1px solid var(--ink-border);
+  border-radius: 0.9rem;
+  background: rgba(10, 2, 6, 0.5);
+  color: #ffffff;
+  box-shadow: var(--ink-edge);
+}
+
+@media (min-width: 900px) {
+  .capability__node {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 1rem;
+  }
+}
+
+@media (hover: hover) {
+  .capability {
+    transition:
+      transform 240ms var(--motion-ease),
+      border-color 240ms ease,
+      box-shadow 240ms ease;
+  }
+
+  .capability__node {
+    transition: border-color 240ms ease, background 240ms ease;
+  }
+
+  .capability:hover {
+    transform: translateY(-3px);
+    border-color: rgba(255, 255, 255, 0.42);
+    box-shadow: var(--ink-edge), 0 28px 52px rgba(6, 0, 3, 0.58);
+  }
+
+  .capability:hover .capability__node {
+    border-color: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.12);
+  }
+}
+
+/* ==========================================================================
+   CONTACT - the closing plate.
+
+   This was the one opaque white section on the page, dropped between a Burgundy
+   capabilities section and a Burgundy footer, so it read as a different site.
+   It joins the environment here and takes the page's only ink monolith: the
+   last surface a reader meets is the deepest one, with the animated Burgundy
+   showing through it rather than around it. The contact details sit beside it
+   as one indexed panel, the same pattern as the technical toolkit.
+   ========================================================================== */
+#contact {
+  padding-top: 1.4rem;
+  padding-bottom: 2.6rem;
+}
+
+@media (min-width: 768px) {
+  #contact {
+    padding-top: 2rem;
+    padding-bottom: 3.6rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  #contact {
+    padding-top: 2.25rem;
+    padding-bottom: 4.5rem;
+  }
+}
+
+.contact {
+  display: grid;
+  gap: 0.75rem;
+}
+
+@media (min-width: 900px) {
+  .contact {
+    grid-template-columns: minmax(0, 1.04fr) minmax(0, 0.96fr);
+    gap: 0.9rem;
+    align-items: stretch;
+  }
+}
+
+.contact__pitch {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  overflow: hidden;
+  min-width: 0;
+  flex-direction: column;
+  padding: 1.1rem 1.1rem 1.2rem;
+  border: 1px solid var(--ink-border);
+  border-radius: 1.3rem;
+  background: var(--ink-solid);
+  background-image: var(--ink);
+  color: #ffffff;
+  box-shadow: var(--ink-edge), var(--ink-shadow);
+}
+
+@media (min-width: 1024px) {
+  .contact__pitch {
+    padding: 1.5rem 1.6rem 1.6rem;
+  }
+}
+
+/* Held well under the veil: the ink is the surface, the warp is the life in it. */
+.contact__warp {
+  z-index: -1;
+  border-radius: inherit;
+  background: #04120c;
+}
+
+/* Availability, stated before the ask. It is the one fact that decides whether
+   the rest of the section is worth reading, so it is also the one badge on the
+   page carrying a colour of its own — the same green the card is lit with.
+   The label stays white: the green is the signal, never the text. */
+.contact__status {
+  display: inline-flex;
+  align-self: flex-start;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 0;
+  padding: 0.3rem 0.7rem 0.3rem 0.6rem;
+  border: 1px solid rgba(86, 214, 163, 0.42);
+  border-radius: 999px;
+  background: rgba(20, 122, 90, 0.26);
+  color: #ffffff;
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16);
+}
+
+/* The dot carries the meaning; the ring is the only thing that moves, so the
+   global reduced-motion rule can stop it without taking the signal away. */
+.contact__pulse {
+  position: relative;
+  flex: none;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: #56d6a3;
+  box-shadow: 0 0 8px rgba(86, 214, 163, 0.9);
+}
+
+.contact__pulse::after {
+  content: '';
+  position: absolute;
+  inset: -0.3rem;
+  border: 1px solid rgba(86, 214, 163, 0.75);
+  border-radius: 50%;
+  animation: contact-pulse 2.6s ease-out infinite;
+}
+
+@keyframes contact-pulse {
+  0% {
+    opacity: 0.85;
+    transform: scale(0.55);
+  }
+  70% {
+    opacity: 0;
+    transform: scale(1.3);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.3);
+  }
+}
+
+.contact__pitch h3 {
+  margin: 0.9rem 0 0;
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 800;
+  line-height: 1.18;
+}
+
+@media (min-width: 1024px) {
+  .contact__pitch h3 {
+    font-size: 1.62rem;
+  }
+}
+
+.contact__lead {
+  margin: 0.6rem 0 0;
+  max-width: 34rem;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.86rem;
+  line-height: 1.6;
+}
+
+/* Pushed to the bottom edge, so the two channels are the last thing in the
+   column however tall the copy above them runs. */
+.contact__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding-top: 1.2rem;
+}
+
+.contact__cta {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  gap: 0.5rem;
+  padding: 0.6rem 1.1rem;
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  border-radius: 999px;
+  color: #ffffff;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition:
+    transform 200ms var(--motion-ease),
+    background 200ms ease,
+    color 200ms ease,
+    box-shadow 200ms ease;
+}
+
+/* Ink type rather than Burgundy: the card is lit green now, and a Burgundy
+   label on it was the one place two brand hues met without a reason. */
+.contact__cta--primary {
+  border-color: #ffffff;
+  background: #ffffff;
+  color: #14040b;
+  box-shadow: 0 12px 26px rgba(6, 0, 3, 0.42);
+}
+
+@media (hover: hover) {
+  .contact__cta:hover {
+    transform: translateY(-2px);
+    background: #ffffff;
+    color: #14040b;
+    box-shadow: 0 18px 32px rgba(6, 0, 3, 0.46);
+  }
+}
+
+.contact__cta:active {
+  transform: translateY(1px);
+}
+
+/* --------------------------------------------------------------------------
+   Contact index: one panel of hairline-divided rows, not five floating pills.
+   -------------------------------------------------------------------------- */
+.contact__index {
+  display: grid;
+  grid-auto-rows: 1fr;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--glass-prism-border);
+  border-radius: 1.3rem;
+  background: var(--glass-prism-solid);
+  box-shadow: var(--glass-prism-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.24);
+  list-style: none;
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .contact__index {
+    -webkit-backdrop-filter: blur(var(--glass-prism-blur)) saturate(var(--glass-saturate));
+    backdrop-filter: blur(var(--glass-prism-blur)) saturate(var(--glass-saturate));
+    background: var(--glass-prism);
+  }
+}
+
+.contact__index li + li {
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.contact-row {
+  display: flex;
+  height: 100%;
+  min-height: 44px;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.6rem 0.85rem;
+  color: #ffffff;
+  text-decoration: none;
+  transition: background 200ms ease, transform 120ms var(--motion-ease);
+}
+
+@media (min-width: 1024px) {
+  .contact-row {
+    padding: 0.62rem 1rem;
+  }
+}
+
+.contact-row__icon {
+  display: grid;
+  width: 2.15rem;
+  height: 2.15rem;
+  flex: none;
+  place-items: center;
+  border: 1px solid var(--ink-border);
+  border-radius: 0.7rem;
+  background: var(--ink-solid);
+  background-image: var(--ink);
+  color: #ffffff;
+  box-shadow: var(--ink-edge);
+  transition: border-color 200ms ease, transform 200ms var(--motion-ease);
+}
+
+.contact-row__body {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.contact-row__label {
+  display: block;
+  color: rgba(255, 255, 255, 0.64);
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.contact-row__value {
+  display: block;
+  margin-top: 0.12rem;
+  color: #ffffff;
+  font-size: 0.82rem;
+  font-weight: 650;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+/* The arrow is the affordance, so it has to answer to the keyboard too. */
+.contact-row__go {
+  flex: none;
+  color: rgba(255, 255, 255, 0.75);
+  opacity: 0;
+  transform: translate(-4px, 4px);
+  transition: opacity 200ms ease, transform 200ms var(--motion-ease);
+}
+
+a.contact-row:focus-visible {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+a.contact-row:focus-visible .contact-row__go {
+  opacity: 1;
+  transform: none;
+}
+
+@media (hover: hover) {
+  a.contact-row:hover {
+    background: rgba(255, 255, 255, 0.07);
+  }
+
+  a.contact-row:hover .contact-row__icon {
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-1px);
+  }
+
+  a.contact-row:hover .contact-row__go {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* The global focus ring is Burgundy at 35% — readable on the white surfaces it
+   was written for, invisible on these. Contact used to be one of those white
+   surfaces; now that it sits on the environment its links need a light ring.
+   The rows also pull their ring inside the panel, which clips its children. */
+#services a:focus-visible,
+#contact a:focus-visible {
+  outline-color: rgba(255, 255, 255, 0.9);
+}
+
+a.contact-row:focus-visible {
+  outline-offset: -3px;
+}
+
+/* --------------------------------------------------------------------------
+   Language selector
+
+   Expands in flow rather than floating: the sidebar is an `overflow-hidden`
+   glass panel wrapping an `overflow-y-auto` nav, and an absolutely positioned
+   popup inside that pair clips against one or the other at some viewport
+   height. Expanding in place scrolls with its container instead, and the same
+   markup then works unchanged in the mobile drawer.
+
+   Styled here rather than through utility classes: the frozen Tailwind build
+   has no min-h-[44px] or the tokens these need.
+   -------------------------------------------------------------------------- */
+.lang-select {
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.lang-select__trigger {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  /* 44px: the selector is a touch target in the drawer, not only a pointer one. */
+  min-height: 44px;
+  padding: 0.4rem 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-align: start;
+  cursor: pointer;
+  transition: background 180ms var(--motion-ease), border-color 180ms var(--motion-ease),
+    transform 120ms var(--motion-ease);
+}
+
+.lang-select__trigger:hover {
+  border-color: rgba(255, 255, 255, 0.34);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.lang-select__current {
+  flex: 1;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.08em;
+}
+
+/* Rotation, not reflection: the chevron points down when closed and up when
+   open in both directions, so it never needs mirroring. */
+.lang-select__chevron {
+  flex: none;
+  transition: transform 200ms var(--motion-ease);
+}
+
+.lang-select__chevron--open {
+  transform: rotate(180deg);
+}
+
+.lang-select__panel {
+  display: grid;
+  gap: 0.15rem;
+  margin: 0.35rem 0 0.2rem;
+  padding: 0;
+  list-style: none;
+}
+
+.lang-select__option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  width: 100%;
+  min-height: 44px;
+  padding: 0.4rem 0.75rem;
+  border: 1px solid transparent;
+  border-radius: 0.7rem;
+  background: none;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-align: start;
+  cursor: pointer;
+  transition: background 160ms var(--motion-ease), color 160ms var(--motion-ease),
+    transform 120ms var(--motion-ease);
+}
+
+.lang-select__option:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.lang-select__option--active {
+  border-color: rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+  font-weight: 800;
+}
+
+.lang-select__trigger:focus-visible,
+.lang-select__option:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.9);
+  outline-offset: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   Navbar variant. The drawer copy is hidden below the sidebar breakpoint, so
+   on a phone or tablet this pill is the one language control — which is why it
+   is pitched brighter than the hamburger beside it rather than matching it.
+   The panel leaves the flow here: the bar is a fixed 4.25rem and cannot open a
+   list inside itself.
+   -------------------------------------------------------------------------- */
+/* Stretched to the bar's full height, with the pill centred inside it, so the
+   panel's `top: 100%` lands under the BAR rather than under the pill — no
+   magic offset to re-derive whenever the bar's height changes. */
+.lang-select--bar {
+  position: relative;
+  display: flex;
+  align-self: stretch;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  border-top: 0;
+}
+
+.lang-select--bar .lang-select__trigger {
+  width: auto;
+  min-height: 2.6rem;
+  gap: 0.32rem;
+  padding: 0 0.6rem;
+  border-color: rgba(255, 255, 255, 0.45);
+  border-radius: 0.85rem;
+  background: rgba(255, 255, 255, 0.17);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+}
+
+.lang-select--bar .lang-select__trigger:hover {
+  border-color: rgba(255, 255, 255, 0.72);
+  background: rgba(255, 255, 255, 0.26);
+}
+
+.lang-select--bar .lang-select__current {
+  flex: none;
+  font-size: 0.72rem;
+}
+
+.lang-select--bar .lang-select__panel {
+  position: absolute;
+  z-index: 5;
+  inset-inline-end: 0;
+  top: calc(100% + 0.55rem);
+  min-width: 11.5rem;
+  margin: 0;
+  padding: 0.35rem;
+  border: 1px solid var(--glass-dark-border);
+  border-radius: 1rem;
+  background: var(--glass-navbar-solid);
+  box-shadow: 0 22px 44px rgba(12, 0, 5, 0.42);
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .lang-select--bar .lang-select__panel {
+    -webkit-backdrop-filter: blur(var(--glass-navbar-blur)) saturate(var(--glass-saturate));
+    backdrop-filter: blur(var(--glass-navbar-blur)) saturate(var(--glass-saturate));
+    background: var(--glass-navbar);
+  }
+}
+
+/* One language control per breakpoint: the drawer's copy would be a second one
+   below 1280px, where the navbar pill already carries it. The docked desktop
+   sidebar keeps its own — there is no navbar up there. */
+.mobile-drawer .lang-select {
+  display: none;
+}
+
+/* Nav rows are buttons, so their text needs an explicit start alignment; the
+   frozen Tailwind build only offers the physical `text-left`. */
+.nav-row {
+  text-align: start;
+}
+
+/* --------------------------------------------------------------------------
+   RTL
+
+   Everything above this point is written with logical properties and needs no
+   override. What remains here is the handful of positions set by the frozen
+   Tailwind build, which only has physical utilities, plus the two places where
+   a glyph carries a direction of its own.
+   -------------------------------------------------------------------------- */
+
+/* The sidebar docks to the reading-start edge, so the main column's inset for
+   it moves to the other side. Mirrors `xl:pl-[268px] xl:pr-4 2xl:pl-[280px]`. */
+@media (min-width: 1280px) {
+  [dir='rtl'] .app-main {
+    padding-left: 1rem;
+    padding-right: 268px;
+  }
+}
+
+@media (min-width: 1536px) {
+  [dir='rtl'] .app-main {
+    padding-right: 280px;
+  }
+}
+
+/* Mirrors `fixed bottom-4 left-4 top-4`. */
+[dir='rtl'] .sidebar-dock {
+  left: auto;
+  right: 1rem;
+}
+
+/* Mirrors `fixed inset-y-0 left-0`. The drawer's slide direction is set on the
+   element by Framer Motion, which reads the same direction value. */
+[dir='rtl'] .mobile-drawer {
+  left: auto;
+  right: 0;
+}
+
+/* Arrows that mean "onward" follow the reading axis. The external-link and
+   back-to-top glyphs are deliberately excluded: they point out of the page and
+   up, neither of which reverses. */
+[dir='rtl'] .hero__cta-arrow,
+[dir='rtl'] .project-card__cta-arrow {
+  transform: scaleX(-1);
+}
+
+/* The contact arrow both mirrors and keeps its entrance nudge, so the whole
+   transform is restated rather than replaced — including the resting offset,
+   which slides in from the reading-start side. */
+[dir='rtl'] .contact-row__go {
+  transform: translate(4px, 4px) scaleX(-1);
+}
+
+[dir='rtl'] a.contact-row:focus-visible .contact-row__go,
+[dir='rtl'] a.contact-row:hover .contact-row__go {
+  transform: scaleX(-1);
+}
+
+/* --------------------------------------------------------------------------
+   Text expansion safety net
+
+   German compounds (Produktentwicklungsingenieur, Softwarearchitektur) and the
+   longer Spanish and French labels can exceed a narrow box as a single
+   unbreakable token — at 320px the hero role overflowed its grid track by 45px.
+
+   `break-word` only breaks a word that would otherwise overflow, so this is
+   inert wherever the text already fits, including in English. It is applied to
+   the boxes that are both narrow and fed by translated strings, rather than
+   globally, so ordinary prose keeps its natural wrapping.
+   -------------------------------------------------------------------------- */
+.hero__role,
+.hero__summary,
+.hero__meta span,
+.project-card__role,
+.resume-profile__headline,
+.resume-strengths li,
+.resume-card__lead,
+.toolkit-card__items li,
+.toolkit-card__head h4,
+.about__roles-list span,
+.capability__title,
+.project-card__title,
+.project-card__description,
+.project-card__status,
+.project-card__category,
+.case-study__label,
+.case-study__capabilities li,
+.contact-row__value,
+.lang-select__option,
+.nav-row span,
+.portfolio-filter {
+  overflow-wrap: break-word;
+}

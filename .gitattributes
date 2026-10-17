@@ -1,0 +1,9 @@
+# The locale dictionaries are written by scripts/generate-locales.mjs, which
+# always emits LF. Without this, a Windows checkout with core.autocrlf=true
+# gets CRLF in the working tree and every regeneration reports all five files
+# as modified — which also breaks the validator's guarantee that regenerating
+# from the content source is a no-op.
+#
+# Scoped to the generated files rather than the whole repository: renormalizing
+# everything would rewrite unrelated history-adjacent files for no benefit here.
+content/locales/*.ts eol=lf

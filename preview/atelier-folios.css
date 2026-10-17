@@ -1,0 +1,80 @@
+/* Compact project folios. The accepted collection hero is deliberately untouched. */
+html .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-wayfinding{padding-block:20px 18px;gap:12px;align-items:center;}
+html .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-filters{gap:6px 12px;flex-wrap:wrap;}
+html .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-filters button{position:relative;display:flex;align-items:center;gap:12px;min-height:44px;padding:8px 14px;border:1px solid transparent;border-radius:24px;background:transparent;font-size:17px;line-height:1.4;color:var(--muted);transition:color .2s,background .2s,border-color .2s;}
+html .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-filters button:is(:hover,[aria-pressed=true]){background:var(--atelier-petrol);color:var(--ink);border-color:var(--media-frame-border);}
+html .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-filters button::after{content:'';width:5px;height:5px;border-radius:50%;background:var(--burgundy);order:-1;opacity:0;transition:opacity .2s;}
+html .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-filters button[aria-pressed=true]::after{opacity:1;}
+html .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .filter-count{font:10px/1.4 ui-monospace,Consolas,monospace;opacity:.8;}
+html[lang=ar] .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-filters button{font-size:12px;}
+html .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-result-count{font-size:10px;white-space:nowrap;}
+html .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibits{position:relative;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px 14px;border:0;background:transparent;align-items:start;}
+html .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibit{background:transparent;border:0;border-radius:12px;}
+html .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibit[data-filtered=true]{display:none;}
+html .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-project-link{position:relative;display:grid;grid-template-rows:auto auto minmax(0,1fr);gap:0;padding:16px 18px 18px;border:1px solid var(--line);border-radius:12px;background:linear-gradient(155deg,var(--atelier-petrol),var(--paper) 65%);overflow:hidden;isolation:isolate;transition:border-color .25s,background .25s;}
+html .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-project-link::before{content:'';position:absolute;inset:0 auto auto 0;width:46%;height:2px;background:var(--burgundy);opacity:.65;}
+html .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibit:nth-child(3n+2) .gallery-project-link{background:linear-gradient(155deg,var(--surface-strong),var(--paper) 70%);}
+html .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-project-link:hover{border-color:var(--burgundy);background:linear-gradient(155deg,var(--atelier-petrol),var(--paper) 80%);}
+html .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-project-meta{font-size:10px;margin-bottom:12px;gap:10px;line-height:1.6;}
+html .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-project-meta .index{border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;width:27px;height:27px;font-size:10px;}
+html .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-artwork{height:clamp(180px,17vw,270px);margin:0 0 16px;}
+html .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-media-mask{--frame-height:clamp(170px,16vw,260px);box-shadow:0 10px 24px #0002;}
+html .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-artwork figcaption{font-size:9px;bottom:-8px;}
+html .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-project-heading h2{font-size:clamp(27px,2.1vw,36px);line-height:1.15;margin:0 0 9px;}
+html[lang=ar] .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-project-heading h2{font-size:clamp(24px,1.9vw,34px);line-height:1.4;}
+html .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-project-copy>p{font-size:17px;line-height:1.5;margin:0 0 14px;max-width:48ch;}
+html[lang=ar] .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-project-copy>p{font-size:14px;line-height:1.8;}
+html .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-technologies{margin:0 0 12px;gap:6px;}
+html .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-technologies li{font-size:13px;}
+html .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-project-status{font-size:10px;line-height:1.5;padding-top:10px;}
+/* Smaller evidence desk, full images and a short horizontal contact strip. */
+html .light-portfolio.luxury-portfolio.atelier-compact .case-gallery{--evidence-height:clamp(240px,27vw,390px);display:grid;grid-template-columns:minmax(0,1fr);gap:12px;width:100%;max-width:1080px;margin-inline:auto;}
+html .light-portfolio.luxury-portfolio.atelier-compact .evidence-stage{height:var(--evidence-height);}
+html .light-portfolio.luxury-portfolio.atelier-compact .evidence-slide{padding:26px 20px;}
+html .light-portfolio.luxury-portfolio.atelier-compact .evidence-native-frame{width:min(100%,calc((var(--evidence-height) - 52px)*var(--media-ratio) + 8px));}
+html .light-portfolio.luxury-portfolio.atelier-compact .evidence-filmstrip{flex-direction:row;flex-wrap:wrap;gap:8px;max-height:none;justify-content:center;}
+html .light-portfolio.luxury-portfolio.atelier-compact .evidence-thumbnail{width:110px;height:76px;padding:13px 8px 8px;border-radius:7px;}
+html .light-portfolio.luxury-portfolio.atelier-compact .evidence-thumbnail img{max-height:51px;}
+html .light-portfolio.luxury-portfolio.atelier-compact .evidence-toolbar{padding:10px 12px;}
+/* Related work as compact directional dossiers. */
+html .light-portfolio.luxury-portfolio.atelier-compact .case-closing{padding-block:36px 48px;}
+html .light-portfolio.luxury-portfolio.atelier-compact .case-closing>h2{font-size:clamp(28px,2.7vw,42px);margin-block:12px 22px;}
+html .light-portfolio.luxury-portfolio.atelier-compact .case-neighbors{gap:14px;}
+html .light-portfolio.luxury-portfolio.atelier-compact .case-neighbor{display:grid;grid-template-columns:minmax(100px,.8fr) minmax(0,1.2fr);grid-template-rows:auto 1fr auto;gap:8px 20px;align-items:center;padding:20px;border:1px solid var(--line);border-radius:12px;background:linear-gradient(135deg,var(--atelier-petrol),var(--paper));transition:border-color .25s;}
+html .light-portfolio.luxury-portfolio.atelier-compact .case-neighbor:hover{border-color:var(--burgundy);}
+html .light-portfolio.luxury-portfolio.atelier-compact .case-neighbor>.index{grid-column:2;font-size:10px;line-height:1.5;}
+html .light-portfolio.luxury-portfolio.atelier-compact .neighbor-visual{grid-column:1;grid-row:1/4;--frame-height:150px;margin:0;justify-self:center;}
+html .light-portfolio.luxury-portfolio.atelier-compact .case-neighbor h3{grid-column:2;margin:0;font-size:clamp(24px,2vw,34px);line-height:1.2;align-items:center;gap:10px;}
+html .light-portfolio.luxury-portfolio.atelier-compact .case-neighbor>p{grid-column:2;margin:0;font-size:11px;line-height:1.7;}
+html .light-portfolio.luxury-portfolio.atelier-compact .neighbor-name{min-width:0;overflow-wrap:anywhere;}
+html .light-portfolio.luxury-portfolio.atelier-compact .case-neighbor .case-architecture--compact{padding:8px;}
+html .light-portfolio.luxury-portfolio.atelier-compact .case-neighbor .system-caption{font-size:9px;}
+@media(max-width:1000px){html .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibits{grid-template-columns:repeat(2,minmax(0,1fr));}html .light-portfolio.luxury-portfolio.atelier-compact .case-neighbors{grid-template-columns:minmax(0,1fr);}html .light-portfolio.luxury-portfolio.atelier-compact .case-neighbor{grid-template-columns:150px minmax(0,1fr);}}
+@media(max-width:600px){
+ html .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibits{grid-template-columns:minmax(0,1fr);gap:14px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-project-link{padding:14px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-artwork{height:200px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-media-mask{--frame-height:190px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-filters{gap:4px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-filters button{font-size:16px;padding:8px 10px;gap:8px;}
+ html[lang=ar] .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-filters button{font-size:12px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact .case-gallery{--evidence-height:240px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact .evidence-filmstrip{justify-content:start;}
+ html .light-portfolio.luxury-portfolio.atelier-compact .evidence-thumbnail{width:calc((100% - 16px)/3);max-width:110px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact .case-neighbor{grid-template-columns:110px minmax(0,1fr);padding:14px;gap:8px 12px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact .case-neighbor h3{font-size:25px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact .neighbor-visual{--frame-height:125px;}
+}
+@media(prefers-reduced-motion:reduce){html .light-portfolio.luxury-portfolio.atelier-compact :is(.gallery-filters button,.case-neighbor,.gallery-project-link){transition:none;}}
+@media(min-width:1101px){
+ html .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index[data-gallery-filter-state=all] .gallery-exhibits{grid-template-columns:repeat(12,minmax(0,1fr));}
+ html .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index[data-gallery-filter-state=all] .gallery-exhibit{grid-column:span 4!important;}
+ html .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index[data-gallery-filter-state=all] .gallery-exhibit:is(:nth-child(1),:nth-child(4)){grid-column:span 7!important;}
+ html .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index[data-gallery-filter-state=all] .gallery-exhibit:is(:nth-child(2),:nth-child(3)){grid-column:span 5!important;}
+ html .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index[data-gallery-filter-state=all] .gallery-exhibit:nth-child(-n+4) .gallery-project-link{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);grid-template-rows:auto minmax(0,1fr);gap:12px 20px;min-height:330px;}
+ html .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index[data-gallery-filter-state=all] .gallery-exhibit:nth-child(-n+4) .gallery-project-meta{grid-column:1/-1;margin:0;}
+ html .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index[data-gallery-filter-state=all] .gallery-exhibit:nth-child(-n+4) .gallery-artwork{grid-column:2;grid-row:2;margin:0;align-self:center;}
+ html .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index[data-gallery-filter-state=all] .gallery-exhibit:nth-child(-n+4) .gallery-project-copy{grid-column:1;grid-row:2;align-self:center;}
+}
+
+html .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibit:nth-child(n+5) .gallery-project-link>*{grid-column:auto;grid-row:auto;}

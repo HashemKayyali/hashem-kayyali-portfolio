@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Outreach Automation Platform — illustrative workflow</title>
+  <desc id="desc">Conceptual outreach workflow linking contact management and reusable templates to a controlled sending queue, SMTP delivery, activity history, IMAP reply synchronization, and campaign monitoring. This illustration contains no customer data or actual email accounts.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#1a060f"/><stop offset=".6" stop-color="#4d0d1c"/><stop offset="1" stop-color="#220810"/></linearGradient>
+    <radialGradient id="glow"><stop stop-color="#c9879c" stop-opacity=".2"/><stop offset="1" stop-color="#c9879c" stop-opacity="0"/></radialGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffffff" stop-opacity=".1"/><stop offset="1" stop-color="#ffffff" stop-opacity=".035"/></linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" fill="none" stroke="#e0b6c3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#bg)"/>
+  <ellipse cx="800" cy="470" rx="760" ry="560" fill="url(#glow)"/>
+  <g fill="none" stroke="#ffffff" stroke-opacity=".045"><path d="M0 240H1600M0 700H1600M0 960H1600M72 0V1000M1528 0V1000M0 0L1600 1000M0 1000L1600 0"/></g>
+  <g font-family="Inter, Arial, sans-serif">
+    <circle cx="102" cy="87" r="7" fill="#e2b2c0"/>
+    <text x="125" y="96" fill="#e2b2c0" font-size="26" letter-spacing="2">WORKFLOW ARCHITECTURE · ILLUSTRATIVE</text>
+    <text x="96" y="181" fill="#fff" font-size="66" font-weight="600" letter-spacing="-1.8">Outreach automation</text>
+    <text x="98" y="230" fill="#d9c4cb" font-size="29">One connected workflow, from preparation to replies.</text>
+    <g fill="url(#glass)" stroke="#f6dce4" stroke-opacity=".27" stroke-width="2">
+      <rect x="96" y="316" width="382" height="360" rx="28"/>
+      <rect x="586" y="316" width="428" height="360" rx="28" stroke-opacity=".45"/>
+      <rect x="1122" y="316" width="382" height="360" rx="28"/>
+    </g>
+    <g fill="#fff" font-size="34" font-weight="600">
+      <text x="130" y="379">Prepare</text><text x="622" y="379">Coordinate</text><text x="1156" y="379">Monitor</text>
+    </g>
+    <g stroke="#fff" stroke-opacity=".15"><path d="M130 404H444M622 404H978M1156 404H1470"/></g>
+    <g fill="#f0e4e8" font-size="28">
+      <text x="130" y="466">Contact management</text><text x="130" y="532">Reusable templates</text><text x="130" y="598">Personalized messages</text>
+      <text x="622" y="466">Controlled queue</text><text x="622" y="532">SMTP sending</text><text x="622" y="598">Delivery state</text>
+      <text x="1156" y="466">Activity history</text><text x="1156" y="532">IMAP replies</text><text x="1156" y="598">Campaign monitoring</text>
+    </g>
+    <g fill="none" stroke="#e0b6c3" stroke-width="2.5" marker-end="url(#arrow)"><path d="M478 496H574"/><path d="M1014 496H1110"/></g>
+    <g fill="#d9bcc7" font-size="23"><text x="532" y="471" text-anchor="middle">queue</text><text x="1068" y="471" text-anchor="middle">track</text></g>
+    <path d="M1313 676V752Q1313 770 1295 770H818Q800 770 800 752V688" fill="none" stroke="#e0b6c3" stroke-width="2.5" stroke-dasharray="7 8" marker-end="url(#arrow)"/>
+    <text x="1060" y="813" fill="#e2cbd3" font-size="26" text-anchor="middle">Reply synchronization &amp; campaign state</text>
+    <rect x="96" y="754" width="458" height="92" rx="22" fill="url(#glass)" stroke="#f6dce4" stroke-opacity=".2"/>
+    <text x="130" y="811" fill="#f0e4e8" font-size="25">Reusable steps · traceable activity</text>
+    <text x="96" y="948" fill="#d6bbc5" font-size="25">SMTP / IMAP</text>
+    <text x="1504" y="948" text-anchor="end" fill="#d6bbc5" font-size="24">Conceptual flow · no customer data</text>
+  </g>
+</svg>

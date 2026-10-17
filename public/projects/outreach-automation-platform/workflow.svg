@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Outreach Automation Platform — illustrative sending and reply workflow</title>
+  <desc id="desc">A conceptual six-step outreach workflow: contacts feed reusable templates and personalization, then a controlled queue sends through SMTP. Delivery and activity states are tracked, and IMAP replies synchronize into campaign monitoring. No customer data, account details, or measured metrics are depicted.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#1a060f"/><stop offset=".6" stop-color="#4d0d1c"/><stop offset="1" stop-color="#220810"/></linearGradient>
+    <radialGradient id="glow"><stop stop-color="#c9879c" stop-opacity=".2"/><stop offset="1" stop-color="#c9879c" stop-opacity="0"/></radialGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff" stop-opacity=".1"/><stop offset="1" stop-color="#fff" stop-opacity=".035"/></linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" fill="none" stroke="#e0b6c3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#bg)"/>
+  <ellipse cx="800" cy="470" rx="760" ry="570" fill="url(#glow)"/>
+  <g fill="none" stroke="#fff" stroke-opacity=".045"><path d="M0 240H1600M0 900H1600M72 0V1000M1528 0V1000M0 0L1600 1000M0 1000L1600 0"/></g>
+  <g font-family="Inter, Arial, sans-serif">
+    <circle cx="102" cy="87" r="7" fill="#e2b2c0"/>
+    <text x="125" y="96" fill="#e2b2c0" font-size="26" letter-spacing="2">SENDING &amp; REPLY FLOW · ILLUSTRATIVE</text>
+    <text x="96" y="180" fill="#fff" font-size="62" font-weight="600" letter-spacing="-1.7">From contacts to conversation</text>
+    <text x="98" y="230" fill="#d9c4cb" font-size="29">Preparation, controlled delivery, and synchronized follow-up.</text>
+    <g fill="url(#glass)" stroke="#f6dce4" stroke-opacity=".27" stroke-width="2">
+      <rect x="96" y="318" width="390" height="210" rx="28"/>
+      <rect x="605" y="318" width="390" height="210" rx="28"/>
+      <rect x="1114" y="318" width="390" height="210" rx="28"/>
+      <rect x="1114" y="626" width="390" height="210" rx="28"/>
+      <rect x="605" y="626" width="390" height="210" rx="28"/>
+      <rect x="96" y="626" width="390" height="210" rx="28"/>
+    </g>
+    <g fill="#fff" font-size="35" font-weight="600">
+      <text x="130" y="388">Contacts</text><text x="639" y="388">Templates</text><text x="1148" y="388">Controlled queue</text>
+      <text x="1148" y="696">SMTP sending</text><text x="639" y="696" font-size="32">Delivery &amp; activity</text><text x="130" y="696">IMAP replies</text>
+    </g>
+    <g fill="#e2cbd3" font-size="26">
+      <text x="130" y="443">Organized contact records</text><text x="130" y="482">Campaign preparation</text>
+      <text x="639" y="443">Reusable message structure</text><text x="639" y="482">Personalized content</text>
+      <text x="1148" y="443">Coordinated sending</text><text x="1148" y="482">Queue state</text>
+      <text x="1148" y="751">Outgoing mail transport</text><text x="1148" y="790">Sending state</text>
+      <text x="639" y="751">Delivery monitoring</text><text x="639" y="790">Traceable activity history</text>
+      <text x="130" y="751">Reply synchronization</text><text x="130" y="790">Campaign monitoring</text>
+    </g>
+    <g fill="none" stroke="#e0b6c3" stroke-width="2.5" marker-end="url(#arrow)">
+      <path d="M486 423H593"/><path d="M995 423H1102"/>
+      <path d="M1309 528V614"/><path d="M1114 731H1007"/><path d="M605 731H498"/>
+    </g>
+    <g fill="#d9bcc7" font-size="23"><text x="539" y="400" text-anchor="middle">prepare</text><text x="1050" y="400" text-anchor="middle">queue</text><text x="1330" y="583">send</text><text x="1060" y="708" text-anchor="middle">track</text><text x="551" y="708" text-anchor="middle">sync</text></g>
+    <text x="96" y="948" fill="#d6bbc5" font-size="25">Contact → template → queue → send → track → synchronize</text>
+    <text x="1504" y="948" text-anchor="end" fill="#d6bbc5" font-size="24">No customer data</text>
+  </g>
+</svg>

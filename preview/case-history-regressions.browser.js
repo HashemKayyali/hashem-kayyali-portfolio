@@ -1,0 +1,18 @@
+async page=>{
+ const base='http://127.0.0.1:4176/preview/',results=[],errors=[],onError=e=>errors.push(e.message);page.on('pageerror',onError);
+ const contact=async locale=>{const toggle=page.locator('.navigation-toggle');if(await toggle.isVisible())await toggle.click();await page.locator('#primary-navigation a[href="/preview/'+locale+'/contact/"]').click();await page.waitForURL('**/contact/');await page.waitForTimeout(500);};
+ try{
+  for(const locale of ['en','ar'])for(const width of [390,1440])for(const id of ['terminal-nfc','eventies']){
+   await page.setViewportSize({width,height:900});await page.goto(base+locale+'/projects/'+id+'/');await page.locator('.case-opening-visual img').evaluate(e=>e.decode());await page.waitForTimeout(1350);await contact(locale);
+   await page.evaluate(()=>{window.__historyReveal={run:true,frames:[]};const tick=t=>{const v=document.querySelector('.case-opening-visual'),i=v?.querySelector('img');if(v)window.__historyReveal.frames.push({t,clip:getComputedStyle(v).clipPath,decoded:i?.complete&&i.naturalWidth>0});if(window.__historyReveal.run)requestAnimationFrame(tick)};requestAnimationFrame(tick)});
+   await page.goBack();await page.waitForURL('**/projects/'+id+'/');await page.locator('.case-study--'+id).waitFor();await page.waitForFunction(()=>document.querySelector('.signature-case')?.getAttribute('data-entrance')==='complete');await page.locator('.case-opening-visual img').evaluate(e=>e.decode());
+   const r=await page.evaluate(()=>{const p=window.__historyReveal;p.run=false;const first=p.frames[0],img=document.querySelector('.case-opening-visual img');return {states:new Set(p.frames.filter(f=>f.t-first.t>=150&&f.t-first.t<=800).map(f=>f.clip)).size,decoded:img.complete&&img.naturalWidth>0,final:getComputedStyle(document.querySelector('.case-opening-visual')).clipPath,header:getComputedStyle(document.querySelector('.header-layout')).opacity,overlays:document.querySelectorAll('.project-transit-target,.project-transit-image').length,documents:performance.getEntriesByType('navigation').length}});
+   if(r.states<10||!r.decoded||r.final!=='none'||r.header!=='1'||r.overlays||r.documents!==1)throw Error(JSON.stringify({locale,width,id,r}));results.push({locale,width,id,...r});
+  }
+  await contact('ar');await page.goBack();await page.waitForURL('**/projects/eventies/');await page.locator('.case-study--eventies').waitFor();await page.waitForTimeout(100);await page.emulateMedia({reducedMotion:'reduce'});await page.waitForTimeout(300);
+  if(await page.locator('.case-opening-visual').evaluate(e=>getComputedStyle(e).clipPath)!=='none')throw Error('Reduced motion retains cover clipping');results.push({liveReduced:true});await page.emulateMedia({reducedMotion:'no-preference'});
+  await page.goForward();await page.waitForURL('**/contact/');await page.waitForTimeout(500);await page.goBack();await page.waitForURL('**/projects/eventies/');await page.locator('.case-study--eventies').waitFor();await page.waitForTimeout(100);await contact('ar');await page.goBack();await page.waitForURL('**/projects/eventies/');await page.locator('.case-study--eventies').waitFor();await page.waitForFunction(()=>document.querySelector('.signature-case')?.getAttribute('data-entrance')==='complete');
+  if(await page.locator('.case-opening-visual').evaluate(e=>getComputedStyle(e).clipPath)!=='none')throw Error('Interrupted Back retains clipping');results.push({forwardAndInterruptedBack:true});
+  if(errors.length)throw Error(JSON.stringify(errors));return {passed:true,groups:results.length,results,errors};
+ }finally{page.off('pageerror',onError);await page.emulateMedia({reducedMotion:'no-preference'});}
+}

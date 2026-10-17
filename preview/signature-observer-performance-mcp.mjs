@@ -1,0 +1,18 @@
+import {connect} from './mcp-client.mjs';
+import {writeFile} from 'node:fs/promises';
+const client=await connect('devtools'),records=[],samples=[];
+const call=async(name,args)=>{const result=await client.call(name,args);records.push({name,args,result});if(result.isError)throw Error(JSON.stringify(result));return result;};
+const parse=result=>{const text=result.content.filter(x=>x.type==='text').map(x=>x.text).join('\n');return JSON.parse(text.match(/```json\s*([\s\S]*?)```/)[1]);};
+const setup=`window.performanceQA={tasks:[],shifts:[],lcp:[]};for(const [type,key] of [['longtask','tasks'],['layout-shift','shifts'],['largest-contentful-paint','lcp']]){const observer=new PerformanceObserver(list=>window.performanceQA[key].push(...list.getEntries().map(e=>({time:e.startTime,duration:e.duration,value:e.value,input:e.hadRecentInput,element:e.element?.className,attribution:e.attribution?.map(a=>({name:a.name,containerType:a.containerType}))}))));observer.observe({type,buffered:true});}window.loadingCaseWasPresent=false;new MutationObserver(()=>{if(document.querySelector('.case-loading'))window.loadingCaseWasPresent=true;}).observe(document,{childList:true,subtree:true});`;
+try {
+ await call('new_page',{url:'http://127.0.0.1:4176/preview/en/'});const listing=await call('list_pages',{});const pageId=Number(listing.content.map(x=>x.text??'').join('\n').match(/(?:^|\n)(\d+):.*4176/)?.[1]);
+ await call('emulate',{pageId,viewport:'390x844x1,mobile,touch',cpuThrottlingRate:4});
+ for(const [scene,path] of [['home-1',''],['home-2',''],['home-3',''],['eventies','projects/eventies/'],['bike','projects/bike-tower/']]) {
+  await call('navigate_page',{pageId,type:'url',url:'http://127.0.0.1:4176/preview/en/'+path,initScript:setup});
+  const data=parse(await call('evaluate_script',{pageId,waitForStableDom:false,function:`async()=>{await document.fonts.ready;await new Promise(resolve=>setTimeout(resolve,2000));const entries=window.performanceQA;return {...entries,cls:entries.shifts.filter(e=>!e.input).reduce((sum,e)=>sum+e.value,0),lcpMs:entries.lcp.at(-1)?.time,loadingCaseWasPresent:window.loadingCaseWasPresent,motion:window.__portfolioMotion(),overflow:document.documentElement.scrollWidth>innerWidth};}`}));
+  samples.push({scene,...data});console.log(scene,JSON.stringify({lcpMs:data.lcpMs,cls:data.cls,longTasks:data.tasks.length,maxTask:Math.max(0,...data.tasks.map(e=>e.duration)),loading:data.loadingCaseWasPresent}));
+ }
+ await call('evaluate_script',{pageId,waitForStableDom:false,function:`()=>{window.performanceQA.tasks=[];window.performanceQA.shifts=[];}`});
+ for(let step=0;step<7;step++){await call('press_key',{pageId,key:'PageDown'});await call('evaluate_script',{pageId,waitForStableDom:false,function:`async()=>{await new Promise(resolve=>setTimeout(resolve,450));return scrollY;}`});}
+ const scroll=parse(await call('evaluate_script',{pageId,waitForStableDom:false,function:`()=>({...window.performanceQA,overflow:document.documentElement.scrollWidth>innerWidth,motion:window.__portfolioMotion()})`}));samples.push({scene:'bike-scroll-without-trace',...scroll});console.log('native scroll',JSON.stringify({longTasks:scroll.tasks.length,maxTask:Math.max(0,...scroll.tasks.map(e=>e.duration)),shifts:scroll.shifts.length}));
+}finally {await writeFile('output/playwright/motion-lab/signature-observer-performance.json',JSON.stringify({conditions:'Actual DevTools MCP; mobile390x844 CPU4x; no Trace recording; normal motion; local warm reloads, no network throttling',samples},null,2));await writeFile('output/playwright/motion-lab/signature-observer-devtools-session.json',JSON.stringify(records,null,2));client.close();}

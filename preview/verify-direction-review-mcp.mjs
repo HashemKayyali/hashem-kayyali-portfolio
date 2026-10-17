@@ -1,0 +1,15 @@
+import {connect} from './mcp-client.mjs';
+import {writeFile} from 'node:fs/promises';
+const client=await connect('playwright');let result;
+try{
+ result=await client.call('browser_run_code_unsafe',{code:`async(page)=>{
+  const assert=(state,message)=>{if(!state)throw Error(message);};const errors=[];page.on('pageerror',error=>errors.push(error.message));
+  await page.goto('http://127.0.0.1:5176/preview/premium-review.html');await page.waitForFunction(()=>document.querySelector('#before').src.includes('direction-before'));
+  const scenes=await page.locator('#comparison option').evaluateAll(options=>options.map(option=>option.value)),proof=[];
+  for(const scene of scenes){await page.locator('#comparison').selectOption(scene);await page.waitForFunction(()=>[...document.querySelectorAll('video')].every(video=>video.readyState>=1));const videos=await page.locator('video').evaluateAll(videos=>videos.map(video=>({src:video.currentSrc,duration:video.duration,width:video.videoWidth,height:video.videoHeight,poster:video.poster})));assert(videos.every(video=>video.duration>3&&video.width>0),'Invalid recording '+scene);assert(await page.locator('#visible').isEnabled(),'Missing decoded first-visible timestamp '+scene);for(const video of videos){const response=await page.request.get(video.poster);assert(response.ok(),'Missing preview '+video.poster);}proof.push({scene,videos});}
+  await page.locator('#comparison').selectOption('hero-desktop');await page.locator('#visible').click();await page.waitForTimeout(300);assert(await page.locator('video').evaluateAll(videos=>videos.every(video=>!video.paused)),'Paired playback');await page.locator('#stop').click();assert(await page.locator('video').evaluateAll(videos=>videos.every(video=>video.paused)),'Paired pause');
+  await page.locator('#live-details summary').click();const frame=page.frames().find(frame=>frame!==page.mainFrame());await frame.locator('.hero').waitFor();await page.locator('#inspect').click();assert((await page.locator('#registry').innerText()).includes('hero:depth'),'Live actual registry');await page.locator('#locale').selectOption('ar');await frame.waitForURL('**/preview/ar/');await page.locator('#size').selectOption('320');await frame.waitForFunction(()=>document.documentElement.dir==='rtl'&&innerWidth===320);assert(await frame.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'Live RTL overflow');
+  await page.locator('#scene').selectOption('contact/');await frame.waitForURL('**/preview/ar/contact/');await frame.locator('#contact-name').waitFor();assert(await frame.locator('.contact-page--rtl').count()===1,'Live Contact');assert(!errors.length,'Review errors: '+errors.join(';'));
+  return {pairedRecordings:14,scenes:proof,playPause:true,actualRegistry:true,liveRTL320:true,contactScene:true,errors};
+ }`});if(result.isError)throw Error(JSON.stringify(result));console.log('14 genuine recordings decode; paired playback, previews, live RTL and Contact review passed');
+}finally{await writeFile('output/playwright/motion-lab/direction-review-verification.json',JSON.stringify(result,null,2));await client.call('browser_close');client.close();}

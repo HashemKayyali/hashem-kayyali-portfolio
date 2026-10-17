@@ -1,0 +1,65 @@
+[
+  {
+    "path": "C:\\Users\\hashe\\Desktop\\site",
+    "branch": "refs/heads/codex/experience-timeline",
+    "head": "343257a3ecf78ce864696c6b71f4908c1e0a8e4d",
+    "changedCount": 0,
+    "changedMB": 0.0
+  },
+  {
+    "path": "C:\\Users\\hashe\\Desktop\\site\\.claude\\worktrees\\content-i18n-resume-v3-a53fdd",
+    "branch": "detached",
+    "head": "7f9ce8f0fb9fcce2f85d277733d09c737947c905",
+    "changedCount": 0,
+    "changedMB": 0.0
+  },
+  {
+    "path": "C:\\Users\\hashe\\Desktop\\site\\.worktrees\\content-i18n-resume-v3",
+    "branch": "refs/heads/claude/content-i18n-resume-v3",
+    "head": "7e8fb657b6aa10fb943d6bd8d59450b76dcecae7",
+    "changedCount": 1,
+    "changedMB": 0.03
+  },
+  {
+    "path": "C:\\Users\\hashe\\Desktop\\site\\.worktrees\\editorial-glass",
+    "branch": "refs/heads/codex/editorial-glass-redesign",
+    "head": "37b273c526cf0b54b36d9fdc8fcb462bdbd5d07e",
+    "changedCount": 167,
+    "changedMB": 27.92
+  },
+  {
+    "path": "C:\\Users\\hashe\\Desktop\\site\\.worktrees\\redesign-v2",
+    "branch": "refs/heads/claude/portfolio-redesign-v2",
+    "head": "25265fd33332da2de24bf2377ea48d2f1eb28554",
+    "changedCount": 14,
+    "changedMB": 3.88
+  },
+  {
+    "path": "C:\\Users\\hashe\\Desktop\\site-v2",
+    "branch": "refs/heads/codex/portfolio-v2-design",
+    "head": "c2a2845b4b9ce96e60a2dd1e62bdff6e228040f3",
+    "changedCount": 2,
+    "changedMB": 0.07
+  },
+  {
+    "path": "C:\\Users\\hashe\\Desktop\\site-v2-light-burgundy",
+    "branch": "refs/heads/codex/portfolio-v2-light-burgundy",
+    "head": "6a1ae32c558a3ae6b93b771c8b8fd485396abe4b",
+    "changedCount": 503,
+    "changedMB": 14.09
+  },
+  {
+    "path": "C:\\Users\\hashe\\Desktop\\work3",
+    "branch": "refs/heads/portfolio-rebuild",
+    "head": "c72604a71042b99c90be878f736fa0d417c4e8e4",
+    "changedCount": 94,
+    "changedMB": 39.76
+  },
+  {
+    "path": "C:\\Users\\hashe\\Desktop\\work4",
+    "branch": "refs/heads/portfolio-v1-enhancements",
+    "head": "28728b841f0af4c061a0c7b737237e9c08b691a2",
+    "changedCount": 9,
+    "changedMB": 0.04
+  }
+]

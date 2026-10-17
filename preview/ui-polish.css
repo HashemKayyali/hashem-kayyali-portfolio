@@ -1,0 +1,91 @@
+/* UI polish pass — 17 October 2026. Loaded last; scoped fixes only, no identity changes. */
+
+/* Header: hairline depth once content scrolls underneath. */
+:root .light-portfolio .site-header{transition:box-shadow .3s ease;}
+:root .light-portfolio .site-header[data-scrolled]{box-shadow:0 1px 0 var(--line),0 10px 24px -18px #000a;}
+
+/* Toggle and Studio disclosure use drawn icons that turn with their state. */
+:root .light-portfolio .navigation-toggle-icon,:root .light-portfolio .studio-nav-chevron{flex-shrink:0;transition:transform .42s cubic-bezier(.22,1,.36,1);}
+:root .light-portfolio .navigation-toggle[aria-expanded=true] .navigation-toggle-icon{transform:rotate(135deg);}
+:root .light-portfolio .studio-nav[open] .studio-nav-chevron{transform:rotate(180deg);}
+:root .light-portfolio .nav-sheet-foot{display:none;}
+
+/* Phone and portrait-tablet menu: a calm full sheet below the header. */
+@media(max-width:800px){
+ :root[data-menu-open],:root[data-menu-open] body{overflow:hidden;}
+ :root .light-portfolio .site-header #primary-navigation{
+  position:fixed;inset-inline:0;top:var(--app-header-height,68px);bottom:0;z-index:40;
+  display:flex;flex-direction:column;align-items:stretch;gap:0;width:auto;margin:0;order:3;
+  padding:clamp(12px,3vh,28px) var(--atelier-gutter,16px) calc(24px + env(safe-area-inset-bottom));
+  background:var(--paper);border-block-start:1px solid var(--line);
+  overflow-y:auto;overscroll-behavior:contain;counter-reset:nav;
+  visibility:hidden;clip-path:inset(0 0 100% 0);
+  transition:clip-path .36s cubic-bezier(.64,0,.78,0),visibility 0s linear .36s;
+ }
+ :root .light-portfolio .site-header #primary-navigation[data-open=true]{visibility:visible;clip-path:inset(0);transition:none;}
+ :root .light-portfolio .site-header #primary-navigation>a{
+  counter-increment:nav;display:flex;align-items:baseline;gap:16px;min-height:60px;
+  padding:14px 2px!important;margin:0;border-radius:0;background:none;text-align:start;
+  border-block-end:1px solid var(--line)!important;color:var(--ink);
+  font-size:clamp(27px,8vw,36px)!important;line-height:1.12;letter-spacing:-.03em;
+ }
+ :root[lang=ar] .light-portfolio .site-header #primary-navigation>a{font-size:clamp(22px,6.4vw,28px)!important;line-height:1.5;letter-spacing:0;}
+ :root .light-portfolio .site-header #primary-navigation>a::before{
+  content:counter(nav,decimal-leading-zero);flex:0 0 26px;color:var(--burgundy);
+  font:500 11px/1 ui-monospace,Consolas,monospace;letter-spacing:.04em;transform:translateY(-.45em);
+ }
+ :root .light-portfolio .site-header #primary-navigation>a::after{display:none;}
+ :root .light-portfolio .site-header #primary-navigation>a[aria-current=page]{color:var(--burgundy);}
+ :root .light-portfolio .site-header #primary-navigation>a:active{background:var(--surface);}
+ :root .light-portfolio .site-header #primary-navigation .studio-nav{width:100%;margin-top:6px;}
+ :root .light-portfolio .site-header #primary-navigation .studio-nav>summary{min-height:56px;padding-inline:44px 2px;font-size:20px;justify-content:flex-start;gap:10px;color:var(--muted);}
+ :root .light-portfolio .site-header #primary-navigation .studio-nav>div{display:grid;padding:0 0 8px;margin:0;border:0;background:none;padding-inline-start:42px;}
+ :root .light-portfolio .site-header #primary-navigation .studio-nav>div a{font-size:19px!important;color:var(--ink);padding-inline:2px;}
+ :root .light-portfolio .site-header #primary-navigation .nav-sheet-foot{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:28px;}
+ :root .light-portfolio .site-header #primary-navigation .nav-sheet-foot a{display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border:1px solid var(--line);border-radius:999px;color:var(--ink);font-size:15px;}
+ :root .light-portfolio .site-header #primary-navigation .nav-sheet-foot a:active{background:var(--surface);}
+}
+
+/* Footer contact link meets the 44px touch floor. */
+:root .light-portfolio .compact-footer>a{display:inline-flex;align-items:center;gap:6px;min-height:44px;}
+
+/* Home stack: the last card needs no trailing gap before the release tail. */
+:root .light-portfolio.luxury-portfolio.atelier-compact .pulse-scenes[data-stack=active] .pulse-scene:last-child{margin-block-end:0;}
+
+@media(max-width:800px){
+ /* Home method on phones: keep the step explanation and fit the sticky image to its own proportions. */
+ :root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-method-layout{grid-template-columns:minmax(0,1fr) minmax(120px,38%);}
+ :root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-chapter p{display:block;margin:6px 0 0;font-size:15px;line-height:1.6;color:var(--muted);}
+ :root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-chapter{min-height:0;padding-block:12px 26px;}
+ :root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-evidence,
+ :root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .home-story[data-story-motion=static] .story-evidence{aspect-ratio:3/2;}
+
+ /* Project filters: one swipeable row instead of three wrapped rows. */
+ :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-filters{flex-wrap:nowrap;overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:none;min-width:0;width:calc(100% + 2*var(--atelier-gutter,16px));margin-inline:calc(-1*var(--atelier-gutter,16px));padding:4px var(--atelier-gutter,16px);scroll-padding-inline:var(--atelier-gutter,16px);-webkit-mask-image:linear-gradient(90deg,transparent,#000 var(--atelier-gutter,16px),#000 calc(100% - 28px),transparent);mask-image:linear-gradient(90deg,transparent,#000 var(--atelier-gutter,16px),#000 calc(100% - 28px),transparent);}
+ :root[dir=rtl] .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-filters{-webkit-mask-image:linear-gradient(270deg,transparent,#000 var(--atelier-gutter,16px),#000 calc(100% - 28px),transparent);mask-image:linear-gradient(270deg,transparent,#000 var(--atelier-gutter,16px),#000 calc(100% - 28px),transparent);}
+ :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-filters::-webkit-scrollbar{display:none;}
+ :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-filters>*{flex:0 0 auto;scroll-snap-align:start;}
+}
+
+/* Case chapters on phones: one swipeable row (44px) instead of a 2×2 block under the header. */
+@media(max-width:560px){
+ :root .light-portfolio.luxury-portfolio.atelier-compact .signature-case .case-body .case-chapter-nav{display:flex;flex-wrap:nowrap;gap:0 22px;overflow-x:auto;scrollbar-width:none;padding-block:0;}
+ :root .light-portfolio.luxury-portfolio.atelier-compact .signature-case .case-body .case-chapter-nav::-webkit-scrollbar{display:none;}
+ :root .light-portfolio.luxury-portfolio.atelier-compact .signature-case .case-body .case-chapter-nav a{flex:0 0 auto;white-space:nowrap;display:flex;align-items:center;}
+ :root .light-portfolio.luxury-portfolio.atelier-compact .signature-case .case-body .case-chapter{scroll-margin-top:calc(var(--app-header-height,66px) + 60px);}
+}
+
+/* Current case chapter, set by case-body-motion. */
+:root .light-portfolio.luxury-portfolio.atelier-compact .signature-case .case-body .case-chapter-nav a{position:relative;transition:color .25s ease;}
+:root .light-portfolio.luxury-portfolio.atelier-compact .signature-case .case-body .case-chapter-nav a[aria-current]{color:var(--ink);}
+:root .light-portfolio.luxury-portfolio.atelier-compact .signature-case .case-body .case-chapter-nav a::after{content:'';position:absolute;inset-inline:2px;bottom:6px;height:1px;background:var(--burgundy);transform:scaleX(0);transform-origin:var(--chapter-origin,0 50%);transition:transform .45s cubic-bezier(.22,1,.36,1);}
+:root[dir=rtl] .light-portfolio.luxury-portfolio.atelier-compact .signature-case .case-body .case-chapter-nav a::after{--chapter-origin:100% 50%;}
+:root .light-portfolio.luxury-portfolio.atelier-compact .signature-case .case-body .case-chapter-nav a[aria-current]::after{transform:scaleX(1);}
+
+@media(prefers-reduced-motion:reduce){
+ :root .light-portfolio .site-header #primary-navigation{transition:none;}
+ :root .light-portfolio :is(.navigation-toggle-icon,.studio-nav-chevron){transition:none;}
+}
+
+/* Magnetic lean for primary actions (driven by ui-motion.ts; zero on touch and reduced motion). */
+:root .light-portfolio :is(.pulse-primary,.pulse-resume,.pulse-case-link,.button-primary,.story-contact-action,.story-project-link){translate:var(--magnet-x,0px) var(--magnet-y,0px);}

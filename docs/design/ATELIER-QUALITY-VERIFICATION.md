@@ -1,0 +1,26 @@
+# Atelier quality pass -14 October2026
+
+Preserved the accepted hero smoke, colors and typography. A shared rectangular10px frame has3px padding/1px border, with photo dimensions driven by the source ratio, available width and responsive height. Media itself stays at its natural ratio; no letterboxes/crops. Reused for portrait, featured images, gallery and case evidence.
+
+Laptop spacing remains the reference. Canvas now grows to2400px; measured2560 opening2400px and portrait400px versus prior1480/230. Large-display typography/sections grow after1500px; no page zoom/scale. Full name flows inline and wraps only when necessary. Mobile grid puts full portrait beside the name, with roles above and statement/actions below. Kept authenticated content and Eventies/Bike Tower/Basket Beats order.
+
+Motion: added coordinated hero labels and multi-image reveals, thumbnails and arrow feedback. Shared project image uses one source texture, settled destination geometry once and compositor transforms; no per-frame left/top/width/height writes or mid-flight source replacement. A brief handoff reveals the actual destination. Case GSAP setup waits until this image lands; lower chapter/evidence setup is viewport-owned and fully disposable. Header navigation, resize and reduced-motion cancellation clean up the overlay and hidden target. No new dependencies.
+
+Verification passed:
+- npm run typecheck; npm run build:light (170 localized route shells).
+- npm test8/8; node --test preview/*.test.mjs18/18; npm run validate:content14/14.
+- Playwright MCP preview/atelier-quality-check.browser.js:77 route/locale/viewport states,17 geometry/interaction checks, zero runtime/HTTP errors or tested overflows. Five locales1366/390, remaining cases320, Home320/768/1920/2560/3440, EN/AR wide galleries/profiles. Native frames measure8px total surround (3px padding plus1px border each side). Mobile name/portrait share the same row; full name remains one line on laptop/wide screens. Languages retain the reading anchor within0.125px. Filter/native Back/dialog/Escape/focus/mobile navigation/reduced smoke pass.
+- Actual Chrome DevTools visual inspection of laptop Arabic hero,2560 English hero,390 Arabic hero, laptop Projects and Arabic Eventies detail. No new review/comparison site or recordings. An initial390 resize call actually produced a500px desktop window; corrected to explicit mobile viewport emulation before inspecting390.
+- Shared-image moving portion in a warm production run: max7.4ms/P957.2ms across94 sampled frames. Clone CSS box geometry remains constant while transforms advance. Cold route commits still show local setup tasks up to87ms and a97ms sample around arrival preparation; do not claim universal60fps or zero setup cost. A dev iteration regressed until case setup was deferred; final moving probe confirms the intended improvement.
+- Interrupted Bike Tower transition with header About navigation: reached About, no overlay/inert stage; Back left zero overlays/hidden targets. Snapshot comparison confirms facts, existing assets and dependencies unchanged. No missing baseline files. A final regression exposed resize during the first40ms canceling the requested navigation; corrected resize settlement to commit the same destination while discarding only the animation. Reproduced red (stayed in gallery) then green (reached Eventies, zero overlay/inert/hidden targets). Final typecheck/build rerun after this fix; final production early-resize and live reduced-motion destination/cleanup checks passed, with zero overlays/hidden targets/inert state/overflow. No geometry/content changes.
+
+Checkpoint before edits: output/checkpoints/design-intelligence-before-2026-10-13-232533.zip,713 verified files. V1 read-only; no commit/push/merge/deploy. A production navigation attempted during build output replacement temporarily failed; after build completed, stable production passed the full suite.
+
+Live: http://127.0.0.1:5176/preview/ar/ (dev) and http://127.0.0.1:4176/preview/ar/ (built). Lab Chromium/Chrome and viewport emulation, not physical-device/Safari/Firefox certification. Old review artifacts remain historical.
+
+
+## Arabic follow-up -14 October2026
+
+Arabic-only hero direction now puts portrait/smoke on the physical left and copy on the right, including adjacent mobile name/photo. Horizontal smoke mask/fallback gradients mirror with the layout; Latin layout is unchanged. Almarai font-face ranges are limited to Arabic glyphs, with Libre Caslon Condensed next in the Arabic stack. Technical bdi/strong/small text inherits this stack; Latin project names automatically use the actual Latin font without changing approved copy.
+
+Build passed (170 routes). Production Playwright checks passed8 EN/AR states at320/390/1366/2560: correct sides, mirrored smoke position, no overflow. Actual Chrome platform-font inspection confirms Almarai-Bold for Arabic name glyphs and LibreCaslonCondensed-Bold for Eventies in Arabic gallery/detail. Initial font assertion queried the parent h1 (no direct glyphs); querying the actual name-word text node verified the correct rendering. Laptop and actual390 mobile inspected visually. Checkpoint before edits: design-intelligence-before-2026-10-13-234151.zip (717 files). Only scoped CSS/design documentation changed; no V1, dependency, factual content or media changes.

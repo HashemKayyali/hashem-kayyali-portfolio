@@ -1,0 +1,59 @@
+/* Tailored compositions for the other eight products. Authentic evidence leads. */
+.case-study--basket-beats .case-opening-copy {grid-template-columns:.9fr 1.2fr;}
+.case-study--basket-beats .case-opening-visual img {aspect-ratio:2.25;object-position:center 58%;}
+.case-study--basket-beats .case-engineering .system-node:nth-child(2) {border-block-start-width:3px;}
+.case-study--basket-beats .case-product-story {grid-template-columns:1fr 1.05fr;}
+.case-study--glitzz-lab .opening--layers .case-opening-layout {grid-template-columns:1.1fr 1fr;}
+.case-study--glitzz-lab .case-opening-visual {background:var(--surface-strong);padding:25px;}
+.case-study--glitzz-lab .case-opening-inset {inset-inline-end:-15px;width:35%;}
+.case-study--glitzz-lab .evidence--0 {grid-column:1/-1;width:86%;justify-self:end;}
+.case-study--glitzz-lab .evidence--1 {padding-block-start:45px;}
+.case-study--glitzz-lab .evidence--3 {grid-column:1/-1;width:78%;}
+.case-study--glitzz-lab .evidence--4 {grid-column:1/-1;width:85%;justify-self:end;}
+.case-study--umniah-youthconnect .case-opening h1 {font-size:clamp(44px,5vw,72px);}
+.case-study--umniah-youthconnect .case-opening-visual {border-inline-start:2px solid var(--burgundy);padding-inline-start:23px;}
+.case-study--umniah-youthconnect .case-architecture--compact {background:var(--white);}
+.case-study--umniah-youthconnect .case-engineering .system-path {grid-template-columns:1fr 1.15fr 1.3fr 1fr;}
+.case-study--umniah-youthconnect .case-ownership {border-inline-start:2px solid var(--burgundy);padding-inline-start:24px;}
+.case-study--vr-cycling .case-opening-layout {grid-template-columns:.9fr 1.2fr;}
+.case-study--vr-cycling .case-opening-visual {padding-block:45px;}
+.case-study--vr-cycling .case-opening-visual img {aspect-ratio:1.18;object-fit:cover;object-position:center;}
+.case-study--vr-cycling .case-product-story {grid-template-columns:.7fr 1.3fr;}
+.case-study--vr-cycling .case-engineering .system-path {grid-template-columns:repeat(3,minmax(0,1fr));}
+.case-study--bike-land-trainer .case-opening h1 {font-size:clamp(42px,4.7vw,64px);max-width:14ch;}
+.case-study--bike-land-trainer .case-opening-visual {padding-block-start:20px;}
+.case-study--bike-land-trainer .case-opening-visual img {aspect-ratio:.97;object-position:60% center;}
+.case-study--bike-land-trainer .case-evidence-grid {max-width:none;}
+.case-study--bike-land-trainer .case-evidence-button {padding:0;background:transparent;}
+.case-study--financial-operations .case-opening-layout {grid-template-columns:1fr 1fr;}
+.case-study--financial-operations .case-opening h1 {font-size:clamp(39px,4.4vw,63px);max-width:17ch;}
+.case-study--financial-operations .case-opening-visual {border-block-end:3px solid var(--burgundy);}
+.case-study--financial-operations .case-architecture {background:var(--white);border:1px solid var(--line);border-block-start:3px solid var(--burgundy);}
+.case-study--financial-operations .case-decisions {grid-template-columns:1fr 1fr;}
+.case-study--outreach-automation .case-opening h1 {font-size:clamp(42px,4.9vw,71px);max-width:13ch;}
+.case-study--outreach-automation .case-opening-visual {padding:24px;background:var(--surface);}
+.case-study--outreach-automation .case-engineering .system-path {grid-template-columns:repeat(3,minmax(0,1fr));}
+.case-study--outreach-automation .case-evidence-button {padding:35px;}
+.case-study--traffic-flow-analytics .case-opening-layout {grid-template-columns:.75fr 1.3fr;gap:45px;}
+.case-study--traffic-flow-analytics .case-opening h1 {font-size:clamp(42px,4.6vw,65px);}
+.case-study--traffic-flow-analytics .case-opening-visual {padding:20px 0;}
+.case-study--traffic-flow-analytics .case-engineering .system-path {grid-template-columns:repeat(3,minmax(0,1fr));}
+.case-study--traffic-flow-analytics .case-ownership {grid-template-columns:1fr 1.2fr;}
+@media(max-width:1100px){
+ .case-study--umniah-youthconnect .case-engineering .system-path {grid-template-columns:repeat(2,minmax(0,1fr));}
+}
+@media(max-width:800px){
+ .case-study--glitzz-lab .opening--layers .case-opening-layout,.case-study--vr-cycling .case-opening-layout,.case-study--financial-operations .case-opening-layout,.case-study--traffic-flow-analytics .case-opening-layout {grid-template-columns:1fr;}
+ .case-study--basket-beats .case-opening-copy {grid-template-columns:1fr;}
+ .case-study--glitzz-lab .case-opening-inset {inset-inline-end:0;width:42%;}
+ .case-study--vr-cycling .case-opening-visual {padding-block:15px;}
+}
+@media(max-width:700px){
+ .case-study--basket-beats .case-opening-visual img {aspect-ratio:1.5;}
+ .case-study--basket-beats .case-product-story,.case-study--vr-cycling .case-product-story,.case-study--traffic-flow-analytics .case-ownership,.case-study--financial-operations .case-decisions {grid-template-columns:1fr;}
+ .case-study--glitzz-lab :is(.evidence--0,.evidence--1,.evidence--3,.evidence--4) {width:100%;padding:0;grid-column:1;}
+ .case-study--umniah-youthconnect .case-opening h1,.case-study--financial-operations .case-opening h1,.case-study--outreach-automation .case-opening h1,.case-study--traffic-flow-analytics .case-opening h1,.case-study--bike-land-trainer .case-opening h1 {font-size:clamp(33px,9vw,45px);max-width:none;}
+ .case-study--umniah-youthconnect .case-opening-visual {padding-inline-start:13px;}.case-study--umniah-youthconnect .case-ownership {padding-inline-start:0;border-inline-start:0;}
+ .case-study--vr-cycling .case-engineering .system-path,.case-study--outreach-automation .case-engineering .system-path,.case-study--traffic-flow-analytics .case-engineering .system-path {grid-template-columns:1fr;}
+ .case-study--bike-land-trainer .case-opening-visual img {aspect-ratio:1.2;}.case-study--outreach-automation .case-evidence-button {padding:12px;}
+}

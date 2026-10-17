@@ -1,0 +1,42 @@
+/* Scoped after case-body.css: Embla is the sole owner of horizontal position. */
+html .light-portfolio.luxury-portfolio.atelier-compact .signature-case .case-body .case-gallery.case-gallery--carousel{
+ --evidence-height:clamp(240px,27vw,370px);
+ --evidence-padding:16px;
+ max-width:1120px;gap:8px;min-width:0;
+ & .evidence-stage{height:var(--evidence-height);perspective:none;border-radius:9px;overflow:hidden;}
+ & .evidence-viewport{width:100%;height:100%;overflow:hidden;touch-action:pan-y pinch-zoom;}
+ & .evidence-track{display:flex;height:100%;touch-action:pan-y pinch-zoom;}
+ & .evidence-slide,&[data-count='1'] .evidence-slide{
+  position:relative;inset:auto;flex:0 0 100%;min-width:0;height:100%;padding:var(--evidence-padding);margin:0;
+  display:flex;align-items:center;justify-content:center;visibility:visible;opacity:1;pointer-events:auto;
+  transform:none;clip-path:none;z-index:auto;user-select:none;
+ }
+ & .evidence-native-frame{
+  width:min(100%,calc((var(--evidence-height) - 2*var(--evidence-padding) - 10px)*var(--media-ratio) + 8px));
+  max-width:100%;flex:0 1 auto;border-radius:7px;box-shadow:0 7px 20px #0003;
+ }
+ & .evidence-native-frame img{display:block;width:100%;height:auto;max-height:none;aspect-ratio:var(--media-ratio);object-fit:contain!important;-webkit-user-drag:none;}
+ & .evidence-stage-mark{position:absolute;inset:8px auto auto;inset-inline-start:10px;pointer-events:none;}
+ & .evidence-toolbar{padding-block-start:8px;gap:12px;align-items:center;}
+ & .evidence-caption{font-size:16px;line-height:1.5;gap:10px;overflow-wrap:anywhere;}
+ & .evidence-controls{gap:4px;}
+ & .evidence-controls button{position:relative;min-width:44px;min-height:44px;width:44px;height:44px;border-radius:7px;background:transparent;border-color:transparent;isolation:isolate;}
+ & .evidence-controls button::before{content:'';position:absolute;inset:3px;z-index:-1;border:1px solid var(--line);border-radius:6px;background:var(--surface);}
+ & .evidence-controls button:hover:enabled{background:transparent;border-color:transparent;}
+ & .evidence-controls button:hover:enabled::before{background:var(--burgundy);border-color:var(--burgundy);}
+ &:focus-visible,& button:focus-visible{outline:2px solid var(--burgundy);outline-offset:3px;}
+ & .evidence-filmstrip{gap:7px;padding:4px 3px 8px;scroll-padding-inline:4px;}
+ & .evidence-thumbnail{flex:0 0 82px;width:82px;height:60px;min-height:60px;padding:13px 7px 6px;}
+ & .evidence-thumbnail img{max-height:38px;}
+ & .evidence-selection-frame{inset:-2px;border-radius:7px;}
+ &:lang(ar) .evidence-caption{font-size:16px;line-height:1.75;}
+ @media(max-width:800px){--evidence-height:clamp(224px,40vw,320px);--evidence-padding:14px;}
+ @media(max-width:500px){
+  --evidence-height:228px;--evidence-padding:12px;
+  & .evidence-toolbar{flex-wrap:wrap;gap:4px;padding-block-start:6px;}
+  & .evidence-caption{flex-basis:100%;font-size:16px;gap:8px;}
+  & .evidence-controls{margin-inline-start:auto;}
+  & .evidence-thumbnail{flex-basis:72px;width:72px;height:56px;min-height:56px;}
+  & .evidence-thumbnail img{max-height:34px;}
+ }
+}

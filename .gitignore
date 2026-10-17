@@ -1,0 +1,57 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist-light-preview
+dist
+dist-ssr
+
+# Local recovery archives, never website or release content.
+archive/
+.worktrees/
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+*.zip
+
+desktop.ini
+.vercel
+.env*
+!.env.example
+
+# QA run artifacts: screenshots, traces, and console logs from browser checks.
+# 48MB and regenerated on every run - never part of a release.
+output/
+.playwright-mcp/
+.playwright-cli/
+
+# Scratch copy of the app kept for a past bug repro. It has no imports that
+# resolve, so committing it would break `tsc --noEmit` for everyone.
+data/mobile_overflow_fix_modified/
+
+# Local agent tooling and skills, not part of the product.
+.agents/
+.claude/
+
+# Legacy authoring document with local-only metadata. Public localized copy is
+# generated from the tracked, reviewed content/master.json.
+Hashem_Portfolio_Content_Master_v3_5LANG.json
+
+# SSR bundle produced by `npm run build:ssr`, consumed by the prerender step.
+dist-ssr

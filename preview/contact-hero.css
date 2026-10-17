@@ -1,0 +1,7 @@
+html .light-portfolio.luxury-portfolio.atelier-compact .contact-desk{padding-top:0;}
+.contact-hero-art{display:grid;place-items:center;gap:18px;padding-block:20px;color:var(--burgundy);}
+.contact-hero-art>svg{width:clamp(80px,9vw,128px);height:auto;transform:rotate(-7deg);}
+.contact-hero-art>span{display:flex;align-items:center;gap:12px;color:var(--ink);font-size:16px;}
+.contact-hero-art>span bdi{overflow-wrap:anywhere;}
+.contact-hero-art>i{font-style:normal;display:flex;align-items:center;gap:7px;color:var(--muted);font-size:13px;}
+@media(max-width:800px){.contact-hero-art{gap:10px;padding:0;}.contact-hero-art>svg{width:72px;}.contact-hero-art>span{font-size:14px;}}

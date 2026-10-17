@@ -1,0 +1,368 @@
+[
+  {
+    "name": "react",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/6a37858047b0e8d9c9c0e68f4a071fc410652e89/icons/react/react-original.svg",
+    "license": "Devicon MIT",
+    "sha256": "5825b649c8c04dec13ecf01d0182401bd0ec71789d2fa06224866d882cd1515f",
+    "bytes": 2387
+  },
+  {
+    "name": "nextjs",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/6a37858047b0e8d9c9c0e68f4a071fc410652e89/icons/nextjs/nextjs-original.svg",
+    "license": "Devicon MIT",
+    "sha256": "d9435c4ede7133b376c0173a80226bb3856729366707cd96e9a66e39448d0288",
+    "bytes": 749
+  },
+  {
+    "name": "typescript",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/6a37858047b0e8d9c9c0e68f4a071fc410652e89/icons/typescript/typescript-original.svg",
+    "license": "Devicon MIT",
+    "sha256": "c9191199f4049920c2fc19035b8a6664f37f4689fcd9e8434e786097e78863f0",
+    "bytes": 943
+  },
+  {
+    "name": "javascript",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/6a37858047b0e8d9c9c0e68f4a071fc410652e89/icons/javascript/javascript-original.svg",
+    "license": "Devicon MIT",
+    "sha256": "0656ff65fc8eeacda5c78d7f9ffe91ec1eb919db64f56e0b7dcd460af4bbd36c",
+    "bytes": 1144
+  },
+  {
+    "name": "tailwindcss",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/6a37858047b0e8d9c9c0e68f4a071fc410652e89/icons/tailwindcss/tailwindcss-original.svg",
+    "license": "Devicon MIT",
+    "sha256": "f8cec54589553807eb603bcaf4e056aa090196211698b056542e3cc62a2f3448",
+    "bytes": 689
+  },
+  {
+    "name": "flutter",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/6a37858047b0e8d9c9c0e68f4a071fc410652e89/icons/flutter/flutter-original.svg",
+    "license": "Devicon MIT",
+    "sha256": "c188249043aecad16b31eaa230474643270a8d8200b897af54a97949cb88e4ae",
+    "bytes": 646
+  },
+  {
+    "name": "dart",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/6a37858047b0e8d9c9c0e68f4a071fc410652e89/icons/dart/dart-original.svg",
+    "license": "Devicon MIT",
+    "sha256": "8dec3d6f6d92d5c8db294baf7ea89cbad5c3dd0f7fde5ca972ffc6cebf9b2d40",
+    "bytes": 710
+  },
+  {
+    "name": "androidstudio",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/6a37858047b0e8d9c9c0e68f4a071fc410652e89/icons/androidstudio/androidstudio-original.svg",
+    "license": "Devicon MIT",
+    "sha256": "abd43aac4a871ff8c1548cc5d3f54f1bc5123ad5510a7477d62ca048d4edea5a",
+    "bytes": 1852
+  },
+  {
+    "name": "csharp",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/6a37858047b0e8d9c9c0e68f4a071fc410652e89/icons/csharp/csharp-original.svg",
+    "license": "Devicon MIT",
+    "sha256": "7093478d0888e22a224b6fa832da6c9ffd14c433de8bd14aab0c1cb50925f3ee",
+    "bytes": 851
+  },
+  {
+    "name": "dotnetcore",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/6a37858047b0e8d9c9c0e68f4a071fc410652e89/icons/dotnetcore/dotnetcore-original.svg",
+    "license": "Devicon MIT",
+    "sha256": "b1b71d747aaf277a00efeab3f5f5844578fc4a42bb605f60c3b0510256009ca4",
+    "bytes": 3057
+  },
+  {
+    "name": "supabase",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/6a37858047b0e8d9c9c0e68f4a071fc410652e89/icons/supabase/supabase-original.svg",
+    "license": "Devicon MIT",
+    "sha256": "bb8d502577de5e864437542bc2655b5d4d4782589386fc4583d912f46ac73181",
+    "bytes": 1067
+  },
+  {
+    "name": "postgresql",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/6a37858047b0e8d9c9c0e68f4a071fc410652e89/icons/postgresql/postgresql-original.svg",
+    "license": "Devicon MIT",
+    "sha256": "f220a436258ed014c512ba4f9c0de6b9e5c2c4b55331a0a29f8c7a1a12c36443",
+    "bytes": 9178
+  },
+  {
+    "name": "cplusplus",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/6a37858047b0e8d9c9c0e68f4a071fc410652e89/icons/cplusplus/cplusplus-original.svg",
+    "license": "Devicon MIT",
+    "sha256": "7ff8253551235e3a6b002a7c2bd6e3190d85113a64fcb40f2254473caeb025d4",
+    "bytes": 1143
+  },
+  {
+    "name": "python",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/6a37858047b0e8d9c9c0e68f4a071fc410652e89/icons/python/python-original.svg",
+    "license": "Devicon MIT",
+    "sha256": "71493b4a732f0532b3a03a7a95da3ee11a65766367c8303b901ffbe7bf91a3a2",
+    "bytes": 2300
+  },
+  {
+    "name": "opencv",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/6a37858047b0e8d9c9c0e68f4a071fc410652e89/icons/opencv/opencv-original.svg",
+    "license": "Devicon MIT",
+    "sha256": "a7adfae29bdb714195ea9b31b4f6f3ff7cf21fb448ab244f6110987280bd7b7e",
+    "bytes": 1238
+  },
+  {
+    "name": "qt",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/6a37858047b0e8d9c9c0e68f4a071fc410652e89/icons/qt/qt-original.svg",
+    "license": "Devicon MIT",
+    "sha256": "03b72b7d8c57fcedfaaac7052e8b2b0abfb65fe11910a8a14b1d7fbbd69e1332",
+    "bytes": 1048
+  },
+  {
+    "name": "espressif",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/13.21.0/icons/espressif.svg",
+    "license": "Simple Icons CC0-1.0",
+    "sha256": "d0c66fc70620542d6fd16c5369d99cebd110abdcc24b7233c2d3dd14d256d420",
+    "bytes": 1105
+  },
+  {
+    "name": "whatsapp",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/13.21.0/icons/whatsapp.svg",
+    "license": "Simple Icons CC0-1.0",
+    "sha256": "8fb209a53a61618c3483594b3e070481a35575d6aaecbe00a6fe386670c8fb1c",
+    "bytes": 1216
+  },
+  {
+    "name": "toolbelt-devices",
+    "source": "https://raw.githubusercontent.com/icons8/flat-color-icons/1bf90d5ff118bc6690120ff9fdfe234565b7e414/svg/multiple_devices.svg",
+    "license": "Icons8 Flat Color Icons MIT",
+    "kind": "concept pictogram",
+    "modification": "",
+    "sourceSha256": "4f7d5cfc933b5a18594c70416d6df60442e70a4c649a7590710df1c39441b803",
+    "sha256": "4f7d5cfc933b5a18594c70416d6df60442e70a4c649a7590710df1c39441b803",
+    "bytes": 729
+  },
+  {
+    "name": "toolbelt-cross-platform",
+    "source": "https://raw.githubusercontent.com/icons8/flat-color-icons/1bf90d5ff118bc6690120ff9fdfe234565b7e414/svg/workflow.svg",
+    "license": "Icons8 Flat Color Icons MIT",
+    "kind": "concept pictogram",
+    "modification": "",
+    "sourceSha256": "7d104907cd04be24687f398959bad8b1813c17ca66f55b49f1b403da9687cb9d",
+    "sha256": "7d104907cd04be24687f398959bad8b1813c17ca66f55b49f1b403da9687cb9d",
+    "bytes": 834
+  },
+  {
+    "name": "toolbelt-desktop",
+    "source": "https://raw.githubusercontent.com/icons8/flat-color-icons/1bf90d5ff118bc6690120ff9fdfe234565b7e414/svg/display.svg",
+    "license": "Icons8 Flat Color Icons MIT",
+    "kind": "concept pictogram",
+    "modification": "",
+    "sourceSha256": "9a87b113ab72e1f443082220747ec6713b2353c2f62ca0b5b4936651638140cc",
+    "sha256": "9a87b113ab72e1f443082220747ec6713b2353c2f62ca0b5b4936651638140cc",
+    "bytes": 775
+  },
+  {
+    "name": "toolbelt-api",
+    "source": "https://raw.githubusercontent.com/icons8/flat-color-icons/1bf90d5ff118bc6690120ff9fdfe234565b7e414/svg/flow_chart.svg",
+    "license": "Icons8 Flat Color Icons MIT",
+    "kind": "concept pictogram",
+    "modification": "",
+    "sourceSha256": "a3cc316ef9aa1a49d885a5c04e13a71c0dc363901f23424fdef6c875062d8860",
+    "sha256": "a3cc316ef9aa1a49d885a5c04e13a71c0dc363901f23424fdef6c875062d8860",
+    "bytes": 501
+  },
+  {
+    "name": "toolbelt-database",
+    "source": "https://raw.githubusercontent.com/icons8/flat-color-icons/1bf90d5ff118bc6690120ff9fdfe234565b7e414/svg/database.svg",
+    "license": "Icons8 Flat Color Icons MIT",
+    "kind": "concept pictogram",
+    "modification": "",
+    "sourceSha256": "d3fbf0cf297523734c0aa39f1ff236c4a64d8d9ae8eeb01a70c5565177729793",
+    "sha256": "d3fbf0cf297523734c0aa39f1ff236c4a64d8d9ae8eeb01a70c5565177729793",
+    "bytes": 470
+  },
+  {
+    "name": "toolbelt-socket",
+    "source": "https://raw.githubusercontent.com/icons8/flat-color-icons/1bf90d5ff118bc6690120ff9fdfe234565b7e414/svg/synchronize.svg",
+    "license": "Icons8 Flat Color Icons MIT",
+    "kind": "concept pictogram",
+    "modification": "",
+    "sourceSha256": "17008bf77ea2cd07ad0db48e2cb55eca9fc124bbfacbe55ef77af4098e86b37c",
+    "sha256": "17008bf77ea2cd07ad0db48e2cb55eca9fc124bbfacbe55ef77af4098e86b37c",
+    "bytes": 618
+  },
+  {
+    "name": "toolbelt-nfc",
+    "source": "https://raw.githubusercontent.com/icons8/flat-color-icons/1bf90d5ff118bc6690120ff9fdfe234565b7e414/svg/nfc_sign.svg",
+    "license": "Icons8 Flat Color Icons MIT",
+    "kind": "concept pictogram",
+    "modification": "",
+    "sourceSha256": "8226dd359abbf0e5d915e7909df48189ef3802cba9488c69bb66465cbe0ef363",
+    "sha256": "8226dd359abbf0e5d915e7909df48189ef3802cba9488c69bb66465cbe0ef363",
+    "bytes": 1201
+  },
+  {
+    "name": "toolbelt-wifi",
+    "source": "https://raw.githubusercontent.com/icons8/flat-color-icons/1bf90d5ff118bc6690120ff9fdfe234565b7e414/svg/wi-fi_logo.svg",
+    "license": "Icons8 Flat Color Icons MIT",
+    "kind": "concept pictogram",
+    "modification": "XML preamble/external DTD removed",
+    "sourceSha256": "a3ade0e9cd35308f6f10d232e604c548421b714d03685335f6d1b4ec62c049d2",
+    "sha256": "8328302bf63c51587d0e84e5311a91f6d24cd33412563a89fb80d40b15e7ecb7",
+    "bytes": 1323
+  },
+  {
+    "name": "toolbelt-realtime",
+    "source": "https://raw.githubusercontent.com/icons8/flat-color-icons/1bf90d5ff118bc6690120ff9fdfe234565b7e414/svg/electricity.svg",
+    "license": "Icons8 Flat Color Icons MIT",
+    "kind": "concept pictogram",
+    "modification": "",
+    "sourceSha256": "94c5f5a4c552f5c83d8de08b0a464ac2c11e0acba1be7003dd08387be6544547",
+    "sha256": "94c5f5a4c552f5c83d8de08b0a464ac2c11e0acba1be7003dd08387be6544547",
+    "bytes": 228
+  },
+  {
+    "name": "toolbelt-pcb",
+    "source": "https://raw.githubusercontent.com/icons8/flat-color-icons/1bf90d5ff118bc6690120ff9fdfe234565b7e414/svg/circuit.svg",
+    "license": "Icons8 Flat Color Icons MIT",
+    "kind": "concept pictogram",
+    "modification": "",
+    "sourceSha256": "96530a2c801b1a5ca7eb950d591e663bc181117aba99bc741ee9519f8780ced8",
+    "sha256": "96530a2c801b1a5ca7eb950d591e663bc181117aba99bc741ee9519f8780ced8",
+    "bytes": 1101
+  },
+  {
+    "name": "toolbelt-hardware",
+    "source": "https://raw.githubusercontent.com/icons8/flat-color-icons/1bf90d5ff118bc6690120ff9fdfe234565b7e414/svg/electronics.svg",
+    "license": "Icons8 Flat Color Icons MIT",
+    "kind": "concept pictogram",
+    "modification": "",
+    "sourceSha256": "29b0a5a4abb3536a63bd64df84c806dc91419890bea3e2397b7a4a86331cb882",
+    "sha256": "29b0a5a4abb3536a63bd64df84c806dc91419890bea3e2397b7a4a86331cb882",
+    "bytes": 507
+  },
+  {
+    "name": "toolbelt-vision",
+    "source": "https://raw.githubusercontent.com/icons8/flat-color-icons/1bf90d5ff118bc6690120ff9fdfe234565b7e414/svg/camera_identification.svg",
+    "license": "Icons8 Flat Color Icons MIT",
+    "kind": "concept pictogram",
+    "modification": "",
+    "sourceSha256": "e121b67f223e93f7d7330b26130f06cedb2db12f50dd684f1e4fd42b4b78888e",
+    "sha256": "e121b67f223e93f7d7330b26130f06cedb2db12f50dd684f1e4fd42b4b78888e",
+    "bytes": 1437
+  },
+  {
+    "name": "toolbelt-email",
+    "source": "https://raw.githubusercontent.com/icons8/flat-color-icons/1bf90d5ff118bc6690120ff9fdfe234565b7e414/svg/feedback.svg",
+    "license": "Icons8 Flat Color Icons MIT",
+    "kind": "concept pictogram",
+    "modification": "",
+    "sourceSha256": "c05f86fceedcd5c371a1fd8284f96bb6569ef583fc39662ac1b747b30dffbee3",
+    "sha256": "c05f86fceedcd5c371a1fd8284f96bb6569ef583fc39662ac1b747b30dffbee3",
+    "bytes": 561
+  },
+  {
+    "name": "toolbelt-spreadsheet",
+    "source": "https://raw.githubusercontent.com/icons8/flat-color-icons/1bf90d5ff118bc6690120ff9fdfe234565b7e414/svg/data_sheet.svg",
+    "license": "Icons8 Flat Color Icons MIT",
+    "kind": "concept pictogram",
+    "modification": "",
+    "sourceSha256": "9a42a48f34e7c82151bdc57e6a1486a9fb8f80884d5809e4bf14236a5c78ef9e",
+    "sha256": "9a42a48f34e7c82151bdc57e6a1486a9fb8f80884d5809e4bf14236a5c78ef9e",
+    "bytes": 522
+  },
+  {
+    "name": "toolbelt-client-server",
+    "source": "https://raw.githubusercontent.com/icons8/flat-color-icons/1bf90d5ff118bc6690120ff9fdfe234565b7e414/svg/org_unit.svg",
+    "license": "Icons8 Flat Color Icons MIT",
+    "kind": "concept pictogram",
+    "modification": "",
+    "sourceSha256": "94cf27888b882e86eff3e28e71fd40b1ebff0416c25724f2d0bb5c5c7d950e0e",
+    "sha256": "94cf27888b882e86eff3e28e71fd40b1ebff0416c25724f2d0bb5c5c7d950e0e",
+    "bytes": 436
+  },
+  {
+    "name": "toolbelt-datagrams",
+    "source": "https://raw.githubusercontent.com/icons8/flat-color-icons/1bf90d5ff118bc6690120ff9fdfe234565b7e414/svg/multiple_inputs.svg",
+    "license": "Icons8 Flat Color Icons MIT",
+    "kind": "concept pictogram",
+    "modification": "",
+    "sourceSha256": "b165348d85d78246b4c1cd17f4e5912038f0f3166197bd3309576bc83d745688",
+    "sha256": "b165348d85d78246b4c1cd17f4e5912038f0f3166197bd3309576bc83d745688",
+    "bytes": 693
+  },
+  {
+    "name": "toolbelt-led",
+    "source": "https://raw.githubusercontent.com/icons8/flat-color-icons/1bf90d5ff118bc6690120ff9fdfe234565b7e414/svg/idea.svg",
+    "license": "Icons8 Flat Color Icons MIT",
+    "kind": "concept pictogram",
+    "modification": "",
+    "sourceSha256": "783743f795c022a58a055454582d26b70d99684fa05923d4170e4ad810ab06b0",
+    "sha256": "783743f795c022a58a055454582d26b70d99684fa05923d4170e4ad810ab06b0",
+    "bytes": 1035
+  },
+  {
+    "name": "toolbelt-sensors",
+    "source": "https://raw.githubusercontent.com/icons8/flat-color-icons/1bf90d5ff118bc6690120ff9fdfe234565b7e414/svg/electrical_sensor.svg",
+    "license": "Icons8 Flat Color Icons MIT",
+    "kind": "concept pictogram",
+    "modification": "",
+    "sourceSha256": "69aa4b40577faa0b3234eec2f916d60438440046481b7d400f1c1ef78a09bfb9",
+    "sha256": "69aa4b40577faa0b3234eec2f916d60438440046481b7d400f1c1ef78a09bfb9",
+    "bytes": 530
+  },
+  {
+    "name": "toolbelt-integration",
+    "source": "https://raw.githubusercontent.com/icons8/flat-color-icons/1bf90d5ff118bc6690120ff9fdfe234565b7e414/svg/deployment.svg",
+    "license": "Icons8 Flat Color Icons MIT",
+    "kind": "concept pictogram",
+    "modification": "",
+    "sourceSha256": "5b66a1df6f9c68a666870bed2e2382235d3225b36eee192827ec041d495f2be2",
+    "sha256": "5b66a1df6f9c68a666870bed2e2382235d3225b36eee192827ec041d495f2be2",
+    "bytes": 1230
+  },
+  {
+    "name": "toolbelt-chart",
+    "source": "https://raw.githubusercontent.com/icons8/flat-color-icons/1bf90d5ff118bc6690120ff9fdfe234565b7e414/svg/line_chart.svg",
+    "license": "Icons8 Flat Color Icons MIT",
+    "kind": "concept pictogram",
+    "modification": "",
+    "sourceSha256": "908b2dff6e6e285125049bb8d01b732ff3e3ce88409112c043a2112c13f938e0",
+    "sha256": "908b2dff6e6e285125049bb8d01b732ff3e3ce88409112c043a2112c13f938e0",
+    "bytes": 898
+  },
+  {
+    "name": "toolbelt-detection",
+    "source": "https://raw.githubusercontent.com/icons8/flat-color-icons/1bf90d5ff118bc6690120ff9fdfe234565b7e414/svg/inspection.svg",
+    "license": "Icons8 Flat Color Icons MIT",
+    "kind": "concept pictogram",
+    "modification": "",
+    "sourceSha256": "d5b427624bf2d7881b47fc6c4e16637ceb28bdd59b532800a4480a6a68ebf9dd",
+    "sha256": "d5b427624bf2d7881b47fc6c4e16637ceb28bdd59b532800a4480a6a68ebf9dd",
+    "bytes": 742
+  },
+  {
+    "name": "toolbelt-tracking",
+    "source": "https://raw.githubusercontent.com/icons8/flat-color-icons/1bf90d5ff118bc6690120ff9fdfe234565b7e414/svg/radar_plot.svg",
+    "license": "Icons8 Flat Color Icons MIT",
+    "kind": "concept pictogram",
+    "modification": "",
+    "sourceSha256": "1f10688ccf853858b0c59cdf7d94b3c963728ec50272872003695ede71865a27",
+    "sha256": "1f10688ccf853858b0c59cdf7d94b3c963728ec50272872003695ede71865a27",
+    "bytes": 596
+  },
+  {
+    "name": "toolbelt-games",
+    "source": "https://raw.githubusercontent.com/icons8/flat-color-icons/1bf90d5ff118bc6690120ff9fdfe234565b7e414/svg/puzzle.svg",
+    "license": "Icons8 Flat Color Icons MIT",
+    "kind": "concept pictogram",
+    "modification": "",
+    "sourceSha256": "5ffdb409c66971b0037173a58e200b9668d88d8208ceec03d2c66b969d3d7847",
+    "sha256": "5ffdb409c66971b0037173a58e200b9668d88d8208ceec03d2c66b969d3d7847",
+    "bytes": 496
+  },
+  {
+    "name": "toolbelt-bluetooth",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/13.21.0/icons/bluetooth.svg",
+    "license": "Simple Icons CC0-1.0",
+    "kind": "symbol",
+    "modification": "Bluetooth blue #0082FC applied to the original symbol",
+    "sourceSha256": "a9408554248719a203c0b019853146f1f40bd18b45478516d4bf34d70c6a8230",
+    "sha256": "87a58b008c4951f2f96d334e70c394983a797906fdf71bfd5bc1437b916fb0d3",
+    "bytes": 476
+  }
+]

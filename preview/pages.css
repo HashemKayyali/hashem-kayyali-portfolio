@@ -1,0 +1,110 @@
+/* Multi-page preview: quiet editorial structure, substantial project imagery. */
+.site-header nav {gap:23px;}
+.site-header nav a[aria-current=page] {color:var(--burgundy);border-block-end:2px solid var(--burgundy);}
+.navigation-toggle {display:none;}
+.page-content {min-height:65vh;}
+.experience-page .experience-roles {position:relative;isolation:isolate;}
+.experience-page .experience-roles::after {content:'';position:absolute;inset-inline-start:calc(-1 * (var(--experience-gap) + var(--experience-logo-size) / 2) - .5px);top:12px;bottom:15px;width:1px;background:var(--burgundy);transform:scaleY(var(--journey-progress,1));transform-origin:top;z-index:0;pointer-events:none;}
+@media(prefers-reduced-motion:reduce) {.experience-page .experience-roles::after {transform:none;}}
+.page-intro {padding-block:65px 48px;max-width:920px;}
+.page-intro h1,.section-heading h1 {font-family:'Roboto Slab',Georgia,serif;font-weight:450;font-size:clamp(38px,4.6vw,64px);line-height:1.15;letter-spacing:-.045em;margin-block:18px 24px;}
+.section-heading h1 {margin:0;}
+.page-intro>p {max-width:68ch;font-size:18px;line-height:1.8;color:var(--muted);}
+.page-section-title {display:flex;align-items:end;justify-content:space-between;gap:28px;margin-block-end:40px;}
+.home-about h2,.page-section-title h2,.home-bottom h2,.skills-approach>h2 {font-size:clamp(29px,3vw,40px);font-weight:450;line-height:1.2;letter-spacing:-.04em;margin-block:15px 25px;}
+.home-about {display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:65px;padding-block:55px 65px;border-block-end:1px solid var(--line);}
+.home-about>div>p {font-size:22px;line-height:1.75;max-width:65ch;color:#51464d;}
+.focus-strip {display:flex;flex-wrap:wrap;gap:12px 21px;list-style:none;padding:0;margin-block:27px 0;}
+.focus-strip li {font-size:11px;line-height:1.8;color:var(--burgundy);}
+.focus-strip li::before {content:'—';margin-inline-end:8px;color:var(--rose);}
+.home-projects {padding-block:65px;}
+.home-bottom {display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:95px;border-block-start:1px solid var(--line);padding-block:60px 70px;}
+.career-summary ol {list-style:none;margin-block:30px;padding:0;}
+.career-summary li {position:relative;padding-inline-start:24px;border-inline-start:1px solid var(--line);padding-block-end:28px;}
+.career-summary li:last-child {padding-block-end:0;}
+.career-node {position:absolute;inset-inline-start:-4px;top:8px;width:7px;height:7px;border-radius:50%;background:var(--burgundy);}
+.career-company {font-size:11px;color:var(--burgundy);margin-block-end:9px;}
+.career-summary h3 {font-size:18px;line-height:1.5;font-weight:500;margin-block-end:8px;}
+.career-period {font-size:11px;color:var(--muted);line-height:1.8;}
+.home-toolkit>p {font-size:15px;line-height:1.85;color:var(--muted);}
+.skill-tags {list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;align-content:start;gap:10px;}
+.skill-tags li {font-size:13px;line-height:1.6;padding:8px 13px;background:var(--surface);border:1px solid var(--line);border-radius:3px;color:var(--ink);overflow-wrap:anywhere;}
+.home-toolkit .skill-tags {margin-block:25px 27px;}
+.home-invitation {position:relative;isolation:isolate;overflow:hidden;background:var(--surface);padding-block:60px 65px;}
+.home-invitation .container {position:relative;z-index:1;}
+.home-invitation h2 {font-family:'Roboto Slab',Georgia,serif;font-size:clamp(33px,4vw,54px);font-weight:450;letter-spacing:-.04em;line-height:1.2;max-width:750px;margin-block:17px 22px;}
+.home-invitation p {font-size:15px;line-height:1.8;max-width:62ch;margin-block-end:25px;color:var(--muted);}
+.home-invitation .contact-field {inset-inline-start:auto;inset-inline-end:-170px;top:-120px;width:750px;height:550px;opacity:.55;mask-image:radial-gradient(ellipse at 70% 50%,black,transparent 75%);}
+.projects-page .section-heading,.about-page .section-heading,.experience-page .section-heading {align-items:center;}
+.projects-page .project-index {grid-template-columns:repeat(2,minmax(0,1fr));gap:50px 40px;margin-block-start:70px;}
+.projects-page .project-index-entry {border-block-start:0;padding:0;}
+.projects-page .project-index-entry a {display:flex;flex-direction:column;gap:20px;align-items:stretch;}
+.projects-page .index-image {width:100%;overflow:hidden;border-radius:4px;background:#eee8e7;padding:20px;}
+.projects-page .index-image img {width:100%;height:auto;aspect-ratio:16/10;object-fit:contain;}
+.projects-page .project-index-entry h3 {font-family:'Roboto Slab',Georgia,serif;font-size:27px;font-weight:450;letter-spacing:-.035em;line-height:1.35;margin-block:12px;}
+.projects-page .project-index-entry p {font-size:14px;line-height:1.8;max-width:60ch;}
+.projects-page .project-bottom {padding-block:15px;font-size:11px;}
+.about-page .about-reading {max-width:72ch;}
+.about-page .about-reading h3 {font-size:21px;line-height:1.5;}
+.skill-group {display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:65px;border-block-start:1px solid var(--line);padding-block:32px;align-items:start;}
+.skill-group h2 {font-size:24px;line-height:1.4;font-weight:450;letter-spacing:-.025em;margin-block-start:12px;}
+.skills-approach {padding-block:50px 65px;border-block-start:1px solid var(--line);margin-block-start:28px;}
+.skills-approach>p {font-size:16px;line-height:1.85;color:var(--muted);max-width:73ch;}
+.skills-approach>div {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:36px 55px;margin-block-start:40px;}
+.skills-approach article h3 {font-size:21px;line-height:1.45;font-weight:450;margin-block:12px 15px;}
+.skills-approach article p {font-size:14px;line-height:1.9;color:var(--muted);}
+.contact-page {position:relative;isolation:isolate;overflow:hidden;padding-block-end:65px;}
+.contact-page>.container {position:relative;z-index:1;}
+.contact-page .contact-field {top:-65px;inset-inline-start:auto;inset-inline-end:-150px;width:850px;height:680px;opacity:.6;mask-image:radial-gradient(ellipse at 80% 35%,black,transparent 73%);}
+.contact-page .page-intro {max-width:850px;}
+.contact-page-grid {display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:90px;}
+.contact-form-region h2 {font-size:25px;font-weight:450;line-height:1.4;margin-block-end:28px;}
+.contact-form {display:grid;gap:21px;}
+.contact-form label {display:grid;gap:10px;font-size:12px;color:var(--burgundy);}
+.contact-form input,.contact-form textarea {width:100%;min-width:0;border:1px solid var(--line);background:var(--white);border-radius:3px;padding:13px 15px;color:var(--ink);font:inherit;font-size:15px;line-height:1.6;}
+.contact-form textarea {resize:vertical;}
+.form-help,.form-status {font-size:12px;line-height:1.8;color:var(--muted);max-width:65ch;}
+.form-status {min-height:22px;}
+.contact-form .button-primary {justify-self:start;}
+.direct-contact {padding-block-start:8px;}
+.direct-contact .contact-links {margin-block-start:20px;}
+.direct-contact .contact-links a {grid-template-columns:70px minmax(0,1fr) 20px;gap:13px;font-size:12px;}
+.contact-location {border-block-start:1px solid var(--line);padding-block-start:24px;margin-block-start:32px;font-size:12px;color:var(--muted);}
+.contact-location p {margin-block-start:13px;font-size:16px;color:var(--ink);}
+.compact-footer {display:flex;gap:24px;align-items:center;border-block-start:1px solid var(--line);min-height:85px;font-size:11px;color:var(--muted);}
+.compact-footer>a {margin-inline-start:auto;display:flex;gap:18px;color:var(--burgundy);padding-block:17px;}
+.not-found {padding-block:90px;}.not-found h1 {font-size:44px;font-weight:450;margin-block:24px 35px;}
+html[dir=rtl] .page-intro h1,html[dir=rtl] .section-heading h1,html[dir=rtl] .home-invitation h2,html[dir=rtl] .projects-page .project-index-entry h3 {font-family:Tahoma,Arial,sans-serif;letter-spacing:0;}
+@media(max-width:1000px) {.site-header nav {gap:15px;}.site-header nav a {font-size:11px;}.home-about,.skill-group {gap:40px;}.home-bottom,.contact-page-grid {gap:45px;}}
+@media(max-width:800px) {
+ html {scroll-padding-top:80px;}
+ .header-layout {flex-wrap:wrap;gap:13px;min-height:75px;padding-block:12px;}
+ .signature {font-size:11px;gap:10px;}.signature>span:last-child {display:none;}
+ .language-select {order:0;margin-inline-start:auto;}.language-select select {font-size:11px;}
+ .navigation-toggle {display:flex;align-items:center;gap:12px;background:none;border:0;color:var(--burgundy);font-size:11px;min-height:44px;padding-inline:4px;}
+ .navigation-toggle>span {font-size:21px;}
+ .site-header nav {order:3;width:100%;margin:0;border-block-start:1px solid var(--line);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 12px;}
+ .site-header nav[data-open=false] {display:none;}
+ .site-header nav a {font-size:12px;padding-block:15px;text-align:center;}
+ .home-about {gap:32px;grid-template-columns:1fr 1.8fr;}.home-about>div>p {font-size:20px;}
+ .home-bottom {gap:35px;}.contact-page-grid {grid-template-columns:1fr;gap:40px;}.direct-contact {max-width:650px;}
+ .projects-page .project-index {gap:40px 25px;}.projects-page .index-image {padding:14px;}.projects-page .project-index-entry h3 {font-size:24px;}
+}
+@media(max-width:700px) {
+ .page-intro {padding-block:36px 34px;}.page-intro h1 {font-size:37px;}.page-intro>p {font-size:15px;line-height:1.9;}
+ .section-heading h1 {font-size:37px;}
+ .home-about {grid-template-columns:1fr;gap:24px;padding-block:40px;}.home-about h2 {margin-block:13px 20px;}.home-about>div>p {font-size:19px;line-height:1.85;}
+ .focus-strip {gap:8px 14px;margin-block-start:21px;}.focus-strip li {font-size:10px;}
+ .home-projects {padding-block:43px;}.page-section-title {align-items:start;flex-direction:column;gap:0;margin-block-end:30px;}
+ .home-bottom {grid-template-columns:1fr;gap:40px;padding-block:40px;}.home-toolkit {border-block-start:1px solid var(--line);padding-block-start:34px;}
+ .home-invitation {padding-block:40px;}.home-invitation h2 {font-size:34px;}.home-invitation .contact-field {inset-inline-end:-300px;opacity:.4;}
+ .projects-page .project-index {grid-template-columns:1fr;gap:37px;margin-block-start:45px;}.projects-page .project-index-entry a {gap:18px;}.projects-page .project-index-entry h3 {font-size:26px;}
+ .projects-page .project-index-entry p {font-size:13px;}.projects-page .index-image {padding:15px;}
+ .skill-group {grid-template-columns:1fr;gap:20px;padding-block:27px;}.skill-group h2 {font-size:23px;}.skill-tags {gap:8px;}.skill-tags li {font-size:12px;padding:7px 10px;}
+ .skills-approach {padding-block:33px 40px;}.skills-approach>div {grid-template-columns:1fr;gap:30px;}.skills-approach>p {font-size:14px;}
+ .contact-page {padding-block-end:40px;}.contact-page .contact-field {inset-inline-end:-360px;opacity:.45;}
+ .contact-form-region h2 {font-size:23px;}.contact-page-grid {gap:30px;}.direct-contact .contact-links a {font-size:11px;}
+ .compact-footer {flex-wrap:wrap;gap:10px 20px;padding-block:18px;min-height:90px;}.compact-footer>span:nth-child(2) {font-size:10px;}
+ .compact-footer>a {padding-block:10px;}
+}
+@media(max-width:360px) {.header-layout {gap:9px;}.navigation-toggle {gap:8px;font-size:10px;}.page-intro h1,.section-heading h1 {font-size:33px;}.compact-footer>a {margin-inline-start:0;}}

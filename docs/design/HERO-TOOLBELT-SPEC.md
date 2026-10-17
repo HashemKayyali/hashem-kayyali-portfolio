@@ -1,0 +1,9 @@
+# Hero typography and toolbelt — 14 October 2026
+
+Owner requests improved text distribution in Home/About/Projects heroes and replacing the Home software/hardware/product strip with automatically repeating skill logos. Preserve factual copy, smoke/portrait bounds, exact shared hero heights, other pages and existing image walking/navigation.
+
+Candidate: tighter readable eyebrow/role/title/lead/action grouping, consistent lead width and spacing, balanced Arabic/Latin hierarchy, responsive Home/About copy beside portrait. Three hero copy groups only; backgrounds/visuals and detail hero are outside scope. Replace the old signal strip with two compact counterflow GSAP rails:32 actual About toolkit entries,11 additional approved project technology fields and owner-requested Hardware/Interactive Games domains supported by real connected-game projects. Brand logos for named tools, semantic icons for concepts without a single brand; no invented Unity/game-engine skills. Stable text labels, one accessible copy, repeated visual copies hidden from assistive technology.
+
+Use pinned local SVGs from Devicon and Espressif/Simple Icons sources, recorded license/source/hash data; no runtime third-party requests or package installation. Pause control, hover/focus pause, offscreen/document-hidden pause, reduced-motion static horizontal reading, responsive recalculation with preserved phase and owned cleanup. Duration derives from distance at a constant moderate speed, seamless boundaries.
+
+Checkpoint output/checkpoints/design-intelligence-before-2026-10-14-145142.zip:766 verified entries. Verify EN/AR1920/1440/390/320, remaining locales, content/icons, actual seamless GSAP movement and stop/resume policies, keyboard, resize/locale changes, Home/About continuity and project-image/route regressions. No V1 writes, commit/push/merge/deploy or new review site.

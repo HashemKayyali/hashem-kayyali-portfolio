@@ -1,0 +1,43 @@
+{
+  "name": "hashem-kayyali-portfolio",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev:light": "vite --config preview/vite.config.ts",
+    "build:light": "vite build --config preview/vite.config.ts && node preview/prerender.mjs",
+    "preview:light": "vite preview --config preview/vite.config.ts",
+    "dev": "vite --config preview/vite.config.ts",
+    "build": "npm run build:light",
+    "preview": "vite preview --config preview/vite.config.ts",
+    "dev:legacy": "vite",
+    "build:legacy": "npm run build:client && npm run build:ssr && npm run prerender",
+    "preview:legacy": "vite preview",
+    "check": "npm run typecheck && npm test && npm run validate:content",
+    "typecheck": "tsc --noEmit",
+    "generate:content": "node scripts/generate-locales.mjs",
+    "validate:content": "node scripts/validate-content.mjs",
+    "test": "node --test tests/*.test.mjs preview/*.test.mjs",
+    "build:client": "vite build",
+    "build:ssr": "vite build --ssr seo/entry-server.tsx --outDir dist-ssr",
+    "prerender": "node seo/prerender.mjs",
+    "validate:seo": "node scripts/validate-seo.mjs"
+  },
+  "dependencies": {
+    "@gsap/react": "^2.1.2",
+    "@rive-app/canvas": "^2.44.2",
+    "embla-carousel-react": "8.6.0",
+    "framer-motion": "^12.23.25",
+    "gsap": "^3.15.0",
+    "lenis": "^1.3.26",
+    "lucide-react": "^0.556.0",
+    "react": "^19.2.1",
+    "react-dom": "^19.2.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.0",
+    "@vitejs/plugin-react": "^5.0.0",
+    "typescript": "~5.8.2",
+    "vite": "^6.2.0"
+  }
+}
