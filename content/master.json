@@ -480,11 +480,11 @@
       ],
       "hardwareEmbedded": [
         {
-          "en": "Microcontrollers / ESP32",
-          "ar": "متحكمات دقيقة / ESP32",
-          "de": "Mikrocontroller / ESP32",
-          "fr": "Microcontrôleurs / ESP32",
-          "es": "Microcontroladores / ESP32"
+          "en": "Microcontrollers / ESP32 & ESP8266",
+          "ar": "متحكمات دقيقة / ESP32 وESP8266",
+          "de": "Mikrocontroller / ESP32 & ESP8266",
+          "fr": "Microcontrôleurs / ESP32 & ESP8266",
+          "es": "Microcontroladores / ESP32 & ESP8266"
         },
         {
           "en": "Embedded C++",

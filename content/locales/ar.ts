@@ -120,7 +120,7 @@ const ar: Dictionary = {
         "WebSocket"
       ],
       [
-        "متحكمات دقيقة / ESP32",
+        "متحكمات دقيقة / ESP32 وESP8266",
         "Embedded C++",
         "BLE",
         "NFC",

@@ -120,7 +120,7 @@ const en: Dictionary = {
         "WebSocket"
       ],
       [
-        "Microcontrollers / ESP32",
+        "Microcontrollers / ESP32 & ESP8266",
         "Embedded C++",
         "BLE",
         "NFC",
