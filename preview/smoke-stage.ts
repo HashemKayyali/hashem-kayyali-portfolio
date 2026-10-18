@@ -15,7 +15,11 @@ export function canUseSmokeStage(canvas:HTMLCanvasElement){
 
 const reduced=()=>matchMedia('(prefers-reduced-motion:reduce)').matches;
 const constrained=()=>{const n=navigator as Navigator&{deviceMemory?:number;connection?:{saveData?:boolean}};return Boolean(n.connection?.saveData)||(n.deviceMemory??8)<=2||n.hardwareConcurrency<=2;};
-const currentRamp=()=>{const theme=THEMES.find(t=>t.id===document.documentElement.dataset.theme)??THEMES[0];return themeSmokeRamp(theme).map(colorVector);};
+const activeTheme=(id=document.documentElement.dataset.theme)=>THEMES.find(t=>t.id===id)??THEMES[0];
+const currentRamp=()=>themeSmokeRamp(activeTheme()).map(colorVector);
+// The side fade is drawn in the frame toward the page paper; it mirrors for right-to-left pages.
+const paperOf=(id?:string)=>colorVector(activeTheme(id).colors.paper);
+const fadeDirection=()=>document.documentElement.dir==='rtl'?-1:1;
 const measure=(canvas:HTMLCanvasElement)=>{const box=canvas.getBoundingClientRect();return {width:Math.max(1,box.width),height:Math.max(1,box.height),dpr:Math.min(devicePixelRatio||1,2),density:Math.min(1.6,Math.max(.6,box.height/670)),mobile:matchMedia('(max-width:700px)').matches};};
 
 export function startSmokeStage(canvas:HTMLCanvasElement):(()=>void)|false{
@@ -29,14 +33,16 @@ export function startSmokeStage(canvas:HTMLCanvasElement):(()=>void)|false{
  let onScreen=true,lastSize='';
  const run=()=>{const live=onScreen&&!document.hidden&&!reduced()&&!constrained();worker.postMessage({type:'run',running:live});host.dataset.motion=reduced()?'reduced':constrained()?'low-power':live?'active':'offscreen';};
  const resize=()=>{const m=measure(canvas),key=[m.width,m.height,m.dpr].map(Math.round).join('x');if(key===lastSize)return;lastSize=key;worker.postMessage({type:'resize',...m});};
- const recolor=(event:Event)=>{const ramp=(event as CustomEvent<{ramp:string[]}>).detail?.ramp;if(ramp)worker.postMessage({type:'palette',ramp:ramp.map(colorVector),duration:reduced()?0:.6});};
+ const recolor=(event:Event)=>{const detail=(event as CustomEvent<{id?:string;ramp:string[]}>).detail;if(detail?.ramp)worker.postMessage({type:'palette',ramp:detail.ramp.map(colorVector),paper:paperOf(detail.id),duration:reduced()?0:.6});};
  worker.onmessage=({data})=>{
-  if(data.type==='ready')canvas.style.opacity='1';
-  else if(data.type==='unavailable'){canvas.style.opacity='0';host.dataset.motion='low-power';}
+  // Once frames carry their own fade, the GPU mask is dropped (style rule on [data-renderer=stage]).
+  if(data.type==='ready'){canvas.style.opacity='1';host.dataset.renderer='stage';}
+  else if(data.type==='unavailable'){canvas.style.opacity='0';host.dataset.motion='low-power';delete host.dataset.renderer;}
   else if(data.type==='stats')canvas.dispatchEvent(new CustomEvent('smoke-stats',{detail:data}));
  };
  const m=measure(canvas);lastSize=[m.width,m.height,m.dpr].map(Math.round).join('x');
- worker.postMessage({type:'init',canvas:offscreen,ramp:currentRamp(),time:4.2,...m},[offscreen]);
+ worker.postMessage({type:'init',canvas:offscreen,ramp:currentRamp(),paper:paperOf(),fade:fadeDirection(),time:4.2,...m},[offscreen]);
+ const direction=new MutationObserver(()=>worker.postMessage({type:'fade',fade:fadeDirection()}));direction.observe(document.documentElement,{attributes:true,attributeFilter:['dir']});
  const observer=new ResizeObserver(resize);observer.observe(canvas);
  const visible=new IntersectionObserver(([entry])=>{onScreen=entry.isIntersecting;run();});visible.observe(canvas);
  const motion=matchMedia('(prefers-reduced-motion:reduce)');

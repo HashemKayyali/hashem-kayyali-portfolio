@@ -208,6 +208,10 @@
  -webkit-mask-composite:source-over;mask-composite:add;
 }
 :root[lang=ar] .atelier-app-shell .app-atmosphere-paint{inset:0 auto auto 0;}
+/* The live smoke renderer paints this side fade into its own frames (smoke-stage.worker.ts). A GPU mask
+   over that worker-drawn canvas could fall out of step on some GPUs and show a sliver of unfaded
+   smoke at the edge, so it is removed once the renderer is ready. Fallback renderers keep the mask. */
+:root .atelier-app-shell .app-atmosphere-paint[data-renderer=stage]{-webkit-mask-image:none;mask-image:none;}
 @media(max-width:800px){:root .atelier-app-shell .app-atmosphere-paint{inset:0 0 auto 0;}}
 
 /* Programmatic focus on route headings must not paint a ring for pointer users. */
