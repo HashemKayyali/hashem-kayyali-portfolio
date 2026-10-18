@@ -37,7 +37,8 @@ for(const [value,paths] of descriptions)if(paths.length>1)notes.push('shared des
 // Redirects, 404s, robots, assets
 const expect=async(path,status,location)=>{const res=await get(path);const loc=res.headers.get('location');if(res.status!==status||(location&&loc!==location&&loc!==origin+location))problems.push(`${path}: ${res.status} ${loc??''} (expected ${status} ${location??''})`);};
 if(!local){for(const [path,to] of [['/','/en/'],['/ar','/ar/'],['/en','/en/'],['/preview','/en/'],['/preview/','/en/'],['/preview/ar/','/ar/'],['/preview/en/projects/bike-tower/','/en/projects/bike-tower/'],['/preview/de/about/','/de/about/']])await expect(path,308,to);
-for(const path of ['/about','/xx/','/en/projects/does-not-exist.php','/ar/not-a-page/','/en/projects/nope/'])await expect(path,404);
+// (.php probes are blocked earlier by Vercel's firewall with 403, so they are not used here.)
+for(const path of ['/about','/xx/','/de/xyz','/ar/not-a-page/','/en/projects/nope/'])await expect(path,404);
 for(const [path,to] of [['/ar/about','/ar/about/'],['/en/projects/bike-tower','/en/projects/bike-tower/']])await expect(path,308,to);
 const unknown=await get('/ar/not-a-page/');if(!(await unknown.text()).includes('noindex'))problems.push('404 page is not noindex');}
 const robots=await (await get('/robots.txt')).text();if(!robots.includes(`Sitemap: ${canonicalOrigin}/sitemap.xml`)||!/Disallow: \/api\//.test(robots)||/Disallow: \/preview/.test(robots))problems.push('robots.txt');
