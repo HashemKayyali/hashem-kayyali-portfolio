@@ -14,6 +14,7 @@ import {NavLink} from './PageShell';
 import {pageCopy} from './page-copy';
 import {useFeaturedMotion} from './motion';
 import {getStudioProjectCover,studioProjectAlt} from './studio-media-registry';
+import {cloudinarySrcSet,cloudinaryUrl} from './cloudinary-delivery';
 
 const Arrow = () => <span className="arrow" aria-hidden="true">↗</span>;
 const Index = ({ children }: { children: React.ReactNode }) => <span className="index" dir="ltr">{children}</span>;
@@ -21,7 +22,7 @@ const Index = ({ children }: { children: React.ReactNode }) => <span className="
 export function ProductImage({ asset, full = false, eager = false, sizes = '(max-width: 700px) 90vw, (max-width: 1100px) 55vw, 760px' }: { asset: ProjectAsset; full?: boolean; eager?: boolean; sizes?: string }) {
   const { t,locale } = useI18n();
   const uploaded=getStudioProjectCover(asset.id);
-  if(uploaded)return <img src={uploaded.url} width={uploaded.width} height={uploaded.height} alt={studioProjectAlt(asset.id,uploaded.url,t.projects[asset.id].title)} loading={eager?'eager':'lazy'} decoding="async" sizes={sizes}/>;
+  if(uploaded)return <img src={cloudinaryUrl(uploaded.url,1600)} srcSet={cloudinarySrcSet(uploaded.url,uploaded.width)} width={uploaded.width} height={uploaded.height} alt={studioProjectAlt(asset.id,uploaded.url,t.projects[asset.id].title)} loading={eager?'eager':'lazy'} decoding="async" sizes={sizes}/>;
   if(asset.id==='umniah-youthconnect')return <img src="/v2-media/umniah-architecture.svg" width="1280" height="800" loading={eager?'eager':'lazy'} decoding="async" alt={`${t.projects[asset.id].title}. ${caseCopy[locale].illustration}`}/>;
   if(asset.id==='terminal-nfc') return <StoryMedia source={asset.image} eager={eager} sizes={sizes} alt={t.projects[asset.id].mediaCaption??t.projects[asset.id].title}/>;
   const raster = asset.image.endsWith('.webp');

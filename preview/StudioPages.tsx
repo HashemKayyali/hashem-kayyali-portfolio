@@ -9,12 +9,13 @@ import CompactHero from './CompactHero';
 import {useStudioContent} from './StudioProvider';
 import {studioCopy,type StudioCopy} from './studio-copy';
 import {studioSourceUrl} from './studio-client';
+import {cloudinarySrcSet,cloudinaryUrl} from './cloudinary-delivery';
 import './studio.css';
 
 export type StudioPageProps={route:PreviewRoute;navigate:Navigate};
 export const studioDate=(date:string,locale:Locale)=>{const value=new Date(date);return Number.isNaN(value.getTime())?'':new Intl.DateTimeFormat(locale,{year:'numeric',month:'short',day:'numeric'}).format(value);};
 export function StudioMediaView({media,alt,controls=false}:{media:StudioMedia;alt?:string;controls?:boolean}){
- return media.kind==='video'?<video src={controls?media.url:undefined} poster={media.poster_url??undefined} controls={controls} preload="none" playsInline aria-label={alt||media.alt} width={media.width||undefined} height={media.height||undefined}/>:<img src={media.url} alt={alt||media.alt} loading="lazy" decoding="async" width={media.width||undefined} height={media.height||undefined}/>;
+ return media.kind==='video'?<video src={controls?cloudinaryUrl(media.url):undefined} poster={media.poster_url?cloudinaryUrl(media.poster_url):undefined} controls={controls} preload="none" playsInline aria-label={alt||media.alt} width={media.width||undefined} height={media.height||undefined}/>:<img src={cloudinaryUrl(media.url,1600)} srcSet={cloudinarySrcSet(media.url,media.width)} sizes="(max-width:800px) 92vw, 900px" alt={alt||media.alt} loading="lazy" decoding="async" width={media.width||undefined} height={media.height||undefined}/>;
 }
 function StudioState({kind,copy}:{kind:'gallery'|'journal';copy:StudioCopy}){
  const {status,reload}=useStudioContent();

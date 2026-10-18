@@ -30,9 +30,23 @@ export async function verifyCloudinaryUpload(env:StudioEnv,input:unknown,now:num
  try{response=await fetcher('https://api.cloudinary.com/v1_1/'+env.CLOUDINARY_CLOUD_NAME+'/resources/'+kind+'/upload/'+encoded,{headers:{Authorization:'Basic '+Buffer.from(env.CLOUDINARY_API_KEY+':'+env.CLOUDINARY_API_SECRET).toString('base64')},signal:AbortSignal.timeout(12_000)});}
  catch{throw new StudioError(502,'MEDIA_UNAVAILABLE','Cloudinary could not verify the uploaded file. Please retry.');}
  if(!response.ok)throw new StudioError(502,'MEDIA_UNAVAILABLE','Cloudinary could not verify the uploaded file. Please retry.');
- const info=await response.json();
- if(info.public_id!==publicId||info.resource_type!==kind||info.type!=='upload'||info.version!==upload.version||!formats[kind].includes(info.format)||!Number.isInteger(info.bytes)||info.bytes<=0||info.bytes>limits[kind])bad('Cloudinary media does not match the permitted upload.');
- if(!Number.isInteger(info.width)||!Number.isInteger(info.height)||info.width<1||info.height<1||info.width>32768||info.height>32768)bad('Invalid image or video dimensions.');
+ const info=await response.json().catch(()=>null);
+ if(!info||typeof info!=='object')throw new StudioError(502,'MEDIA_UNAVAILABLE','Cloudinary returned an unreadable response. Please retry.');
+ // The signature proved this upload is ours; if it breaks the limits (Cloudinary cannot enforce a byte limit
+ // on signed uploads), delete it so a rejected file never stays publicly reachable.
+ const reject=async(message:string):Promise<never>=>{await destroyCloudinaryAsset(env,publicId,kind,now,fetcher).catch(()=>{});bad(message);throw new Error('unreachable');};
+ if(info.public_id!==publicId||info.resource_type!==kind||info.type!=='upload'||info.version!==upload.version)bad('Cloudinary media does not match the permitted upload.');
+ if(!formats[kind].includes(info.format)||!Number.isInteger(info.bytes)||info.bytes<=0||info.bytes>limits[kind])await reject('The uploaded file type or size is not permitted.');
+ if(!Number.isInteger(info.width)||!Number.isInteger(info.height)||info.width<1||info.height<1||info.width>32768||info.height>32768)await reject('Invalid image or video dimensions.');
  const delivery='https://res.cloudinary.com/'+env.CLOUDINARY_CLOUD_NAME;
  return {public_id:publicId,kind,url:delivery+'/'+kind+'/upload/v'+info.version+'/'+encoded+'.'+info.format,poster_url:kind==='video'?delivery+'/video/upload/so_0,w_1000/v'+info.version+'/'+encoded+'.jpg':null,width:info.width,height:info.height,bytes:info.bytes,format:info.format,alt:text(body.alt??'',2000,'alternative text')};
+}
+
+/** Signed Upload API destroy (with CDN invalidation). Used only for uploads this server signed and then rejected. */
+export async function destroyCloudinaryAsset(env:StudioEnv,publicId:string,kind:StudioKind,now:number,fetcher:ProviderFetch=fetch){
+ if(!/^portfolio\/studio\/[a-f0-9-]{36}$/.test(publicId))throw new StudioError(400,'INVALID_INPUT','Invalid media identifier.');
+ const params={invalidate:'true',public_id:publicId,timestamp:String(Math.floor(now/1000))};
+ const body=new URLSearchParams({...params,api_key:env.CLOUDINARY_API_KEY!,signature:signature(params,env.CLOUDINARY_API_SECRET!)});
+ const response=await fetcher('https://api.cloudinary.com/v1_1/'+env.CLOUDINARY_CLOUD_NAME+'/'+kind+'/destroy',{method:'POST',body,signal:AbortSignal.timeout(12_000)});
+ if(!response.ok)throw new StudioError(502,'MEDIA_UNAVAILABLE','Cloudinary could not remove the rejected file.');
 }

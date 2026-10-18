@@ -46,5 +46,18 @@ export function createStudioDatabase(env:StudioEnv,fetcher:ProviderFetch=fetch){
   async move(kind:'posts'|'gallery',id:string,direction:'up'|'down'){await call('rpc/studio_move_item','POST',{p_resource:kind,p_id:id,p_direction:direction});},
   async project(project_id:string){const rows=await call('studio_project_overrides','GET',undefined,{select:'project_id,enabled,updated_at,items:studio_project_media(media_id,caption,alt,is_cover,sort_order,'+joinedMedia+')',project_id:'eq.'+project_id,'items.order':'sort_order.asc',limit:'1'});return rows[0]??{project_id,enabled:false,items:[]};},
   async saveProject(project_id:string,body:{enabled:boolean;items:unknown[]}){await call('rpc/studio_replace_project_media','POST',{p_project_id:project_id,p_enabled:body.enabled,p_items:body.items});return {project_id,...body};},
+  // ── Admin security state (migration 202610180001). Shared by every serverless instance. ──
+  /** Seconds until any of these throttle keys unlocks (0 = allowed). */
+  async authGate(keys:string[]){return Number(await call('rpc/studio_auth_gate','POST',{p_keys:keys}))||0;},
+  /** Records one failed sign-in for each key; returns the lock length in seconds (0 = not locked). */
+  async authFailure(keys:string[]){return Number(await call('rpc/studio_auth_record_failure','POST',{p_keys:keys}))||0;},
+  async authReset(key:string){await call('rpc/studio_auth_reset','POST',{p_key:key});},
+  /** True once per TOTP time step: a second use of the same code is refused. */
+  async consumeTotpStep(step:number){return (await call('rpc/studio_auth_consume_totp','POST',{p_step:step}))===true;},
+  async createSession(expiresAt:string){const rows=await call('studio_admin_sessions','POST',{expires_at:expiresAt});const id=rows?.[0]?.id;if(typeof id!=='string')throw new StudioError(502,'DATABASE_UNAVAILABLE','The session could not be created.');return id;},
+  async sessionActive(id:string,nowIso:string){const rows=await call('studio_admin_sessions','GET',undefined,{select:'id',id:'eq.'+id,revoked_at:'is.null',expires_at:'gt.'+nowIso,limit:'1'});return Array.isArray(rows)&&rows.length===1;},
+  async revokeSession(id:string,nowIso:string){await call('studio_admin_sessions','PATCH',{revoked_at:nowIso},{id:'eq.'+id,revoked_at:'is.null'});},
+  async revokeAllSessions(nowIso:string){await call('studio_admin_sessions','PATCH',{revoked_at:nowIso},{revoked_at:'is.null'});},
+  async pruneAuth(){await call('rpc/studio_auth_prune','POST',{});},
  };
 }

@@ -38,12 +38,31 @@
       "source": "/:locale(en|ar|de|fr|es|creative)",
       "destination": "/:locale/",
       "permanent": true
-    }
-  ],
-  "rewrites": [
+    },
     {
-      "source": "/:locale(en|ar|de|fr|es|creative)/:path(.*)",
-      "destination": "/preview/index.html"
+      "source": "/:locale(en|ar|de|fr|es)/:page(about|projects|experience|skills|contact|gallery|journal|admin)",
+      "destination": "/:locale/:page/",
+      "permanent": true
+    },
+    {
+      "source": "/:locale(en|ar|de|fr|es)/projects/:project(eventies|glitzz-lab|umniah-youthconnect|terminal-nfc|bike-tower|basket-beats|vr-cycling|bike-land-trainer|financial-operations|outreach-automation|traffic-flow-analytics)",
+      "destination": "/:locale/projects/:project/",
+      "permanent": true
+    },
+    {
+      "source": "/creative/:locale(en|ar|de|fr|es)",
+      "destination": "/creative/:locale/",
+      "permanent": true
+    },
+    {
+      "source": "/creative/:locale(en|ar|de|fr|es)/:page(about|projects|experience|skills|contact|gallery|journal|admin)",
+      "destination": "/creative/:locale/:page/",
+      "permanent": true
+    },
+    {
+      "source": "/creative/:locale(en|ar|de|fr|es)/projects/:project(eventies|glitzz-lab|umniah-youthconnect|terminal-nfc|bike-tower|basket-beats|vr-cycling|bike-land-trainer|financial-operations|outreach-automation|traffic-flow-analytics)",
+      "destination": "/creative/:locale/projects/:project/",
+      "permanent": true
     }
   ],
   "headers": [

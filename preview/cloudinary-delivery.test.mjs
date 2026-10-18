@@ -1,0 +1,15 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import ts from 'typescript';
+const load=async()=>import('data:text/javascript;base64,'+Buffer.from(ts.transpile(fs.readFileSync(new URL('./cloudinary-delivery.ts',import.meta.url),'utf8'),{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2022})).toString('base64'));
+const image='https://res.cloudinary.com/demo/image/upload/v12/portfolio/studio/0b0b8f3a-1111-4222-8333-444455556666.jpg';
+test('Cloudinary images get automatic format, quality and a width limit',async()=>{const {cloudinaryUrl}=await load();
+ assert.equal(cloudinaryUrl(image,800),'https://res.cloudinary.com/demo/image/upload/f_auto,q_auto,c_limit,w_800/v12/portfolio/studio/0b0b8f3a-1111-4222-8333-444455556666.jpg');
+ assert.equal(cloudinaryUrl(image),'https://res.cloudinary.com/demo/image/upload/f_auto,q_auto/v12/portfolio/studio/0b0b8f3a-1111-4222-8333-444455556666.jpg');});
+test('videos keep their container and non-Cloudinary or look-alike URLs pass through',async()=>{const {cloudinaryUrl,isCloudinaryUrl}=await load();
+ assert.equal(cloudinaryUrl('https://res.cloudinary.com/demo/video/upload/v3/a.mp4',900),'https://res.cloudinary.com/demo/video/upload/q_auto/v3/a.mp4');
+ for(const url of ['/projects/bike-tower/cover.webp','https://evil.example/res.cloudinary.com/demo/image/upload/a.jpg','http://res.cloudinary.com/demo/image/upload/a.jpg','https://res.cloudinary.com.evil.example/demo/image/upload/a.jpg']){assert.equal(cloudinaryUrl(url,800),url);assert.equal(isCloudinaryUrl(url),false);}});
+test('srcset never upscales beyond the original and skips videos',async()=>{const {cloudinarySrcSet}=await load();
+ const set=cloudinarySrcSet(image,1000);assert.match(set,/w_480\/.* 480w, .*w_800\/.* 800w, .*w_1000\/.* 1000w$/);assert.ok(!set.includes('w_1200'));
+ assert.equal(cloudinarySrcSet('https://res.cloudinary.com/demo/video/upload/v3/a.mp4',1920),undefined);assert.equal(cloudinarySrcSet('/x.webp',800),undefined);});

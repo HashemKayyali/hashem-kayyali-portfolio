@@ -2,6 +2,7 @@ import React from 'react';
 import original from './media-dimensions';
 import generated from './v2-media-dimensions';
 import {dynamicMediaSize} from './studio-media-registry';
+import {cloudinarySrcSet,cloudinaryUrl,isCloudinaryUrl} from './cloudinary-delivery';
 
 const dimensions:Record<string,{width:number;height:number}>={...original,...generated};
 const stems:Record<string,string>={
@@ -18,5 +19,6 @@ export const mediaSize=(source:string)=>dimensions[safeSource(source)]??dynamicM
 export default function StoryMedia({source,alt,eager=false,sizes='(max-width:700px) 90vw, 760px'}:{source:string;alt:string;eager?:boolean;sizes?:string}) {
  const variants=mediaVariants(source),src=variants.at(-1)!;
  const size=dimensions[src]??dynamicMediaSize(src);
+ if(isCloudinaryUrl(src))return <img src={cloudinaryUrl(src,1600)} srcSet={size?cloudinarySrcSet(src,size.width):undefined} sizes={sizes} width={size?.width} height={size?.height} alt={alt} loading={eager?'eager':'lazy'} decoding="async"/>;
  return <img src={src} srcSet={variants.length>1 ? variants.map(path=>`${path} ${dimensions[path].width}w`).join(', '):undefined} sizes={sizes} width={size?.width} height={size?.height} alt={alt} loading={eager?'eager':'lazy'} decoding="async"/>;
 }

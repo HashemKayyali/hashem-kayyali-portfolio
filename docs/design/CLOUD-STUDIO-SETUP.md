@@ -1,33 +1,66 @@
-# Cloud Studio setup —16 October2026
+# Cloud Studio setup — revised 18 October 2026
 
-The approved React/Vite portfolio now includes Gallery, Journal and an admin publishing desk. The implementation is prepared for Supabase, Cloudinary and Vercel. No accounts, provider resources or deployment were created during implementation. Blank environment values deliberately produce empty public collections and a read-only setup preview; there is no simulated persistent save.
+The portfolio includes Gallery, Journal and an admin publishing desk prepared for Supabase (data), Cloudinary (media) and Vercel (hosting, already live). **No Supabase project or Cloudinary resources exist yet.** Blank environment values produce empty public collections and a read-only admin setup screen; nothing is ever simulated as saved.
+
+Engineering readiness, findings and test evidence: [`docs/engineering/PRE-INTEGRATION-READINESS.md`](../engineering/PRE-INTEGRATION-READINESS.md).
 
 ## What the desk controls
 
-- Project image selections, their order, captions, alternative text and cover. Project facts and case-study prose remain authored in code. Disable the saved selection to restore approved built-in images.
-- Journal entries: one image or video, caption, authored date, optional original LinkedIn/Instagram URL, draft/publication state and order.
-- Gallery entries: image/video, optional title, caption, alternative text, project association, authored date, publication state and order.
-- Shared media library: signed uploads, progress/cancellation and alternative-text editing. Removing a website record does **not** delete the Cloudinary original. Media still in use cannot be deleted from the library.
+- Project image selections: order, captions, alternative text and cover. Project facts and case-study prose stay in code. Disabling a selection restores the built-in images.
+- Journal entries: one image or video, caption, date, optional original LinkedIn/Instagram URL, draft/published state and order.
+- Gallery entries: image or video, title, caption, alternative text, project, date, publication state and order.
+- Shared media library: signed uploads with progress and cancellation, alternative-text editing. Media still in use cannot be deleted. **Deleting a website record keeps the Cloudinary original, which stays reachable by its URL**: see "Privacy" below.
 
-## Connect later
+## Admin security model (no default password)
 
-1. Create a Supabase project. Run `supabase/migrations/202610160001_studio.sql` in its SQL editor. It creates five RLS-enabled tables and three scoped RPCs. There are no sample posts or fabricated media records. The migration requires Supabase's existing `anon`, `authenticated` and `service_role` roles.
-2. Copy `.env.example` to `.env.local`. Set `SUPABASE_URL` and the server-only `SUPABASE_SECRET_KEY` (`sb_secret_…`). The legacy `SUPABASE_SERVICE_ROLE_KEY` is supported as a fallback. Neither belongs in browser code or a `VITE_` variable.
-3. Create a Cloudinary product environment. Set `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY` and `CLOUDINARY_API_SECRET`. No unsigned upload preset is required. The server signs unique upload IDs; the browser sends file bytes directly to Cloudinary. The server verifies the signed receipt and authoritative resource metadata before registering the media.
-4. Keep `ADMIN_PASSWORD=8080` as requested. Set a separate random `ADMIN_SESSION_SECRET` of at least32 characters. For example, run `node -e "console.log(require('node:crypto').randomBytes(32).toString('hex'))"` locally and copy the result into the secret variable. Restart the development server after editing environment values.
-5. Run `npm run dev:light`. Open `/preview/en/admin/` or `/preview/ar/admin/`. Check the three connection indicators, sign in, upload an image with a description, create a draft, then publish and verify the public page. Repeat with a video. Verify editing, reordering, unpublishing, deleting and restoring a project's built-in image selection.
-6. When the owner creates Vercel, import this V2 repository and set the same **server-only** environment variables in the intended deployment environment. `vercel.json` selects `npm run build:light`, `dist-light-preview` and `api/studio.ts`. Set optional `VITE_SITE_URL` to the public HTTPS origin for generated metadata. No deployment has been performed here.
+| Setting | Purpose |
+| --- | --- |
+| `ADMIN_PASSWORD_HASH` | scrypt hash of the admin password. Created locally with `npm run studio:password`, which refuses weak passwords. The plaintext password is never stored. A plaintext `ADMIN_PASSWORD` variable is refused (admin stays disabled while it exists). |
+| `ADMIN_SESSION_SECRET` | 32+ varied characters. Signs session cookies and upload receipts. Rotating it signs out every session. |
+| `ADMIN_TOTP_SECRET` | Authenticator (TOTP) secret. **Required in production** (`VERCEL_ENV=production`); optional locally. Codes cannot be reused. |
+| Database | Required for admin: sessions (revocable logout, "sign out everywhere") and sign-in throttling are stored in Supabase so they work across every Vercel instance. |
+
+Throttling: 5 failed sign-ins per client in 15 minutes, or 30 across all clients, lock sign-in for 15 minutes (a correct password is refused while locked). Client IPs are stored only as keyed hashes. If you lock yourself out, wait 15 minutes, or run `delete from public.studio_auth_attempts;` in the Supabase SQL editor.
+
+Recovery: if the password or authenticator is lost, generate new values with `npm run studio:password -- --session --totp`, replace them in Vercel and redeploy. That also signs out all existing sessions.
+
+## Connect, in this order
+
+1. **Generate admin credentials locally:** `npm run studio:password -- --session --totp`. Add the TOTP secret to an authenticator app. Keep the printed values out of chat, email and the repository.
+2. **Supabase.** Create the project (region close to Vercel's). In the SQL editor run, in order:
+   1. `supabase/migrations/202610160001_studio.sql`
+   2. `supabase/migrations/202610180001_studio_admin_security.sql`
+
+   Then verify in the SQL editor:
+   - `select relname, relrowsecurity from pg_class where relname like 'studio_%' and relkind='r';` should list 8 tables, all `true`.
+   - `select has_table_privilege('anon','public.studio_posts','select');` should return `false`.
+   - `select proname, prosecdef from pg_proc where proname like 'studio_%';` should list 9 functions, all `false`.
+
+   The same checks run locally against PostgreSQL 17 with `npm install --no-save @electric-sql/pglite@0.3 && node supabase/tests/migration-contract.mjs` (73 checks, including both rollbacks).
+3. **Cloudinary.** Create a product environment. Under Settings → Security, keep "Strict transformations" off (the site requests `f_auto,q_auto,w_…` derivatives). No unsigned upload preset is needed. Optional: set an account-level upload limit at or below 20 MB for images and 200 MB for video.
+4. **Local trial** (`.env.local`, never committed): `SUPABASE_URL`, `SUPABASE_SECRET_KEY` (`sb_secret_…`), `CLOUDINARY_*`, `ADMIN_PASSWORD_HASH`, `ADMIN_SESSION_SECRET`, optionally `ADMIN_TOTP_SECRET`. Run `npm run dev`, open `/en/admin/`, and follow the acceptance checklist below.
+5. **Vercel.** Add the same server-only variables to the **Production** environment (plus `ADMIN_TOTP_SECRET`). Never prefix them with `VITE_`. Redeploy, then repeat the acceptance checklist on `https://hashemkayyali.com/en/admin/`.
+
+## Acceptance checklist (real accounts)
+
+- [ ] Status shows Database, Media storage and Admin session available; the missing list is empty.
+- [ ] A wrong password and a wrong code are refused; 5 failures lock sign-in; sign-in works after the lock.
+- [ ] Sign in, then "Sign out": the old session no longer works. "Sign out everywhere" ends a second browser's session.
+- [ ] Upload a JPEG, PNG and WebP with alternative text, then an MP4. Each appears in the library with the right size and format.
+- [ ] Upload a file over the limit (or rename an SVG): it is refused and removed from Cloudinary (check Media Library).
+- [ ] Create a Journal draft: it is not visible on `/en/journal/`. Publish it: it appears within about a minute (edge cache) and immediately for the signed-in admin.
+- [ ] Reorder, unpublish and delete entries; deleting media still in use is refused.
+- [ ] Set a project image selection with a cover, check the Projects page and case study, then disable it to restore the built-in images.
+- [ ] `GET /api/studio?action=public` returns only published content and no secret values.
 
 ## Runtime boundaries
 
-`/api/studio?action=…` uses the same Web Request/Response handler in Vite's local middleware and the Vercel Node function. JSON metadata is limited to64KB. Accepted media: JPEG/PNG/WebP up to20MB, MP4/WebM up to200MB, subject to the Cloudinary account's own limits. SVG is intentionally excluded. The browser never receives Supabase or Cloudinary secret keys.
+`/api/studio?action=…` runs the same Web Request/Response handler in Vite (local) and as a Vercel function. JSON metadata is limited to 64 KB. Accepted media: JPEG/PNG/WebP up to 20 MB, MP4/WebM up to 200 MB; SVG is excluded. The browser never receives Supabase or Cloudinary secrets. Public content is cached at Vercel's edge for 60 seconds (stale-while-revalidate 5 minutes). Studio images are delivered as `f_auto,q_auto` width-limited derivatives with `srcset`.
 
-Admin sessions use signed, expiring HttpOnly/SameSite cookies (Secure over HTTPS), same-origin mutation checks and basic in-process login throttling. This is a simple single-owner desk, not a multi-user identity service; throttling is not distributed across Vercel instances. Logout clears the browser cookie. Changing the password or session secret invalidates prior signed sessions. Do not store private screenshots or customer data in the public media library.
+## Privacy
 
-Public reads include only published posts/gallery and enabled project selections. Public collections currently return the first200 entries in their saved order; the admin library paginates all records. Provider errors remain visible and preserve drafts. The site retains its existing noindex review policy: hosting configuration alone does not approve search-engine launch.
+Uploaded media uses Cloudinary's public `upload` delivery type: anyone with a URL can open it, even after the website record is deleted. Do not upload private screenshots, customer data or unredacted documents. If removal must be guaranteed, delete the asset in Cloudinary as well.
 
-## Account-dependent verification still required
+## Rollback
 
-The local tests exercise auth, validation, provider requests, receipt verification and error paths with controlled providers. The UI was checked locally with empty/configuration states and controlled API fixtures. The SQL migration, real Supabase permissions/RPC execution, actual Cloudinary upload/video playback and Vercel routing/runtime must be verified against the owner's accounts after connection. A successful local build does not prove those external services are configured.
-
-Primary references: [Supabase API keys](https://supabase.com/docs/guides/api/api-keys), [Cloudinary signed uploads](https://cloudinary.com/documentation/upload_images#generating_authentication_signatures), [Vercel Node runtime](https://vercel.com/docs/functions/runtimes/node-js), [Embla React](https://www.embla-carousel.com/docs/v8/get-started/react).
+`supabase/rollback/202610180001_studio_admin_security.down.sql` removes only the admin security state, so admin fails closed. `supabase/rollback/202610160001_studio.down.sql` is **destructive** (it deletes every Studio record): export first. Code rollback: redeploy the previous Vercel deployment or revert the commit.

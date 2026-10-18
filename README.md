@@ -7,7 +7,7 @@ npm ci
 npm run dev
 ```
 
-Open [the website](http://127.0.0.1:5176/) or [Arabic](http://127.0.0.1:5176/preview/ar/). Standard commands run the approved V2 application. Node24 is the verified local runtime.
+Open [the website](http://127.0.0.1:5176/) or [Arabic](http://127.0.0.1:5176/ar/). Public URLs are `/<locale>/…`; old `/preview/…` URLs redirect. Standard commands run the approved V2 application. Node24 is the verified local runtime.
 
 | Command | Purpose |
 | --- | --- |

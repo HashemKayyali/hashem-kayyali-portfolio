@@ -191,7 +191,6 @@
  :root .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .app-collection-copy .gallery-intro-copy{display:grid;gap:clamp(16px,1.6vw,28px);justify-items:start;}
 }
 
-}
 
 /* ── Hero smoke as a window, not a stretched surface ───────────────────────────
    The smoke field has a fixed, viewport-derived size; the opening above it only

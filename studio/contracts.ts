@@ -7,7 +7,7 @@ export interface StudioGalleryEntry {id:string;media_id:string;title:string;capt
 export interface ProjectMediaItem {media_id:string;caption:string;alt:string;is_cover:boolean;sort_order:number;media?:StudioMedia}
 export interface ProjectMediaOverride {project_id:string;enabled:boolean;items:ProjectMediaItem[];updated_at?:string}
 export interface PublicStudio {configured:boolean;posts:StudioPost[];gallery:StudioGalleryEntry[];projectMedia:ProjectMediaOverride[]}
-export interface StudioStatus {database:boolean;media:boolean;admin:boolean;missing:string[]}
+export interface StudioStatus {database:boolean;media:boolean;admin:boolean;mfa:boolean;missing:string[]}
 export interface StudioSession {authenticated:boolean;configured:boolean}
 export interface StudioUploadIntent {url:string;fields:Record<string,string>;receiptToken:string;kind:StudioKind;maxBytes:number}
 export interface StudioUploadReceipt {public_id:string;version:number;signature:string;resource_type:StudioKind}

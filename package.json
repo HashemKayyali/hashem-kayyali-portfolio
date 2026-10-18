@@ -21,7 +21,8 @@
     "build:client": "vite build",
     "build:ssr": "vite build --ssr seo/entry-server.tsx --outDir dist-ssr",
     "prerender": "node seo/prerender.mjs",
-    "validate:seo": "node scripts/validate-seo.mjs"
+    "validate:seo": "node scripts/validate-seo.mjs",
+    "studio:password": "node scripts/studio-password.mjs"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
