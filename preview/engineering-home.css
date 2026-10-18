@@ -31,7 +31,9 @@
 .light-portfolio.homepage-redesign .pulse-home .pulse-name{font-family:'Instrument Sans',Arial,sans-serif;font-size:clamp(60px,6.3vw,96px);font-weight:550;line-height:1;letter-spacing:-.055em;max-width:8ch;}
 .homepage-redesign .pulse-line-mask{display:block;overflow:hidden;padding-block-end:.06em;margin-block-end:-.06em;}
 .homepage-redesign .pulse-line-mask>span{display:block;}
-.homepage-redesign [data-intro=waiting] .pulse-name-word{transform:translateY(110%);}
+/* The name's deep descenders (yy) need room below the reveal mask; layout is unchanged (negative margin), and the word starts low enough to stay hidden. */
+.homepage-redesign .pulse-name .pulse-line-mask{padding-block-end:.3em;margin-block-end:-.3em;}
+.homepage-redesign [data-intro=waiting] .pulse-name-word{transform:translateY(140%);}
 .homepage-redesign :is([data-intro=waiting],[data-intro=preparing]) .pulse-portrait-plate{transform:rotate(0deg) scaleY(.84);}
 .homepage-redesign :is([data-intro=waiting],[data-intro=preparing]) .pulse-fragment{opacity:.15;transform:translate(28px,25px) rotate(0deg);}
 .homepage-redesign :is([data-intro=waiting],[data-intro=preparing]) .pulse-fragment--1{transform:translate(40px,35px) rotate(0deg);}

@@ -81,7 +81,7 @@ export function useEngineeringHomeMotion(root:RefObject<HTMLElement|null>,locale
     owned.add(()=>{
      if(hero)hero.dataset.intro='preparing';
      const timeline=gsap.timeline({paused:true,id:'signal:hero-choreography',defaults:{ease:'power3.out'},onComplete:()=>{if(!alive)return;introRan=true;if(hero)hero.dataset.intro='complete';arm();}});
-     timeline.fromTo('.pulse-name-word',{yPercent:110},{yPercent:0,duration:1.05,stagger:.1,clearProps:'transform'},0)
+     timeline.fromTo('.pulse-name-word',{yPercent:140},{yPercent:0,duration:1.05,stagger:.1,clearProps:'transform'},0)
       .fromTo('.pulse-identity>.pulse-kicker,.pulse-identity>.pulse-roles',{y:12,opacity:.3},{y:0,opacity:1,duration:.7,stagger:.08,clearProps:'transform,opacity'},.05)
       .fromTo('.pulse-statement,.pulse-actions',{y:12},{y:0,duration:.85,stagger:.06,clearProps:'transform'},.18);
      frame=requestAnimationFrame(()=>{frame=requestAnimationFrame(()=>{if(alive){if(hero)hero.dataset.intro='running';timeline.play(0);}});});
