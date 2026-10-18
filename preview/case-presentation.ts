@@ -16,7 +16,8 @@ export const casePresentation:Record<ProjectId,Presentation>={
  'traffic-flow-analytics':{identity:'movement-analysis',opening:'split',evidence:'real',order:'engineering-first',build:'single'},
 };
 export function visibleCaseMedia(asset:ProjectAsset):string[] {
- if(asset.id==='umniah-youthconnect')return [];
+ // Umniah screenshots stay confidential: only the owner-approved supplied cover is shown.
+ if(asset.id==='umniah-youthconnect')return asset.image.startsWith('/covers/')?[asset.image]:[];
  return [asset.image,...(asset.id==='glitzz-lab'?asset.gallery.slice(0,5):asset.gallery)];
 }
 export function caseNeighbors(id:ProjectId) {

@@ -1,6 +1,6 @@
 import React,{useEffect,useRef,useState} from 'react';
 import {useI18n,format} from '../i18n/useI18n';
-import type {ProjectAsset} from '../data/projectAssets';
+import {isSuppliedCover,type ProjectAsset} from '../data/projectAssets';
 import {NavLink} from './PageShell';
 import type {Navigate,PreviewRoute} from './routes';
 import StoryMedia,{safeSource} from './StoryMedia';
@@ -28,7 +28,7 @@ export default function SignatureCaseStudy({asset,route,navigate}:Props) {
  useCaseMotion(root,`${asset.id}:${locale}`,locale==='ar');
  useEffect(()=>{viewer.current?.close();setExpanded(null);},[asset.id,locale]);
  const evidence=customMedia?labels.supplied:copy.mediaCaption??(presentation.evidence==='redacted'?storyCopy[locale].redacted:presentation.evidence==='illustration'?labels.illustration:presentation.evidence==='supplied'?labels.supplied:asset.categoryKey==='webPlatform'?labels.publicInterface:storyCopy[locale].real);
- const caption=(source:string)=>customMedia?.items.find(item=>item.media?.url===source)?.caption||(source.includes('/bike-tower/screenshot-')?storyCopy[locale].redacted:evidence);
+ const caption=(source:string)=>customMedia?.items.find(item=>item.media?.url===source)?.caption||(source.includes('/bike-tower/screenshot-')?storyCopy[locale].redacted:isSuppliedCover(source)?labels.supplied:evidence);
  const alternativeText=(source:string)=>studioProjectAlt(asset.id,source,`${copy.title}. ${caption(source)}`);
  const media=(source:string,eager=false,sizes='(max-width:700px) 92vw, 1160px')=><StoryMedia source={source} alt={alternativeText(source)} eager={eager} sizes={sizes}/>;
  const reveal=(source:string,caption:string,event:React.MouseEvent<HTMLButtonElement>)=>{opener.current=event.currentTarget;setExpanded({source:safeSource(source),caption});viewer.current?.showModal();};
@@ -42,7 +42,7 @@ export default function SignatureCaseStudy({asset,route,navigate}:Props) {
   </header>
   <figure className="case-opening-visual case-reveal">
    {sources.length?<div className="case-image-depth" style={mediaFrameStyle(sources[0])}>{media(sources[0],true)}</div>:<CaseArchitecture asset={asset} compact/>}
-   <figcaption>{sources.length?evidence:labels.protected}</figcaption>
+   <figcaption>{sources.length?caption(sources[0]):labels.protected}</figcaption>
   </figure>
 
   </div>

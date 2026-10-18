@@ -11,7 +11,7 @@ export const projectVisualInFlight=()=>Boolean(document.querySelector('.project-
 const decoded=new Map<string,Promise<HTMLImageElement|undefined>>();
 export function preloadProjectImage(id:ProjectId){
  const asset=projectAssets.find(a=>a.id===id);if(!asset)return Promise.resolve(undefined);
- const source=getStudioProjectCover(id)?.url??(id==='umniah-youthconnect'?'/v2-media/umniah-architecture.svg':safeSource(asset.image)),key=id+':'+source;
+ const source=getStudioProjectCover(id)?.url??safeSource(asset.image),key=id+':'+source;
  if(decoded.has(key))return decoded.get(key)!;
  const image=new Image();image.decoding='async';image.src=source;
  const result=image.decode().then(()=>image,()=>undefined);decoded.set(key,result);
@@ -36,8 +36,6 @@ export function prepareProjectTransit(previous:PreviewRoute,next:PreviewRoute):'
  const focus=link?.hasAttribute('data-gallery-index')?'index':document.activeElement?.hasAttribute('data-gallery-index')?'index':undefined;
  if(previous.locale!==next.locale||next.page!=='projects'||previous.project===next.project)return focus;
  if(!previous.project&&previous.page!=='projects'&&previous.page!=='home')return focus;
- // This protected case opens with semantic architecture rather than an image.
- if(next.project==='umniah-youthconnect')return focus;
  const origin=next.project??galleryMemory.read(next.locale).origin??previous.project;
  const source=link?.querySelector<HTMLImageElement>('.gallery-artwork img,.neighbor-visual img,.project-media-primary img')??(previous.project?document.querySelector<HTMLImageElement>('.case-opening-visual img'):document.querySelector<HTMLImageElement>(`[data-project="${next.project}"] .gallery-artwork img,[data-home-scene="${next.project}"] .project-media-primary img`));
  if(!source?.complete||!source.naturalWidth)return focus;const r=source.getBoundingClientRect();

@@ -231,6 +231,151 @@ const dimensions: Record<string, { width: number; height: number }> = {
   "/projects/traffic-flow-analytics-studio/card-cover-thumb-640.webp": {
     "width": 640,
     "height": 383
+  },
+  // Owner-supplied project covers (18 Oct 2026), served from /covers/ in four widths.
+  "/covers/vr-cycling.webp": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/covers/vr-cycling-960.webp": {
+    "width": 960,
+    "height": 720
+  },
+  "/covers/vr-cycling-640.webp": {
+    "width": 640,
+    "height": 480
+  },
+  "/covers/vr-cycling-320.webp": {
+    "width": 320,
+    "height": 240
+  },
+  "/covers/bike-land-trainer.webp": {
+    "width": 1448,
+    "height": 1086
+  },
+  "/covers/bike-land-trainer-960.webp": {
+    "width": 960,
+    "height": 720
+  },
+  "/covers/bike-land-trainer-640.webp": {
+    "width": 640,
+    "height": 480
+  },
+  "/covers/bike-land-trainer-320.webp": {
+    "width": 320,
+    "height": 240
+  },
+  "/covers/eventies.webp": {
+    "width": 1600,
+    "height": 960
+  },
+  "/covers/eventies-960.webp": {
+    "width": 960,
+    "height": 576
+  },
+  "/covers/eventies-640.webp": {
+    "width": 640,
+    "height": 384
+  },
+  "/covers/eventies-320.webp": {
+    "width": 320,
+    "height": 192
+  },
+  "/covers/glitzz-lab.webp": {
+    "width": 1600,
+    "height": 836
+  },
+  "/covers/glitzz-lab-960.webp": {
+    "width": 960,
+    "height": 501
+  },
+  "/covers/glitzz-lab-640.webp": {
+    "width": 640,
+    "height": 334
+  },
+  "/covers/glitzz-lab-320.webp": {
+    "width": 320,
+    "height": 167
+  },
+  "/covers/outreach-automation.webp": {
+    "width": 1600,
+    "height": 902
+  },
+  "/covers/outreach-automation-960.webp": {
+    "width": 960,
+    "height": 541
+  },
+  "/covers/outreach-automation-640.webp": {
+    "width": 640,
+    "height": 361
+  },
+  "/covers/outreach-automation-320.webp": {
+    "width": 320,
+    "height": 180
+  },
+  "/covers/terminal-nfc.webp": {
+    "width": 1600,
+    "height": 902
+  },
+  "/covers/terminal-nfc-960.webp": {
+    "width": 960,
+    "height": 541
+  },
+  "/covers/terminal-nfc-640.webp": {
+    "width": 640,
+    "height": 361
+  },
+  "/covers/terminal-nfc-320.webp": {
+    "width": 320,
+    "height": 180
+  },
+  "/covers/financial-operations.webp": {
+    "width": 1600,
+    "height": 900
+  },
+  "/covers/financial-operations-960.webp": {
+    "width": 960,
+    "height": 540
+  },
+  "/covers/financial-operations-640.webp": {
+    "width": 640,
+    "height": 360
+  },
+  "/covers/financial-operations-320.webp": {
+    "width": 320,
+    "height": 180
+  },
+  "/covers/traffic-flow-analytics.webp": {
+    "width": 1600,
+    "height": 900
+  },
+  "/covers/traffic-flow-analytics-960.webp": {
+    "width": 960,
+    "height": 540
+  },
+  "/covers/traffic-flow-analytics-640.webp": {
+    "width": 640,
+    "height": 360
+  },
+  "/covers/traffic-flow-analytics-320.webp": {
+    "width": 320,
+    "height": 180
+  },
+  "/covers/umniah-youthconnect.webp": {
+    "width": 1600,
+    "height": 903
+  },
+  "/covers/umniah-youthconnect-960.webp": {
+    "width": 960,
+    "height": 542
+  },
+  "/covers/umniah-youthconnect-640.webp": {
+    "width": 640,
+    "height": 361
+  },
+  "/covers/umniah-youthconnect-320.webp": {
+    "width": 320,
+    "height": 181
   }
 };
 export default dimensions;

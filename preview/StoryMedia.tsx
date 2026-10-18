@@ -11,6 +11,8 @@ const stems:Record<string,string>={
  ...Object.fromEntries([1,2,3,4].map(index=>[`/projects/bike-tower/screenshot-${String(index).padStart(2,'0')}.webp`,`bike-interface-${index}`]))
 };
 export function mediaVariants(source:string) {
+ // Supplied covers: -320/-640/-960 widths sit next to the full image in /covers/.
+ if(source.startsWith('/covers/')){const base=source.replace(/\.webp$/,'');return [`${base}-320.webp`,`${base}-640.webp`,`${base}-960.webp`,source].filter(path=>dimensions[path]);}
  const stem=stems[source]??(source.startsWith('concept:')?source.slice(8):undefined);
  return stem ? Object.keys(generated).filter(path=>path.startsWith(`/v2-media/${stem}-`)).sort((a,b)=>dimensions[a].width-dimensions[b].width):[source];
 }

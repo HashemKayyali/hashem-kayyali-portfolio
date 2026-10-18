@@ -1,6 +1,7 @@
 import React from 'react';
 import {useI18n} from '../i18n/useI18n';
-import type {ProjectAsset} from '../data/projectAssets';
+import {isSuppliedCover,type ProjectAsset} from '../data/projectAssets';
+import {caseCopy} from './case-copy';
 import StoryMedia from './StoryMedia';
 import {storyCopy} from './story-copy';
 import MotionField from './MotionField';
@@ -23,7 +24,7 @@ export default function EngineeringStory({asset}:{asset:ProjectAsset}) {
  const bike=asset.id==='bike-tower',terminal=asset.id==='terminal-nfc';
  const headings=bike?labels.bike:terminal?labels.terminal:labels.eventies;
  const sources=bike?[asset.image,asset.gallery[0],'concept:bike-concept']:terminal?[asset.image,asset.gallery[0],null]:[asset.gallery[0],asset.gallery[1],'concept:eventies-concept'];
- const captions=bike?[labels.real,labels.redacted,labels.concept]:terminal?[labels.redacted,labels.redacted,labels.diagram]:[labels.real,labels.real,labels.concept];
+ const captions=bike?[labels.real,labels.redacted,labels.concept]:terminal?[isSuppliedCover(asset.image)?caseCopy[locale].supplied:labels.redacted,labels.redacted,labels.diagram]:[labels.real,labels.real,labels.concept];
  // New story captions refer to the approved project data; no duplicated facts database.
  const paragraphs=[copy.capabilities[0],copy.capabilities[1],copy.capabilities[2]??copy.short];
  return <section className={`container engineering-story story--${asset.id}`} aria-labelledby="engineering-story-title" data-progress="0">

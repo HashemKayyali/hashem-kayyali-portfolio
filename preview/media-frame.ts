@@ -3,7 +3,7 @@ import {mediaSize} from './StoryMedia';
 import type {ProjectAsset} from '../data/projectAssets';
 import {getStudioProjectCover} from './studio-media-registry';
 
-export const productMediaSource=(asset:ProjectAsset)=>getStudioProjectCover(asset.id)?.url??(asset.id==='umniah-youthconnect'?'/v2-media/umniah-architecture.svg':asset.image);
+export const productMediaSource=(asset:ProjectAsset)=>getStudioProjectCover(asset.id)?.url??asset.image;
 /** Bound a native-ratio frame by both available width and a responsive height. */
 export function mediaFrameStyle(source:string):CSSProperties{
  const size=mediaSize(source);

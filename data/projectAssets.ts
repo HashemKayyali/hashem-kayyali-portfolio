@@ -31,6 +31,11 @@ const gallery = (dir: string, count: number): string[] =>
     (_, index) => `/projects/${dir}/screenshot-${String(index + 1).padStart(2, '0')}.webp`,
   );
 
+/** Owner-supplied covers (18 Oct 2026) live in /covers/ with -320/-640/-960 widths. Umniah and
+ * Terminal keep their private raw folders withheld (media-policy.ts); these covers are approved. */
+const SUPPLIED_COVERS = new Set<ProjectId>(['eventies', 'glitzz-lab', 'umniah-youthconnect', 'terminal-nfc', 'vr-cycling', 'bike-land-trainer', 'financial-operations', 'outreach-automation', 'traffic-flow-analytics']);
+export const isSuppliedCover = (image: string) => image.startsWith('/covers/');
+
 const asset = (
   id: ProjectId,
   categoryKey: CategoryKey,
@@ -42,7 +47,7 @@ const asset = (
   id,
   categoryKey,
   dir,
-  image: `/projects/${dir}/cover.webp`,
+  image: SUPPLIED_COVERS.has(id) ? `/covers/${id}.webp` : `/projects/${dir}/cover.webp`,
   gallery: gallery(dir, shots),
   warpRamp,
   ...extra,
@@ -85,18 +90,14 @@ export const projectAssets: ProjectAsset[] = [
     ['#345ea2', '#345ea2', '#0b0f10', '#ffffff', '#d8d8d8'],
     { privateSource: true }),
 
-  {
-    ...asset('financial-operations', 'businessSystem', 'financial-operations', 0,
-      ['#19040b', '#72213e', '#0d0206', '#b9667f', '#e3d4dc'],
-      { privateSource: true }),
-    image: '/projects/financial-operations/cover.svg',
-  },
+  asset('financial-operations', 'businessSystem', 'financial-operations', 0,
+    ['#19040b', '#72213e', '#0d0206', '#b9667f', '#e3d4dc'],
+    { privateSource: true }),
 
   {
     ...asset('outreach-automation', 'automationSystem', 'outreach-automation-platform', 0,
       ['#fefbfb', '#117771', '#ffffff', '#ffffff', '#d6d6d6'],
       { privateSource: true }),
-    image: '/projects/outreach-automation-platform/cover.svg',
     gallery: ['/projects/outreach-automation-platform/workflow.svg'],
   },
 

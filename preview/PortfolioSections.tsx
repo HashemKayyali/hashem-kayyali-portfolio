@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { useI18n, format } from '../i18n/useI18n';
 import type { ProjectId } from '../content/types';
-import { projectAssets, type ProjectAsset } from '../data/projectAssets';
+import { projectAssets, isSuppliedCover, type ProjectAsset } from '../data/projectAssets';
 import { PROFILE_IMAGE, RESUME_PDF } from '../data/profile';
 import MotionField from './MotionField';
 import HomeSilk from './HomeSilk';
@@ -23,18 +23,18 @@ export function ProductImage({ asset, full = false, eager = false, sizes = '(max
   const { t,locale } = useI18n();
   const uploaded=getStudioProjectCover(asset.id);
   if(uploaded)return <img src={cloudinaryUrl(uploaded.url,1600)} srcSet={cloudinarySrcSet(uploaded.url,uploaded.width)} width={uploaded.width} height={uploaded.height} alt={studioProjectAlt(asset.id,uploaded.url,t.projects[asset.id].title)} loading={eager?'eager':'lazy'} decoding="async" sizes={sizes}/>;
-  if(asset.id==='umniah-youthconnect')return <img src="/v2-media/umniah-architecture.svg" width="1280" height="800" loading={eager?'eager':'lazy'} decoding="async" alt={`${t.projects[asset.id].title}. ${caseCopy[locale].illustration}`}/>;
-  if(asset.id==='terminal-nfc') return <StoryMedia source={asset.image} eager={eager} sizes={sizes} alt={t.projects[asset.id].mediaCaption??t.projects[asset.id].title}/>;
   const raster = asset.image.endsWith('.webp');
-  const thumbs = `/projects/${asset.dir}/card-cover-thumb`;
+  // Supplied covers carry their own -320/-640/-960 widths next to the full image.
+  const supplied = isSuppliedCover(asset.image);
+  const thumbs = supplied ? asset.image.replace(/\.webp$/, '') : `/projects/${asset.dir}/card-cover-thumb`;
   const source = full || !raster ? asset.image : `${thumbs}-640.webp`;
   const size = dimensions[source];
   return <img src={source} width={size.width} height={size.height}
-    srcSet={raster ? [`${thumbs}-320.webp`, `${thumbs}-640.webp`, asset.image].map(url => `${url} ${dimensions[url].width}w`).join(', ') : undefined}
+    srcSet={raster ? [`${thumbs}-320.webp`, `${thumbs}-640.webp`, ...(supplied ? [`${thumbs}-960.webp`] : []), asset.image].map(url => `${url} ${dimensions[url].width}w`).join(', ') : undefined}
     sizes={sizes}
     loading={eager ? 'eager' : 'lazy'} decoding="async"
     fetchPriority={eager?'high':undefined}
-    alt={t.projects[asset.id].mediaCaption ?? format(t.projectModal.a11y.screenshot, { title: t.projects[asset.id].title, index: 1 })} />;
+    alt={supplied ? `${t.projects[asset.id].title}. ${caseCopy[locale].supplied}` : t.projects[asset.id].mediaCaption ?? format(t.projectModal.a11y.screenshot, { title: t.projects[asset.id].title, index: 1 })} />;
 }
 
 export function Hero({route,navigate}:{route:PreviewRoute;navigate:Navigate}) {

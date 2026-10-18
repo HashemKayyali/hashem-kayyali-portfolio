@@ -6,7 +6,9 @@ test('Every approved project has a deliberate case composition and circular neig
  assert.equal(new Set(Object.values(casePresentation).map(p=>p.identity)).size,11);
 });
 test('Confidential Umniah and Glitzz media are excluded before rendering',()=>{
- assert.deepEqual(visibleCaseMedia(projectAssets.find(a=>a.id==='umniah-youthconnect')),[]);
+ // Only the owner-approved supplied cover; never anything from the withheld Umniah folder.
+ assert.deepEqual(visibleCaseMedia(projectAssets.find(a=>a.id==='umniah-youthconnect')),['/covers/umniah-youthconnect.webp']);
+ for(const asset of projectAssets)assert.ok(!visibleCaseMedia(asset).some(path=>/^\/projects\/(umniah-youthconnect|the-terminal-nfc)\/(?!screenshot-01)/.test(path)),asset.id);
  const media=visibleCaseMedia(projectAssets.find(a=>a.id==='glitzz-lab'));
  assert.equal(media.length,6);assert.ok(media.every(src=>!/(screenshot-0[67]|thumbs\/screenshot-0[67])/.test(src)));
 });

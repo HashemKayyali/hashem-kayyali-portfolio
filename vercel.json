@@ -124,7 +124,7 @@
       ]
     },
     {
-      "source": "/(projects|images|brand|engineering-process|experience|v2-icons|v2-media)/(.*)",
+      "source": "/(projects|covers|images|brand|engineering-process|experience|v2-icons|v2-media)/(.*)",
       "headers": [
         {
           "key": "Cache-Control",
