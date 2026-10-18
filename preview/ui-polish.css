@@ -372,4 +372,4 @@
  :root .light-portfolio.luxury-portfolio.atelier-compact .signature-case .case-body .case-gallery{max-width:min(100%,1040px)!important;--g-h:min(calc(100cqi * .62 + 2 * var(--g-pad) + 8px),calc(100vh - var(--app-header-height,68px) - 240px),600px);}
 }
 /* The live smoke fades in over the static glow once its first frame is ready (smoke-stage.ts). */
-:root .atelier-app-shell .app-atmosphere-paint canvas{transition:opacity 1.2s cubic-bezier(.33,0,.2,1);}
+:root .atelier-app-shell .app-atmosphere-paint canvas{transition:opacity .5s cubic-bezier(.2,.7,.2,1);}

@@ -23,13 +23,11 @@ const fadeDirection=()=>document.documentElement.dir==='rtl'?-1:1;
 const measure=(canvas:HTMLCanvasElement)=>{const box=canvas.getBoundingClientRect();return {width:Math.max(1,box.width),height:Math.max(1,box.height),dpr:Math.min(devicePixelRatio||1,2),density:Math.min(1.6,Math.max(.6,box.height/670)),mobile:matchMedia('(max-width:700px)').matches};};
 
 let scheduled:{canvas:HTMLCanvasElement;cancel:()=>void}|undefined;
-/** Runs after the entrance has settled: page load, a short pause, then an idle moment (capped). */
-function afterEntrance(callback:()=>void){
- let done=false,timer:ReturnType<typeof setTimeout>|undefined;
- const go=()=>{if(!done){done=true;callback();}};
- const idle=()=>{timer=setTimeout(()=>{if(typeof requestIdleCallback==='function')requestIdleCallback(go,{timeout:1200});else go();},700);};
- if(document.readyState==='complete')idle();else addEventListener('load',idle,{once:true});
- return ()=>{done=true;clearTimeout(timer);removeEventListener('load',idle);};
+/** Starts the smoke as the page mounts (owner: it must appear quickly). Shader linking is parallel in the
+ * worker (smoke-stage.worker.ts), so the GPU start overlaps the first paint instead of stalling the entrance. */
+function soon(callback:()=>void){
+ let done=false;queueMicrotask(()=>{if(!done){done=true;callback();}});
+ return ()=>{done=true;};
 }
 
 export function startSmokeStage(canvas:HTMLCanvasElement):(()=>void)|false{
@@ -37,10 +35,9 @@ export function startSmokeStage(canvas:HTMLCanvasElement):(()=>void)|false{
  if(stage?.canvas===canvas)return stage.cleanup;
  if(scheduled?.canvas===canvas)return scheduled.cancel;
  if(!canUseSmokeStage(canvas))return false;
- // Starting WebGL (context, shader compile) mid-entrance stalled the page; it now starts once the entrance
- // has settled, and the first frames fade in over the static glow behind the canvas (CSS transition).
+ // The first frames fade in quickly over the static glow behind the canvas (CSS transition).
  canvas.style.opacity='0';
- const cancel=afterEntrance(()=>{scheduled=undefined;boot(canvas);});
+ const cancel=soon(()=>{scheduled=undefined;boot(canvas);});
  scheduled={canvas,cancel:()=>{cancel();scheduled=undefined;}};
  return scheduled.cancel;
 }
