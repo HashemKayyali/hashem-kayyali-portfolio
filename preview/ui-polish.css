@@ -349,10 +349,9 @@
  :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibits[data-stack] .gallery-project-copy p{font-size:15px;line-height:1.5;margin-block:6px;}
 }
 
-/* Image flight: the destination frame's chrome stays invisible while the image travels into it
-   (an empty frame waiting behind the moving image read as a discontinuity), then settles in. */
-:root .light-portfolio .case-opening-visual,:root .light-portfolio .case-opening-visual .case-image-depth{transition:background-color .4s ease,border-color .4s ease,box-shadow .4s ease;}
-:root[data-project-transit] .light-portfolio .case-opening-visual,:root[data-project-transit] .light-portfolio .case-opening-visual .case-image-depth{background-color:transparent!important;border-color:transparent!important;box-shadow:none!important;transition:none;}
+/* Image flight: the destination frame is visible from the moment the case page appears, and the
+   flying image lands into it (owner, 18 Oct 2026). The destination image itself stays hidden until
+   the hand-off (.project-transit-target). */
 
 /* Case "Build & details" gallery: the stage takes the screenshots' landscape proportion, so each
    image fills the frame's width (complete, uncropped) instead of floating in a wide, short panel. */
@@ -365,3 +364,12 @@
 
 /* Wheel at the end of an open viewer must not scroll the page behind it. */
 :root .case-image-viewer,:root .studio-lightbox{overscroll-behavior:contain;}
+
+/* Drawn arrows (Glyph.tsx) sit on the text baseline like the characters they replace. */
+:root .light-portfolio .glyph{display:inline-block;vertical-align:-.125em;flex-shrink:0;}
+/* Build & details gallery: a calmer size on laptops and desktops (owner, 18 Oct 2026). Phones keep the full-width fill. */
+@media(min-width:801px){
+ :root .light-portfolio.luxury-portfolio.atelier-compact .signature-case .case-body .case-gallery{max-width:min(100%,1040px)!important;--g-h:min(calc(100cqi * .62 + 2 * var(--g-pad) + 8px),calc(100vh - var(--app-header-height,68px) - 240px),600px);}
+}
+/* The live smoke fades in over the static glow once its first frame is ready (smoke-stage.ts). */
+:root .atelier-app-shell .app-atmosphere-paint canvas{transition:opacity 1.2s cubic-bezier(.33,0,.2,1);}

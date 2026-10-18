@@ -1,4 +1,5 @@
 import React,{createContext,useContext,useEffect,useRef,useState} from 'react';
+import Glyph from './Glyph';
 import {gsap} from 'gsap';
 import {ChevronDown,Plus} from 'lucide-react';
 import {useI18n} from '../i18n/useI18n';
@@ -59,14 +60,14 @@ function StudioNav({route,navigate,close}:{route:PreviewRoute;navigate:Navigate;
 export function ContactLinks() {
  const {t}=useI18n();
  return <div className="contact-links" aria-label={t.contact.aria}>
-  <a href={profile.social.email}><span>{t.contact.index.email}</span><bdi>{profile.email}</bdi><span className="arrow" aria-hidden="true">↗</span></a>
-  <a href={profile.social.linkedin} target="_blank" rel="noopener noreferrer"><span>LinkedIn</span><bdi>{profile.linkedinHandle}</bdi><span className="arrow" aria-hidden="true">↗</span></a>
-  <a href={profile.social.whatsapp} target="_blank" rel="noopener noreferrer"><span>WhatsApp</span><bdi>{profile.phone}</bdi><span className="arrow" aria-hidden="true">↗</span></a>
-  <a href={profile.social.instagram} target="_blank" rel="noopener noreferrer"><span>Instagram</span><bdi>{profile.instagramHandle}</bdi><span className="arrow" aria-hidden="true">↗</span></a>
+  <a href={profile.social.email}><span>{t.contact.index.email}</span><bdi>{profile.email}</bdi><span className="arrow" aria-hidden="true"><Glyph name="up-right"/></span></a>
+  <a href={profile.social.linkedin} target="_blank" rel="noopener noreferrer"><span>LinkedIn</span><bdi>{profile.linkedinHandle}</bdi><span className="arrow" aria-hidden="true"><Glyph name="up-right"/></span></a>
+  <a href={profile.social.whatsapp} target="_blank" rel="noopener noreferrer"><span>WhatsApp</span><bdi>{profile.phone}</bdi><span className="arrow" aria-hidden="true"><Glyph name="up-right"/></span></a>
+  <a href={profile.social.instagram} target="_blank" rel="noopener noreferrer"><span>Instagram</span><bdi>{profile.instagramHandle}</bdi><span className="arrow" aria-hidden="true"><Glyph name="up-right"/></span></a>
  </div>;
 }
 
 export function Footer({route,navigate}:{route:PreviewRoute;navigate:Navigate}) {
  const {t,locale}=useI18n();
- return <footer className="compact-footer container"><span>© {new Date().getFullYear()} {t.footer.copyrightName}</span><span>{t.identity.location}</span><NavLink route={{locale,page:'contact'}} navigate={navigate}>{pageCopy[locale].nav.contact}<span aria-hidden="true">↗</span></NavLink></footer>;
+ return <footer className="compact-footer container"><span>© {new Date().getFullYear()} {t.footer.copyrightName}</span><span>{t.identity.location}</span><NavLink route={{locale,page:'contact'}} navigate={navigate}>{pageCopy[locale].nav.contact}<span aria-hidden="true"><Glyph name="up-right"/></span></NavLink></footer>;
 }

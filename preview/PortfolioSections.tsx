@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import Glyph from './Glyph';
 import { useI18n, format } from '../i18n/useI18n';
 import type { ProjectId } from '../content/types';
 import { projectAssets, isSuppliedCover, type ProjectAsset } from '../data/projectAssets';
@@ -16,7 +17,7 @@ import {useFeaturedMotion} from './motion';
 import {getStudioProjectCover,studioProjectAlt} from './studio-media-registry';
 import {cloudinarySrcSet,cloudinaryUrl} from './cloudinary-delivery';
 
-const Arrow = () => <span className="arrow" aria-hidden="true">↗</span>;
+const Arrow = () => <span className="arrow" aria-hidden="true"><Glyph name="up-right"/></span>;
 const Index = ({ children }: { children: React.ReactNode }) => <span className="index" dir="ltr">{children}</span>;
 
 export function ProductImage({ asset, full = false, eager = false, sizes = '(max-width: 700px) 90vw, (max-width: 1100px) 55vw, 760px' }: { asset: ProjectAsset; full?: boolean; eager?: boolean; sizes?: string }) {
@@ -48,12 +49,12 @@ export function Hero({route,navigate}:{route:PreviewRoute;navigate:Navigate}) {
         <p className="hero-role"><span className="hero-role-mask"><span className="hero-role-primary">{role}</span></span><span className="hero-role-mask"><span className="hero-role-secondary">{software}</span></span></p>
         <p className="hero-scope">{scope.join(' · ')}</p>
         <p className="hero-statement">{t.hero.headline}</p>
-        <div className="actions"><NavLink className="button-primary" route={{...route,page:'projects',project:undefined}} navigate={navigate}>{t.hero.actions.viewProjects}<Arrow /></NavLink><a className="button-text" href={RESUME_PDF} target="_blank" rel="noopener noreferrer">{t.hero.actions.downloadResume}<span aria-hidden="true">↓</span></a></div>
+        <div className="actions"><NavLink className="button-primary" route={{...route,page:'projects',project:undefined}} navigate={navigate}>{t.hero.actions.viewProjects}<Arrow /></NavLink><a className="button-text" href={RESUME_PDF} target="_blank" rel="noopener noreferrer">{t.hero.actions.downloadResume}<span aria-hidden="true"><Glyph name="down"/></span></a></div>
         <p className="hero-location"><span className="location-dot" aria-hidden="true" />{t.identity.location}</p>
       </div>
       <figure className="portrait"><HomeSilk className="hero-field"/><span className="portrait-edition" aria-hidden="true" dir="ltr">HK / R&amp;D</span><div className="portrait-reveal"><div className="portrait-frame"><img src={PROFILE_IMAGE} width="720" height="1280" alt={t.ui.alt.profile} fetchPriority="high" loading="eager" decoding="async" /><span className="portrait-rule" aria-hidden="true" /></div></div><figcaption><span>{t.identity.name}</span><span>{t.about.engineeringFocus[2]}</span></figcaption></figure>
     </div>
-    <div className="container hero-footnote"><Index>01</Index><p>{t.hero.supporting}</p><a href="#projects" aria-label={t.hero.actions.viewProjects}><span aria-hidden="true">↓</span></a></div>
+    <div className="container hero-footnote"><Index>01</Index><p>{t.hero.supporting}</p><a href="#projects" aria-label={t.hero.actions.viewProjects}><span aria-hidden="true"><Glyph name="down"/></span></a></div>
   </section>;
 }
 

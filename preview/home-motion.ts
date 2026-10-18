@@ -34,7 +34,9 @@ export function useHomeMotion(root:RefObject<HTMLElement|null>,locale:string,rtl
    // reach its first paint before starting the local reveal clock.
    const prepared=()=>{if(!alive)return;paintFrame=requestAnimationFrame(()=>{paintFrame=requestAnimationFrame(()=>reveal());});};
    void image?.decode().then(prepared).catch(prepared);
-   const entrance=gsap.timeline({id:'home:hero:entrance',defaults:{ease:'power3.out'},onStart:()=>{hero.dataset.entrance='playing';},onComplete:()=>{hero.dataset.entrance='complete';hero.dispatchEvent(new Event('home-entrance-complete'));}});
+   // Starts two frames after the first paint (see below): beginning inside the first-paint raster made
+   // the opening frames of the entrance stutter on cold loads.
+   const entrance=gsap.timeline({id:'home:hero:entrance',paused:true,defaults:{ease:'power3.out'},onStart:()=>{hero.dataset.entrance='playing';},onComplete:()=>{hero.dataset.entrance='complete';hero.dispatchEvent(new Event('home-entrance-complete'));}});
    entrance.from('.hero .brand-dash',{scaleX:0,transformOrigin:rtl?'right':'left',duration:.7},0)
     .fromTo('.hero-name-part',{y:20,x:rtl?-12:12,clipPath:rtl?'inset(0% 0% 0% 72%)':'inset(0% 72% 0% 0%)'},{y:0,x:0,clipPath:'inset(0% 0% 0% 0%)',duration:.95,stagger:.12,ease:'power3.inOut',clearProps:'clipPath,transform'},.03)
     .call(()=>{revealRequested=true;if(decoded)portrait.play();},[],.10)
@@ -49,6 +51,8 @@ export function useHomeMotion(root:RefObject<HTMLElement|null>,locale:string,rtl
    if(!lab)entrance.fromTo('.hero-field',{clipPath:'inset(0% 0% 20% 0%)',xPercent:rtl?-2:2,scale:1.025},{clipPath:'inset(0% 0% 0% 0%)',xPercent:0,scale:1,duration:1.5,ease:'power2.out',clearProps:'clipPath,transform'},0);
    gsap.to('.hero .portrait',{y:mobile?-8:-24,ease:'none',scrollTrigger:{id:'home:hero:depth',trigger:hero,start:'top top',end:'bottom top',scrub:.65}});
    if(splits.length)entrance.from(splits.flatMap(split=>split.chars),{yPercent:8,duration:.8,stagger:.009,clearProps:'transform'},.03);
+   const playEntrance=contextSafe(()=>{if(alive)entrance.play();});
+   let entranceFrame=requestAnimationFrame(()=>{entranceFrame=requestAnimationFrame(()=>playEntrance());});
    const initialize=(section:HTMLElement)=>{
     if(!alive||section.dataset.homeChapter==='ready')return;
     section.dataset.homeChapter='ready';observer.unobserve(section);
@@ -81,7 +85,7 @@ export function useHomeMotion(root:RefObject<HTMLElement|null>,locale:string,rtl
    hero.addEventListener(readyEvent,flush);window.addEventListener('scroll',scrollEarly,{passive:true});
    const observer=new IntersectionObserver(entries=>{for(const entry of entries)if(entry.isIntersecting){const section=entry.target as HTMLElement;if((lab?hero.dataset.portraitFinished==='complete':hero.dataset.entrance==='complete')||scrollY>20)initialize(section);else pending.add(section);}},{rootMargin:'120px 0px'});
    page.querySelectorAll<HTMLElement>('.home-about,.home-projects>.page-section-title,.home-bottom,.home-invitation').forEach(section=>observer.observe(section));
-   return()=>{alive=false;cancelAnimationFrame(paintFrame);observer.disconnect();hero.removeEventListener(readyEvent,flush);window.removeEventListener('scroll',scrollEarly);portrait.kill();splits.forEach(split=>split.revert());contexts.forEach(context=>context.revert());page.querySelectorAll('[data-home-chapter]').forEach(section=>section.removeAttribute('data-home-chapter'));delete hero.dataset.entrance;delete hero.dataset.fontSplit;delete hero.dataset.portraitReady;delete hero.dataset.portraitFinished;};
+   return()=>{alive=false;cancelAnimationFrame(paintFrame);cancelAnimationFrame(entranceFrame);observer.disconnect();hero.removeEventListener(readyEvent,flush);window.removeEventListener('scroll',scrollEarly);portrait.kill();splits.forEach(split=>split.revert());contexts.forEach(context=>context.revert());page.querySelectorAll('[data-home-chapter]').forEach(section=>section.removeAttribute('data-home-chapter'));delete hero.dataset.entrance;delete hero.dataset.fontSplit;delete hero.dataset.portraitReady;delete hero.dataset.portraitFinished;};
   },page);
   return()=>media.revert();
  },{scope:root,dependencies:[locale,rtl],revertOnUpdate:true});

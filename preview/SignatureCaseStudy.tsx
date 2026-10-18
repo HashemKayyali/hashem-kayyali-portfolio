@@ -1,4 +1,5 @@
 import React,{useEffect,useRef,useState} from 'react';
+import Glyph from './Glyph';
 import {useI18n,format} from '../i18n/useI18n';
 import {isSuppliedCover,type ProjectAsset} from '../data/projectAssets';
 import {NavLink} from './PageShell';
@@ -19,7 +20,7 @@ import './case-body.css';
 import './case-carousel.css';
 
 type Props={asset:ProjectAsset;route:PreviewRoute;navigate:Navigate};
-const Arrow=()=> <span aria-hidden="true" className="arrow">↗</span>;
+const Arrow=()=> <span aria-hidden="true" className="arrow"><Glyph name="up-right"/></span>;
 export default function SignatureCaseStudy({asset,route,navigate}:Props) {
  const {t,locale}=useI18n(),copy=t.projects[asset.id],labels=caseCopy[locale],presentation=casePresentation[asset.id];
  const root=useRef<HTMLElement>(null),viewer=useRef<HTMLDialogElement>(null),opener=useRef<HTMLButtonElement|null>(null);
@@ -33,12 +34,12 @@ export default function SignatureCaseStudy({asset,route,navigate}:Props) {
  const media=(source:string,eager=false,sizes='(max-width:700px) 92vw, 1160px')=><StoryMedia source={source} alt={alternativeText(source)} eager={eager} sizes={sizes}/>;
  const reveal=(source:string,caption:string,event:React.MouseEvent<HTMLButtonElement>)=>{opener.current=event.currentTarget;setExpanded({source:safeSource(source),caption});viewer.current?.showModal();};
  const opening=<section className={`case-opening opening--${presentation.opening}`} aria-labelledby="case-title">
-  <div className="container case-wayfinding"><NavLink className="back-link" route={{...route,page:'projects',project:undefined}} navigate={navigate}><span aria-hidden="true">←</span>{t.projectsSection.title}</NavLink><span className="case-edition">{labels.exhibition}</span></div>
+  <div className="container case-wayfinding"><NavLink className="back-link" route={{...route,page:'projects',project:undefined}} navigate={navigate}><span aria-hidden="true"><Glyph name="left"/></span>{t.projectsSection.title}</NavLink><span className="case-edition">{labels.exhibition}</span></div>
   <div className="container case-opening-layout"><header className="case-opening-copy">
    <div className="project-meta"><span>{t.projectsSection.filters[asset.categoryKey]}</span><span className="case-status">{copy.status}</span></div>
    <h1 id="case-title" tabIndex={-1}><span className="case-title-mask"><span className="case-title-text">{copy.title}</span></span></h1>
    <p className="case-deck">{copy.short}</p>
-   <div className="case-opening-actions">{asset.liveUrl&&<a href={asset.liveUrl} target="_blank" rel="noopener noreferrer" className="button-primary">{t.projectModal.labels.visitLive}<Arrow/></a>}<a className="button-primary" href="#case-purpose">{labels.details}<span aria-hidden="true">↓</span></a>{copy.role&&<span className="case-role">{copy.role}</span>}</div>
+   <div className="case-opening-actions">{asset.liveUrl&&<a href={asset.liveUrl} target="_blank" rel="noopener noreferrer" className="button-primary">{t.projectModal.labels.visitLive}<Arrow/></a>}<a className="button-primary" href="#case-purpose">{labels.details}<span aria-hidden="true"><Glyph name="down"/></span></a>{copy.role&&<span className="case-role">{copy.role}</span>}</div>
   </header>
   <figure className="case-opening-visual case-reveal">
    {sources.length?<div className="case-image-depth" style={mediaFrameStyle(sources[0])}>{media(sources[0],true)}</div>:<CaseArchitecture asset={asset} compact/>}

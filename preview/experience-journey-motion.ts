@@ -26,7 +26,9 @@ export function useExperienceJourneyMotion(root:RefObject<HTMLElement|null>,loca
       .fromTo(group.querySelector('.journey-track-index'),{scale:0,opacity:0},{scale:1,opacity:1,duration:.7,clearProps:'transform,opacity'},0)
       .fromTo(group.querySelectorAll('.journey-company-header>*'),{x:rtl?28:-28,opacity:0},{x:0,opacity:1,duration:.95,stagger:.08,clearProps:'transform,opacity'},.05)
       .fromTo(group.querySelectorAll('.journey-responsibilities li,.journey-entry-context p'),{y:18,opacity:0},{y:0,opacity:1,duration:.8,stagger:.05,clearProps:'transform,opacity'},.2)
-      .fromTo(group.querySelectorAll('.journey-role'),{clipPath:'inset(0% 0% 100% 0% round 16px)',y:24},{clipPath:'inset(0% 0% 0% 0% round 16px)',y:0,duration:1.05,stagger:.14,clearProps:'clipPath,transform'},.28)
+      // Role cards rise and unfold from their top edge. Transform/opacity only: the former clip-path
+      // reveal repainted every large card on every frame and made the chapter arrivals stutter.
+      .fromTo(group.querySelectorAll('.journey-role'),{y:24,scaleY:.94,opacity:0,transformOrigin:'50% 0%'},{y:0,scaleY:1,opacity:1,duration:1.05,stagger:.14,clearProps:'transform,opacity,transformOrigin'},.28)
       .fromTo(group.querySelectorAll('.journey-role-points li'),{y:14,opacity:0},{y:0,opacity:1,duration:.7,stagger:.04,clearProps:'transform,opacity'},.5);
     });
    };
@@ -61,11 +63,14 @@ export function useExperienceJourneyMotion(root:RefObject<HTMLElement|null>,loca
   // Reading state: the chapter crossing the middle of the viewport drives the rail and
   // the progress line. Transform-only writes, coalesced to one per frame.
   const folios=[...element.querySelectorAll<HTMLElement>('.journey-folio-arrival')],list=element.querySelector<HTMLElement>('.journey-folios');
-  let readFrame=0;
+  let readFrame=0;const bar=list?.querySelector<HTMLElement>('.journey-progress i');
+  // All reads first, then one write to the progress line's own transform. (Writing an inherited
+  // custom property on the chapter list restyled every chapter on each scroll frame, and reading
+  // layout after that write forced a synchronous reflow: the Journey page stuttered while scrolling.)
   const read=()=>{readFrame=0;if(!list)return;
    const mid=innerHeight*.5,box=list.getBoundingClientRect();
-   list.style.setProperty('--journey-progress',String(Math.min(1,Math.max(0,(mid-box.top)/Math.max(1,box.height)))));
    let active=0;folios.forEach((folio,index)=>{if(folio.getBoundingClientRect().top<=mid)active=index;});
+   if(bar)bar.style.transform=`scaleY(${Math.min(1,Math.max(0,(mid-box.top)/Math.max(1,box.height))).toFixed(4)})`;
    if(element.dataset.journeyActive!==String(active)){element.dataset.journeyActive=String(active);folios.forEach((folio,index)=>folio.toggleAttribute('data-active',index===active));}
   };
   const scheduleRead=()=>{if(!readFrame)readFrame=requestAnimationFrame(read);};

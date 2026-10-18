@@ -1,4 +1,5 @@
 import React,{useRef} from 'react';
+import Glyph from './Glyph';
 import {useI18n} from '../i18n/useI18n';
 import {projectAssets} from '../data/projectAssets';
 import {Hero,FeaturedProject,featuredIds} from './PortfolioSections';
@@ -9,7 +10,7 @@ import type {Navigate,PreviewRoute} from './routes';
 import {useHomeMotion} from './home-motion';
 export {default as ContactPage} from './ContactDesk';
 
-const Arrow=()=> <span className="arrow" aria-hidden="true">↗</span>;
+const Arrow=()=> <span className="arrow" aria-hidden="true"><Glyph name="up-right"/></span>;
 type Props={route:PreviewRoute;navigate:Navigate};
 
 export function Home({route,navigate}:Props) {

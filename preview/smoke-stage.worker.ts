@@ -68,23 +68,40 @@ function frame(now:number){
 function start(){if(running||!gl)return;running=true;last=0;frameId=raf(frame);}
 function stop(){running=false;caf(frameId);}
 
-self.onmessage=({data})=>{
+// Messages that arrive while the shader is still compiling are replayed once it is ready.
+let pending:unknown[]|null=null;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function handle(data:any){
  try{
   if(data.type==='init'){
    const m=data as Init;canvas=m.canvas;cssW=m.width;cssH=m.height;dpr=m.dpr;mobile=m.mobile;time=m.time;ramp=from=to=m.ramp;paper=paperFrom=paperTo=m.paper;
    maxScale=mobile?Math.min(1,1.25/dpr):Math.min(1,1.5/dpr);minScale=maxScale*.55;scale=mobile?maxScale*.75:maxScale*.85;
    gl=canvas.getContext('webgl',{alpha:false,antialias:false,depth:false,stencil:false,powerPreference:'default',preserveDrawingBuffer:false}) as WebGLRenderingContext|null;
    if(!gl)throw Error('WebGL unavailable');
-   const compile=(kind:number,source:string)=>{const s=gl!.createShader(kind)!;gl!.shaderSource(s,source);gl!.compileShader(s);if(!gl!.getShaderParameter(s,gl!.COMPILE_STATUS))throw Error('Shader');return s;};
-   const program=gl.createProgram()!;gl.attachShader(program,compile(gl.VERTEX_SHADER,'attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}'));gl.attachShader(program,compile(gl.FRAGMENT_SHADER,SHADER));gl.linkProgram(program);
-   if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw Error('Program');gl.useProgram(program);
-   gl.bindBuffer(gl.ARRAY_BUFFER,gl.createBuffer());gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]),gl.STATIC_DRAW);
-   const a=gl.getAttribLocation(program,'a');gl.enableVertexAttribArray(a);gl.vertexAttribPointer(a,2,gl.FLOAT,false,0,0);
-   uTime=gl.getUniformLocation(program,'u_time');uRes=gl.getUniformLocation(program,'u_resolution');uDensity=gl.getUniformLocation(program,'u_density');
-   pigments=ramp.map((_,i)=>gl!.getUniformLocation(program,'u_c'+i));gl.uniform1f(uDensity,m.density);
-   uPaper=gl.getUniformLocation(program,'u_paper');uFade=gl.getUniformLocation(program,'u_fade');gl.uniform1f(uFade,m.fade);
-   size();start();return;
+   const g=gl,compile=(kind:number,source:string)=>{const s=g.createShader(kind)!;g.shaderSource(s,source);g.compileShader(s);return s;};
+   const program=g.createProgram()!;g.attachShader(program,compile(g.VERTEX_SHADER,'attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}'));g.attachShader(program,compile(g.FRAGMENT_SHADER,SHADER));g.linkProgram(program);
+   const finish=()=>{
+    try{
+     if(!g.getProgramParameter(program,g.LINK_STATUS))throw Error('Program');g.useProgram(program);
+     g.bindBuffer(g.ARRAY_BUFFER,g.createBuffer());g.bufferData(g.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]),g.STATIC_DRAW);
+     const a=g.getAttribLocation(program,'a');g.enableVertexAttribArray(a);g.vertexAttribPointer(a,2,g.FLOAT,false,0,0);
+     uTime=g.getUniformLocation(program,'u_time');uRes=g.getUniformLocation(program,'u_resolution');uDensity=g.getUniformLocation(program,'u_density');
+     pigments=ramp.map((_,i)=>g.getUniformLocation(program,'u_c'+i));g.uniform1f(uDensity,m.density);
+     uPaper=g.getUniformLocation(program,'u_paper');uFade=g.getUniformLocation(program,'u_fade');g.uniform1f(uFade,m.fade);
+     size();start();
+     const queued=pending??[];pending=null;queued.forEach(message=>handle(message));
+    }catch{scope.postMessage({type:'unavailable'});}
+   };
+   // Compiling this shader on Windows (ANGLE/D3D11) blocked the GPU process ~140 ms when its status was
+   // read straight away, freezing the whole page mid-entrance. With KHR_parallel_shader_compile the
+   // link finishes in the background; status is read only once it reports completion.
+   const parallel=g.getExtension('KHR_parallel_shader_compile') as {COMPLETION_STATUS_KHR:number}|null;
+   pending=[];
+   if(parallel){const poll=()=>{if(g.getProgramParameter(program,parallel.COMPLETION_STATUS_KHR))finish();else raf(poll);};raf(poll);}
+   else finish();
+   return;
   }
+  if(pending){pending.push(data);return;}
   if(!gl)return;
   if(data.type==='resize'){cssW=data.width;cssH=data.height;dpr=data.dpr;gl.uniform1f(uDensity,data.density);size();return;}
   if(data.type==='run'){data.running?start():stop();return;}
@@ -92,4 +109,5 @@ self.onmessage=({data})=>{
   if(data.type==='fade'){gl.uniform1f(uFade,data.fade);return;}
   if(data.type==='stats'){{const sorted=[...recent].sort((a,b)=>a-b),q=(p:number)=>Math.round(sorted[Math.floor(p*(sorted.length-1))]??0);scope.postMessage({type:'stats',width:canvas.width,height:canvas.height,cssW:Math.round(cssW),cssH:Math.round(cssH),dpr,scale:+scale.toFixed(2),running,frames,p50:q(.5),p95:q(.95),over33:recent.filter(v=>v>33.4).length,samples:recent.length});}return;}
  }catch{scope.postMessage({type:'unavailable'});}
-};
+}
+self.onmessage=({data})=>handle(data);

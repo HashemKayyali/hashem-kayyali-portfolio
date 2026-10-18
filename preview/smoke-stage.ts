@@ -22,12 +22,32 @@ const paperOf=(id?:string)=>colorVector(activeTheme(id).colors.paper);
 const fadeDirection=()=>document.documentElement.dir==='rtl'?-1:1;
 const measure=(canvas:HTMLCanvasElement)=>{const box=canvas.getBoundingClientRect();return {width:Math.max(1,box.width),height:Math.max(1,box.height),dpr:Math.min(devicePixelRatio||1,2),density:Math.min(1.6,Math.max(.6,box.height/670)),mobile:matchMedia('(max-width:700px)').matches};};
 
+let scheduled:{canvas:HTMLCanvasElement;cancel:()=>void}|undefined;
+/** Runs after the entrance has settled: page load, a short pause, then an idle moment (capped). */
+function afterEntrance(callback:()=>void){
+ let done=false,timer:ReturnType<typeof setTimeout>|undefined;
+ const go=()=>{if(!done){done=true;callback();}};
+ const idle=()=>{timer=setTimeout(()=>{if(typeof requestIdleCallback==='function')requestIdleCallback(go,{timeout:1200});else go();},700);};
+ if(document.readyState==='complete')idle();else addEventListener('load',idle,{once:true});
+ return ()=>{done=true;clearTimeout(timer);removeEventListener('load',idle);};
+}
+
 export function startSmokeStage(canvas:HTMLCanvasElement):(()=>void)|false{
  // The atmosphere canvas is persistent; a repeated mount (StrictMode, HMR) reuses its worker.
  if(stage?.canvas===canvas)return stage.cleanup;
+ if(scheduled?.canvas===canvas)return scheduled.cancel;
  if(!canUseSmokeStage(canvas))return false;
+ // Starting WebGL (context, shader compile) mid-entrance stalled the page; it now starts once the entrance
+ // has settled, and the first frames fade in over the static glow behind the canvas (CSS transition).
+ canvas.style.opacity='0';
+ const cancel=afterEntrance(()=>{scheduled=undefined;boot(canvas);});
+ scheduled={canvas,cancel:()=>{cancel();scheduled=undefined;}};
+ return scheduled.cancel;
+}
+
+function boot(canvas:HTMLCanvasElement){
  let offscreen:OffscreenCanvas;
- try{offscreen=canvas.transferControlToOffscreen();}catch{return false;}
+ try{offscreen=canvas.transferControlToOffscreen();}catch{canvas.style.opacity='0';return;}
  const worker=new Worker(new URL('./smoke-stage.worker.ts',import.meta.url),{type:'module'});
  const host=canvas.parentElement!;
  let onScreen=true,lastSize='';
@@ -51,5 +71,4 @@ export function startSmokeStage(canvas:HTMLCanvasElement):(()=>void)|false{
  const cleanup=()=>{};
  stage={worker,canvas,observer,visible,cleanup};
  (canvas as HTMLCanvasElement&{__smokeStats?:()=>void}).__smokeStats=()=>worker.postMessage({type:'stats'});
- return cleanup;
 }
