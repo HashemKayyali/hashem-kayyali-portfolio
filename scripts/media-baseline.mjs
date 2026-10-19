@@ -3,7 +3,7 @@
 // Defaults: https://hashemkayyali.com, output/media-baseline/<host>-<network>.json, 4g, 1 run.
 // Each scenario runs in a fresh tab with an empty HTTP cache; "warm" steps reuse the tab's cache.
 import {spawn} from 'node:child_process';
-import {mkdirSync,writeFileSync,existsSync,rmSync} from 'node:fs';
+import {mkdirSync,writeFileSync,existsSync,rmSync,readFileSync} from 'node:fs';
 import {dirname,resolve} from 'node:path';
 import {tmpdir} from 'node:os';
 import {projectAssets} from '../data/projectAssets.ts';
@@ -23,6 +23,19 @@ const profile=resolve(tmpdir(),'media-baseline-profile-'+process.pid),port=9300+
 const chrome=spawn(chromePath,['--headless=new',`--remote-debugging-port=${port}`,`--user-data-dir=${profile}`,'--no-first-run','--no-default-browser-check','--disable-extensions','--disable-background-networking','--hide-scrollbars','about:blank'],{stdio:'ignore'});
 let browserInfo;for(let i=0;i<60&&!browserInfo;i++){try{browserInfo=await (await fetch(`http://127.0.0.1:${port}/json/version`)).json();}catch{await sleep(250);}}
 if(!browserInfo)throw new Error('Chrome did not start.');
+// --bypass: protected Vercel previews. The secret (VERCEL_AUTOMATION_BYPASS_SECRET, environment or .env.local) is used
+// once to set Vercel's bypass cookie on the preview origin only; it is never a global header (it would reach Cloudinary)
+// and never printed.
+if('bypass' in flags){
+ const local=resolve(import.meta.dirname,'../.env.local'),secret=process.env.VERCEL_AUTOMATION_BYPASS_SECRET||(existsSync(local)?readFileSync(local,'utf8').match(/^\s*VERCEL_AUTOMATION_BYPASS_SECRET\s*=\s*(.+?)\s*$/m)?.[1]:undefined);
+ if(!secret)throw new Error('--bypass needs VERCEL_AUTOMATION_BYPASS_SECRET in the environment or .env.local');
+ const target=await (await fetch(`http://127.0.0.1:${port}/json/new?about:blank`,{method:'PUT'})).json(),page=await connect(target.webSocketDebuggerUrl);
+ await page.send('Page.enable');const loaded=new Promise(r=>page.on(m=>{if(m.method==='Page.loadEventFired')r();}));
+ await page.send('Page.navigate',{url:`${origin}/en/?x-vercel-protection-bypass=${encodeURIComponent(secret)}&x-vercel-set-bypass-cookie=true`});await loaded;
+ const {cookies}=await page.send('Network.getCookies',{urls:[origin]});page.close();await fetch(`http://127.0.0.1:${port}/json/close/${target.id}`).catch(()=>{});
+ if(!cookies.some(c=>c.name.startsWith('_vercel')))throw new Error('Bypass cookie was not set: check the secret and that Protection Bypass for Automation is enabled.');
+ console.log('Preview protection bypass cookie set for',new URL(origin).host);
+}
 
 function connect(url){
  const ws=new WebSocket(url);let id=0;const pending=new Map(),listeners=new Set();
