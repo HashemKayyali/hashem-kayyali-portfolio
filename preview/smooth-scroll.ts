@@ -38,6 +38,9 @@ export function startSmoothScroll(){
  return()=>{motion.removeEventListener('change',sync);mouse.removeEventListener('change',sync);document.removeEventListener('click',followAnchor);stop();};
 }
 
+/** The open phone menu holds the page still; wheel smoothing would otherwise move it underneath. */
+export function holdSmoothScroll(hold:boolean){if(!lenis)return;if(hold)lenis.stop();else lenis.start();}
+
 /** Route changes and restorations jump instantly; any wheel inertia must not carry over. */
 export function haltSmoothScroll(){if(lenis&&!lenis.isStopped){lenis.stop();lenis.start();}}
 

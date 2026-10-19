@@ -177,6 +177,10 @@ function Preview({ initialRoute, dictionary }: { initialRoute: PreviewRoute; dic
         else if(pending.restore)scrollTo({left:pending.restore[0],top:pending.restore[1],behavior:'instant'});
         else if(pending.hash){let id=pending.hash.slice(1);try{id=decodeURIComponent(id);}catch{}document.getElementById(id)?.scrollIntoView({behavior:'instant'});}
         else if(pending.top)scrollTo({top:0,behavior:'instant'});
+        // ScrollTrigger caches the window position; after a route scroll it still held the previous page's value
+        // and the new page's first refresh "restored" it, so phones opened a page deep down. Write the settled
+        // position through ScrollTrigger so its cache and memory agree with the page.
+        ScrollTrigger.clearScrollMemory();ScrollTrigger.getScrollFunc(window)(scrollY);
         if(route.page==='projects'&&!route.project&&pending.restore&&!pending.languageOnly){
          const {origin,focus}=galleryMemory.read(route.locale);
          if(origin)root.current?.querySelector<HTMLElement>(`[${focus==='index'?'data-gallery-index':'data-gallery-project'}="${origin}"]`)?.focus({preventScroll:true});

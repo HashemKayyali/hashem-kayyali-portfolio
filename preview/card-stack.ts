@@ -11,13 +11,18 @@ gsap.registerPlugin(ScrollTrigger);
  */
 export type CardStackOptions={id:string;surface?:string;offset?:number;mobileOffset?:number;depth?:number};
 export function createCardStack(deck:HTMLElement,options:CardStackOptions){
- let context:gsap.Context|undefined,frame=0,alive=true;
+ let context:gsap.Context|undefined,frame=0,alive=true,built='';
  const rebuild=()=>{
   frame=0;if(!alive)return;
-  context?.revert();context=undefined;
   const items=[...deck.children].filter((node):node is HTMLElement=>node instanceof HTMLElement&&node.matches('[data-stack-item]:not([data-filtered=true])')&&node.offsetParent!==null);
-  const mobile=innerWidth<801,offset=mobile?(options.mobileOffset??8):(options.offset??14);
   const header=document.querySelector('.site-header')?.getBoundingClientRect().height??68;
+  // The viewport height that does not move with a phone's address bar (innerHeight does). Rebuilding
+  // reverts every layer and refreshes ScrollTrigger; doing that each time the bar slid froze phones
+  // mid-scroll (300-500 ms) and could flip the deck between stacked and flat. Rebuild only on change.
+  const viewport=document.documentElement.clientHeight,signature=[innerWidth,viewport,Math.round(header),...items.map(item=>item.offsetHeight)].join();
+  if(signature===built)return;
+  context?.revert();context=undefined;
+  const mobile=innerWidth<801,offset=mobile?(options.mobileOffset??8):(options.offset??14);
   const top=Math.round(header+(mobile?10:18));
   items.forEach((item,index)=>item.style.setProperty('--stack-i',String(index)));
   deck.style.setProperty('--stack-top',top+'px');deck.style.setProperty('--stack-offset',offset+'px');
@@ -25,9 +30,9 @@ export function createCardStack(deck:HTMLElement,options:CardStackOptions){
   // (plus the offsets of those beneath it) fits below the header.
   deck.dataset.stack='active';
   const tallest=Math.max(0,...items.map(item=>item.offsetHeight));
-  const fits=items.length>1&&tallest+top+Math.min(items.length,4)*offset+24<innerHeight;
+  const fits=items.length>1&&tallest+top+Math.min(items.length,4)*offset+24<viewport;
   deck.dataset.stack=fits?'active':'static';
-  if(!fits){ScrollTrigger.refresh();return;}
+  if(!fits){built=signature;ScrollTrigger.refresh();return;}
   deck.style.setProperty('--stack-tail',Math.max(48,tallest-items.at(-1)!.offsetHeight+48)+'px');
   context=gsap.context(()=>{
    items.slice(0,-1).forEach((item,index)=>{
@@ -40,12 +45,14 @@ export function createCardStack(deck:HTMLElement,options:CardStackOptions){
      .fromTo(shade,{opacity:0},{opacity:.32,ease:'none'},0);
    });
   },deck);
-  ScrollTrigger.refresh();
+  built=signature;ScrollTrigger.refresh();
  };
  const schedule=()=>{if(!frame)frame=requestAnimationFrame(rebuild);};
  const resize=new ResizeObserver(schedule);resize.observe(deck);
- addEventListener('resize',schedule,{passive:true});
+ // A phone's address bar fires resize with only innerHeight changed: nothing to rebuild, nothing to measure.
+ let size='';const resized=()=>{const next=innerWidth+'x'+document.documentElement.clientHeight;if(next!==size){size=next;schedule();}};
+ addEventListener('resize',resized,{passive:true});
  void document.fonts.ready.then(schedule);
  rebuild();
- return {refresh:schedule,dispose:()=>{alive=false;cancelAnimationFrame(frame);resize.disconnect();removeEventListener('resize',schedule);context?.revert();deck.querySelectorAll('.stack-shade').forEach(shade=>shade.remove());delete deck.dataset.stack;['--stack-top','--stack-offset','--stack-tail'].forEach(name=>deck.style.removeProperty(name));}};
+ return {refresh:schedule,dispose:()=>{alive=false;cancelAnimationFrame(frame);resize.disconnect();removeEventListener('resize',resized);context?.revert();deck.querySelectorAll('.stack-shade').forEach(shade=>shade.remove());delete deck.dataset.stack;['--stack-top','--stack-offset','--stack-tail'].forEach(name=>deck.style.removeProperty(name));}};
 }

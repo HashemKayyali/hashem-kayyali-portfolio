@@ -1,6 +1,7 @@
 import React,{createContext,useContext,useEffect,useRef,useState} from 'react';
 import Glyph from './Glyph';
 import {gsap} from 'gsap';
+import {holdSmoothScroll} from './smooth-scroll';
 import {ChevronDown,Plus} from 'lucide-react';
 import {useI18n} from '../i18n/useI18n';
 import LanguageMenu from './LanguageMenu';
@@ -30,12 +31,15 @@ export function Header({route,navigate}:{route:PreviewRoute;navigate:Navigate}) 
   // Phone/tablet menu: a full sheet below the header. GSAP owns the opening; CSS owns the close.
   const nav=header.current?.querySelector<HTMLElement>('#primary-navigation'),root=document.documentElement,compact=matchMedia('(max-width:800px)');
   const leave=()=>{if(!compact.matches)setOpen(false);};compact.addEventListener('change',leave);
-  root.toggleAttribute('data-menu-open',open&&compact.matches);
+  const locked=open&&compact.matches;root.toggleAttribute('data-menu-open',locked);
+  // iOS Safari still scrolls the page under overflow:hidden; touch drags move only a sheet that can scroll.
+  const block=(event:TouchEvent)=>{if(nav?.contains(event.target as Node)&&nav.scrollHeight>nav.clientHeight)return;if(event.cancelable)event.preventDefault();};
+  if(locked){document.addEventListener('touchmove',block,{passive:false});holdSmoothScroll(true);}
   const ctx=nav&&open&&compact.matches&&!matchMedia('(prefers-reduced-motion: reduce)').matches?gsap.context(()=>{
    gsap.fromTo(nav,{clipPath:'inset(0% 0% 100% 0%)'},{clipPath:'inset(0% 0% 0% 0%)',duration:.62,ease:'expo.out',clearProps:'clipPath'});
    gsap.fromTo(nav.querySelectorAll(':scope>a,:scope>.studio-nav,:scope>.nav-sheet-foot'),{y:28,autoAlpha:0},{y:0,autoAlpha:1,duration:.72,ease:'expo.out',stagger:.045,delay:.05,clearProps:'transform,opacity,visibility'});
   },nav):undefined;
-  return()=>{ctx?.revert();compact.removeEventListener('change',leave);root.removeAttribute('data-menu-open');};
+  return()=>{ctx?.revert();compact.removeEventListener('change',leave);root.removeAttribute('data-menu-open');if(locked){document.removeEventListener('touchmove',block);holdSmoothScroll(false);}};
  },[open]);
  useEffect(()=>{
   // A hairline shadow once the page moves under the sticky header.
