@@ -1,0 +1,995 @@
+{
+ "generatedBy": "scripts/cloudinary-media.mjs",
+ "namespace": "portfolio",
+ "studioNamespace": "portfolio/studio (untouched)",
+ "deliveryTransforms": "f_auto,q_auto,c_limit,w_<width> via preview/cloudinary-delivery.ts",
+ "assets": [
+  {
+   "publicId": "portfolio/projects/basket-beats/card-cover",
+   "group": "A",
+   "project": "basket-beats",
+   "purpose": "projects",
+   "source": "/projects/basket-beats/card-cover.webp",
+   "format": "webp",
+   "width": 900,
+   "height": 506,
+   "bytes": 62748,
+   "md5": "08a91a394c4173feae513bd4d8667849",
+   "sha256": "e5378f40b70c2386e83377ee1de8451eccafe62e02dfcdf8fa1e2f53426cf761",
+   "localFallbacks": [
+    "/projects/basket-beats/card-cover-thumb-320.webp",
+    "/projects/basket-beats/card-cover-thumb-640.webp",
+    "/projects/basket-beats/card-cover.webp"
+   ],
+   "usedBy": [
+    "ProductImage srcset (basket-beats)"
+   ],
+   "privacy": "approved public media",
+   "quality": "auto",
+   "cloudinary": {
+    "version": 1792406713,
+    "format": "webp",
+    "width": 900,
+    "height": 506,
+    "bytes": 62748,
+    "md5": "08a91a394c4173feae513bd4d8667849",
+    "secureUrl": "https://res.cloudinary.com/dymhoaarh/image/upload/v1792406713/portfolio/projects/basket-beats/card-cover.webp",
+    "verifiedAt": "2026-10-19T10:45:14.469Z"
+   }
+  },
+  {
+   "publicId": "portfolio/projects/basket-beats/cover",
+   "group": "A",
+   "project": "basket-beats",
+   "purpose": "projects",
+   "source": "/projects/basket-beats/cover.webp",
+   "format": "webp",
+   "width": 960,
+   "height": 540,
+   "bytes": 87866,
+   "md5": "f10507fe61b681ff0182199c09c48b61",
+   "sha256": "fd1f79f21a62cf781ea4125724edda62f06d6c1974cee9e6bc5432948a427c3a",
+   "localFallbacks": [
+    "/projects/basket-beats/cover.webp",
+    "/projects/basket-beats/thumbs/cover.webp"
+   ],
+   "usedBy": [
+    "projectAssets basket-beats cover"
+   ],
+   "privacy": "approved public media",
+   "quality": "auto",
+   "cloudinary": {
+    "version": 1792406716,
+    "format": "webp",
+    "width": 960,
+    "height": 540,
+    "bytes": 87866,
+    "md5": "f10507fe61b681ff0182199c09c48b61",
+    "secureUrl": "https://res.cloudinary.com/dymhoaarh/image/upload/v1792406716/portfolio/projects/basket-beats/cover.webp",
+    "verifiedAt": "2026-10-19T10:45:17.132Z"
+   }
+  },
+  {
+   "publicId": "portfolio/projects/bike-land-trainer/cover",
+   "group": "A",
+   "project": "bike-land-trainer",
+   "purpose": "projects",
+   "source": "/covers/bike-land-trainer.webp",
+   "format": "webp",
+   "width": 1448,
+   "height": 1086,
+   "bytes": 217086,
+   "md5": "b410d84b757afee3f1ee98ae2d7a5e84",
+   "sha256": "7282e2d5658aee5143f3066d70fccc380c2ae68932675597947b172a41853d48",
+   "localFallbacks": [
+    "/covers/bike-land-trainer-320.webp",
+    "/covers/bike-land-trainer-640.webp",
+    "/covers/bike-land-trainer-960.webp",
+    "/covers/bike-land-trainer.webp"
+   ],
+   "usedBy": [
+    "ProductImage srcset (bike-land-trainer)",
+    "projectAssets bike-land-trainer cover"
+   ],
+   "privacy": "approved public media",
+   "quality": "auto",
+   "cloudinary": {
+    "version": 1792406719,
+    "format": "webp",
+    "width": 1448,
+    "height": 1086,
+    "bytes": 217086,
+    "md5": "b410d84b757afee3f1ee98ae2d7a5e84",
+    "secureUrl": "https://res.cloudinary.com/dymhoaarh/image/upload/v1792406719/portfolio/projects/bike-land-trainer/cover.webp",
+    "verifiedAt": "2026-10-19T10:45:20.050Z"
+   }
+  },
+  {
+   "publicId": "portfolio/projects/bike-land-trainer/screenshot-01",
+   "group": "A",
+   "project": "bike-land-trainer",
+   "purpose": "projects",
+   "source": "/projects/bike-land-smart-cycling-trainer/screenshot-01.webp",
+   "format": "webp",
+   "width": 1586,
+   "height": 992,
+   "bytes": 260626,
+   "md5": "2eb4d53be0aa9dac5ada9993a9635025",
+   "sha256": "5421edee2493ba50f92fa6301b84cd2024fcc03cb691b61e29ae96ec83b00d55",
+   "localFallbacks": [
+    "/projects/bike-land-smart-cycling-trainer/screenshot-01.webp",
+    "/projects/bike-land-smart-cycling-trainer/thumbs/screenshot-01.webp"
+   ],
+   "usedBy": [
+    "projectAssets bike-land-trainer case gallery"
+   ],
+   "privacy": "approved public media",
+   "quality": "auto",
+   "cloudinary": {
+    "version": 1792406721,
+    "format": "webp",
+    "width": 1586,
+    "height": 992,
+    "bytes": 260626,
+    "md5": "2eb4d53be0aa9dac5ada9993a9635025",
+    "secureUrl": "https://res.cloudinary.com/dymhoaarh/image/upload/v1792406721/portfolio/projects/bike-land-trainer/screenshot-01.webp",
+    "verifiedAt": "2026-10-19T10:45:22.902Z"
+   }
+  },
+  {
+   "publicId": "portfolio/projects/bike-tower/card-cover",
+   "group": "A",
+   "project": "bike-tower",
+   "purpose": "projects",
+   "source": "/projects/bike-tower/card-cover.webp",
+   "format": "webp",
+   "width": 749,
+   "height": 563,
+   "bytes": 31752,
+   "md5": "462e207dd41950d4fb360ec5d51e9b79",
+   "sha256": "91f388ad4b866e69ecc8b591d9153d4340f02901801cb6a3ae48f5325de452d8",
+   "localFallbacks": [
+    "/projects/bike-tower/card-cover-thumb-320.webp",
+    "/projects/bike-tower/card-cover-thumb-640.webp",
+    "/projects/bike-tower/card-cover.webp"
+   ],
+   "usedBy": [
+    "ProductImage srcset (bike-tower)"
+   ],
+   "privacy": "approved public media",
+   "quality": "auto",
+   "cloudinary": {
+    "version": 1792406724,
+    "format": "webp",
+    "width": 749,
+    "height": 563,
+    "bytes": 31752,
+    "md5": "462e207dd41950d4fb360ec5d51e9b79",
+    "secureUrl": "https://res.cloudinary.com/dymhoaarh/image/upload/v1792406724/portfolio/projects/bike-tower/card-cover.webp",
+    "verifiedAt": "2026-10-19T10:45:25.111Z"
+   }
+  },
+  {
+   "publicId": "portfolio/projects/bike-tower/cover",
+   "group": "A",
+   "project": "bike-tower",
+   "purpose": "projects",
+   "source": "/projects/bike-tower/cover.webp",
+   "format": "webp",
+   "width": 1331,
+   "height": 1000,
+   "bytes": 100244,
+   "md5": "835223a9a698a4dd4f45685ee9b928e7",
+   "sha256": "09323fe04dad74d3c0696146e30cc0c362c5d3f3785f858792a9b3e362e350f8",
+   "localFallbacks": [
+    "/projects/bike-tower/cover.webp",
+    "/projects/bike-tower/thumbs/cover.webp"
+   ],
+   "usedBy": [
+    "projectAssets bike-tower cover"
+   ],
+   "privacy": "approved public media",
+   "quality": "eco",
+   "cloudinary": {
+    "version": 1792406726,
+    "format": "webp",
+    "width": 1331,
+    "height": 1000,
+    "bytes": 100244,
+    "md5": "835223a9a698a4dd4f45685ee9b928e7",
+    "secureUrl": "https://res.cloudinary.com/dymhoaarh/image/upload/v1792406726/portfolio/projects/bike-tower/cover.webp",
+    "verifiedAt": "2026-10-19T10:45:27.430Z"
+   }
+  },
+  {
+   "publicId": "portfolio/projects/eventies/cover",
+   "group": "A",
+   "project": "eventies",
+   "purpose": "projects",
+   "source": "/covers/eventies.webp",
+   "format": "webp",
+   "width": 1600,
+   "height": 960,
+   "bytes": 238828,
+   "md5": "d67f0c1aaab283a64b7bb5b92d580b97",
+   "sha256": "6c239e86cde35fb038e6cc1421f4de257452427c1a86a7731db65d0b8b41c7f9",
+   "localFallbacks": [
+    "/covers/eventies-320.webp",
+    "/covers/eventies-640.webp",
+    "/covers/eventies-960.webp",
+    "/covers/eventies.webp"
+   ],
+   "usedBy": [
+    "ProductImage srcset (eventies)",
+    "projectAssets eventies cover"
+   ],
+   "privacy": "approved public media",
+   "quality": "auto",
+   "cloudinary": {
+    "version": 1792404610,
+    "format": "webp",
+    "width": 1600,
+    "height": 960,
+    "bytes": 238828,
+    "md5": "d67f0c1aaab283a64b7bb5b92d580b97",
+    "secureUrl": "https://res.cloudinary.com/dymhoaarh/image/upload/v1792404610/portfolio/projects/eventies/cover.webp",
+    "verifiedAt": "2026-10-19T10:10:50.889Z"
+   }
+  },
+  {
+   "publicId": "portfolio/projects/eventies/screenshot-01",
+   "group": "A",
+   "project": "eventies",
+   "purpose": "projects",
+   "source": "/projects/eventies/screenshot-01.webp",
+   "format": "webp",
+   "width": 1920,
+   "height": 1200,
+   "bytes": 260736,
+   "md5": "02e6e63964526a5f194765dc0695e2be",
+   "sha256": "e0004b341795ba6d64a0bf84d7da76470d85cd7649df4001a224db52aeba93cd",
+   "localFallbacks": [
+    "/projects/eventies/screenshot-01.webp",
+    "/projects/eventies/thumbs/screenshot-01.webp"
+   ],
+   "usedBy": [
+    "projectAssets eventies case gallery"
+   ],
+   "privacy": "approved public media",
+   "quality": "auto",
+   "cloudinary": {
+    "version": 1792406176,
+    "format": "webp",
+    "width": 1920,
+    "height": 1200,
+    "bytes": 260736,
+    "md5": "02e6e63964526a5f194765dc0695e2be",
+    "secureUrl": "https://res.cloudinary.com/dymhoaarh/image/upload/v1792406176/portfolio/projects/eventies/screenshot-01.webp",
+    "verifiedAt": "2026-10-19T10:36:16.947Z"
+   }
+  },
+  {
+   "publicId": "portfolio/projects/eventies/screenshot-02",
+   "group": "A",
+   "project": "eventies",
+   "purpose": "projects",
+   "source": "/projects/eventies/screenshot-02.webp",
+   "format": "webp",
+   "width": 1920,
+   "height": 1200,
+   "bytes": 134178,
+   "md5": "0d7dc4624fcef18dfd9af54974784b24",
+   "sha256": "a09067e95a6707e81c2ce95f84cf6184b096fa68286bcc8e49ab5cfcdc564cb5",
+   "localFallbacks": [
+    "/projects/eventies/screenshot-02.webp",
+    "/projects/eventies/thumbs/screenshot-02.webp"
+   ],
+   "usedBy": [
+    "projectAssets eventies case gallery",
+    "PortfolioSections secondary (eventies)"
+   ],
+   "privacy": "approved public media",
+   "quality": "auto",
+   "cloudinary": {
+    "version": 1792406729,
+    "format": "webp",
+    "width": 1920,
+    "height": 1200,
+    "bytes": 134178,
+    "md5": "0d7dc4624fcef18dfd9af54974784b24",
+    "secureUrl": "https://res.cloudinary.com/dymhoaarh/image/upload/v1792406729/portfolio/projects/eventies/screenshot-02.webp",
+    "verifiedAt": "2026-10-19T10:45:30.530Z"
+   }
+  },
+  {
+   "publicId": "portfolio/projects/eventies/screenshot-03",
+   "group": "A",
+   "project": "eventies",
+   "purpose": "projects",
+   "source": "/projects/eventies/screenshot-03.webp",
+   "format": "webp",
+   "width": 1920,
+   "height": 1200,
+   "bytes": 228824,
+   "md5": "ed9e33faa984b59aa4fd8e7c03ca5b02",
+   "sha256": "1708e5f7a4aa59f1d83bf17f158bcac82cc79330f69282880c5d49bf84722f21",
+   "localFallbacks": [
+    "/projects/eventies/screenshot-03.webp",
+    "/projects/eventies/thumbs/screenshot-03.webp"
+   ],
+   "usedBy": [
+    "projectAssets eventies case gallery"
+   ],
+   "privacy": "approved public media",
+   "quality": "auto",
+   "cloudinary": {
+    "version": 1792406732,
+    "format": "webp",
+    "width": 1920,
+    "height": 1200,
+    "bytes": 228824,
+    "md5": "ed9e33faa984b59aa4fd8e7c03ca5b02",
+    "secureUrl": "https://res.cloudinary.com/dymhoaarh/image/upload/v1792406732/portfolio/projects/eventies/screenshot-03.webp",
+    "verifiedAt": "2026-10-19T10:45:33.211Z"
+   }
+  },
+  {
+   "publicId": "portfolio/projects/eventies/screenshot-04",
+   "group": "A",
+   "project": "eventies",
+   "purpose": "projects",
+   "source": "/projects/eventies/screenshot-04.webp",
+   "format": "webp",
+   "width": 1920,
+   "height": 1200,
+   "bytes": 113186,
+   "md5": "478bc25c314756f43fb05a3445a184fc",
+   "sha256": "c78e90982a471694e782bfcb15e898c8ee1ae08722983db3ec4c44fa53969895",
+   "localFallbacks": [
+    "/projects/eventies/screenshot-04.webp",
+    "/projects/eventies/thumbs/screenshot-04.webp"
+   ],
+   "usedBy": [
+    "projectAssets eventies case gallery"
+   ],
+   "privacy": "approved public media",
+   "quality": "auto",
+   "cloudinary": {
+    "version": 1792406734,
+    "format": "webp",
+    "width": 1920,
+    "height": 1200,
+    "bytes": 113186,
+    "md5": "478bc25c314756f43fb05a3445a184fc",
+    "secureUrl": "https://res.cloudinary.com/dymhoaarh/image/upload/v1792406734/portfolio/projects/eventies/screenshot-04.webp",
+    "verifiedAt": "2026-10-19T10:45:35.330Z"
+   }
+  },
+  {
+   "publicId": "portfolio/projects/financial-operations/cover",
+   "group": "A",
+   "project": "financial-operations",
+   "purpose": "projects",
+   "source": "/covers/financial-operations.webp",
+   "format": "webp",
+   "width": 1600,
+   "height": 900,
+   "bytes": 134206,
+   "md5": "68c087fa548fb92ff95803484372f448",
+   "sha256": "f0aef461fa691d12044b64ae99e0762cc0b5daab13995cd0b45d5657a3410149",
+   "localFallbacks": [
+    "/covers/financial-operations-320.webp",
+    "/covers/financial-operations-640.webp",
+    "/covers/financial-operations-960.webp",
+    "/covers/financial-operations.webp"
+   ],
+   "usedBy": [
+    "ProductImage srcset (financial-operations)",
+    "projectAssets financial-operations cover"
+   ],
+   "privacy": "approved public media",
+   "quality": "auto",
+   "cloudinary": {
+    "version": 1792406737,
+    "format": "webp",
+    "width": 1600,
+    "height": 900,
+    "bytes": 134206,
+    "md5": "68c087fa548fb92ff95803484372f448",
+    "secureUrl": "https://res.cloudinary.com/dymhoaarh/image/upload/v1792406737/portfolio/projects/financial-operations/cover.webp",
+    "verifiedAt": "2026-10-19T10:45:39.624Z"
+   }
+  },
+  {
+   "publicId": "portfolio/projects/glitzz-lab/cover",
+   "group": "A",
+   "project": "glitzz-lab",
+   "purpose": "projects",
+   "source": "/covers/glitzz-lab.webp",
+   "format": "webp",
+   "width": 1600,
+   "height": 836,
+   "bytes": 144416,
+   "md5": "96bc26b26a3fd5bfec39b337177eb12e",
+   "sha256": "984baa503611dc8c2d26bd2236f2c57381ce216d99eebf85489d12990d1bc827",
+   "localFallbacks": [
+    "/covers/glitzz-lab-320.webp",
+    "/covers/glitzz-lab-640.webp",
+    "/covers/glitzz-lab-960.webp",
+    "/covers/glitzz-lab.webp"
+   ],
+   "usedBy": [
+    "ProductImage srcset (glitzz-lab)",
+    "projectAssets glitzz-lab cover"
+   ],
+   "privacy": "approved public media",
+   "quality": "auto",
+   "cloudinary": {
+    "version": 1792406747,
+    "format": "webp",
+    "width": 1600,
+    "height": 836,
+    "bytes": 144416,
+    "md5": "96bc26b26a3fd5bfec39b337177eb12e",
+    "secureUrl": "https://res.cloudinary.com/dymhoaarh/image/upload/v1792406747/portfolio/projects/glitzz-lab/cover.webp",
+    "verifiedAt": "2026-10-19T10:45:48.061Z"
+   }
+  },
+  {
+   "publicId": "portfolio/projects/glitzz-lab/screenshot-01",
+   "group": "A",
+   "project": "glitzz-lab",
+   "purpose": "projects",
+   "source": "/projects/glitzz-lab/screenshot-01.webp",
+   "format": "webp",
+   "width": 1920,
+   "height": 1200,
+   "bytes": 157884,
+   "md5": "2b0bccdd4c34f04c7bfba2b5ede5ced7",
+   "sha256": "b07cfffa3e5ebe79eea8dca2d45efa4664568530e086686e55192e2a8575bf6d",
+   "localFallbacks": [
+    "/projects/glitzz-lab/screenshot-01.webp",
+    "/projects/glitzz-lab/thumbs/screenshot-01.webp"
+   ],
+   "usedBy": [
+    "projectAssets glitzz-lab case gallery"
+   ],
+   "privacy": "approved public media",
+   "quality": "auto",
+   "cloudinary": {
+    "version": 1792406749,
+    "format": "webp",
+    "width": 1920,
+    "height": 1200,
+    "bytes": 157884,
+    "md5": "2b0bccdd4c34f04c7bfba2b5ede5ced7",
+    "secureUrl": "https://res.cloudinary.com/dymhoaarh/image/upload/v1792406749/portfolio/projects/glitzz-lab/screenshot-01.webp",
+    "verifiedAt": "2026-10-19T10:45:50.541Z"
+   }
+  },
+  {
+   "publicId": "portfolio/projects/glitzz-lab/screenshot-02",
+   "group": "A",
+   "project": "glitzz-lab",
+   "purpose": "projects",
+   "source": "/projects/glitzz-lab/screenshot-02.webp",
+   "format": "webp",
+   "width": 1920,
+   "height": 1200,
+   "bytes": 138570,
+   "md5": "acb18511c223b587abb59d6466780c7b",
+   "sha256": "1dcb93acb6a3c87e2fc6e6a760078ea5f07cad064ff969b0bf9b5dde75b9905e",
+   "localFallbacks": [
+    "/projects/glitzz-lab/screenshot-02.webp",
+    "/projects/glitzz-lab/thumbs/screenshot-02.webp"
+   ],
+   "usedBy": [
+    "projectAssets glitzz-lab case gallery"
+   ],
+   "privacy": "approved public media",
+   "quality": "auto",
+   "cloudinary": {
+    "version": 1792406752,
+    "format": "webp",
+    "width": 1920,
+    "height": 1200,
+    "bytes": 138570,
+    "md5": "acb18511c223b587abb59d6466780c7b",
+    "secureUrl": "https://res.cloudinary.com/dymhoaarh/image/upload/v1792406752/portfolio/projects/glitzz-lab/screenshot-02.webp",
+    "verifiedAt": "2026-10-19T10:45:53.353Z"
+   }
+  },
+  {
+   "publicId": "portfolio/projects/glitzz-lab/screenshot-03",
+   "group": "A",
+   "project": "glitzz-lab",
+   "purpose": "projects",
+   "source": "/projects/glitzz-lab/screenshot-03.webp",
+   "format": "webp",
+   "width": 1920,
+   "height": 1200,
+   "bytes": 166518,
+   "md5": "b50db81b94cdcb52037994da3bc1792f",
+   "sha256": "2c45980d479d892e866d675d33ef848bc40305a5ea45fca51f22536fe6a00e8b",
+   "localFallbacks": [
+    "/projects/glitzz-lab/screenshot-03.webp",
+    "/projects/glitzz-lab/thumbs/screenshot-03.webp"
+   ],
+   "usedBy": [
+    "projectAssets glitzz-lab case gallery"
+   ],
+   "privacy": "approved public media",
+   "quality": "auto",
+   "cloudinary": {
+    "version": 1792406178,
+    "format": "webp",
+    "width": 1920,
+    "height": 1200,
+    "bytes": 166518,
+    "md5": "b50db81b94cdcb52037994da3bc1792f",
+    "secureUrl": "https://res.cloudinary.com/dymhoaarh/image/upload/v1792406178/portfolio/projects/glitzz-lab/screenshot-03.webp",
+    "verifiedAt": "2026-10-19T10:36:19.722Z"
+   }
+  },
+  {
+   "publicId": "portfolio/projects/glitzz-lab/screenshot-04",
+   "group": "A",
+   "project": "glitzz-lab",
+   "purpose": "projects",
+   "source": "/projects/glitzz-lab/screenshot-04.webp",
+   "format": "webp",
+   "width": 1920,
+   "height": 1200,
+   "bytes": 125950,
+   "md5": "75ba9df8f9ddf3d6064aebc983e18d87",
+   "sha256": "b95178d5d6ff6f531cf2482dd3a7d432b0f2c065034f99573a639bfc2f9b1180",
+   "localFallbacks": [
+    "/projects/glitzz-lab/screenshot-04.webp",
+    "/projects/glitzz-lab/thumbs/screenshot-04.webp"
+   ],
+   "usedBy": [
+    "projectAssets glitzz-lab case gallery"
+   ],
+   "privacy": "approved public media",
+   "quality": "auto",
+   "cloudinary": {
+    "version": 1792406755,
+    "format": "webp",
+    "width": 1920,
+    "height": 1200,
+    "bytes": 125950,
+    "md5": "75ba9df8f9ddf3d6064aebc983e18d87",
+    "secureUrl": "https://res.cloudinary.com/dymhoaarh/image/upload/v1792406755/portfolio/projects/glitzz-lab/screenshot-04.webp",
+    "verifiedAt": "2026-10-19T10:45:55.613Z"
+   }
+  },
+  {
+   "publicId": "portfolio/projects/glitzz-lab/screenshot-05",
+   "group": "A",
+   "project": "glitzz-lab",
+   "purpose": "projects",
+   "source": "/projects/glitzz-lab/screenshot-05.webp",
+   "format": "webp",
+   "width": 1920,
+   "height": 1200,
+   "bytes": 181388,
+   "md5": "d2bde4a4d99fe194f43bdde170c26372",
+   "sha256": "edf23de0237e2999952888890608ebd1c09bc620a1f35be83e4f64b023227e61",
+   "localFallbacks": [
+    "/projects/glitzz-lab/screenshot-05.webp",
+    "/projects/glitzz-lab/thumbs/screenshot-05.webp"
+   ],
+   "usedBy": [
+    "projectAssets glitzz-lab case gallery"
+   ],
+   "privacy": "approved public media",
+   "quality": "auto",
+   "cloudinary": {
+    "version": 1792406757,
+    "format": "webp",
+    "width": 1920,
+    "height": 1200,
+    "bytes": 181388,
+    "md5": "d2bde4a4d99fe194f43bdde170c26372",
+    "secureUrl": "https://res.cloudinary.com/dymhoaarh/image/upload/v1792406757/portfolio/projects/glitzz-lab/screenshot-05.webp",
+    "verifiedAt": "2026-10-19T10:45:57.652Z"
+   }
+  },
+  {
+   "publicId": "portfolio/projects/outreach-automation/cover",
+   "group": "A",
+   "project": "outreach-automation",
+   "purpose": "projects",
+   "source": "/covers/outreach-automation.webp",
+   "format": "webp",
+   "width": 1600,
+   "height": 902,
+   "bytes": 128216,
+   "md5": "898442cda98821ff01c3f34ef8015257",
+   "sha256": "0a0fef4375379b79ffb1a0d6cc451c2ef05ed2950cb1b3aee7b77d46b2958968",
+   "localFallbacks": [
+    "/covers/outreach-automation-320.webp",
+    "/covers/outreach-automation-640.webp",
+    "/covers/outreach-automation-960.webp",
+    "/covers/outreach-automation.webp"
+   ],
+   "usedBy": [
+    "ProductImage srcset (outreach-automation)",
+    "projectAssets outreach-automation cover"
+   ],
+   "privacy": "approved public media",
+   "quality": "auto",
+   "cloudinary": {
+    "version": 1792406759,
+    "format": "webp",
+    "width": 1600,
+    "height": 902,
+    "bytes": 128216,
+    "md5": "898442cda98821ff01c3f34ef8015257",
+    "secureUrl": "https://res.cloudinary.com/dymhoaarh/image/upload/v1792406759/portfolio/projects/outreach-automation/cover.webp",
+    "verifiedAt": "2026-10-19T10:46:00.057Z"
+   }
+  },
+  {
+   "publicId": "portfolio/projects/terminal-nfc/cover",
+   "group": "A",
+   "project": "terminal-nfc",
+   "purpose": "projects",
+   "source": "/covers/terminal-nfc.webp",
+   "format": "webp",
+   "width": 1600,
+   "height": 902,
+   "bytes": 109328,
+   "md5": "6c8c1266ee222be3a12362eb5a2cb441",
+   "sha256": "43fa1087b9dbef0e70e14feca6447f36ae8f22233c6a8d488cbc7a2f0a8f0636",
+   "localFallbacks": [
+    "/covers/terminal-nfc-320.webp",
+    "/covers/terminal-nfc-640.webp",
+    "/covers/terminal-nfc-960.webp",
+    "/covers/terminal-nfc.webp"
+   ],
+   "usedBy": [
+    "ProductImage srcset (terminal-nfc)",
+    "projectAssets terminal-nfc cover"
+   ],
+   "privacy": "approved public media",
+   "quality": "auto",
+   "cloudinary": {
+    "version": 1792406761,
+    "format": "webp",
+    "width": 1600,
+    "height": 902,
+    "bytes": 109328,
+    "md5": "6c8c1266ee222be3a12362eb5a2cb441",
+    "secureUrl": "https://res.cloudinary.com/dymhoaarh/image/upload/v1792406761/portfolio/projects/terminal-nfc/cover.webp",
+    "verifiedAt": "2026-10-19T10:46:02.310Z"
+   }
+  },
+  {
+   "publicId": "portfolio/projects/traffic-flow-analytics/cover",
+   "group": "A",
+   "project": "traffic-flow-analytics",
+   "purpose": "projects",
+   "source": "/covers/traffic-flow-analytics.webp",
+   "format": "webp",
+   "width": 1600,
+   "height": 900,
+   "bytes": 147068,
+   "md5": "afad7486a4c1bf474389e0c39bd88b74",
+   "sha256": "f6383f3c2dae2a882d8b2a0ce425b709ccdcc2140285c129ee7941de084a4a1d",
+   "localFallbacks": [
+    "/covers/traffic-flow-analytics-320.webp",
+    "/covers/traffic-flow-analytics-640.webp",
+    "/covers/traffic-flow-analytics-960.webp",
+    "/covers/traffic-flow-analytics.webp"
+   ],
+   "usedBy": [
+    "ProductImage srcset (traffic-flow-analytics)",
+    "projectAssets traffic-flow-analytics cover"
+   ],
+   "privacy": "approved public media",
+   "quality": "auto",
+   "cloudinary": {
+    "version": 1792406764,
+    "format": "webp",
+    "width": 1600,
+    "height": 900,
+    "bytes": 147068,
+    "md5": "afad7486a4c1bf474389e0c39bd88b74",
+    "secureUrl": "https://res.cloudinary.com/dymhoaarh/image/upload/v1792406764/portfolio/projects/traffic-flow-analytics/cover.webp",
+    "verifiedAt": "2026-10-19T10:46:04.573Z"
+   }
+  },
+  {
+   "publicId": "portfolio/projects/umniah-youthconnect/cover",
+   "group": "A",
+   "project": "umniah-youthconnect",
+   "purpose": "projects",
+   "source": "/covers/umniah-youthconnect.webp",
+   "format": "webp",
+   "width": 1600,
+   "height": 903,
+   "bytes": 146320,
+   "md5": "66f0e069c973cd2505632f5033145963",
+   "sha256": "c2c58bad4c234fc9c4384131a346249bbd68ce1dd793b00af9e8b260ee515846",
+   "localFallbacks": [
+    "/covers/umniah-youthconnect-320.webp",
+    "/covers/umniah-youthconnect-640.webp",
+    "/covers/umniah-youthconnect-960.webp",
+    "/covers/umniah-youthconnect.webp"
+   ],
+   "usedBy": [
+    "ProductImage srcset (umniah-youthconnect)",
+    "projectAssets umniah-youthconnect cover"
+   ],
+   "privacy": "approved public media",
+   "quality": "auto",
+   "cloudinary": {
+    "version": 1792406766,
+    "format": "webp",
+    "width": 1600,
+    "height": 903,
+    "bytes": 146320,
+    "md5": "66f0e069c973cd2505632f5033145963",
+    "secureUrl": "https://res.cloudinary.com/dymhoaarh/image/upload/v1792406766/portfolio/projects/umniah-youthconnect/cover.webp",
+    "verifiedAt": "2026-10-19T10:46:07.071Z"
+   }
+  },
+  {
+   "publicId": "portfolio/projects/vr-cycling/cover",
+   "group": "A",
+   "project": "vr-cycling",
+   "purpose": "projects",
+   "source": "/covers/vr-cycling.webp",
+   "format": "webp",
+   "width": 1448,
+   "height": 1086,
+   "bytes": 179016,
+   "md5": "eba18bfc32731f15790c6a386ab1ed5a",
+   "sha256": "159dd97b3c7cf5b7e140b854634cdbfce70236dbd42f3a8e141f7ea69c510fe0",
+   "localFallbacks": [
+    "/covers/vr-cycling-320.webp",
+    "/covers/vr-cycling-640.webp",
+    "/covers/vr-cycling-960.webp",
+    "/covers/vr-cycling.webp"
+   ],
+   "usedBy": [
+    "ProductImage srcset (vr-cycling)",
+    "projectAssets vr-cycling cover"
+   ],
+   "privacy": "approved public media",
+   "quality": "auto",
+   "cloudinary": {
+    "version": 1792406181,
+    "format": "webp",
+    "width": 1448,
+    "height": 1086,
+    "bytes": 179016,
+    "md5": "eba18bfc32731f15790c6a386ab1ed5a",
+    "secureUrl": "https://res.cloudinary.com/dymhoaarh/image/upload/v1792406181/portfolio/projects/vr-cycling/cover.webp",
+    "verifiedAt": "2026-10-19T10:36:22.330Z"
+   }
+  },
+  {
+   "publicId": "portfolio/site/process/01-context",
+   "group": "A",
+   "project": null,
+   "purpose": "site/process",
+   "source": "/engineering-process/01-context.webp",
+   "format": "webp",
+   "width": 1280,
+   "height": 853,
+   "bytes": 63506,
+   "md5": "45768b176a4664d53e8f0844a892c41c",
+   "sha256": "3535018694e6e6a597c46ae2347a8b487556b8bc78810e138871fc4fb5c906b7",
+   "localFallbacks": [
+    "/engineering-process/01-context-640.webp",
+    "/engineering-process/01-context.webp"
+   ],
+   "usedBy": [
+    "preview/process-illustrations.ts"
+   ],
+   "privacy": "approved public media",
+   "quality": "eco",
+   "cloudinary": {
+    "version": 1792406768,
+    "format": "webp",
+    "width": 1280,
+    "height": 853,
+    "bytes": 63506,
+    "md5": "45768b176a4664d53e8f0844a892c41c",
+    "secureUrl": "https://res.cloudinary.com/dymhoaarh/image/upload/v1792406768/portfolio/site/process/01-context.webp",
+    "verifiedAt": "2026-10-19T10:46:09.070Z"
+   }
+  },
+  {
+   "publicId": "portfolio/site/process/02-system",
+   "group": "A",
+   "project": null,
+   "purpose": "site/process",
+   "source": "/engineering-process/02-system.webp",
+   "format": "webp",
+   "width": 1280,
+   "height": 853,
+   "bytes": 63444,
+   "md5": "b89d206df19a5f33d95820af0a36513b",
+   "sha256": "ab1b692c57137076ba87d08df9e3df26773d837b6aa6784ff097c43bfdc06441",
+   "localFallbacks": [
+    "/engineering-process/02-system-640.webp",
+    "/engineering-process/02-system.webp"
+   ],
+   "usedBy": [
+    "preview/process-illustrations.ts"
+   ],
+   "privacy": "approved public media",
+   "quality": "eco",
+   "cloudinary": {
+    "version": 1792406184,
+    "format": "webp",
+    "width": 1280,
+    "height": 853,
+    "bytes": 63444,
+    "md5": "b89d206df19a5f33d95820af0a36513b",
+    "secureUrl": "https://res.cloudinary.com/dymhoaarh/image/upload/v1792406184/portfolio/site/process/02-system.webp",
+    "verifiedAt": "2026-10-19T10:36:25.479Z"
+   }
+  },
+  {
+   "publicId": "portfolio/site/process/03-iteration",
+   "group": "A",
+   "project": null,
+   "purpose": "site/process",
+   "source": "/engineering-process/03-iteration.webp",
+   "format": "webp",
+   "width": 1280,
+   "height": 853,
+   "bytes": 79574,
+   "md5": "681fb7f3cff17b0427e19574989237cf",
+   "sha256": "4bcf70d2e8a324ef57faf35ce1d830b72613e57b67957583f267e9924d90d598",
+   "localFallbacks": [
+    "/engineering-process/03-iteration-640.webp",
+    "/engineering-process/03-iteration.webp"
+   ],
+   "usedBy": [
+    "preview/process-illustrations.ts"
+   ],
+   "privacy": "approved public media",
+   "quality": "eco",
+   "cloudinary": {
+    "version": 1792407730,
+    "format": "webp",
+    "width": 1280,
+    "height": 853,
+    "bytes": 79574,
+    "md5": "681fb7f3cff17b0427e19574989237cf",
+    "secureUrl": "https://res.cloudinary.com/dymhoaarh/image/upload/v1792407730/portfolio/site/process/03-iteration.webp",
+    "verifiedAt": "2026-10-19T11:02:12.257Z"
+   }
+  },
+  {
+   "publicId": "portfolio/projects/bike-tower/redacted-interface-1",
+   "group": "B",
+   "project": "bike-tower",
+   "purpose": "projects",
+   "source": "/v2-media/bike-interface-1-1600.webp",
+   "format": "webp",
+   "width": 1600,
+   "height": 900,
+   "bytes": 38022,
+   "md5": "cf2d50dac7e3287e32f33bea26643eb4",
+   "sha256": "81d76a7f0f260672e4451b39f561509afab975b129472c5083de84f209ae9b49",
+   "localFallbacks": [
+    "/v2-media/bike-interface-1-1280.webp",
+    "/v2-media/bike-interface-1-1600.webp",
+    "/v2-media/bike-interface-1-320.webp",
+    "/v2-media/bike-interface-1-640.webp"
+   ],
+   "usedBy": [
+    "StoryMedia redacted derivative of /projects/bike-tower/screenshot-01.webp"
+   ],
+   "privacy": "actual interface, privacy redacted; 1 redaction boxes burned in",
+   "quality": "auto",
+   "cloudinary": null
+  },
+  {
+   "publicId": "portfolio/projects/bike-tower/redacted-interface-2",
+   "group": "B",
+   "project": "bike-tower",
+   "purpose": "projects",
+   "source": "/v2-media/bike-interface-2-1600.webp",
+   "format": "webp",
+   "width": 1600,
+   "height": 900,
+   "bytes": 38508,
+   "md5": "f5611bb54fd19faf43c367088ab9820f",
+   "sha256": "1e88d85fde4d05278f045a3499bd6eb23cd319a282a378dcd7ac9080592d236e",
+   "localFallbacks": [
+    "/v2-media/bike-interface-2-1280.webp",
+    "/v2-media/bike-interface-2-1600.webp",
+    "/v2-media/bike-interface-2-320.webp",
+    "/v2-media/bike-interface-2-640.webp"
+   ],
+   "usedBy": [
+    "StoryMedia redacted derivative of /projects/bike-tower/screenshot-02.webp"
+   ],
+   "privacy": "actual interface, privacy redacted; 1 redaction boxes burned in",
+   "quality": "auto",
+   "cloudinary": null
+  },
+  {
+   "publicId": "portfolio/projects/bike-tower/redacted-interface-3",
+   "group": "B",
+   "project": "bike-tower",
+   "purpose": "projects",
+   "source": "/v2-media/bike-interface-3-1600.webp",
+   "format": "webp",
+   "width": 1600,
+   "height": 900,
+   "bytes": 35672,
+   "md5": "e9e713af297bf6638593c7c1cb34bc62",
+   "sha256": "1079113c467774108e8f9a5213130ba183fd1d67982fbee0821d5c03f9c43ca1",
+   "localFallbacks": [
+    "/v2-media/bike-interface-3-1280.webp",
+    "/v2-media/bike-interface-3-1600.webp",
+    "/v2-media/bike-interface-3-320.webp",
+    "/v2-media/bike-interface-3-640.webp"
+   ],
+   "usedBy": [
+    "StoryMedia redacted derivative of /projects/bike-tower/screenshot-03.webp"
+   ],
+   "privacy": "actual interface, privacy redacted; 0 redaction boxes burned in",
+   "quality": "auto",
+   "cloudinary": null
+  },
+  {
+   "publicId": "portfolio/projects/bike-tower/redacted-interface-4",
+   "group": "B",
+   "project": "bike-tower",
+   "purpose": "projects",
+   "source": "/v2-media/bike-interface-4-1600.webp",
+   "format": "webp",
+   "width": 1600,
+   "height": 900,
+   "bytes": 29630,
+   "md5": "a90cfb3b9430e90dfb8b0b8211b5c767",
+   "sha256": "277c8f2d22af15ab36f869805cc813cc6aa7d4705b919b6b7d285a2472d8bc55",
+   "localFallbacks": [
+    "/v2-media/bike-interface-4-1280.webp",
+    "/v2-media/bike-interface-4-1600.webp",
+    "/v2-media/bike-interface-4-320.webp",
+    "/v2-media/bike-interface-4-640.webp"
+   ],
+   "usedBy": [
+    "StoryMedia redacted derivative of /projects/bike-tower/screenshot-04.webp"
+   ],
+   "privacy": "actual interface, privacy redacted; 0 redaction boxes burned in",
+   "quality": "auto",
+   "cloudinary": null
+  },
+  {
+   "publicId": "portfolio/projects/terminal-nfc/redacted-invoices",
+   "group": "B",
+   "project": "terminal-nfc",
+   "purpose": "projects",
+   "source": "/v2-media/terminal-invoices-1586.webp",
+   "format": "webp",
+   "width": 1586,
+   "height": 992,
+   "bytes": 34538,
+   "md5": "527989d54c3cbb6fa516b42de975c988",
+   "sha256": "b6c05e8f8090532ffa18c436d978941cf7170c2d738b88d8e4eb895eb5819d7e",
+   "localFallbacks": [
+    "/v2-media/terminal-invoices-1280.webp",
+    "/v2-media/terminal-invoices-1586.webp",
+    "/v2-media/terminal-invoices-320.webp",
+    "/v2-media/terminal-invoices-640.webp"
+   ],
+   "usedBy": [
+    "StoryMedia redacted derivative of /projects/the-terminal-nfc/screenshot-01.webp"
+   ],
+   "privacy": "actual interface, privacy redacted; 12 redaction boxes burned in",
+   "quality": "auto",
+   "cloudinary": null
+  }
+ ]
+}

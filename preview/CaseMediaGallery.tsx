@@ -7,6 +7,9 @@ import StoryMedia from './StoryMedia';
 import {mediaFrameStyle} from './media-frame';
 import {createGallerySelection} from './case-gallery-selection';
 
+// Thumbnails share the slide's sizes so the browser picks the slide's own file from cache: one download per image.
+const SLIDE_SIZES='(max-width:800px) 90vw, 1050px';
+
 type Props={sources:string[];title:string;caption:(source:string)=>string;alternativeText?:(source:string)=>string;onOpen:(source:string,caption:string,event:React.MouseEvent<HTMLButtonElement>)=>void};
 
 /** Embla owns the track; decode gating only decides when button intent may reach it. */
@@ -97,7 +100,7 @@ const CaseMediaGallery:React.FC<Props>=({sources,title,caption,alternativeText,o
   <div className="evidence-desk"><div className="evidence-stage" aria-live="off" aria-busy={pending!==null}>
    <div className="evidence-viewport" ref={viewport} onDragStart={event=>event.preventDefault()}><div className="evidence-track">
     {sources.map((source,i)=><figure key={source} data-slide={i} className={`evidence-slide${i===index?' is-current':''}`} aria-hidden={i!==index}>
-     <div className="evidence-native-frame" style={mediaFrameStyle(source)}><StoryMedia source={source} alt={alternativeText?.(source)??`${title}. ${caption(source)}`} eager={i===0} sizes="(max-width:800px) 90vw, 1050px"/></div>
+     <div className="evidence-native-frame" style={mediaFrameStyle(source)}><StoryMedia source={source} alt={alternativeText?.(source)??`${title}. ${caption(source)}`} eager={i===0} cdn sizes={SLIDE_SIZES}/></div>
     </figure>)}
    </div></div>
    <span className="evidence-stage-mark" aria-hidden="true">{String(index+1).padStart(2,'0')}<span> / {String(sources.length).padStart(2,'0')}</span></span>
@@ -105,7 +108,7 @@ const CaseMediaGallery:React.FC<Props>=({sources,title,caption,alternativeText,o
   <div className="evidence-toolbar"><p className="evidence-caption" role="status" aria-live="polite" aria-atomic="true"><bdi>{String(index+1).padStart(2,'0')} / {String(sources.length).padStart(2,'0')}</bdi><span>{caption(active)}</span></p><div className="evidence-controls">{sources.length>1&&<><button type="button" onClick={()=>select(requested.current-1)} disabled={(pending??index)===0} aria-label={t.projectModal.labels.previousImage}>{rtl?<ArrowRight size={18}/>:<ArrowLeft size={18}/>}</button><button type="button" onClick={()=>select(requested.current+1)} disabled={(pending??index)===sources.length-1} aria-label={t.projectModal.labels.nextImage}>{rtl?<ArrowLeft size={18}/>:<ArrowRight size={18}/>}</button></>}<button type="button" className="evidence-open" aria-label={format(t.projectModal.a11y.openImageFullScreen,{index:index+1})} onClick={event=>{
    selection.current?.cancel();embla?.scrollTo(shown.current,true);onOpen(active,caption(active),event);
   }}><Expand size={18}/></button></div></div></div>
-  {sources.length>1&&<div className="evidence-filmstrip" aria-label={labels.gallery}>{sources.map((source,i)=><button key={source} className="evidence-thumbnail" type="button" aria-pressed={i===index} aria-label={`${title} — ${i+1} / ${sources.length}`} onClick={()=>select(i)}><span className="evidence-thumb-number" aria-hidden="true">{String(i+1).padStart(2,'0')}</span><StoryMedia source={source} alt="" sizes="100px"/>{i===index&&<span className="evidence-selection-frame" aria-hidden="true"/>}</button>)}</div>}
+  {sources.length>1&&<div className="evidence-filmstrip" aria-label={labels.gallery}>{sources.map((source,i)=><button key={source} className="evidence-thumbnail" type="button" aria-pressed={i===index} aria-label={`${title} — ${i+1} / ${sources.length}`} onClick={()=>select(i)}><span className="evidence-thumb-number" aria-hidden="true">{String(i+1).padStart(2,'0')}</span><StoryMedia source={source} alt="" cdn sizes={SLIDE_SIZES}/>{i===index&&<span className="evidence-selection-frame" aria-hidden="true"/>}</button>)}</div>}
  </div>;
 };
 export default CaseMediaGallery;

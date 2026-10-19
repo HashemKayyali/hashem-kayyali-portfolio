@@ -1,0 +1,218 @@
+{
+ "rule": "eco only if every delivered width saves ≥10 % vs q_auto with mean SSIM ≥ 0.97 and worst 8×8 block ≥ 0.80 (lossless reference, Chrome image Accept header)",
+ "measuredAt": "2026-10-19T11:03:54.784Z",
+ "assets": {
+  "portfolio/projects/vr-cycling/cover": {
+   "md5": "eba18bfc32731f15790c6a386ab1ed5a",
+   "pass": false,
+   "widths": {
+    "800": {
+     "autoKB": 65.4,
+     "ecoKB": 65.4,
+     "saving": 0,
+     "ecoFormat": "webp",
+     "ssim": 0.9795,
+     "worstBlock": 0.851
+    },
+    "1200": {
+     "autoKB": 122.6,
+     "ecoKB": 107.3,
+     "saving": 0.125,
+     "ecoFormat": "webp",
+     "ssim": 0.9812,
+     "worstBlock": 0.832
+    }
+   }
+  },
+  "portfolio/projects/bike-land-trainer/cover": {
+   "md5": "b410d84b757afee3f1ee98ae2d7a5e84",
+   "pass": false,
+   "widths": {
+    "800": {
+     "autoKB": 84.6,
+     "ecoKB": 73,
+     "saving": 0.137,
+     "ecoFormat": "webp",
+     "ssim": 0.9721,
+     "worstBlock": 0.769
+    },
+    "1200": {
+     "autoKB": 142,
+     "ecoKB": 123.7,
+     "saving": 0.129,
+     "ecoFormat": "webp",
+     "ssim": 0.9764,
+     "worstBlock": 0.828
+    }
+   }
+  },
+  "portfolio/projects/bike-land-trainer/screenshot-01": {
+   "md5": "2eb4d53be0aa9dac5ada9993a9635025",
+   "pass": false,
+   "widths": {
+    "800": {
+     "autoKB": 64.4,
+     "ecoKB": 54.7,
+     "saving": 0.151,
+     "ecoFormat": "webp",
+     "ssim": 0.9643,
+     "worstBlock": 0.816
+    },
+    "1200": {
+     "autoKB": 117.1,
+     "ecoKB": 102,
+     "saving": 0.129,
+     "ecoFormat": "webp",
+     "ssim": 0.965,
+     "worstBlock": 0.782
+    }
+   }
+  },
+  "portfolio/projects/basket-beats/cover": {
+   "md5": "f10507fe61b681ff0182199c09c48b61",
+   "pass": false,
+   "widths": {
+    "800": {
+     "autoKB": 52.1,
+     "ecoKB": 45.5,
+     "saving": 0.127,
+     "ecoFormat": "webp",
+     "ssim": 0.9689,
+     "worstBlock": 0.841
+    },
+    "960": {
+     "autoKB": 80.5,
+     "ecoKB": 69.8,
+     "saving": 0.132,
+     "ecoFormat": "jpeg",
+     "ssim": 0.952,
+     "worstBlock": 0.625
+    }
+   }
+  },
+  "portfolio/projects/basket-beats/card-cover": {
+   "md5": "08a91a394c4173feae513bd4d8667849",
+   "pass": false,
+   "widths": {
+    "800": {
+     "autoKB": 48.3,
+     "ecoKB": 41.5,
+     "saving": 0.142,
+     "ecoFormat": "webp",
+     "ssim": 0.9709,
+     "worstBlock": 0.858
+    },
+    "900": {
+     "autoKB": 61.3,
+     "ecoKB": 58.3,
+     "saving": 0.049,
+     "ecoFormat": "webp",
+     "ssim": 0.991,
+     "worstBlock": 0.942
+    }
+   }
+  },
+  "portfolio/projects/bike-tower/cover": {
+   "md5": "835223a9a698a4dd4f45685ee9b928e7",
+   "pass": true,
+   "widths": {
+    "800": {
+     "autoKB": 35.5,
+     "ecoKB": 30,
+     "saving": 0.154,
+     "ecoFormat": "webp",
+     "ssim": 0.9727,
+     "worstBlock": 0.841
+    },
+    "1200": {
+     "autoKB": 74.7,
+     "ecoKB": 53.8,
+     "saving": 0.28,
+     "ecoFormat": "webp",
+     "ssim": 0.9774,
+     "worstBlock": 0.857
+    }
+   }
+  },
+  "portfolio/projects/bike-tower/card-cover": {
+   "md5": "462e207dd41950d4fb360ec5d51e9b79",
+   "pass": false,
+   "widths": {
+    "749": {
+     "autoKB": 27.2,
+     "ecoKB": 27.2,
+     "saving": 0,
+     "ecoFormat": "webp",
+     "ssim": 0.988,
+     "worstBlock": 0.903
+    }
+   }
+  },
+  "portfolio/site/process/01-context": {
+   "md5": "45768b176a4664d53e8f0844a892c41c",
+   "pass": true,
+   "widths": {
+    "800": {
+     "autoKB": 32.4,
+     "ecoKB": 25.9,
+     "saving": 0.2,
+     "ecoFormat": "webp",
+     "ssim": 0.9894,
+     "worstBlock": 0.916
+    },
+    "1200": {
+     "autoKB": 63.4,
+     "ecoKB": 43.8,
+     "saving": 0.309,
+     "ecoFormat": "webp",
+     "ssim": 0.9891,
+     "worstBlock": 0.846
+    }
+   }
+  },
+  "portfolio/site/process/02-system": {
+   "md5": "b89d206df19a5f33d95820af0a36513b",
+   "pass": true,
+   "widths": {
+    "800": {
+     "autoKB": 32,
+     "ecoKB": 25.3,
+     "saving": 0.208,
+     "ecoFormat": "webp",
+     "ssim": 0.9923,
+     "worstBlock": 0.928
+    },
+    "1200": {
+     "autoKB": 61.7,
+     "ecoKB": 43.8,
+     "saving": 0.29,
+     "ecoFormat": "webp",
+     "ssim": 0.9933,
+     "worstBlock": 0.914
+    }
+   }
+  },
+  "portfolio/site/process/03-iteration": {
+   "md5": "681fb7f3cff17b0427e19574989237cf",
+   "pass": true,
+   "widths": {
+    "800": {
+     "autoKB": 40.2,
+     "ecoKB": 31.5,
+     "saving": 0.215,
+     "ecoFormat": "webp",
+     "ssim": 0.9896,
+     "worstBlock": 0.878
+    },
+    "1200": {
+     "autoKB": 78.3,
+     "ecoKB": 54.2,
+     "saving": 0.307,
+     "ecoFormat": "webp",
+     "ssim": 0.9909,
+     "worstBlock": 0.895
+    }
+   }
+  }
+ }
+}
