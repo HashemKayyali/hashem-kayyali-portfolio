@@ -48,6 +48,7 @@ html .light-portfolio.luxury-portfolio.atelier-compact .dossier-tool[open] summa
 html .light-portfolio.luxury-portfolio.atelier-compact .dossier-tool-panel ul{display:flex;flex-wrap:wrap;gap:7px;margin:0;padding:2px 16px 16px;list-style:none;}
 html .light-portfolio.luxury-portfolio.atelier-compact .dossier-tool-panel li{font-size:16px;line-height:1.4;border:1px solid var(--line);border-radius:5px;padding:6px 9px;color:var(--muted);max-width:100%;overflow-wrap:anywhere;}
 html .light-portfolio.luxury-portfolio.atelier-compact .dossier-signoff{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-top:20px;margin-top:24px;border-top:1px solid var(--line);font-size:18px;}
+html .light-portfolio.luxury-portfolio.atelier-compact .dossier-signoff>div{display:flex;flex-wrap:wrap;column-gap:28px;}
 html .light-portfolio.luxury-portfolio.atelier-compact .dossier-signoff a{display:flex;align-items:center;gap:24px;min-height:44px;color:var(--burgundy);}
 html .light-portfolio.luxury-portfolio.atelier-compact .dossier-body :is(a,summary):focus-visible{outline:2px solid var(--burgundy);outline-offset:3px;}
 html .light-portfolio.luxury-portfolio.atelier-compact .dossier-folio--0 h2:focus-visible{outline-color:var(--atelier-on-light);}

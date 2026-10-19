@@ -30,7 +30,10 @@ await Promise.all(urls.map(async url=>{
  const ld=attr(html,/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g);const home=/^\/(en|ar|de|fr|es)\/$/.test(path);
  if(home!==(ld.length===1))fail('JSON-LD presence');
  if(ld[0]){const data=JSON.parse(ld[0]);const types=data['@graph'].map(node=>node['@type']).sort().join();if(types!=='Person,WebSite')fail('JSON-LD types '+types);}
- if(!/<noscript>[\s\S]*<a href="\//.test(html))notes.push(path+': no crawlable links without JavaScript');
+ // Without JavaScript: one H1 and plain links to the five main pages, outside <noscript>.
+ const raw=html.replace(/<noscript>[\s\S]*?<\/noscript>/g,'');
+ if((raw.match(/<h1[\s>]/g)||[]).length!==1)fail('server HTML needs exactly one <h1>');
+ for(const page of ['about','projects','experience','skills','contact'])if(!raw.includes(`<a href="/${locale}/${page}/"`))fail(`no plain link to /${locale}/${page}/`);
 }));
 for(const [value,paths] of titles)if(paths.length>1)problems.push('duplicate title within one language "'+value+'" on '+paths.join(', '));
 for(const [value,paths] of descriptions)if(paths.length>1)notes.push('shared description on '+paths.length+' pages: '+paths.slice(0,3).join(', ')+(paths.length>3?'…':''));

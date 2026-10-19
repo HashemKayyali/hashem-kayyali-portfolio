@@ -1,9 +1,12 @@
 import React,{useRef} from 'react';
-import {ArrowDown,ArrowDownRight} from 'lucide-react';
+import {ArrowDown,ArrowDownRight,ArrowUpRight} from 'lucide-react';
 import {useI18n} from '../i18n/useI18n';
 import type {ExperienceCopy,ExperienceRoleCopy} from '../content/types';
 import {experienceAssets,RESUME_PDF,RESUME_DOCX} from '../data/profile';
 import CompactHero from './CompactHero';
+import {NavLink} from './PageShell';
+import {pageCopy} from './page-copy';
+import type {Navigate,PreviewRoute} from './routes';
 import {useExperienceJourneyMotion} from './experience-journey-motion';
 import './experience-journey.css';
 
@@ -26,7 +29,7 @@ function Role({role,entry}:{role:JourneyRole;entry:ExperienceCopy}) {
  </>;
 }
 
-export default function ExperienceJourney() {
+export default function ExperienceJourney({route,navigate}:{route:PreviewRoute;navigate:Navigate}) {
  const {t,locale}=useI18n();const root=useRef<HTMLElement>(null),entries=t.resume.experience;
  useExperienceJourneyMotion(root,locale);
  return <section ref={root} className="experience-journey" id="resume" aria-label={t.resume.journeyTitle} data-arrivals-owned="experience">
@@ -51,7 +54,7 @@ export default function ExperienceJourney() {
    </li>)}</ol>
    <aside className="journey-dossier" aria-labelledby="journey-education-title">
     <section className="journey-dossier-block journey-education" data-journey-reveal="education"><h2 id="journey-education-title">{t.resume.education.title}</h2><p className="journey-degree">{t.resume.education.degree}</p><p>{t.resume.education.university}</p><p className="journey-date">{t.resume.education.period}</p><p className="journey-graduated">{t.resume.education.status}</p></section>
-    <section className="journey-dossier-block journey-strengths" data-journey-reveal="strengths" aria-labelledby="journey-strengths-title"><h2 id="journey-strengths-title">{t.resume.coreStrengths.title}</h2><ul>{t.resume.coreStrengths.items.map(item=><li key={item}>{item}</li>)}</ul></section>
+    <section className="journey-dossier-block journey-strengths" data-journey-reveal="strengths" aria-labelledby="journey-strengths-title"><h2 id="journey-strengths-title">{t.resume.coreStrengths.title}</h2><ul>{t.resume.coreStrengths.items.map(item=><li key={item}>{item}</li>)}</ul><div className="journey-downloads">{(['skills','projects'] as const).map(page=><NavLink key={page} route={{...route,page}} navigate={navigate}>{pageCopy[locale].nav[page]}<ArrowUpRight size={17} aria-hidden="true"/></NavLink>)}</div></section>
     <section className="journey-dossier-block journey-resume" data-journey-reveal="downloads" aria-labelledby="journey-download-title"><h2 id="journey-download-title">{t.resume.downloadCard.title}</h2><p>{t.resume.downloadCard.copy}</p><p>{t.resume.downloadCard.availability}</p><div className="journey-downloads"><a href={RESUME_PDF} target="_blank" rel="noopener noreferrer">{t.resume.downloadCard.pdf}<ArrowDown size={17} aria-hidden="true"/></a><a href={RESUME_DOCX} download>{t.resume.downloadCard.word}<ArrowDown size={17} aria-hidden="true"/></a></div></section>
    </aside>
   </div>

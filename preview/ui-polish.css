@@ -48,8 +48,8 @@
  :root .light-portfolio .site-header #primary-navigation .nav-sheet-foot a:active{background:var(--surface);}
 }
 
-/* Footer contact link meets the 44px touch floor. */
-:root .light-portfolio .compact-footer>a{display:inline-flex;align-items:center;gap:6px;min-height:44px;}
+/* Footer links meet the 44px touch floor. */
+:root .light-portfolio .compact-footer>nav a{display:inline-flex;align-items:center;gap:6px;min-height:44px;}
 
 /* Home stack: the last card needs no trailing gap before the release tail. */
 :root .light-portfolio.luxury-portfolio.atelier-compact .pulse-scenes[data-stack=active] .pulse-scene:last-child{margin-block-end:0;}

@@ -72,7 +72,8 @@
 .contact-location {border-block-start:1px solid var(--line);padding-block-start:24px;margin-block-start:32px;font-size:12px;color:var(--muted);}
 .contact-location p {margin-block-start:13px;font-size:16px;color:var(--ink);}
 .compact-footer {display:flex;gap:24px;align-items:center;border-block-start:1px solid var(--line);min-height:85px;font-size:11px;color:var(--muted);}
-.compact-footer>a {margin-inline-start:auto;display:flex;gap:18px;color:var(--burgundy);padding-block:17px;}
+.compact-footer>nav {margin-inline-start:auto;display:flex;flex-wrap:wrap;column-gap:20px;}
+.compact-footer>nav a {display:flex;gap:6px;color:var(--burgundy);padding-block:17px;}
 .not-found {padding-block:90px;}.not-found h1 {font-size:44px;font-weight:450;margin-block:24px 35px;}
 html[dir=rtl] .page-intro h1,html[dir=rtl] .section-heading h1,html[dir=rtl] .home-invitation h2,html[dir=rtl] .projects-page .project-index-entry h3 {font-family:Tahoma,Arial,sans-serif;letter-spacing:0;}
 @media(max-width:1000px) {.site-header nav {gap:15px;}.site-header nav a {font-size:11px;}.home-about,.skill-group {gap:40px;}.home-bottom,.contact-page-grid {gap:45px;}}
@@ -105,6 +106,6 @@ html[dir=rtl] .page-intro h1,html[dir=rtl] .section-heading h1,html[dir=rtl] .ho
  .contact-page {padding-block-end:40px;}.contact-page .contact-field {inset-inline-end:-360px;opacity:.45;}
  .contact-form-region h2 {font-size:23px;}.contact-page-grid {gap:30px;}.direct-contact .contact-links a {font-size:11px;}
  .compact-footer {flex-wrap:wrap;gap:10px 20px;padding-block:18px;min-height:90px;}.compact-footer>span:nth-child(2) {font-size:10px;}
- .compact-footer>a {padding-block:10px;}
+ .compact-footer>nav {margin-inline-start:0;}.compact-footer>nav a {padding-block:10px;}
 }
-@media(max-width:360px) {.header-layout {gap:9px;}.navigation-toggle {gap:8px;font-size:10px;}.page-intro h1,.section-heading h1 {font-size:33px;}.compact-footer>a {margin-inline-start:0;}}
+@media(max-width:360px) {.header-layout {gap:9px;}.navigation-toggle {gap:8px;font-size:10px;}.page-intro h1,.section-heading h1 {font-size:33px;}.compact-footer>nav {margin-inline-start:0;}}

@@ -73,5 +73,5 @@ export function ContactLinks() {
 
 export function Footer({route,navigate}:{route:PreviewRoute;navigate:Navigate}) {
  const {t,locale}=useI18n();
- return <footer className="compact-footer container"><span>© {new Date().getFullYear()} {t.footer.copyrightName}</span><span>{t.identity.location}</span><NavLink route={{locale,page:'contact'}} navigate={navigate}>{pageCopy[locale].nav.contact}<span aria-hidden="true"><Glyph name="up-right"/></span></NavLink></footer>;
+ return <footer className="compact-footer container"><span>© {new Date().getFullYear()} {t.footer.copyrightName}</span><span>{t.identity.location}</span><nav aria-label={pageCopy[locale].siteIndex}>{CORE_PAGES.filter(page=>page!=='home').map(page=><NavLink key={page} route={{locale,page}} navigate={navigate} aria-current={(route.project?'projects':route.page)===page?'page':undefined}>{pageCopy[locale].nav[page]}{page==='contact'&&<span aria-hidden="true"><Glyph name="up-right"/></span>}</NavLink>)}</nav></footer>;
 }
