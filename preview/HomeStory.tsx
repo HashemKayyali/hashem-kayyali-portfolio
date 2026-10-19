@@ -9,13 +9,6 @@ import {pageCopy} from './page-copy';
 import {homeStoryCopy} from './home-story-copy';
 import {useHomeStoryMotion} from './home-story-motion';
 import type {Navigate,PreviewRoute} from './routes';
-import {cdnImage,localFallback} from './static-media';
-
-/** Process art: Cloudinary (eco, gate-approved) when enabled, otherwise the local 640/1280 files. */
-function ProcessImage({image}:{image:(typeof processIllustrations)[number]}){
- const local=`${image.small} 640w, ${image.src} 1280w`,cdn=cdnImage([image.small,image.src],image.src);
- return <img src={cdn?.src??image.src} srcSet={cdn?.srcSet??local} onError={cdn?localFallback(image.src,local):undefined} sizes="(max-width:800px) 30vw, 540px" width={image.width} height={image.height} loading="lazy" decoding="async" alt=""/>;
-}
 const icons=[ScanSearch,Network,IterationCw];
 export default function HomeStory({route,navigate}:{route:PreviewRoute;navigate:Navigate}){
  const {t,locale}=useI18n(),copy=homeStoryCopy[locale],home=engineeringHomeCopy[locale],labels=pageCopy[locale];
@@ -24,7 +17,7 @@ export default function HomeStory({route,navigate}:{route:PreviewRoute;navigate:
   <section className="story-method" id="vision-approach" aria-labelledby="story-method-title"><div className="vision-canvas">
    <header className="story-heading"><div><span className="pulse-kicker">02 / {home.approach}</span><h2 id="story-method-title">{copy.title}</h2></div><p>{t.hero.supporting}</p></header>
    <div className="story-method-layout"><div className="story-chapters"><span className="story-spine" aria-hidden="true"><i/></span>{copy.steps.map((step,index)=>{const Icon=icons[index];return <article key={index} className="story-chapter" data-story-chapter={index} aria-labelledby={`story-step-${index}`}><span className="story-step-number" aria-hidden="true">0{index+1}</span><div className="story-chapter-content"><div className="story-step-label"><Icon size={18} strokeWidth={1.4} aria-hidden="true"/><span>{step.tag}</span></div><h3 id={`story-step-${index}`}>{step.title}</h3><p>{step.body}</p></div></article>;})}</div>
-    <div className="story-visual" aria-hidden="true"><div className="story-board"><div className="story-board-heading"><span>{t.about.engineeringFocusTitle}</span><span className="story-board-counter" dir="ltr">01—03</span></div><div className="story-evidence">{processIllustrations.map((image,i)=><figure key={image.src} className="story-sheet" data-story-sheet={i}><div className="story-sheet-top"><span>0{i+1}</span><span>{copy.steps[i].title}</span></div><div className="story-sheet-image"><ProcessImage image={image}/></div><figcaption><span>{copy.steps[i].tag}</span></figcaption></figure>)}</div><div className="story-board-meter"><i/></div><div className="story-board-footer">{t.about.engineeringFocus.slice(0,3).map(focus=><span key={focus}>{focus}</span>)}</div></div></div>
+    <div className="story-visual" aria-hidden="true"><div className="story-board"><div className="story-board-heading"><span>{t.about.engineeringFocusTitle}</span><span className="story-board-counter" dir="ltr">01—03</span></div><div className="story-evidence">{processIllustrations.map((image,i)=><figure key={image.src} className="story-sheet" data-story-sheet={i}><div className="story-sheet-top"><span>0{i+1}</span><span>{copy.steps[i].title}</span></div><div className="story-sheet-image"><img src={image.src} srcSet={`${image.small} 640w, ${image.src} 1280w`} sizes="(max-width:800px) 30vw, 540px" width={image.width} height={image.height} loading="lazy" decoding="async" alt=""/></div><figcaption><span>{copy.steps[i].tag}</span></figcaption></figure>)}</div><div className="story-board-meter"><i/></div><div className="story-board-footer">{t.about.engineeringFocus.slice(0,3).map(focus=><span key={focus}>{focus}</span>)}</div></div></div>
    </div><div className="story-method-foot"><NavLink className="pulse-text-link" route={{...route,page:'about',project:undefined}} navigate={navigate}>{labels.readMore}<ArrowUpRight size={18} aria-hidden="true"/></NavLink><span>{t.about.focusValue}</span></div>
   </div></section>
   <section className="story-career vision-canvas" id="vision-person" aria-labelledby="story-career-title"><header className="story-heading"><div><span className="pulse-kicker">03 / {labels.nav.experience}</span><h2 id="story-career-title">{copy.career}</h2></div><NavLink className="pulse-text-link" route={{...route,page:'experience',project:undefined}} navigate={navigate}>{t.resume.journeyTitle}<ArrowUpRight size={18} aria-hidden="true"/></NavLink></header>

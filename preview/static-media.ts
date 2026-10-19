@@ -1,6 +1,6 @@
 import type React from 'react';
 import {STATIC_MEDIA} from './cloudinary-static';
-import {staticAttributes} from './cloudinary-delivery';
+import {cdnRoutable,staticAttributes} from './cloudinary-delivery';
 
 /** Build-time switch (not a secret). Off: every image keeps its local path exactly as before. */
 const enabled=import.meta.env.VITE_MEDIA_CDN==='cloudinary';
@@ -10,7 +10,7 @@ const enabled=import.meta.env.VITE_MEDIA_CDN==='cloudinary';
  * (flag off, or any candidate not verified on Cloudinary) so the caller renders its local markup.
  */
 export function cdnImage(candidates:string[],src:string){
- if(!enabled)return undefined;
+ if(!enabled||![src,...candidates].every(cdnRoutable))return undefined;
  const entries=candidates.map(path=>STATIC_MEDIA[path]),source=STATIC_MEDIA[src];
  if(!source||entries.some(entry=>!entry))return undefined;
  return staticAttributes(entries.map(entry=>entry!),source);

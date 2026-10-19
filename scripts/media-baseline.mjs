@@ -6,6 +6,7 @@ import {spawn} from 'node:child_process';
 import {mkdirSync,writeFileSync,existsSync,rmSync} from 'node:fs';
 import {dirname,resolve} from 'node:path';
 import {tmpdir} from 'node:os';
+import {projectAssets} from '../data/projectAssets.ts';
 
 const args=process.argv.slice(2),flags=Object.fromEntries(args.filter(a=>a.startsWith('--')).map(a=>a.slice(2).split('=')));
 const [originArg,outArg]=args.filter(a=>!a.startsWith('--'));
@@ -68,9 +69,10 @@ async function scenario(name,viewport,steps){
  const ctx={page,evaluate,idle,requests,origin,
   async goto(path){page.phase??=path;const t=Date.now();const loaded=new Promise(r=>{const off=page.on(m=>{if(m.method==='Page.loadEventFired'){off();r();}});});await page.send('Page.navigate',{url:origin+path});await loaded;const load=Date.now()-t;await idle();return {load};},
   async click(selector){const box=await evaluate(`(()=>{const e=document.querySelector(${JSON.stringify(selector)});if(!e)return null;e.scrollIntoView({block:'center',behavior:'instant'});const r=e.getBoundingClientRect();return {x:r.left+r.width/2,y:r.top+r.height/2};})()`);if(!box)throw new Error('missing '+selector);await sleep(400);
-   for(const type of ['mouseMoved','mousePressed','mouseReleased'])await page.send('Input.dispatchMouseEvent',{type,x:box.x,y:box.y,button:'left',clickCount:1});},
+   const hit=await evaluate(`(()=>{const e=document.querySelector(${JSON.stringify(selector)}),h=document.elementFromPoint(${box.x},${box.y}),r=e?.getBoundingClientRect();return {inside:!!(e&&h&&e.contains(h)),hit:h?(h.tagName+'.'+String(h.className).slice(0,50)):null,targetY:r?Math.round(r.top):null,scrollY:Math.round(scrollY),readyState:document.readyState}})()`);
+   for(const type of ['mouseMoved','mousePressed','mouseReleased'])await page.send('Input.dispatchMouseEvent',{type,x:box.x,y:box.y,button:'left',clickCount:1});return hit;},
   async scrollThrough(){page.phase+=' (scroll)';const h=await evaluate('document.documentElement.scrollHeight');for(let y=0;y<h;y+=vp.height*0.8){await evaluate(`scrollTo(0,${y})`);await sleep(350);}await idle(1200);},
-  snapshot:async label=>{const perf=await evaluate('window.__perf');const images=await evaluate(imageAudit);result.steps.push({label,lcp:perf?.lcp.at(-1)??null,cls:+(perf?.cls??0).toFixed(4),longTasks:perf?.long.length??0,longTaskMs:(perf?.long??[]).reduce((s,e)=>s+e.d,0),images});},
+  snapshot:async label=>{const perf=await evaluate('window.__perf');const images=await evaluate(imageAudit);const broken=await evaluate("[...document.images].filter(i=>i.complete&&i.currentSrc&&!i.naturalWidth).map(i=>i.currentSrc.replace(location.origin,''))");result.steps.push({label,broken,lcp:perf?.lcp.at(-1)??null,cls:+(perf?.cls??0).toFixed(4),longTasks:perf?.long.length??0,longTaskMs:(perf?.long??[]).reduce((s,e)=>s+e.d,0),images});},
  };
  try{await steps(ctx);}catch(error){result.error=String(error.message||error);}
  await new Promise(r=>{tracingDone=r;page.send('Tracing.end');});
@@ -88,21 +90,25 @@ async function scenario(name,viewport,steps){
 }
 
 const firstCard='.app-collection-visual a.app-cover';
+const stepGallery=async c=>{for(let i=0;i<12;i++){const next=await c.evaluate("(()=>{const b=[...document.querySelectorAll('button')].find(b=>/next/i.test(b.getAttribute('aria-label')||''));if(!b||b.disabled)return false;b.scrollIntoView({block:'center',behavior:'instant'});b.click();return true;})()");if(!next)break;await c.idle(700,8000);}};
 const scenarios=[
+ // Every case study: load, scroll, step through the whole gallery. Checks routing, broken images and privacy.
+ ['routing','all 11 case studies',async c=>{for(const a of projectAssets){c.page.phase=a.id;await c.goto(`/en/projects/${a.id}/`);await c.scrollThrough();await stepGallery(c);await c.snapshot(a.id);}}],
  ['home','/en/',async c=>{c.page.phase='home';const {load}=await c.goto('/en/');await c.snapshot('home loaded');c.loadMs=load;await c.scrollThrough();await c.snapshot('home scrolled');}],
  ['projects','/en/projects/',async c=>{c.page.phase='projects';await c.goto('/en/projects/');await c.snapshot('projects loaded');await c.scrollThrough();await c.snapshot('projects scrolled');}],
  ['case-direct','/en/projects/eventies/',async c=>{c.page.phase='case';await c.goto('/en/projects/eventies/');await c.snapshot('case loaded');await c.scrollThrough();await c.snapshot('case scrolled');}],
- ['case-gallery','/en/projects/glitzz-lab/',async c=>{c.page.phase='case';await c.goto('/en/projects/glitzz-lab/');const has=await c.evaluate("!!document.querySelector('.evidence-slide')");if(has){await c.evaluate("document.querySelector('.evidence-slide').scrollIntoView({block:'center',behavior:'instant'})");await c.idle(1200);c.page.phase='gallery next';for(let i=0;i<4;i++){const next=await c.evaluate("(()=>{const b=[...document.querySelectorAll('button')].find(b=>/next/i.test(b.getAttribute('aria-label')||''));if(!b||b.disabled)return false;b.click();return true;})()");if(!next)break;await c.idle(800,8000);}}await c.snapshot('gallery stepped');}],
- ['flight','/en/projects/ → case',async c=>{c.page.phase='projects';await c.goto('/en/projects/');c.page.phase='flight';const before=c.requests.size;const t=Date.now();await c.click(firstCard);
+ ['case-gallery','/en/projects/glitzz-lab/',async c=>{c.page.phase='case';await c.goto('/en/projects/glitzz-lab/');const has=await c.evaluate("!!document.querySelector('.evidence-slide')");if(has){c.galleryReady=await c.evaluate("(async()=>{const t=performance.now();document.querySelector('.evidence-slide').scrollIntoView({block:'center',behavior:'instant'});const imgs=[...document.querySelectorAll('.evidence-slide img')],ready=i=>i.decode().then(()=>Math.round(performance.now()-t),()=>null),cap=new Promise(r=>setTimeout(()=>r(null),15000));const first=await Promise.race([ready(imgs[0]),cap]);const all=await Promise.race([Promise.all(imgs.map(ready)).then(v=>Math.max(...v)),cap]);return {firstMs:first,allMs:all,slides:imgs.length};})()");await c.idle(1200);c.page.phase='gallery next';for(let i=0;i<4;i++){const next=await c.evaluate("(()=>{const b=[...document.querySelectorAll('button')].find(b=>/next/i.test(b.getAttribute('aria-label')||''));if(!b||b.disabled)return false;b.click();return true;})()");if(!next)break;await c.idle(800,8000);}}await c.snapshot('gallery stepped');}],
+ ['flight','/en/projects/ → case',async c=>{c.page.phase='projects';await c.goto('/en/projects/');c.page.phase='flight';const before=c.requests.size;const t=Date.now();const click=await c.click(firstCard);
   let ready=null,transitSeen=false;for(let i=0;i<200;i++){const s=await c.evaluate("({path:location.pathname,transit:!!document.querySelector('.project-transit-image'),img:(()=>{const i=document.querySelector('.case-opening-visual img');return i?{done:i.complete&&i.naturalWidth>0,src:(i.currentSrc||i.src).replace(location.origin,''),natural:i.naturalWidth,width:Math.round(i.getBoundingClientRect().width)}:null})()})");transitSeen||=s.transit;if(s.path.includes('/projects/')&&s.path.split('/').length>4&&!s.transit&&s.img?.done){ready={ms:Date.now()-t,...s.img};break;}await sleep(50);}
-  await c.idle(1000);await c.snapshot('after flight');c.flight={readyMs:ready?.ms??null,transitSeen,destination:ready,requestsDuringNav:c.requests.size-before};}],
+  await c.idle(1000);await c.snapshot('after flight');c.flight={readyMs:ready?.ms??null,click,finalPath:await c.evaluate('location.pathname'),transitSeen,destination:ready,requestsDuringNav:c.requests.size-before};}],
  ['gallery','/en/gallery/',async c=>{c.page.phase='gallery';await c.goto('/en/gallery/');await c.snapshot('gallery');}],
  ['journal','/en/journal/',async c=>{c.page.phase='journal';await c.goto('/en/journal/');await c.snapshot('journal');}],
+ ['case-warm','/en/projects/eventies/ twice',async c=>{c.page.phase='cold';await c.goto('/en/projects/eventies/');await c.scrollThrough();c.page.phase='warm reload';await c.goto('/en/projects/eventies/');await c.snapshot('warm');}],
  ['warm-repeat','/en/projects/ twice',async c=>{c.page.phase='cold';await c.goto('/en/projects/');c.page.phase='warm reload';await c.goto('/en/projects/');await c.snapshot('warm');}],
 ];
 const only=flags.only?.split(',');const report={origin,network,conditions:NETWORKS[network],chrome:browserInfo.Browser,measuredAt:new Date().toISOString(),runs,results:[]};
-for(let run=0;run<runs;run++)for(const viewport of Object.keys(VIEWPORTS))for(const [name,path,steps] of scenarios){if(only&&!only.includes(name))continue;
- let extra={};const r=await scenario(name,viewport,async ctx=>{await steps(ctx);extra={loadMs:ctx.loadMs,flight:ctx.flight};});Object.assign(r,{path,run},extra);report.results.push(r);
- const s=r.steps[0];console.log(`${viewport.padEnd(13)} ${name.padEnd(13)} LCP ${String(s?.lcp?.t??'-').padStart(5)}ms  img ${String(r.imageRequests.network).padStart(3)} req ${(r.imageRequests.bytes/1024).toFixed(0).padStart(6)} KB  decode ${r.decode.totalMs}ms/${r.decode.count}  CLS ${s?.cls??'-'}${r.flight?`  flight ready ${r.flight.readyMs}ms`:''}${r.error?'  ERROR '+r.error:''}`);}
+for(let run=0;run<runs;run++)for(const viewport of Object.keys(VIEWPORTS).filter(v=>!flags.viewports||flags.viewports.split(",").includes(v)))for(const [name,path,steps] of scenarios){if(only&&!only.includes(name))continue;
+ let extra={};const r=await scenario(name,viewport,async ctx=>{await steps(ctx);extra={loadMs:ctx.loadMs,flight:ctx.flight,galleryReady:ctx.galleryReady};});Object.assign(r,{path,run},extra);report.results.push(r);
+ const s=r.steps[0];console.log(`${viewport.padEnd(13)} ${name.padEnd(13)} LCP ${String(s?.lcp?.t??'-').padStart(5)}ms  img ${String(r.imageRequests.network).padStart(3)} req ${(r.imageRequests.bytes/1024).toFixed(0).padStart(6)} KB  decode ${r.decode.totalMs}ms/${r.decode.count}  CLS ${s?.cls??'-'}${r.flight?`  flight ready ${r.flight.readyMs}ms`:''}${r.galleryReady?`  gallery first ${r.galleryReady.firstMs}ms all ${r.galleryReady.allMs}ms`:''}${r.error?'  ERROR '+r.error:''}`);}
 chrome.kill();await sleep(500);try{rmSync(profile,{recursive:true,force:true});}catch{}
 mkdirSync(dirname(output),{recursive:true});writeFileSync(output,JSON.stringify(report,null,1)+'\n');console.log('Saved',output);

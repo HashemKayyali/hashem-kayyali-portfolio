@@ -1,6 +1,6 @@
 import {gsap} from 'gsap';
 import {projectAssets} from '../data/projectAssets';import type {ProjectId} from '../content/types';
-import {safeSource,storySources,CASE_OPENING_SIZES} from './StoryMedia';import type {PreviewRoute} from './routes';import {previewUrl} from './routes';
+import {safeSource} from './StoryMedia';import type {PreviewRoute} from './routes';import {previewUrl} from './routes';
 import {galleryMemory} from './gallery-memory';
 import {getStudioProjectCover} from './studio-media-registry';
 type Intent={source:HTMLImageElement;destination:PreviewRoute;origin?:ProjectId};
@@ -11,13 +11,9 @@ export const projectVisualInFlight=()=>Boolean(document.querySelector('.project-
 const decoded=new Map<string,Promise<HTMLImageElement|undefined>>();
 export function preloadProjectImage(id:ProjectId){
  const asset=projectAssets.find(a=>a.id===id);if(!asset)return Promise.resolve(undefined);
- const studio=getStudioProjectCover(id)?.url,cdn=studio?undefined:storySources(asset.image).cdn;
- const source=studio??cdn?.src??safeSource(asset.image),key=id+':'+source;
+ const source=getStudioProjectCover(id)?.url??safeSource(asset.image),key=id+':'+source;
  if(decoded.has(key))return decoded.get(key)!;
- const image=new Image();image.decoding='async';
- // Cloudinary: same srcset and sizes as the case opening, so the browser warms the exact candidate it will show.
- if(cdn?.srcSet){image.sizes=CASE_OPENING_SIZES;image.srcset=cdn.srcSet;}
- image.src=source;
+ const image=new Image();image.decoding='async';image.src=source;
  const result=image.decode().then(()=>image,()=>undefined);decoded.set(key,result);
  if(decoded.size>4)decoded.delete(decoded.keys().next().value!);return result;
 }

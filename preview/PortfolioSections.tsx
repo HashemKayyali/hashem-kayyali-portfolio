@@ -16,7 +16,6 @@ import {pageCopy} from './page-copy';
 import {useFeaturedMotion} from './motion';
 import {getStudioProjectCover,studioProjectAlt} from './studio-media-registry';
 import {cloudinarySrcSet,cloudinaryUrl} from './cloudinary-delivery';
-import {cdnImage,localFallback} from './static-media';
 
 const Arrow = () => <span className="arrow" aria-hidden="true"><Glyph name="up-right"/></span>;
 const Index = ({ children }: { children: React.ReactNode }) => <span className="index" dir="ltr">{children}</span>;
@@ -31,13 +30,8 @@ export function ProductImage({ asset, full = false, eager = false, sizes = '(max
   const thumbs = supplied ? asset.image.replace(/\.webp$/, '') : `/projects/${asset.dir}/card-cover-thumb`;
   const source = full || !raster ? asset.image : `${thumbs}-640.webp`;
   const size = dimensions[source];
-  const candidates = raster ? [`${thumbs}-320.webp`, `${thumbs}-640.webp`, ...(supplied ? [`${thumbs}-960.webp`] : []), asset.image] : [];
-  const localSrcSet = raster ? candidates.map(url => `${url} ${dimensions[url].width}w`).join(', ') : undefined;
-  // Same candidates and default from Cloudinary when enabled; a failed request falls back to these local files once.
-  const cdn = raster ? cdnImage(candidates, source) : undefined;
-  return <img src={cdn?.src ?? source} width={size.width} height={size.height}
-    srcSet={cdn?.srcSet ?? localSrcSet}
-    onError={cdn ? localFallback(source, localSrcSet) : undefined}
+  return <img src={source} width={size.width} height={size.height}
+    srcSet={raster ? [`${thumbs}-320.webp`, `${thumbs}-640.webp`, ...(supplied ? [`${thumbs}-960.webp`] : []), asset.image].map(url => `${url} ${dimensions[url].width}w`).join(', ') : undefined}
     sizes={sizes}
     loading={eager ? 'eager' : 'lazy'} decoding="async"
     fetchPriority={eager?'high':undefined}

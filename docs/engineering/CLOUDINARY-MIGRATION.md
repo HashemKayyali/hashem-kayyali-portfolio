@@ -367,3 +367,102 @@ All other assets (screenshots, UI covers) are on `q_auto` by policy. Result: **4
 - **A. Scope Cloudinary to case-study media only** (`StoryMedia` and the flight preload). Cards, Home and process art return to local files. This keeps the measured wins (−33…−38 % bytes, −28…−65 % decode) and avoids the neutral-or-worse places. Then measure on a Vercel **preview** under real network before production. *Recommended*, but it needs your OK for the preview deployment.
 - **B. Keep everything as built and verify on a preview deployment.** The localhost bias may hide a real-world win for cards and Home, but the decode and LCP costs above are the risk.
 - **C. No CDN for static media:** generate local 800/1200 WebP variants for screenshots and covers instead. That captures most of the byte and decode win with no new origin, but loses q_auto, eco and versioned CDN caching. The uploaded assets stay harmless and unused.
+
+## 12. Hybrid rollout (approved direction, 19 Oct 2026)
+
+**Rule.** Cloudinary serves **only the additional case-gallery screenshots**. Everything above the fold, every LCP candidate, every cover and the whole image flight stay on the local files.
+
+The rule is enforced in two places:
+1. The caller must opt in: only `CaseMediaGallery` passes `cdn` to `StoryMedia`.
+2. `cdnRoutable()` in `preview/cloudinary-delivery.ts` only accepts `/projects/<project>/screenshot-NN.webp`, so a cover can never route to Cloudinary, even by mistake.
+
+The flag (`VITE_MEDIA_CDN=cloudinary`) and its rollback are unchanged; with the flag off the build contains no Cloudinary code.
+
+### Asset routing (flag on)
+
+| Image | Where it renders | Delivery |
+| --- | --- | --- |
+| Project covers (`/covers/*`, Basket Beats and Bike Tower `cover.webp`) | cards, Home scenes, Projects page, case opening, gallery slide 1, flight source/preload/destination | **local** |
+| Card crops (`card-cover-thumb-*`) | cards | **local** |
+| Process illustrations | Home story | **local** |
+| Experience logos, LCP portrait, favicons, Sterling OG card, brand, icons, smoke/shader stills | site-wide | **local** |
+| Redacted derivatives (`/v2-media/terminal-*`, `bike-interface-*`) | Terminal NFC, Bike Tower galleries | **local** (never uploaded) |
+| Eventies `screenshot-01…04` | Eventies case gallery and its thumbnails | **Cloudinary** `f_webp,q_auto`, width ladder |
+| Glitzz Lab `screenshot-01…05` | Glitzz Lab case gallery and its thumbnails | **Cloudinary** `f_webp,q_auto` |
+| Bike-Land `screenshot-01` | Bike-Land case gallery and its thumbnail | **Cloudinary** `f_webp,q_auto` |
+| Withheld raw files (Umniah, Terminal NFC, Bike Tower 01–04, Glitzz 06–07) | nowhere (built out, 404) | never requested |
+
+The other 16 verified uploads (covers, card crops, process art) stay on Cloudinary unused. They are harmless, and they let a later step move more media to Cloudinary if measurements justify it.
+
+### Thumbnail correction
+
+- **Before:** the filmstrip used `sizes="100px"` while its slide used `(max-width:800px) 90vw, 1050px`, so the browser picked a different file for the thumbnail. On `main` today that means an extra local cover `-320` request. With the first Cloudinary build it meant an extra `w_320` per screenshot.
+- **Now:** thumbnails use the slide's `sizes`, so the browser selects the identical candidate and serves it from cache. That is one download per image, and no thumbnail ever fetches anything the gallery doesn't already load.
+  - The gallery decodes every slide on approach (existing behaviour, unchanged), so this adds no bytes and no earlier requests.
+  - Variant B (thumbnails with their own 320 px renditions) was measured for comparison (below).
+
+### Git safety record
+
+- **Checkpoint 1 (file archive):** all 20 Cloudinary-owned files (`cloudinary-checkpoint-20261019.tar`, outside the repository), with per-file SHA-256. It was extracted to a separate folder and verified byte-identical.
+- **Checkpoint 2 (git):** commit `eec2eeb` on `feature/cloudinary-media`, tagged `checkpoint/cloudinary-pre-rebase-20261019` (local tag).
+- **Rebase:** only after the worktree was clean, onto `main` = `49a355a` (phone scrolling), with no conflicts.
+  - Main's 5 files were byte-identical to `main` afterwards, and the Cloudinary changes were byte-identical to the checkpoint.
+  - `49a355a` is an ancestor of the branch.
+- **Main checkout:** never touched. Its 13 uncommitted SEO/Sitelinks entries are unchanged.
+- **Baseline:** a separate temporary detached worktree at `main` (`.worktrees/baseline-main`) is built and measured only as the unchanged local baseline.
+
+### Privacy and routing verification (flag on, all 11 projects, mobile 390 and laptop 1366)
+
+`scripts/media-baseline.mjs --only=routing` loads every case study, scrolls it and steps through every gallery slide. Results:
+
+- **Cloudinary requests:** only Eventies 01–04, Glitzz 01–05 and Bike-Land 01; the other 8 projects request nothing from Cloudinary.
+- **Covers:** all local.
+- **Errors and privacy:** 0 HTTP errors, 0 broken images, 0 withheld paths requested, 0 redacted public IDs.
+- **Duplicates:** **0 images fetched more than once within a page** (including the same image at two widths).
+
+### Final interleaved comparison (bounded: 3 rounds, rotated order, all three builds served at once)
+
+Conditions: local `vite preview`, headless Chrome 155, 9 Mbit/s and 40 ms RTT; mobile 390 px (DPR 3, 4× CPU) and desktop 1920 px. Values are the median of 3, with the range in brackets. Raw data: `output/media-baseline/interleave/`.
+
+- **Baseline:** pristine `main` `49a355a`, all local.
+- **A:** Hybrid, with thumbnails reusing the slide file.
+- **B:** Hybrid, with thumbnails getting their own 320 px renditions.
+
+| | Baseline | **Hybrid A** | Variant B |
+| --- | --- | --- | --- |
+| Case page, mobile: bytes / requests | 1341 KB / 9 | **986 KB / 8 (−26 %)** | 1056 KB / 13 |
+| Case page, mobile: decode | 1165 ms (1041–1387) | **873 ms (777–1134)** | 587 ms (566–1012) |
+| Case page, desktop: bytes / decode | 1083 KB / 1475 ms | **727 KB (−33 %) / 479 ms** | 771 KB / 464 ms |
+| Case page LCP, mobile / desktop | 2076 / 872 ms | 2100 / 732 ms | 2044 / 788 ms |
+| Gallery, all slides decoded after entering view, mobile | 867 ms (849–944) | **510 ms (481–666)** | 836 ms (638–1775) |
+| Gallery, all slides decoded, desktop | 802 ms (760–814) | **509 ms (429–532)** | 683 ms (466–5158) |
+| Gallery bytes, mobile / desktop | 1223 / 1025 KB | **842 / 644 KB (−31 % / −37 %)** | 893 / 706 KB |
+| Warm reload of a case page: bytes / LCP, mobile | 1 KB / 1336 ms | **0 KB / 976 ms** | 1 KB / 1208 ms |
+| Flight ready, mobile / desktop | 2557 / 1725 ms | 2696 / 1614 ms | n/a |
+| Flight trials completed | 6/6 | **6/6** | n/a |
+| Home (code identical in all builds): LCP, mobile | 2352 ms (2288–2800) | 2528 ms (2404–2676) | n/a |
+
+**Decision: thumbnail variant A.**
+- B saves about 200–300 ms of *total* decode, because its thumbnails decode small files. But it costs 5 extra requests and 50–70 KB.
+- Those extra requests compete with the slides for bandwidth, so B's gallery takes 836 vs 510 ms (mobile) and 683 vs 509 ms (desktop) to be fully ready. That is what a visitor waits for when swiping.
+- A is better on the visitor-facing metric and on bytes. Its extra decode work runs asynchronously (`decoding="async"`).
+
+**Real improvements:** these are deterministic or consistent across every run.
+- Case-page image bytes −26 % (mobile) and −33 % (desktop); case-gallery bytes −31 % and −37 %; one fewer request per case page (the local cover thumbnail duplicate is gone).
+- Image decode on case pages −25 % (mobile) and −68 % (desktop); gallery fully ready −41 % (mobile) and −37 % (desktop).
+- Warm reload transfers 0 image bytes.
+
+**Measurement noise (not attributable to the hybrid):**
+- Home LCP and Home decode: the code and bytes are identical in all builds, yet the medians move ±7–10 %.
+- Case-page LCP: the LCP element is text or the **local** cover in all builds, so the differences fall inside the run ranges.
+- Flight readiness: mobile +5 % and desktop −6 %; the medians fall inside each other's ranges, and the flight code is identical to `main`.
+- Desktop Home "433 vs 548 KB": identical URLs. The baseline tool recorded 0 bytes for some responses, a tooling quirk that undercounts baseline bytes.
+
+**Remaining regressions:** none measured beyond noise.
+- Trade-off accepted with A: thumbnails decode slide-size files (about 290 ms more total decode than B on mobile, asynchronously).
+- The earlier failed mobile flight trial did not reproduce: 12/12 with click diagnostics, and the click always landed on the card image.
+
+**Still unverified (needs the Vercel Preview benchmark):**
+- real-network latency to Cloudinary versus Vercel's edge;
+- cold Cloudinary derivatives on first request;
+- real phones.

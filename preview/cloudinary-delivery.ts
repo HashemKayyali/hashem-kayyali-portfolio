@@ -29,6 +29,10 @@ export function cloudinarySrcSet(url:string,originalWidth:number,quality:Cloudin
  return [...widths,Math.min(originalWidth,2400)].map(width=>`${cloudinaryUrl(url,width,quality,format)} ${width}w`).join(', ');
 }
 
+/** Hybrid routing: only case-gallery screenshots use Cloudinary. Covers (opening and slide 1), cards, the flight,
+ * process art, branding and every LCP image stay local until Cloudinary is measured at least as fast for them. */
+export const cdnRoutable=(path:string)=>/^\/projects\/[a-z0-9-]+\/screenshot-\d{2}\.webp$/.test(path);
+
 export interface StaticCandidate {url:string;width:number;quality:CloudinaryQuality;variantWidth:number}
 /**
  * The same image a local <img> would show, delivered from Cloudinary. One source image gets the full

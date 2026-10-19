@@ -25,3 +25,6 @@ test('eco quality is opt-in and static images keep their local composition',asyn
  assert.match(one.src,/\/f_webp,q_auto,c_limit,w_640\//);assert.ok(!one.srcSet.includes('f_auto'));assert.match(one.srcSet,/w_640\/.* 640w, .*w_960\/.* 960w/);
  assert.ok(mixed.srcSet.split(', ').every(c=>c.includes('/f_webp,')));
  assert.equal(mixed.srcSet.split(', ').length,3);assert.match(mixed.srcSet,/card-cover\.webp 320w, .*card-cover\.webp 640w, .*q_auto:eco,c_limit,w_1331\/v7\/.*cover\.webp 1331w$/);});
+test('hybrid routing: only case-gallery screenshots may use Cloudinary',async()=>{const {cdnRoutable}=await load();
+ for(const path of ['/projects/eventies/screenshot-01.webp','/projects/glitzz-lab/screenshot-05.webp','/projects/bike-land-smart-cycling-trainer/screenshot-01.webp'])assert.ok(cdnRoutable(path),path);
+ for(const path of ['/covers/eventies.webp','/covers/eventies-640.webp','/projects/bike-tower/cover.webp','/projects/basket-beats/card-cover-thumb-640.webp','/projects/eventies/thumbs/screenshot-02.webp','/engineering-process/01-context.webp','/v2-media/terminal-invoices-1586.webp','/images/hashem-profile.webp','/og-image-sterling.png'])assert.ok(!cdnRoutable(path),path);});
