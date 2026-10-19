@@ -2,8 +2,9 @@ import type React from 'react';
 import {STATIC_MEDIA} from './cloudinary-static';
 import {cdnRoutable,staticAttributes} from './cloudinary-delivery';
 
-/** Build-time switch (not a secret). Off: every image keeps its local path exactly as before. */
-const enabled=import.meta.env.VITE_MEDIA_CDN==='cloudinary';
+/** Build-time switch (not a secret). On by default for the measured hybrid (case-gallery screenshots only).
+ * Rollback: VITE_MEDIA_CDN=local → every image keeps its local path exactly as before, with no CDN code bundled. */
+const enabled=(import.meta.env.VITE_MEDIA_CDN??'cloudinary')==='cloudinary';
 
 /**
  * Cloudinary src/srcSet for an image whose local markup uses these candidate paths, or undefined

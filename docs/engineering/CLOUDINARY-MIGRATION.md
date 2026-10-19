@@ -466,3 +466,21 @@ Conditions: local `vite preview`, headless Chrome 155, 9 Mbit/s and 40 ms RTT; m
 - real-network latency to Cloudinary versus Vercel's edge;
 - cold Cloudinary derivatives on first request;
 - real phones.
+
+## 13. Release (owner delegated the overnight release, 19–20 Oct 2026)
+
+**Real-network check** (from Amman, one gallery screenshot, 6 requests each):
+
+| | Bytes | Time to load |
+| --- | --- | --- |
+| Production today: local file via the Vercel edge | 162.6 KB | 130 ms (cache hit), 600–670 ms (cache miss) |
+| Cloudinary `f_webp,q_auto,w_1200` | 65.9 KB | 136 ms on the first request, then **~20 ms** |
+
+- **Pre-warm:** all 79 derivative URLs the galleries can request (10 screenshots × their width ladder) were requested once beforehand, so no visitor waits for first-time generation. All 79 returned WebP.
+- **Vercel Previews** (protected, target Preview): Hybrid OFF `hashem-kayyali-portfolio-6zgsk5hjs-hashem11.vercel.app`, Hybrid ON `hashem-kayyali-portfolio-ezbpdt2m1-hashem11.vercel.app`.
+  - Checked via `vercel curl`: the OFF bundle has 0 Cloudinary references; the ON bundle references the 26 approved IDs and 0 redacted ones; withheld raw files return the 404 page.
+  - A browser benchmark on the previews needs a Protection Bypass secret, which was not configured. Protection stayed on.
+
+**Default:** gallery screenshots use Cloudinary unless `VITE_MEDIA_CDN=local` is set. Setting `local` builds a site with no Cloudinary code (verified).
+
+**Rollback:** in Vercel → Environment Variables (Production), set `VITE_MEDIA_CDN=local` and redeploy, or revert the merge commit. Local originals are untouched.
