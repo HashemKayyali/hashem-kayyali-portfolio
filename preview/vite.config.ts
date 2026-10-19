@@ -26,9 +26,12 @@ const routePages=(builtShells:boolean)=>(request:any,response:any,next:()=>void)
 };
 const previewRoutes={name:'light-burgundy-page-routes',configureServer(server:any){server.middlewares.use(routePages(false));},configurePreviewServer(server:any){server.middlewares.use(routePages(true));}};
 
+// With VITE_MEDIA_CDN=cloudinary, open the image CDN connection early; with it off, the HTML is unchanged.
+const mediaCdn=(env:Record<string,string|undefined>)=>({name:'media-cdn-preconnect',transformIndexHtml:(html:string)=>env.VITE_MEDIA_CDN==='cloudinary'?html.replace('</head>','<link rel="preconnect" href="https://res.cloudinary.com">\n</head>'):html});
+
 export default defineConfig(({mode})=>({
   root,
-  plugins: [react(),safeMedia,studioApiPlugin({...loadEnv(mode,root,''),...process.env}),previewRoutes],
+  plugins: [react(),safeMedia,studioApiPlugin({...loadEnv(mode,root,''),...process.env}),previewRoutes,mediaCdn({...loadEnv(mode,root,'VITE_'),...process.env})],
   server: { host: '127.0.0.1', port: 5176, strictPort: true },
   preview: { host: '127.0.0.1', port: 4176, strictPort: true },
   build: { outDir: 'dist-light-preview', rollupOptions: { input: path.resolve(import.meta.dirname, 'index.html'),output:{manualChunks(id){if(id.replaceAll('\\','/').includes('/node_modules/gsap/'))return 'gsap-motion';}} } },

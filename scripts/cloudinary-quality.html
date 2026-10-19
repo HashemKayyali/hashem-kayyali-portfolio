@@ -1,0 +1,54 @@
+<!doctype html><meta charset="utf-8"><title>Cloudinary quality comparison</title>
+<style>body{margin:16px;background:#111;color:#ddd;font:12px system-ui}.row{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 18px}.crop{width:300px;height:190px;overflow:hidden;position:relative;border:1px solid #333;background:#000}.crop img{position:absolute;image-rendering:pixelated;transform-origin:0 0}.crop b{position:absolute;left:4px;bottom:4px;background:#000c;padding:2px 5px;font-weight:500}</style>
+<div id="out">running…</div><div id="crops"></div>
+<script type="module">
+// Serve the repository root (python -m http.server) and open /scripts/cloudinary-quality.html. Uses every verified upload in the manifest.
+const samples=(await (await fetch('../media/cloudinary-manifest.json')).json()).assets.filter(a=>a.cloudinary).map(a=>({id:a.publicId,url:a.cloudinary.secureUrl,w:a.width,h:a.height}));
+const QUALITIES=['q_auto','q_auto:eco','q_auto:best'],WIDTHS=[480,800,1200];
+const local={ 'portfolio/projects/eventies/cover':{640:'../public/covers/eventies-640.webp',960:'../public/covers/eventies-960.webp',1600:'../public/covers/eventies.webp'},
+ 'portfolio/projects/vr-cycling/cover':{640:'../public/covers/vr-cycling-640.webp',960:'../public/covers/vr-cycling-960.webp',1448:'../public/covers/vr-cycling.webp'},
+ 'portfolio/projects/eventies/screenshot-01':{1920:'../public/projects/eventies/screenshot-01.webp'},
+ 'portfolio/projects/glitzz-lab/screenshot-03':{1920:'../public/projects/glitzz-lab/screenshot-03.webp'},
+ 'portfolio/site/process/02-system':{640:'../public/engineering-process/02-system-640.webp',1280:'../public/engineering-process/02-system.webp'}};
+const url=(s,t,w)=>{const [b,r]=s.url.split('/upload/');return `${b}/upload/${t},c_limit,w_${w}/${r}`;};
+async function load(u){
+ const t=performance.now();const res=await fetch(u,{cache:'no-store',mode:'cors',headers:{Accept:'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8'}});const blob=await res.blob();const ms=performance.now()-t;
+ // Decode cost: median of 5 full decodes of the same bytes.
+ const times=[];let bmp;for(let i=0;i<5;i++){const d=performance.now();bmp?.close();bmp=await createImageBitmap(blob);times.push(performance.now()-d);}
+ times.sort((a,b)=>a-b);return {type:(res.headers.get('content-type')||blob.type).replace('image/',''),bytes:blob.size,fetchMs:Math.round(ms),decodeMs:+times[2].toFixed(2),bmp};
+}
+const luma=(bmp,w,h)=>{const c=new OffscreenCanvas(w,h),x=c.getContext('2d');x.drawImage(bmp,0,0,w,h);const d=x.getImageData(0,0,w,h).data,y=new Float32Array(w*h);for(let i=0;i<w*h;i++)y[i]=.299*d[i*4]+.587*d[i*4+1]+.114*d[i*4+2];return y;};
+function compare(a,b,w,h){
+ let se=0;for(let i=0;i<a.length;i++){const e=a[i]-b[i];se+=e*e;}const psnr=10*Math.log10(255*255/(se/a.length));
+ // Mean SSIM over 8×8 blocks of luma, and the worst block (where text or edges would smear first).
+ const C1=(.01*255)**2,C2=(.03*255)**2;let sum=0,n=0,min=1;
+ for(let by=0;by+8<=h;by+=8)for(let bx=0;bx+8<=w;bx+=8){let ma=0,mb=0;for(let y=0;y<8;y++)for(let x=0;x<8;x++){const i=(by+y)*w+bx+x;ma+=a[i];mb+=b[i];}ma/=64;mb/=64;let va=0,vb=0,cov=0;
+  for(let y=0;y<8;y++)for(let x=0;x<8;x++){const i=(by+y)*w+bx+x;va+=(a[i]-ma)**2;vb+=(b[i]-mb)**2;cov+=(a[i]-ma)*(b[i]-mb);}va/=63;vb/=63;cov/=63;
+  const s=((2*ma*mb+C1)*(2*cov+C2))/((ma*ma+mb*mb+C1)*(va+vb+C2));sum+=s;n++;if(va>50&&s<min)min=s;}
+ return {psnr:+psnr.toFixed(2),ssim:+(sum/n).toFixed(4),worstBlock:+min.toFixed(3)};
+}
+// ?gate: q_auto:eco is adopted for a photo/illustration only if, at every delivered width (800 and 1200, capped at
+// the original), it saves at least 10 % over q_auto AND keeps mean SSIM ≥ 0.97 and the worst textured block ≥ 0.80.
+// The JSON in window.__gate is saved as media/cloudinary-quality.json; cloudinary-media.mjs turns it into per-asset quality.
+const GATE=['projects/vr-cycling/cover','projects/bike-land-trainer/cover','projects/bike-land-trainer/screenshot-01','projects/basket-beats/cover','projects/basket-beats/card-cover','projects/bike-tower/cover','projects/bike-tower/card-cover','site/process/01-context','site/process/02-system','site/process/03-iteration'].map(id=>'portfolio/'+id);
+if(new URLSearchParams(location.search).has('gate')){
+ const manifest=(await (await fetch('../media/cloudinary-manifest.json')).json()).assets,assets={};
+ for(const id of GATE){const a=manifest.find(x=>x.publicId===id),s=samples.find(x=>x.id===id);if(!a||!s)continue;const widths={};
+  for(const w0 of [800,1200]){const w=Math.min(w0,s.w);if(widths[w])continue;const h=Math.round(s.h*w/s.w);const refY=luma((await load(url(s,'f_png',w))).bmp,w,h);
+   const auto=await load(url(s,'f_auto,q_auto',w)),eco=await load(url(s,'f_auto,q_auto:eco',w)),m=compare(refY,luma(eco.bmp,w,h),w,h);
+   widths[w]={autoKB:+(auto.bytes/1024).toFixed(1),ecoKB:+(eco.bytes/1024).toFixed(1),saving:+(1-eco.bytes/auto.bytes).toFixed(3),ecoFormat:eco.type,ssim:m.ssim,worstBlock:m.worstBlock};}
+  const pass=Object.values(widths).every(v=>v.saving>=.10&&v.ssim>=.97&&v.worstBlock>=.80);
+  assets[id]={md5:a.md5,pass,widths};}
+ window.__gate={rule:'eco only if every delivered width saves ≥10 % vs q_auto with mean SSIM ≥ 0.97 and worst 8×8 block ≥ 0.80 (lossless reference, Chrome image Accept header)',measuredAt:new Date().toISOString(),assets};
+ document.getElementById('out').textContent='gate done';throw 0;
+}
+const results=[];
+for(const s of samples.filter(s=>s.id in local))for(const w of WIDTHS){
+ if(w>s.w)continue;const h=Math.round(s.h*w/s.w);
+ const ref=await load(url(s,'f_png',w));const refY=luma(ref.bmp,w,h);
+ for(const q of QUALITIES){const r=await load(url(s,'f_auto,'+q,w));results.push({sample:s.id.split('/').slice(-2).join('/'),width:w,variant:q,format:r.type,kb:+(r.bytes/1024).toFixed(1),decodeMs:r.decodeMs,dims:r.bmp.width+'x'+r.bmp.height,ratioOk:Math.abs(r.bmp.width/r.bmp.height-s.w/s.h)<0.005,...compare(refY,luma(r.bmp,w,h),w,h)});}
+ // Today's local file for this sample, scaled to the same width for a like-for-like quality score.
+ for(const [lw,path] of Object.entries(local[s.id]||{})){if(Math.abs(lw-w)>w*.25&&!(lw>=w&&w===Math.max(...WIDTHS.filter(x=>x<=s.w))))continue;const r=await load(path);results.push({sample:s.id.split('/').slice(-2).join('/'),width:w,variant:'local '+path.split('/').pop(),format:r.type,kb:+(r.bytes/1024).toFixed(1),decodeMs:r.decodeMs,dims:r.bmp.width+'x'+r.bmp.height,ratioOk:Math.abs(r.bmp.width/r.bmp.height-s.w/s.h)<0.01,...compare(refY,luma(r.bmp,w,h),w,h)});}
+}
+window.__results=results;document.getElementById('out').textContent='done: '+results.length+' measurements';
+</script>
