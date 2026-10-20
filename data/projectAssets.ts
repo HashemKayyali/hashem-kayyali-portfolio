@@ -94,12 +94,9 @@ export const projectAssets: ProjectAsset[] = [
     ['#19040b', '#72213e', '#0d0206', '#b9667f', '#e3d4dc'],
     { privateSource: true }),
 
-  {
-    ...asset('outreach-automation', 'automationSystem', 'outreach-automation-platform', 0,
-      ['#fefbfb', '#117771', '#ffffff', '#ffffff', '#d6d6d6'],
-      { privateSource: true }),
-    gallery: ['/projects/outreach-automation-platform/workflow.svg'],
-  },
+  asset('outreach-automation', 'automationSystem', 'outreach-automation-platform', 0,
+    ['#fefbfb', '#117771', '#ffffff', '#ffffff', '#d6d6d6'],
+    { privateSource: true }),
 
   asset('traffic-flow-analytics', 'computerVision', 'traffic-flow-analytics-studio', 0,
     ['#01100a', '#04231a', '#000000', '#148f68', '#2b9370'],
