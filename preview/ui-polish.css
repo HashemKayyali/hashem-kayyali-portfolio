@@ -310,9 +310,7 @@
 :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibits[data-stack] .gallery-exhibit{grid-column:1/-1!important;height:auto!important;margin-block-end:clamp(18px,3.5vh,40px);border-radius:16px;container-type:inline-size;display:flex;transform-origin:50% 0;}
 :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibits[data-stack=active] .gallery-exhibit{position:sticky;top:calc(var(--stack-top,86px) + var(--stack-i,0)*var(--stack-offset,14px));z-index:calc(1 + var(--stack-i,0));}
 :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibits[data-stack] .gallery-exhibit[data-filtered=true]{display:none;}
-:root:not([data-stack-cull=off]) [data-stack=active]>.stack-buried:not(:focus-within){opacity:0;}
-/* motionDebug A/B only (motion-debug.ts): also drop the layer, or keep drawing buried cards. */
-:root[data-stack-cull=visibility] [data-stack=active]>.stack-buried{visibility:hidden;}
+:root [data-stack=active]>.stack-buried:not(:focus-within){opacity:0;}
 :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibits[data-stack] .gallery-exhibit:last-of-type{margin-block-end:0;}
 :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibits[data-stack] .gallery-project-link{flex:1;height:auto!important;min-height:0!important;border-radius:16px;background:linear-gradient(155deg,var(--atelier-petrol),var(--paper) 70%);box-shadow:0 -18px 40px -30px #000c;display:grid;grid-template-columns:minmax(0,1fr)!important;grid-template-rows:auto auto auto!important;gap:12px!important;padding:clamp(14px,1.6vw,26px)!important;}
 :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibits[data-stack] .gallery-project-link>*{grid-column:1!important;grid-row:auto!important;}
