@@ -10,6 +10,7 @@ gsap.registerPlugin(ScrollTrigger);
  * so scrolling up unstacks. The deck falls back to normal flow when a card cannot fit
  * below the header, and the caller skips it for reduced motion.
  */
+const DEPTH=4;
 export type CardStackOptions={id:string;surface?:string;offset?:number;mobileOffset?:number;depth?:number};
 export function createCardStack(deck:HTMLElement,options:CardStackOptions){
  let context:gsap.Context|undefined,frame=0,alive=true,built='';
@@ -25,13 +26,17 @@ export function createCardStack(deck:HTMLElement,options:CardStackOptions){
   context?.revert();context=undefined;
   const mobile=innerWidth<801,offset=mobile?(options.mobileOffset??8):(options.offset??14);
   const top=Math.round(header+(mobile?10:18));
-  items.forEach((item,index)=>item.style.setProperty('--stack-i',String(index)));
+  // The pile shows at most DEPTH edges (the fit check below always budgeted for four); later cards
+  // share the last slot. Every card used to stay a full-size sticky layer under an 8px edge, and the
+  // iPhone frame time grew with the pile: ~58 ms with 5 stuck cards, 119 ms with 10 (Projects, 11).
+  const slot=(index:number)=>Math.min(index,DEPTH);
+  items.forEach((item,index)=>item.style.setProperty('--stack-i',String(slot(index))));
   deck.style.setProperty('--stack-top',top+'px');deck.style.setProperty('--stack-offset',offset+'px');
   // Measure in deck geometry (cards compact in stack mode), then keep it only if every card
   // (plus the offsets of those beneath it) fits below the header.
   deck.dataset.stack='active';
   const tallest=Math.max(0,...items.map(item=>item.offsetHeight));
-  const fits=items.length>1&&tallest+top+Math.min(items.length,4)*offset+24<viewport;
+  const fits=items.length>1&&tallest+top+Math.min(items.length,DEPTH)*offset+24<viewport;
   deck.dataset.stack=fits?'active':'static';
   if(!fits){built=signature;ScrollTrigger.refresh();return;}
   deck.style.setProperty('--stack-tail',Math.max(48,tallest-items.at(-1)!.offsetHeight+48)+'px');
@@ -41,9 +46,13 @@ export function createCardStack(deck:HTMLElement,options:CardStackOptions){
     // Covered cards recede and dim. The shade is a child animated by opacity (compositor only);
     // an inherited custom property here restyled every descendant on each scroll frame.
     const shade=surface.querySelector<HTMLElement>(':scope>.stack-shade')??surface.appendChild(Object.assign(document.createElement('span'),{className:'stack-shade',ariaHidden:'true'}));
-    gsap.timeline({scrollTrigger:{id:`${options.id}:layer:${index}`,trigger:next,start:'top bottom-=8%',end:()=>`top ${top+(index+1)*offset}px`,scrub:.5,invalidateOnRefresh:true}})
+    gsap.timeline({scrollTrigger:{id:`${options.id}:layer:${index}`,trigger:next,start:'top bottom-=8%',end:()=>`top ${top+slot(index+1)*offset}px`,scrub:.5,invalidateOnRefresh:true}})
      .fromTo(surface,{scale:1},{scale:1-(options.depth??.045),ease:'none',transformOrigin:'50% 0%'},0)
      .fromTo(shade,{opacity:0},{opacity:.32,ease:'none'},0);
+    // In the shared slot a card is invisible once an equal or taller later card has landed on it, so it
+    // stops being drawn (opacity, not visibility: it stays focusable and in the accessibility tree).
+    const cover=index>=DEPTH?items.slice(index+1).find(later=>later.offsetHeight>=item.offsetHeight):undefined;
+    if(cover)ScrollTrigger.create({id:`${options.id}:buried:${index}`,trigger:cover,start:`top ${top+DEPTH*offset}px`,end:()=>ScrollTrigger.maxScroll(window)+1,toggleClass:{targets:item,className:'stack-buried'}});
    });
   },deck);
   built=signature;ScrollTrigger.refresh();

@@ -6,14 +6,18 @@ import {ScrollTrigger} from 'gsap/ScrollTrigger';
  * sanitized JSON to the iOS share sheet (or the clipboard). Remove once the iPhone issue is closed.
  */
 export function startMotionDebug(){
+ // Device A/B for buried stack cards: ?motionDebug=1&cull=visibility|off (default: opacity).
+ const cull=new URLSearchParams(location.search).get('cull');if(cull==='visibility'||cull==='off')document.documentElement.dataset.stackCull=cull;
  const t0=performance.now(),until=t0+90_000,events:unknown[]=[],gaps=[0,0,0,0];// >20, >34, >50, >100 ms
  const now=()=>Math.round(performance.now()-t0);
+ // Stack cards actually drawn on screen when a frame ran long (buried cards are not drawn).
+ const stackLayers=()=>[...document.querySelectorAll('[data-stack=active]>[data-stack-item]')].filter(card=>{if(card.classList.contains('stack-buried'))return false;const box=card.getBoundingClientRect();return box.bottom>0&&box.top<innerHeight;}).length;
  const viewport=()=>({w:innerWidth,h:innerHeight,ch:document.documentElement.clientHeight,vv:Math.round(visualViewport?.height??0),y:Math.round(scrollY)});
  const log=(type:string,extra:object={})=>{if(events.length<3000&&performance.now()<until)events.push({t:now(),type,...extra});};
  let last=0,frames=0;
  const frame=(time:number)=>{
   if(time>until){events.push({t:now(),type:'capture-end'});return;}
-  if(last){const gap=time-last;frames++;if(gap>20)gaps[0]++;if(gap>34)gaps[1]++;if(gap>50){gaps[2]++;log('long-frame',{ms:Math.round(gap),...viewport(),path:location.pathname});}if(gap>100)gaps[3]++;}
+  if(last){const gap=time-last;frames++;if(gap>20)gaps[0]++;if(gap>34)gaps[1]++;if(gap>50){gaps[2]++;log('long-frame',{ms:Math.round(gap),...viewport(),path:location.pathname,layers:stackLayers()});}if(gap>100)gaps[3]++;}
   last=time;requestAnimationFrame(frame);
  };
  requestAnimationFrame(frame);
@@ -39,7 +43,7 @@ export function startMotionDebug(){
   document.querySelectorAll<HTMLCanvasElement&{__smokeStats?:()=>void}>('canvas').forEach(canvas=>canvas.__smokeStats?.());
   await new Promise(resolve=>setTimeout(resolve,150));
   const motion=(window as Window&{__portfolioMotion?:()=>{timelines:{id:string;active:boolean}[];triggers:unknown[]}}).__portfolioMotion?.();
-  const trace=JSON.stringify({ua:navigator.userAgent,dpr:devicePixelRatio,elapsed:now(),frames,gaps:{over20:gaps[0],over34:gaps[1],over50:gaps[2],over100:gaps[3]},viewport:viewport(),
+  const trace=JSON.stringify({ua:navigator.userAgent,cull:cull??'opacity',dpr:devicePixelRatio,elapsed:now(),frames,gaps:{over20:gaps[0],over34:gaps[1],over50:gaps[2],over100:gaps[3]},viewport:viewport(),
    activeTimelines:motion?.timelines.filter(timeline=>timeline.active).map(timeline=>timeline.id),triggers:motion?.triggers.length,smoke,events});
   try{if(navigator.share)await navigator.share({title:'motion trace',text:trace});else{await navigator.clipboard.writeText(trace);button.textContent='Copied';}}catch{}
  });
