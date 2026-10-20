@@ -12,7 +12,7 @@ export function startMotionDebug(){
  const log=(type:string,extra:object={})=>{if(events.length<3000&&performance.now()<until)events.push({t:now(),type,...extra});};
  let last=0,frames=0;
  const frame=(time:number)=>{
-  if(time>until){log('capture-end');return;}
+  if(time>until){events.push({t:now(),type:'capture-end'});return;}
   if(last){const gap=time-last;frames++;if(gap>20)gaps[0]++;if(gap>34)gaps[1]++;if(gap>50){gaps[2]++;log('long-frame',{ms:Math.round(gap),...viewport(),path:location.pathname});}if(gap>100)gaps[3]++;}
   last=time;requestAnimationFrame(frame);
  };
