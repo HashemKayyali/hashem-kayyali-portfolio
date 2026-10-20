@@ -1,4 +1,5 @@
 import {useLayoutEffect,type RefObject} from 'react';
+import {onLayoutResize} from './layout-resize';
 import {gsap} from 'gsap';
 import {allowsMotion} from './route-motion';
 
@@ -57,8 +58,8 @@ export function useExperienceJourneyMotion(root:RefObject<HTMLElement|null>,loca
    const focus=(event:FocusEvent)=>{const group=(event.target as HTMLElement).closest('[data-journey-reveal]');if(group){seen.add(group);observer?.unobserve(group);}interrupt();};
    const visibility=()=>{if(document.hidden)interrupt();};
    stage?.addEventListener('pointerenter',enter);stage?.addEventListener('pointermove',move);stage?.addEventListener('pointerleave',reset);
-   element.addEventListener('focusin',focus);addEventListener('resize',interrupt,{passive:true});addEventListener('popstate',interrupt);addEventListener('hashchange',interrupt);document.addEventListener('visibilitychange',visibility);
-   cleanup=()=>{alive=false;cancelAnimationFrame(frame);observer?.disconnect();readiness?.disconnect();settle();pointerContext?.revert();stage?.removeEventListener('pointerenter',enter);stage?.removeEventListener('pointermove',move);stage?.removeEventListener('pointerleave',reset);element.removeEventListener('focusin',focus);removeEventListener('resize',interrupt);removeEventListener('popstate',interrupt);removeEventListener('hashchange',interrupt);document.removeEventListener('visibilitychange',visibility);};
+   element.addEventListener('focusin',focus);const unresize=onLayoutResize(interrupt);addEventListener('popstate',interrupt);addEventListener('hashchange',interrupt);document.addEventListener('visibilitychange',visibility);
+   cleanup=()=>{alive=false;cancelAnimationFrame(frame);observer?.disconnect();readiness?.disconnect();settle();pointerContext?.revert();stage?.removeEventListener('pointerenter',enter);stage?.removeEventListener('pointermove',move);stage?.removeEventListener('pointerleave',reset);element.removeEventListener('focusin',focus);unresize();removeEventListener('popstate',interrupt);removeEventListener('hashchange',interrupt);document.removeEventListener('visibilitychange',visibility);};
   };
   // Reading state: the chapter crossing the middle of the viewport drives the rail and
   // the progress line. Transform-only writes, coalesced to one per frame.

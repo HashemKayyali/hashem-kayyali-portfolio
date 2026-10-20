@@ -1,4 +1,5 @@
 import {useLayoutEffect,useRef,type RefObject} from 'react';
+import {onLayoutResize} from './layout-resize';
 import {gsap} from 'gsap';
 import {Flip} from 'gsap/Flip';
 import {allowsMotion} from './route-motion';
@@ -17,8 +18,8 @@ export function useSkillsWorkbenchMotion(root:RefObject<HTMLElement|null>,locale
   const media=matchMedia('(prefers-reduced-motion:no-preference)');
   const configure=()=>{settle();enabled.current=media.matches&&allowsMotion();element.dataset.wbMotion=enabled.current?'interactive':'static';};
   const visibility=()=>{if(document.hidden)settle();};
-  media.addEventListener('change',configure);addEventListener('resize',settle,{passive:true});addEventListener('popstate',settle);element.addEventListener('focusin',settle);document.addEventListener('visibilitychange',visibility);configure();
-  return()=>{enabled.current=false;settle();media.removeEventListener('change',configure);removeEventListener('resize',settle);removeEventListener('popstate',settle);element.removeEventListener('focusin',settle);document.removeEventListener('visibilitychange',visibility);delete element.dataset.wbMotion;};
+  media.addEventListener('change',configure);const unresize=onLayoutResize(settle);addEventListener('popstate',settle);element.addEventListener('focusin',settle);document.addEventListener('visibilitychange',visibility);configure();
+  return()=>{enabled.current=false;settle();media.removeEventListener('change',configure);unresize();removeEventListener('popstate',settle);element.removeEventListener('focusin',settle);document.removeEventListener('visibilitychange',visibility);delete element.dataset.wbMotion;};
  },[locale]);
  useLayoutEffect(()=>{
   const state=pending.current;pending.current=null;if(!enabled.current||!state)return;

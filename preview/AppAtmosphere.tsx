@@ -1,4 +1,5 @@
 import React,{useLayoutEffect,useRef} from 'react';
+import {onLayoutResize} from './layout-resize';
 import {gsap} from 'gsap';
 import HomeSilk from './HomeSilk';
 import {allowsMotion} from './route-motion';
@@ -41,8 +42,8 @@ export default function AppAtmosphere({route}:{route:PreviewRoute}){
   const insertion=typeof MutationObserver==='undefined'?undefined:new MutationObserver(schedule);
   insertion?.observe(atmosphere.parentElement!,{childList:true,subtree:true});attach();
   
-  const resized=()=>{resizing=true;clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{resizing=false;},250);measure();};addEventListener('resize',resized,{passive:true});
-  return()=>{cancelAnimationFrame(frame);clearTimeout(resizeTimer);insertion?.disconnect();resize?.disconnect();removeEventListener('resize',resized);};
+  const resized=()=>{resizing=true;clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{resizing=false;},250);measure();};const unresize=onLayoutResize(resized);
+  return()=>{cancelAnimationFrame(frame);clearTimeout(resizeTimer);insertion?.disconnect();resize?.disconnect();unresize();};
  },[route.page,route.project,route.locale]);
  return <div ref={root} className="app-atmosphere" data-visible={visible} aria-hidden="true"><HomeSilk className="app-atmosphere-paint" stage/></div>;
 }

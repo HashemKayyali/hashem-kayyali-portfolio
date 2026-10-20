@@ -1,4 +1,5 @@
 import {useLayoutEffect,type RefObject} from 'react';
+import {onLayoutResize} from './layout-resize';
 import {gsap} from 'gsap';
 import {allowsMotion} from './route-motion';
 import {arrivalDisposition} from './viewport-arrivals-model';
@@ -134,7 +135,7 @@ export function useViewportArrivals(root:RefObject<HTMLDivElement|null>,key:stri
   shell.addEventListener('focusin',focus);
   reduced.addEventListener('change',policy);connection?.addEventListener('change',policy);
   document.addEventListener('visibilitychange',policy);
-  addEventListener('resize',resize,{passive:true});addEventListener('popstate',history);
+  const unresize=onLayoutResize(resize);addEventListener('popstate',history);
   addEventListener('portfolio-motion-pause',pause);
   mutations.observe(shell,{childList:true,subtree:true,attributes:true,attributeFilter:['data-route-ready','hidden','aria-hidden','inert','data-show','data-filtered']});
   flush();
@@ -142,7 +143,7 @@ export function useViewportArrivals(root:RefObject<HTMLDivElement|null>,key:stri
    alive=false;cancelAnimationFrame(frame);mutations.disconnect();observer.disconnect();
    shell.removeEventListener('focusin',focus);reduced.removeEventListener('change',policy);
    connection?.removeEventListener('change',policy);document.removeEventListener('visibilitychange',policy);
-   removeEventListener('resize',resize);removeEventListener('popstate',history);removeEventListener('portfolio-motion-pause',pause);
+   unresize();removeEventListener('popstate',history);removeEventListener('portfolio-motion-pause',pause);
    settleAll();records.forEach(record=>delete record.node.dataset.viewportEntrance);records.clear();pending.clear();
   };
  },[key,root]);

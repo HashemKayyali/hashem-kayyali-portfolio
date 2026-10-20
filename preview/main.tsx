@@ -205,3 +205,6 @@ const initialRoute = readRoute();
 Promise.all([loadDictionary(initialRoute.locale),initialRoute.project?prefetchCaseStudy():Promise.resolve(),initialRoute.experience==='creative'?prefetchCreative():Promise.resolve()])
   .then(([dictionary]) => createRoot(document.getElementById('root')!).render(<Preview initialRoute={initialRoute} dictionary={dictionary} />))
   .catch(() => { document.getElementById('root')!.textContent = 'Preview unavailable. Please reload.'; });
+
+// Opt-in physical-device motion trace (temporary): /en/?motionDebug=1
+if (new URLSearchParams(location.search).has('motionDebug')) void import('./motion-debug').then(module => module.startMotionDebug());

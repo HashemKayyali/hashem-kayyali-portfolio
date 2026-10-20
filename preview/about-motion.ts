@@ -1,4 +1,5 @@
 import type {RefObject} from 'react';
+import {onLayoutResize} from './layout-resize';
 import {gsap} from 'gsap';import {ScrollTrigger} from 'gsap/ScrollTrigger';import {useGSAP} from '@gsap/react';
 import {allowsMotion} from './route-motion';
 gsap.registerPlugin(ScrollTrigger,useGSAP);
@@ -38,8 +39,8 @@ export function useAboutMotion(root:RefObject<HTMLElement|null>,locale:string){
      owned.add(()=>{gsap.set(panel,{height,overflow:'hidden'});const tween=gsap.to(panel,{height:open?panel.scrollHeight:0,opacity:open?1:.35,duration:.34,ease:'power3.inOut',overwrite:true,id:'about:tool:toggle',onComplete:()=>{details.open=open;gsap.set(panel,{clearProps:'height,opacity,overflow'});pending.delete(details);refresh();}});pending.set(details,{tween,open});});
     };summary.addEventListener('click',toggle);disposers.push(()=>summary.removeEventListener('click',toggle));
    });
-   const resize=()=>{settle();};window.addEventListener('resize',resize,{passive:true});
-   return()=>{settle();disposers.forEach(dispose=>dispose());window.removeEventListener('resize',resize);owned.revert();links.forEach(link=>link.removeAttribute('aria-current'));};
+   const unresize=onLayoutResize(settle);
+   return()=>{settle();disposers.forEach(dispose=>dispose());unresize();owned.revert();links.forEach(link=>link.removeAttribute('aria-current'));};
   },el);
   const clickIndex=(event:Event)=>{const link=(event.target as Element).closest<HTMLAnchorElement>('[data-dossier-link]');if(!link)return;const heading=el.querySelector<HTMLElement>(link.hash);heading?.focus({preventScroll:true});};
   el.querySelector('.dossier-index')?.addEventListener('click',clickIndex);

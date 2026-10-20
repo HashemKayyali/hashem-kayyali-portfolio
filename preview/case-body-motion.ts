@@ -1,4 +1,5 @@
 import {gsap} from 'gsap';
+import {onLayoutResize} from './layout-resize';
 import {allowsMotion} from './route-motion';
 
 /** Chapters reveal once on approach. Focus and restored reading positions settle immediately. */
@@ -60,9 +61,9 @@ function observeReadyCaseBody(el:HTMLElement,rtl:boolean){
  const hidden=()=>{if(document.hidden)settleAll();};
  const connection=(navigator as Navigator&{connection?:EventTarget}).connection;
  const constrained=()=>{if(!allowsMotion())settleAll();};
- body.addEventListener('focusin',focus);addEventListener('resize',settleAll,{passive:true});document.addEventListener('visibilitychange',hidden);connection?.addEventListener('change',constrained);
+ body.addEventListener('focusin',focus);const unresize=onLayoutResize(settleAll);document.addEventListener('visibilitychange',hidden);connection?.addEventListener('change',constrained);
  const untrack=trackChapters(body);
- return()=>{alive=false;untrack();observer.disconnect();settleAll();body.removeEventListener('focusin',focus);removeEventListener('resize',settleAll);document.removeEventListener('visibilitychange',hidden);connection?.removeEventListener('change',constrained);};
+ return()=>{alive=false;untrack();observer.disconnect();settleAll();body.removeEventListener('focusin',focus);unresize();document.removeEventListener('visibilitychange',hidden);connection?.removeEventListener('change',constrained);};
 }
 
 /** Marks the chapter being read in the sticky chapter bar and keeps it in view on narrow screens. */

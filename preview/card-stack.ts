@@ -1,4 +1,5 @@
 import {gsap} from 'gsap';
+import {onLayoutResize} from './layout-resize';
 import {ScrollTrigger} from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
@@ -50,9 +51,8 @@ export function createCardStack(deck:HTMLElement,options:CardStackOptions){
  const schedule=()=>{if(!frame)frame=requestAnimationFrame(rebuild);};
  const resize=new ResizeObserver(schedule);resize.observe(deck);
  // A phone's address bar fires resize with only innerHeight changed: nothing to rebuild, nothing to measure.
- let size='';const resized=()=>{const next=innerWidth+'x'+document.documentElement.clientHeight;if(next!==size){size=next;schedule();}};
- addEventListener('resize',resized,{passive:true});
+ const unresize=onLayoutResize(schedule);
  void document.fonts.ready.then(schedule);
  rebuild();
- return {refresh:schedule,dispose:()=>{alive=false;cancelAnimationFrame(frame);resize.disconnect();removeEventListener('resize',resized);context?.revert();deck.querySelectorAll('.stack-shade').forEach(shade=>shade.remove());delete deck.dataset.stack;['--stack-top','--stack-offset','--stack-tail'].forEach(name=>deck.style.removeProperty(name));}};
+ return {refresh:schedule,dispose:()=>{alive=false;cancelAnimationFrame(frame);resize.disconnect();unresize();context?.revert();deck.querySelectorAll('.stack-shade').forEach(shade=>shade.remove());delete deck.dataset.stack;['--stack-top','--stack-offset','--stack-tail'].forEach(name=>deck.style.removeProperty(name));}};
 }

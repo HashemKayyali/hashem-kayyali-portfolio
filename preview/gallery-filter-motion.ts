@@ -1,4 +1,5 @@
 import {useLayoutEffect,useRef,type RefObject} from 'react';
+import {onLayoutResize} from './layout-resize';
 import {gsap} from 'gsap';import {Flip} from 'gsap/Flip';
 import {allowsMotion} from './route-motion';
 gsap.registerPlugin(Flip);
@@ -35,9 +36,9 @@ export function useGalleryFilterMotion(root:RefObject<HTMLElement|null>,filter:s
   const stop=()=>{if(reduced.matches){active.current?.progress(1).kill();active.current=null;}};
   const settle=()=>{active.current?.progress(1);};
   const focus=(event:FocusEvent)=>{if((event.target as HTMLElement).closest('.gallery-exhibit'))settle();};
-  const el=root.current;el?.addEventListener('focusin',focus);addEventListener('resize',settle,{passive:true});
+  const el=root.current;el?.addEventListener('focusin',focus);const unresize=onLayoutResize(settle);
   reduced.addEventListener('change',stop);
-  return()=>{el?.removeEventListener('focusin',focus);removeEventListener('resize',settle);reduced.removeEventListener('change',stop);active.current?.progress(1).kill();active.current=null;snapshot.current=null;};
+  return()=>{el?.removeEventListener('focusin',focus);unresize();reduced.removeEventListener('change',stop);active.current?.progress(1).kill();active.current=null;snapshot.current=null;};
  },[]);
  return prepare;
 }

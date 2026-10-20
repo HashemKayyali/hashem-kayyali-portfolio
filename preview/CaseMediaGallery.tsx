@@ -1,4 +1,5 @@
 import React,{useLayoutEffect,useRef,useState} from 'react';
+import {onLayoutResize} from './layout-resize';
 import useEmblaCarousel from 'embla-carousel-react';
 import {ArrowLeft,ArrowRight,Expand} from 'lucide-react';
 import {useI18n,format} from '../i18n/useI18n';
@@ -66,14 +67,14 @@ const CaseMediaGallery:React.FC<Props>=({sources,title,caption,alternativeText,o
   },{rootMargin:'240px'});
   observer.observe(el);
   embla.on('select',sync).on('pointerDown',cancel).on('resize',settle).on('reInit',reinit);
-  media.addEventListener('change',motionChange);document.addEventListener('visibilitychange',visibility);addEventListener('resize',settle,{passive:true});
+  media.addEventListener('change',motionChange);document.addEventListener('visibilitychange',visibility);const unresize=onLayoutResize(settle);
   // Source replacement is the only explicit reinitialization. Selection itself
   // never rebuilds the track, its images, or the carousel instance.
   embla.reInit();sync();setPending(null);
   return()=>{
    disposed=true;selection.current?.dispose();selection.current=null;observer.disconnect();
    embla.off('select',sync).off('pointerDown',cancel).off('resize',settle).off('reInit',reinit);
-   media.removeEventListener('change',motionChange);document.removeEventListener('visibilitychange',visibility);removeEventListener('resize',settle);
+   media.removeEventListener('change',motionChange);document.removeEventListener('visibilitychange',visibility);unresize();
   };
  },[embla,sourceKey,locale]);
 

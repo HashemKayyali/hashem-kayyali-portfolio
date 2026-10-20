@@ -1,4 +1,5 @@
 import {useLayoutEffect,useRef,type RefObject} from 'react';
+import {onLayoutResize} from './layout-resize';
 import {gsap} from 'gsap';
 import {allowsMotion} from './route-motion';
 import {arrivalDisposition} from './viewport-arrivals-model';
@@ -77,12 +78,12 @@ export function useContactDeskMotion(root:RefObject<HTMLElement|null>,locale:str
   const pause=(event:Event)=>{paused=Boolean((event as CustomEvent).detail);policy();};
   const resize=()=>settleAll();
   el.addEventListener('focusin',focus);reduced.addEventListener('change',policy);connection?.addEventListener('change',policy);
-  document.addEventListener('visibilitychange',policy);addEventListener('resize',resize,{passive:true});addEventListener('popstate',resize);addEventListener('portfolio-motion-pause',pause);
+  document.addEventListener('visibilitychange',policy);const unresize=onLayoutResize(resize);addEventListener('popstate',resize);addEventListener('portfolio-motion-pause',pause);
   schedule();
   return()=>{
    alive=false;cancelAnimationFrame(frame);readiness.disconnect();observer.disconnect();
    el.removeEventListener('focusin',focus);reduced.removeEventListener('change',policy);connection?.removeEventListener('change',policy);
-   document.removeEventListener('visibilitychange',policy);removeEventListener('resize',resize);removeEventListener('popstate',resize);removeEventListener('portfolio-motion-pause',pause);
+   document.removeEventListener('visibilitychange',policy);unresize();removeEventListener('popstate',resize);removeEventListener('portfolio-motion-pause',pause);
    disposers.forEach(dispose=>dispose());interactions.revert();settleAll();records.forEach(record=>delete record.node.dataset.contactEntrance);
   };
  },[root,locale]);

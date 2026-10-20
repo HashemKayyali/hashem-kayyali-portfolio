@@ -1,4 +1,5 @@
 import {gsap} from 'gsap';
+import {onLayoutResize} from './layout-resize';
 import {projectAssets} from '../data/projectAssets';import type {ProjectId} from '../content/types';
 import {caseOpeningSizes,storySources} from './StoryMedia';import type {PreviewRoute} from './routes';import {previewUrl} from './routes';
 import {galleryMemory} from './gallery-memory';
@@ -66,7 +67,7 @@ export function runProjectTransit(stage:HTMLElement,commit:()=>void,complete:()=
  const motionChange=()=>{if(reduced.matches)settle();};
  let base={left:r.left,top:r.top};
  const follow=()=>{if(!landed||!target||!alive)return;cancelAnimationFrame(frame);frame=requestAnimationFrame(()=>{if(alive&&target){const box=visibleRect(target);gsap.set(wrapper,{x:box.left-base.left,y:box.top-base.top});}});};
- const cleanup=()=>{if(!alive)return;alive=false;cancelAnimationFrame(frame);clearTimeout(handoffTimer);reduced.removeEventListener('change',motionChange);removeEventListener('resize',settle);removeEventListener('scroll',follow);timeline?.kill();wrapper.remove();target?.classList.remove('project-transit-target');stage.inert=false;if(activeId===id){activeProject=undefined;cancelActive=undefined;delete document.documentElement.dataset.projectTransit;}};
+ const cleanup=()=>{if(!alive)return;alive=false;cancelAnimationFrame(frame);clearTimeout(handoffTimer);reduced.removeEventListener('change',motionChange);unresize();removeEventListener('scroll',follow);timeline?.kill();wrapper.remove();target?.classList.remove('project-transit-target');stage.inert=false;if(activeId===id){activeProject=undefined;cancelActive=undefined;delete document.documentElement.dataset.projectTransit;}};
  const handoff=()=>{
   if(!alive||!target)return;landed=true;document.documentElement.dataset.projectTransit='settling';
   const destination=target;
@@ -111,7 +112,7 @@ export function runProjectTransit(stage:HTMLElement,commit:()=>void,complete:()=
    .to(wrapper,{opacity:1,duration:.18},0);
  });
  reduced.addEventListener('change',motionChange);
- addEventListener('resize',settle,{passive:true});
+ const unresize=onLayoutResize(settle);
  addEventListener('scroll',follow,{passive:true});
  cancelActive=()=>{cleanup();context.revert();complete();};
  return {context,dispose:()=>{cleanup();context.revert();}};
