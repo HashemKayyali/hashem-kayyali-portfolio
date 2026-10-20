@@ -4,7 +4,7 @@ import {requireSameOrigin,sessionCookie,readSessionClaim,credentialTag,parsePass
 import {StudioError,bad} from './errors.ts';
 import {createStudioDatabase,type ProviderFetch} from './database.ts';
 import {createUploadIntent,verifyCloudinaryUpload} from './cloudinary.ts';
-import {record,resource,uuid,allowedFields,fields,validateItem,projectId,validateProject} from './validation.ts';
+import {record,resource,uuid,allowedFields,fields,validateItem,projectId,validateLayout} from './validation.ts';
 
 const json=(body:unknown,status=200,headers:Record<string,string>={})=>Response.json(body,{status,headers:{'Cache-Control':'no-store','X-Content-Type-Options':'nosniff',...headers}});
 async function readBody(request:Request){
@@ -78,7 +78,7 @@ export function createStudioHandler(options:{env?:StudioEnv;fetcher?:ProviderFet
    if(action==='project-media'){
     const project=projectId(url.searchParams.get('project_id'));
     if(method==='GET')return json({override:await db.project(project)});
-    if(method==='PUT')return json({override:await db.saveProject(project,validateProject(await readBody(request)))});
+    if(method==='PUT')return json({override:await db.saveLayout(project,validateLayout(project,await readBody(request)))});
    }
    if(action==='reorder'&&method==='POST'){
     const body=await readBody(request);

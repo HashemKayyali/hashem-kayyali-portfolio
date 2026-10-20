@@ -1,4 +1,4 @@
-// Applies both Studio migrations to a local PostgreSQL 17 (PGlite, WebAssembly) with Supabase-like roles,
+// Applies the Studio migrations to a local PostgreSQL 17 (PGlite, WebAssembly) with Supabase-like roles,
 // then checks permissions, RLS, constraints and every RPC, including failure cases and the rollbacks.
 // Usage (no account or network database involved):
 //   npm install --no-save @electric-sql/pglite@0.3 && node supabase/tests/migration-contract.mjs
@@ -16,15 +16,15 @@ await db.exec(`create role anon nologin; create role authenticated nologin; crea
  grant usage on schema public to anon,authenticated,service_role;
  alter default privileges in schema public grant all on tables to anon,authenticated,service_role;
  alter default privileges in schema public grant all on functions to anon,authenticated,service_role;`);
-const migrations=['202610160001_studio.sql','202610180001_studio_admin_security.sql'];
+const migrations=['202610160001_studio.sql','202610180001_studio_admin_security.sql','202610200001_studio_project_layout.sql'];
 for(const f of migrations){const e=await err(read('migrations/'+f));ok('apply '+f,!e,e??'');}
 for(const f of migrations){const e=await err(read('migrations/'+f));ok('re-apply (idempotent) '+f,!e,e??'');}
 
 for(const role of ['anon','authenticated']){
  await db.exec(`set role ${role}`);
- for(const t of ['studio_media','studio_posts','studio_gallery','studio_project_overrides','studio_project_media','studio_auth_attempts','studio_admin_sessions','studio_admin_state'])
+ for(const t of ['studio_media','studio_posts','studio_gallery','studio_project_overrides','studio_project_media','studio_auth_attempts','studio_admin_sessions','studio_admin_state','studio_project_builtin_media'])
   ok(`${role} cannot read ${t}`,/permission denied/.test(await err(`select * from public.${t}`)??''));
- for(const fn of [`select public.studio_auth_gate(array['global'])`,`select public.studio_reorder_items('posts',array[gen_random_uuid()])`,`select public.studio_auth_consume_totp(5)`,`select public.studio_replace_project_media('bike-tower',false,'[]'::jsonb)`])
+ for(const fn of [`select public.studio_auth_gate(array['global'])`,`select public.studio_reorder_items('posts',array[gen_random_uuid()])`,`select public.studio_auth_consume_totp(5)`,`select public.studio_replace_project_media('bike-tower',false,'[]'::jsonb)`,`select public.studio_save_project_layout('bike-tower','[]'::jsonb)`])
   ok(`${role} cannot execute ${fn.split('(')[0].replace('select public.','')}`,/permission denied/.test(await err(fn)??''));
  await db.exec('reset role');
 }
@@ -62,6 +62,34 @@ await db.exec(`update public.studio_media set alt=''`);
 ok('project media: enabled selection requires alternative text',!!await err(`select public.studio_replace_project_media('bike-tower',true,$1::jsonb)`,[JSON.stringify([{media_id:m1,is_cover:true,alt:''}])]));
 ok('project media: failed replacement kept the previous selection',(await one(`select count(*)::int n from public.studio_project_media where project_id='bike-tower'`)).n===2);
 
+// ── Managed project gallery (202610200001): originals and uploads in one order, one visible cover. ──
+await db.exec(`update public.studio_media set alt='alt'`);
+const layout=items=>err(`select public.studio_save_project_layout('eventies',$1::jsonb)`,[JSON.stringify(items)]);
+const o=(source,extra={})=>({source,caption:'',alt:'',is_cover:false,hidden:false,...extra}),u=(media_id,extra={})=>({media_id,caption:'',alt:'',is_cover:false,hidden:false,...extra});
+const cover='/covers/eventies.webp',shot='/projects/eventies/screenshot-01.webp';
+const savedLayout=async()=>(await db.query(`select coalesce(source,media_id::text) k,is_cover,hidden,sort_order from (select source,null::uuid media_id,is_cover,hidden,sort_order from public.studio_project_builtin_media where project_id='eventies' union all select null,media_id,is_cover,hidden,sort_order from public.studio_project_media where project_id='eventies') x order by sort_order`)).rows;
+let e=await layout([u(m1,{is_cover:true,alt:'new cover'}),o(cover),u(m2),o(shot)]);ok('layout: upload as cover with originals kept',!e,e??'');
+let rows=await savedLayout();ok('layout: one shared order across originals and uploads',rows.map(x=>x.k).join()===[m1,cover,m2,shot].join()&&rows[0].is_cover,JSON.stringify(rows));
+ok('layout: override enabled on save',(await one(`select enabled from public.studio_project_overrides where project_id='eventies'`)).enabled===true);
+e=await layout([o(cover),u(m2),o(shot,{hidden:true})]);ok('layout: removing an upload and hiding an original',!e,e??'');
+rows=await savedLayout();ok('layout: removed upload association gone, media record kept',rows.length===3&&!rows.some(x=>x.k===m1)&&(await one(`select count(*)::int n from public.studio_media where id=$1`,[m1])).n===1);
+ok('layout: hidden original kept as a restorable row',rows.find(x=>x.k===shot)?.hidden===true);
+ok('layout: bike-tower legacy selection untouched',(await one(`select count(*)::int n from public.studio_project_media where project_id='bike-tower'`)).n===2);
+ok('layout: two covers rejected',!!await layout([o(cover,{is_cover:true}),u(m2,{is_cover:true})]));
+ok('layout: hidden cover rejected',!!await layout([o(cover,{is_cover:true,hidden:true}),u(m2)]));
+ok('layout: nothing visible rejected',!!await layout([o(cover,{hidden:true})]));
+ok('layout: duplicate original rejected',!!await layout([o(cover),o(cover)]));
+ok('layout: duplicate upload rejected',!!await layout([o(cover),u(m2),u(m2)]));
+ok('layout: entry with both source and media rejected',!!await layout([{...o(cover),media_id:m2}]));
+ok('layout: unknown upload rejected',!!await layout([o(cover),u('00000000-0000-4000-8000-000000000000')]));
+ok('layout: non-asset original path rejected',!!await layout([o('/projects/../.env')]));
+ok('layout: unknown project rejected',!!await err(`select public.studio_save_project_layout('evil',$1::jsonb)`,[JSON.stringify([o(cover)])]));
+await db.exec(`update public.studio_media set alt='' where id='${m2}'`);
+ok('layout: visible upload needs alternative text',!!await layout([o(cover),u(m2)]));
+e=await layout([o(cover),u(m2,{hidden:true})]);ok('layout: hidden upload may lack alternative text',!e,e??'');
+ok('layout: failed saves kept the last saved layout',(await savedLayout()).length===2);
+ok('media used by a project gallery cannot be deleted',/foreign key/.test(await err(`delete from public.studio_media where id=$1`,[m2])??''));
+
 const client='ip:'+'a'.repeat(40),other='ip:'+'b'.repeat(40);
 const gate=async keys=>(await one(`select public.studio_auth_gate($1::text[]) g`,[keys])).g;
 const failure=async keys=>(await one(`select public.studio_auth_record_failure($1::text[]) l`,[keys])).l;
@@ -98,11 +126,11 @@ ok('revoked session inactive',!await active(session));
 const pruned=await err(`select public.studio_auth_prune()`);ok('prune runs',!pruned,pruned??'');
 
 const fns=(await db.query(`select p.proname,p.prosecdef,p.proconfig from pg_proc p join pg_namespace n on n.oid=p.pronamespace where n.nspname='public' and p.proname like 'studio_%'`)).rows;
-ok('every Studio function is SECURITY INVOKER',fns.length===9&&fns.every(f=>!f.prosecdef),fns.length+' functions');
+ok('every Studio function is SECURITY INVOKER',fns.length===10&&fns.every(f=>!f.prosecdef),fns.length+' functions');
 ok('every Studio function pins an empty search_path',fns.every(f=>(f.proconfig??[]).some(c=>/^search_path=(""|'')$/.test(c))));
 ok('RLS enabled on every Studio table',(await one(`select count(*)::int n,bool_and(relrowsecurity) r from pg_class where relname like 'studio_%' and relkind='r'`)).r===true);
 await db.exec('reset role');
 
-for(const f of ['202610180001_studio_admin_security.down.sql','202610160001_studio.down.sql']){const e=await err(read('rollback/'+f));ok('rollback '+f,!e,e??'');}
+for(const f of ['202610200001_studio_project_layout.down.sql','202610180001_studio_admin_security.down.sql','202610160001_studio.down.sql']){const e=await err(read('rollback/'+f));ok('rollback '+f,!e,e??'');}
 ok('rollback leaves no Studio tables or functions',(await one(`select (select count(*) from pg_class where relname like 'studio_%' and relkind='r')+(select count(*) from pg_proc where proname like 'studio_%') n`)).n==0);
 console.log(`\n${pass} passed, ${fail} failed`);process.exit(fail?1:0);

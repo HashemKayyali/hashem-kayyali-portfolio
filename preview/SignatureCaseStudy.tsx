@@ -12,7 +12,8 @@ import CaseArchitecture from './CaseArchitecture';
 import {mediaFrameStyle} from './media-frame';
 import {useCaseMotion} from './case-motion';
 import CaseMediaGallery from './CaseMediaGallery';
-import {getStudioProjectMedia,getStudioProjectCover,studioProjectAlt,studioCaseSources} from './studio-media-registry';
+import {studioCoverSource,studioProjectAlt,studioProjectCaption,studioCaseSources} from './studio-media-registry';
+import {isCloudinaryUrl} from './cloudinary-delivery';
 
 import './case-studies.css';
 import './case-identities.css';
@@ -25,11 +26,11 @@ export default function SignatureCaseStudy({asset,route,navigate}:Props) {
  const {t,locale}=useI18n(),copy=t.projects[asset.id],labels=caseCopy[locale],presentation=casePresentation[asset.id];
  const root=useRef<HTMLElement>(null),viewer=useRef<HTMLDialogElement>(null),opener=useRef<HTMLButtonElement|null>(null);
  const [expanded,setExpanded]=useState<{source:string;caption:string}|null>(null);
- const sources=studioCaseSources(asset.id,visibleCaseMedia(asset)),customMedia=getStudioProjectMedia(asset.id),{previous,next}=caseNeighbors(asset.id);
+ const sources=studioCaseSources(asset.id,visibleCaseMedia(asset)),{previous,next}=caseNeighbors(asset.id);
  useCaseMotion(root,`${asset.id}:${locale}`,locale==='ar');
  useEffect(()=>{viewer.current?.close();setExpanded(null);},[asset.id,locale]);
- const evidence=customMedia?labels.supplied:copy.mediaCaption??(presentation.evidence==='redacted'?storyCopy[locale].redacted:presentation.evidence==='illustration'?labels.illustration:presentation.evidence==='supplied'?labels.supplied:asset.categoryKey==='webPlatform'?labels.publicInterface:storyCopy[locale].real);
- const caption=(source:string)=>customMedia?.items.find(item=>item.media?.url===source)?.caption||(source.includes('/bike-tower/screenshot-')?storyCopy[locale].redacted:isSuppliedCover(source)?labels.supplied:evidence);
+ const evidence=copy.mediaCaption??(presentation.evidence==='redacted'?storyCopy[locale].redacted:presentation.evidence==='illustration'?labels.illustration:presentation.evidence==='supplied'?labels.supplied:asset.categoryKey==='webPlatform'?labels.publicInterface:storyCopy[locale].real);
+ const caption=(source:string)=>studioProjectCaption(asset.id,source)||(source.includes('/bike-tower/screenshot-')?storyCopy[locale].redacted:isSuppliedCover(source)||isCloudinaryUrl(source)?labels.supplied:evidence);
  const alternativeText=(source:string)=>studioProjectAlt(asset.id,source,`${copy.title}. ${caption(source)}`);
  const media=(source:string,eager=false,sizes=caseOpeningSizes)=><StoryMedia source={source} alt={alternativeText(source)} eager={eager} priority={eager} sizes={sizes}/>;
  const reveal=(source:string,caption:string,event:React.MouseEvent<HTMLButtonElement>)=>{opener.current=event.currentTarget;setExpanded({source:safeSource(source),caption});viewer.current?.showModal();};
@@ -79,7 +80,7 @@ export default function SignatureCaseStudy({asset,route,navigate}:Props) {
    <ol className="decision-list">{copy.considerations.map((point,i)=><li key={point}><span className="index" dir="ltr">0{i+1}</span><p>{point}</p></li>)}</ol>
   </section>
   <section className="case-chapter case-result" aria-labelledby="case-capabilities-title"><div className="container"><header className="case-chapter-heading"><span className="index">0{5+withBuild} / {copy.status}</span><h2 id="case-capabilities-title">{t.projectModal.labels.capabilities}</h2></header><ol className="capability-list">{copy.capabilities.map((point,i)=><li key={point}><span dir="ltr">0{i+1}</span><h3>{point}</h3></li>)}</ol><div className="case-links">{!asset.liveUrl&&<span>{t.projectModal.labels.privateSourceCode}</span>}<NavLink className="button-text case-back-to-projects" route={{...route,page:'projects',project:undefined}} navigate={navigate}>{t.projectsSection.title}<Arrow/></NavLink></div></div></section>
-  <section className="case-closing case-chapter container" id="case-selected" aria-labelledby="case-closing-title"><span className="index">{labels.closing}</span><h2 id="case-closing-title">{t.projectsSection.title}</h2><div className="case-neighbors">{[[previous,labels.previous],[next,labels.next]].map(([neighbor,label],i)=>{const item=neighbor as ProjectAsset;const visuals=visibleCaseMedia(item),relatedSource=getStudioProjectCover(item.id)?.url??visuals[0]??'/v2-media/umniah-architecture.svg';return <NavLink key={item.id} route={{...route,page:'projects',project:item.id}} navigate={navigate} className={`case-neighbor neighbor--${i}`}><span className="index">{label as string}</span><div className="neighbor-visual case-reveal" style={mediaFrameStyle(relatedSource)}><StoryMedia source={relatedSource} alt={studioProjectAlt(item.id,relatedSource,t.projects[item.id].title+(visuals.length?'':'. '+labels.illustration))} sizes="(max-width:700px) 90vw, 280px"/></div><h3><span className="neighbor-name">{t.projects[item.id].title}</span><Arrow/></h3><p>{t.projects[item.id].status}</p></NavLink>;})}</div></section>
+  <section className="case-closing case-chapter container" id="case-selected" aria-labelledby="case-closing-title"><span className="index">{labels.closing}</span><h2 id="case-closing-title">{t.projectsSection.title}</h2><div className="case-neighbors">{[[previous,labels.previous],[next,labels.next]].map(([neighbor,label],i)=>{const item=neighbor as ProjectAsset;const visuals=visibleCaseMedia(item),relatedSource=studioCoverSource(item.id)??visuals[0]??'/v2-media/umniah-architecture.svg';return <NavLink key={item.id} route={{...route,page:'projects',project:item.id}} navigate={navigate} className={`case-neighbor neighbor--${i}`}><span className="index">{label as string}</span><div className="neighbor-visual case-reveal" style={mediaFrameStyle(relatedSource)}><StoryMedia source={relatedSource} alt={studioProjectAlt(item.id,relatedSource,t.projects[item.id].title+(visuals.length?'':'. '+labels.illustration))} sizes="(max-width:700px) 90vw, 280px"/></div><h3><span className="neighbor-name">{t.projects[item.id].title}</span><Arrow/></h3><p>{t.projects[item.id].status}</p></NavLink>;})}</div></section>
   <dialog ref={viewer} className="image-viewer case-image-viewer" aria-label={format(t.projectModal.a11y.imageViewer,{title:copy.title})} onClose={()=>{if(opener.current?.isConnected)opener.current.focus({preventScroll:true});}}><form method="dialog"><button aria-label={t.projectModal.labels.closeImageViewer}>×</button></form>{expanded&&<figure><img src={expanded.source} alt={alternativeText(expanded.source)}/><figcaption>{expanded.caption}</figcaption></figure>}</dialog>
   </div>
  </main>;

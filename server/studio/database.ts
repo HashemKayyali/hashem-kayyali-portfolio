@@ -6,6 +6,8 @@ export type ProviderFetch=typeof fetch;
 const tables={media:'studio_media',posts:'studio_posts',gallery:'studio_gallery'} as const;
 export const mediaSelect='id,public_id,kind,url,poster_url,width,height,bytes,format,alt,created_at';
 const joinedMedia='media:studio_media('+mediaSelect+')';
+const legacyProject='project_id,enabled,updated_at,items:studio_project_media(media_id,caption,alt,is_cover,sort_order,'+joinedMedia+')';
+const layoutProject='project_id,enabled,updated_at,items:studio_project_media(media_id,caption,alt,is_cover,hidden,sort_order,'+joinedMedia+'),builtins:studio_project_builtin_media(source,caption,alt,is_cover,hidden,sort_order)';
 const selects={media:mediaSelect,posts:'id,media_id,caption,authored_at,source_url,published,sort_order,created_at,updated_at,'+joinedMedia,gallery:'id,media_id,title,caption,alt,project_id,authored_at,published,sort_order,created_at,updated_at,'+joinedMedia};
 export function createStudioDatabase(env:StudioEnv,fetcher:ProviderFetch=fetch){
  async function call(path:string,method='GET',body?:unknown,query:Record<string,string>={}):Promise<any>{
@@ -23,18 +25,23 @@ export function createStudioDatabase(env:StudioEnv,fetcher:ProviderFetch=fetch){
   if(!response.ok){const diagnostic=await response.json().catch(()=>({}));
    if(diagnostic.code==='23503')throw new StudioError(409,'MEDIA_IN_USE','This media is still used by a project, post or gallery entry.');
    if(diagnostic.code==='23505')throw new StudioError(409,'CONFLICT','This record already exists. Reload the latest content.');
-   if(['42P01','42883','PGRST202','PGRST205'].includes(diagnostic.code))throw new StudioError(503,'SCHEMA_REQUIRED','Apply the Studio SQL migration in Supabase first.');
+   if(['42P01','42703','42883','PGRST200','PGRST202','PGRST205'].includes(diagnostic.code))throw new StudioError(503,'SCHEMA_REQUIRED','Apply the Studio SQL migration in Supabase first.');
    if(diagnostic.code==='22023')throw new StudioError(400,'INVALID_INPUT','The media selection or order is invalid.');
    throw new StudioError(502,'DATABASE_UNAVAILABLE','The content database could not complete this request.');
   }
   return response.status===204?null:response.json();
+ }
+ /** Reads overrides with the managed-gallery columns; before migration 202610200001 falls back to the legacy shape. */
+ async function projectRows(query:Record<string,string>,publicOnly=false){
+  try{return await call('studio_project_overrides','GET',undefined,{select:layoutProject,'items.order':'sort_order.asc','builtins.order':'sort_order.asc',...(publicOnly?{'items.hidden':'eq.false'}:{}),...query});}
+  catch(error){if(!(error instanceof StudioError&&error.code==='SCHEMA_REQUIRED'))throw error;return call('studio_project_overrides','GET',undefined,{select:legacyProject,'items.order':'sort_order.asc',...query});}
  }
  return {
   async publicContent(){
    const [posts,gallery,projectMedia]=await Promise.all([
     call(tables.posts,'GET',undefined,{select:selects.posts,published:'eq.true',order:'sort_order.asc,authored_at.desc,id.asc',limit:'200'}),
     call(tables.gallery,'GET',undefined,{select:selects.gallery,published:'eq.true',order:'sort_order.asc,authored_at.desc,id.asc',limit:'200'}),
-    call('studio_project_overrides','GET',undefined,{select:'project_id,enabled,updated_at,items:studio_project_media(media_id,caption,alt,is_cover,sort_order,'+joinedMedia+')',enabled:'eq.true','items.order':'sort_order.asc',limit:'100'}),
+    projectRows({enabled:'eq.true',limit:'100'},true),
    ]);return {configured:true,posts,gallery,projectMedia};
   },
   async list(kind:StudioResource,offset=0){return call(tables[kind],'GET',undefined,{select:selects[kind],order:kind==='media'?'created_at.desc,id.asc':'sort_order.asc,authored_at.desc,id.asc',limit:'100',offset:String(offset)});},
@@ -44,8 +51,12 @@ export function createStudioDatabase(env:StudioEnv,fetcher:ProviderFetch=fetch){
   async remove(kind:StudioResource,id:string){const rows=await call(tables[kind],'DELETE',undefined,{id:'eq.'+id});return rows?.[0]??null;},
   async reorder(kind:'posts'|'gallery',ids:string[]){await call('rpc/studio_reorder_items','POST',{p_resource:kind,p_ids:ids});},
   async move(kind:'posts'|'gallery',id:string,direction:'up'|'down'){await call('rpc/studio_move_item','POST',{p_resource:kind,p_id:id,p_direction:direction});},
-  async project(project_id:string){const rows=await call('studio_project_overrides','GET',undefined,{select:'project_id,enabled,updated_at,items:studio_project_media(media_id,caption,alt,is_cover,sort_order,'+joinedMedia+')',project_id:'eq.'+project_id,'items.order':'sort_order.asc',limit:'1'});return rows[0]??{project_id,enabled:false,items:[]};},
-  async saveProject(project_id:string,body:{enabled:boolean;items:unknown[]}){await call('rpc/studio_replace_project_media','POST',{p_project_id:project_id,p_enabled:body.enabled,p_items:body.items});return {project_id,...body};},
+  async project(project_id:string){const rows=await projectRows({project_id:'eq.'+project_id,limit:'1'});return rows[0]??null;},
+  async saveLayout(project_id:string,items:unknown[]){
+   try{await call('rpc/studio_save_project_layout','POST',{p_project_id:project_id,p_items:items});}
+   catch(error){if(error instanceof StudioError&&error.code==='SCHEMA_REQUIRED')throw new StudioError(503,'SCHEMA_REQUIRED','Run supabase/migrations/202610200001_studio_project_layout.sql in the Supabase SQL editor to save project images.');throw error;}
+   return this.project(project_id);
+  },
   // ── Admin security state (migration 202610180001). Shared by every serverless instance. ──
   /** Seconds until any of these throttle keys unlocks (0 = allowed). */
   async authGate(keys:string[]){return Number(await call('rpc/studio_auth_gate','POST',{p_keys:keys}))||0;},

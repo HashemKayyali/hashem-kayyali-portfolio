@@ -6,7 +6,7 @@ Engineering readiness, findings and test evidence: [`docs/engineering/PRE-INTEGR
 
 ## What the desk controls
 
-- Project image selections: order, captions, alternative text and cover. Project facts and case-study prose stay in code. Disabling a selection restores the built-in images.
+- Project images (Admin → Project media): upload one or several images per project, choose the cover, reorder, caption and describe them. The bundled originals stay in the list: removing one only hides it (restorable), removing an upload only drops its association (the library record and Cloudinary original remain). The cover leads the Home/Projects cards, the case opening, the Image Flight and the case gallery. Project facts and case-study prose stay in code.
 - Journal entries: one image or video, caption, date, optional original LinkedIn/Instagram URL, draft/published state and order.
 - Gallery entries: image or video, title, caption, alternative text, project, date, publication state and order.
 - Shared media library: signed uploads with progress and cancellation, alternative-text editing. Media still in use cannot be deleted. **Deleting a website record keeps the Cloudinary original, which stays reachable by its URL**: see "Privacy" below.
@@ -30,13 +30,14 @@ Recovery: if the password or authenticator is lost, generate new values with `np
 2. **Supabase.** Create the project (region close to Vercel's). In the SQL editor run, in order:
    1. `supabase/migrations/202610160001_studio.sql`
    2. `supabase/migrations/202610180001_studio_admin_security.sql`
+   3. `supabase/migrations/202610200001_studio_project_layout.sql` (additive: managed project galleries; until it is applied the site reads project images the legacy way and saving in the project editor reports that the migration is required)
 
    Then verify in the SQL editor:
-   - `select relname, relrowsecurity from pg_class where relname like 'studio_%' and relkind='r';` should list 8 tables, all `true`.
+   - `select relname, relrowsecurity from pg_class where relname like 'studio_%' and relkind='r';` should list 9 tables, all `true`.
    - `select has_table_privilege('anon','public.studio_posts','select');` should return `false`.
-   - `select proname, prosecdef from pg_proc where proname like 'studio_%';` should list 9 functions, all `false`.
+   - `select proname, prosecdef from pg_proc where proname like 'studio_%';` should list 10 functions, all `false`.
 
-   The same checks run locally against PostgreSQL 17 with `npm install --no-save @electric-sql/pglite@0.3 && node supabase/tests/migration-contract.mjs` (73 checks, including both rollbacks).
+   The same checks run locally against PostgreSQL 17 with `npm install --no-save @electric-sql/pglite@0.3 && node supabase/tests/migration-contract.mjs` (100 checks, including every rollback).
 3. **Cloudinary.** Create a product environment. Under Settings → Security, keep "Strict transformations" off (the site requests `f_auto,q_auto,w_…` derivatives). No unsigned upload preset is needed. Optional: set an account-level upload limit at or below 20 MB for images and 200 MB for video.
 4. **Local trial** (`.env.local`, never committed): `SUPABASE_URL`, `SUPABASE_SECRET_KEY` (`sb_secret_…`), `CLOUDINARY_*`, `ADMIN_PASSWORD_HASH`, `ADMIN_SESSION_SECRET`, optionally `ADMIN_TOTP_SECRET`. Run `npm run dev`, open `/en/admin/`, and follow the acceptance checklist below.
 5. **Vercel.** Add the same server-only variables to the **Production** environment (plus `ADMIN_TOTP_SECRET`). Never prefix them with `VITE_`. Redeploy, then repeat the acceptance checklist on `https://hashemkayyali.com/en/admin/`.
@@ -50,7 +51,7 @@ Recovery: if the password or authenticator is lost, generate new values with `np
 - [ ] Upload a file over the limit (or rename an SVG): it is refused and removed from Cloudinary (check Media Library).
 - [ ] Create a Journal draft: it is not visible on `/en/journal/`. Publish it: it appears within about a minute (edge cache) and immediately for the signed-in admin.
 - [ ] Reorder, unpublish and delete entries; deleting media still in use is refused.
-- [ ] Set a project image selection with a cover, check the Projects page and case study, then disable it to restore the built-in images.
+- [ ] Upload a project image with Use as cover, check Home, Projects, the case opening and gallery; then remove the cover and confirm the original returns.
 - [ ] `GET /api/studio?action=public` returns only published content and no secret values.
 
 ## Runtime boundaries
@@ -63,4 +64,4 @@ Uploaded media uses Cloudinary's public `upload` delivery type: anyone with a UR
 
 ## Rollback
 
-`supabase/rollback/202610180001_studio_admin_security.down.sql` removes only the admin security state, so admin fails closed. `supabase/rollback/202610160001_studio.down.sql` is **destructive** (it deletes every Studio record): export first. Code rollback: redeploy the previous Vercel deployment or revert the commit.
+`supabase/rollback/202610200001_studio_project_layout.down.sql` removes only the saved order/visibility of bundled originals (projects saved with the new editor then show their uploads only, as legacy overrides). `supabase/rollback/202610180001_studio_admin_security.down.sql` removes only the admin security state, so admin fails closed. `supabase/rollback/202610160001_studio.down.sql` is **destructive** (it deletes every Studio record): export first. Code rollback: redeploy the previous Vercel deployment or revert the commit.

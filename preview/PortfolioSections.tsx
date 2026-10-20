@@ -14,7 +14,7 @@ import {storyCopy} from './story-copy';
 import {NavLink} from './PageShell';
 import {pageCopy} from './page-copy';
 import {useFeaturedMotion} from './motion';
-import {getStudioProjectCover,studioProjectAlt} from './studio-media-registry';
+import {getStudioProjectCover,studioCoverSource,studioProjectAlt} from './studio-media-registry';
 import {cloudinarySrcSet,cloudinaryUrl} from './cloudinary-delivery';
 
 const Arrow = () => <span className="arrow" aria-hidden="true"><Glyph name="up-right"/></span>;
@@ -24,6 +24,9 @@ export function ProductImage({ asset, full = false, eager = false, sizes = '(max
   const { t,locale } = useI18n();
   const uploaded=getStudioProjectCover(asset.id);
   if(uploaded)return <img src={cloudinaryUrl(uploaded.url,1600)} srcSet={cloudinarySrcSet(uploaded.url,uploaded.width)} width={uploaded.width} height={uploaded.height} alt={studioProjectAlt(asset.id,uploaded.url,t.projects[asset.id].title)} loading={eager?'eager':'lazy'} decoding="async" sizes={sizes}/>;
+  // A different bundled original chosen as cover renders like the case opening that the flight lands on.
+  const original=studioCoverSource(asset.id);
+  if(original&&original!==asset.image)return <StoryMedia source={original} alt={studioProjectAlt(asset.id,original,t.projects[asset.id].title)} eager={eager} priority={eager} sizes={sizes}/>;
   const raster = asset.image.endsWith('.webp');
   // Supplied covers carry their own -320/-640/-960 widths next to the full image.
   const supplied = isSuppliedCover(asset.image);
@@ -35,7 +38,7 @@ export function ProductImage({ asset, full = false, eager = false, sizes = '(max
     sizes={sizes}
     loading={eager ? 'eager' : 'lazy'} decoding="async"
     fetchPriority={eager?'high':undefined}
-    alt={supplied ? `${t.projects[asset.id].title}. ${caseCopy[locale].supplied}` : t.projects[asset.id].mediaCaption ?? format(t.projectModal.a11y.screenshot, { title: t.projects[asset.id].title, index: 1 })} />;
+    alt={studioProjectAlt(asset.id, asset.image, supplied ? `${t.projects[asset.id].title}. ${caseCopy[locale].supplied}` : t.projects[asset.id].mediaCaption ?? format(t.projectModal.a11y.screenshot, { title: t.projects[asset.id].title, index: 1 }))} />;
 }
 
 export function Hero({route,navigate}:{route:PreviewRoute;navigate:Navigate}) {

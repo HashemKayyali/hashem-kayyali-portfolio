@@ -1,4 +1,5 @@
 import {projectAssets} from '../../data/projectAssets.ts';
+import {visibleCaseMedia} from '../../preview/case-presentation.ts';
 import {bad} from './errors.ts';
 import type {StudioResource} from '../../studio/contracts.ts';
 export const projectIds=new Set(projectAssets.map(asset=>asset.id as string));
@@ -35,9 +36,22 @@ export function validateItem(kind:StudioResource,input:Record<string,unknown>){
  }
  return result;
 }
-export function validateProject(input:unknown){
- const body=record(input);if(Object.keys(body).some(key=>!['enabled','items'].includes(key))||typeof body.enabled!=='boolean'||!Array.isArray(body.items)||body.items.length>100)bad('Invalid project media settings.');
- const seen=new Set<string>();let covers=0;
- const items=(body.items as unknown[]).map((raw,index)=>{const item=record(raw);if(Object.keys(item).some(key=>!['media_id','caption','alt','is_cover','sort_order'].includes(key))||!uuid(item.media_id)||seen.has(String(item.media_id))||typeof item.is_cover!=='boolean')bad('Invalid or duplicate project image.');seen.add(String(item.media_id));if(item.is_cover)covers++;return {media_id:item.media_id,caption:text(item.caption??'',2000,'caption'),alt:text(item.alt??'',2000,'alternative text'),is_cover:item.is_cover,sort_order:index};});
- if(covers>1)bad('Choose one project cover.');return {enabled:body.enabled as boolean,items};
+/** The project's bundled case media an admin may order, hide or choose as cover (never withheld originals). */
+export function canonicalProjectMedia(project:string){const asset=projectAssets.find(item=>item.id===project);return asset?visibleCaseMedia(asset):[];}
+/** The full ordered gallery: every bundled original exactly once, uploads at most once, one visible cover. */
+export function validateLayout(project:string,input:unknown){
+ const body=record(input);if(Object.keys(body).some(key=>key!=='items')||!Array.isArray(body.items)||!body.items.length||body.items.length>100)bad('Invalid project media settings.');
+ const canonical=new Set(canonicalProjectMedia(project)),seen=new Set<string>();let covers=0,visible=0;
+ const items=(body.items as unknown[]).map(raw=>{
+  const item=record(raw),original=item.source!==undefined;
+  if(Object.keys(item).some(key=>!['source','media_id','caption','alt','is_cover','hidden'].includes(key))||original===(item.media_id!==undefined)||typeof item.is_cover!=='boolean'||typeof item.hidden!=='boolean')bad('Invalid project image.');
+  if(original&&(typeof item.source!=='string'||!canonical.has(item.source)))bad('This original image does not belong to the project.');
+  if(!original&&!uuid(item.media_id))bad('Choose valid uploaded media.');
+  const key=original?'b:'+item.source:'m:'+String(item.media_id).toLowerCase();if(seen.has(key))bad('Each image can appear once.');seen.add(key);
+  if(item.is_cover&&item.hidden)bad('A hidden image cannot be the cover.');if(item.is_cover)covers++;if(!item.hidden)visible++;
+  return {...(original?{source:item.source as string}:{media_id:item.media_id as string}),caption:text(item.caption??'',2000,'caption'),alt:text(item.alt??'',2000,'alternative text'),is_cover:item.is_cover as boolean,hidden:item.hidden as boolean};
+ });
+ if(covers>1)bad('Choose one project cover.');if(!visible)bad('Keep at least one visible image.');
+ if([...canonical].some(source=>!seen.has('b:'+source)))bad('The project originals changed. Reload before saving.');
+ return items;
 }

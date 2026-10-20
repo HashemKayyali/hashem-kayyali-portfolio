@@ -219,11 +219,45 @@ test('Publishing requires accessible media and arbitrary original URLs are rejec
  for(const source_url of ['javascript:alert(1)','http://linkedin.com/post','https://linkedin.com.evil.example/x','https://user:pass@www.linkedin.com/x','data:text/html,hi'])
   assert.equal((await handler(request('items&resource=posts','POST',{...body,published:false,source_url},{cookie}))).status,400,source_url);
 });
-test('Project media saves are one atomic RPC and unknown coded projects are rejected',async()=>{
- const seen=[];const {handler}=studio({content:async(url,init)=>{seen.push({url:String(url),body:init.body});return Response.json(null);}});const cookie=await login(handler);
- const r=await handler(request('project-media&project_id=eventies','PUT',{enabled:true,items:[]},{cookie}));assert.equal(r.status,200);
- assert.equal(seen.length,1);assert.ok(seen[0].url.endsWith('/rpc/studio_replace_project_media'));assert.equal(JSON.parse(seen[0].body).p_project_id,'eventies');
- assert.equal((await handler(request('project-media&project_id=made-up','PUT',{enabled:true,items:[]},{cookie}))).status,400);
+const eventies=['/covers/eventies.webp','/projects/eventies/screenshot-01.webp','/projects/eventies/screenshot-02.webp','/projects/eventies/screenshot-03.webp','/projects/eventies/screenshot-04.webp'];
+const originals=(extra={})=>eventies.map(source=>({source,caption:'',alt:'',is_cover:false,hidden:false,...extra[source]}));
+test('Project galleries save in one atomic RPC with every original kept, and unknown projects are rejected',async()=>{
+ const seen=[];const {handler}=studio({content:async(url,init)=>{seen.push({url:String(url),body:init.body});return Response.json(String(url).includes('/rpc/')?null:[]);}});const cookie=await login(handler);
+ const items=[{media_id:id,caption:'Night build',alt:'Prototype on the bench',is_cover:true,hidden:false},...originals()];
+ const r=await handler(request('project-media&project_id=eventies','PUT',{items},{cookie}));assert.equal(r.status,200,await r.clone().text());
+ assert.ok(seen[0].url.endsWith('/rpc/studio_save_project_layout'));const sent=JSON.parse(seen[0].body);assert.equal(sent.p_project_id,'eventies');assert.deepEqual(sent.p_items,items);
+ assert.ok(new URL(seen[1].url).searchParams.get('select').includes('builtins:studio_project_builtin_media'),'the saved state is read back');
+ assert.equal((await handler(request('project-media&project_id=made-up','PUT',{items},{cookie}))).status,400);
+});
+test('Project gallery rules are enforced on the server, not only in the editor',async()=>{
+ const {handler}=studio({content:async()=>{throw new Error('No provider call for invalid layouts');}});const cookie=await login(handler);
+ const put=items=>handler(request('project-media&project_id=eventies','PUT',{items},{cookie}));
+ const upload={media_id:id,caption:'',alt:'Bench',is_cover:false,hidden:false};
+ for(const [name,items] of [
+  ['two covers',[{...upload,is_cover:true},...originals({[eventies[1]]:{is_cover:true}})]],
+  ['a hidden cover',[{...upload,is_cover:true,hidden:true},...originals()]],
+  ['a duplicate upload',[upload,upload,...originals()]],
+  ['a missing original',[upload,...originals().slice(1)]],
+  ['a duplicate original',[...originals(),originals()[0]]],
+  ['an original from another project',[...originals(),{source:'/covers/glitzz-lab.webp',caption:'',alt:'',is_cover:false,hidden:false}]],
+  ['a withheld or arbitrary file',[...originals(),{source:'/projects/eventies/../../.env',caption:'',alt:'',is_cover:false,hidden:false}]],
+  ['both source and media',[{...upload,source:eventies[0]},...originals().slice(1)]],
+  ['nothing visible',originals(Object.fromEntries(eventies.map(source=>[source,{hidden:true}])))],
+  ['an invalid media id',[{...upload,media_id:'not-a-uuid'},...originals()]],
+  ['an unknown field',[{...upload,url:'https://evil.example/x.png'},...originals()]],
+  ['an empty list',[]],
+ ])assert.equal((await put(items)).status,400,name);
+ assert.equal((await handler(request('project-media&project_id=eventies','PUT',{enabled:true,items:[]},{cookie}))).status,400,'the legacy replace body is no longer accepted');
+});
+test('Saving before migration 202610200001 names the migration to run',async()=>{
+ const {handler}=studio({content:async()=>Response.json({code:'PGRST202'},{status:404})});const cookie=await login(handler);
+ const r=await handler(request('project-media&project_id=eventies','PUT',{items:originals()},{cookie}));assert.equal(r.status,503);assert.match((await r.json()).error.message,/202610200001_studio_project_layout\.sql/);
+});
+test('Project media reads fall back to the legacy shape until migration 202610200001 is applied',async()=>{
+ const legacy=[{project_id:'umniah-youthconnect',enabled:true,items:[{media_id:id,caption:'',alt:'a',is_cover:true,sort_order:0}]}];const seen=[];
+ const handler=createStudioHandler({env,fetcher:async url=>{const u=new URL(url);if(u.pathname.endsWith('studio_project_overrides')){seen.push(u.searchParams.get('select'));return u.searchParams.get('select').includes('builtins')?Response.json({code:'PGRST200'},{status:400}):Response.json(legacy);}return Response.json([]);}});
+ const data=await (await handler(request('public'))).json();
+ assert.deepEqual(data.projectMedia,legacy);assert.equal(seen.length,2);assert.ok(!seen[1].includes('builtins'));
 });
 test('Provider failures are surfaced without reflecting secret upstream diagnostics',async()=>{
  const handler=createStudioHandler({env,fetcher:async()=>new Response(JSON.stringify({message:env.SUPABASE_SECRET_KEY}),{status:500})});

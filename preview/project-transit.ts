@@ -3,7 +3,7 @@ import {onLayoutResize} from './layout-resize';
 import {projectAssets} from '../data/projectAssets';import type {ProjectId} from '../content/types';
 import {caseOpeningSizes,storySources} from './StoryMedia';import type {PreviewRoute} from './routes';import {previewUrl} from './routes';
 import {galleryMemory} from './gallery-memory';
-import {getStudioProjectCover} from './studio-media-registry';
+import {studioCoverSource} from './studio-media-registry';
 type Intent={source:HTMLImageElement;destination:PreviewRoute;origin?:ProjectId};
 let clicked:{path:string;element:HTMLElement}|undefined,intent:Intent|undefined,activeId=0,activeProject:ProjectId|undefined;
 let cancelActive:(()=>void)|undefined;
@@ -13,7 +13,7 @@ const decoded=new Map<string,Promise<HTMLImageElement|undefined>>();
 export function preloadProjectImage(id:ProjectId){
  const asset=projectAssets.find(a=>a.id===id);if(!asset)return Promise.resolve(undefined);
  // Same src/srcset/sizes as the case-opening cover, so this warms the exact candidate the case will pick.
- const {src,srcSet}=storySources(getStudioProjectCover(id)?.url??asset.image),key=id+':'+src;
+ const {src,srcSet}=storySources(studioCoverSource(id)??asset.image),key=id+':'+src;
  if(decoded.has(key))return decoded.get(key)!;
  const image=new Image();image.decoding='async';image.sizes=caseOpeningSizes;if(srcSet)image.srcset=srcSet;image.src=src;
  const result=image.decode().then(()=>image,()=>undefined);decoded.set(key,result);
