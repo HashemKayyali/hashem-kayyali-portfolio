@@ -4,7 +4,7 @@ import {useI18n,format} from '../i18n/useI18n';
 import {isSuppliedCover,type ProjectAsset} from '../data/projectAssets';
 import {NavLink} from './PageShell';
 import type {Navigate,PreviewRoute} from './routes';
-import StoryMedia,{safeSource} from './StoryMedia';
+import StoryMedia,{caseOpeningSizes,safeSource} from './StoryMedia';
 import {caseCopy} from './case-copy';
 import {storyCopy} from './story-copy';
 import {casePresentation,visibleCaseMedia,caseNeighbors} from './case-presentation';
@@ -31,7 +31,7 @@ export default function SignatureCaseStudy({asset,route,navigate}:Props) {
  const evidence=customMedia?labels.supplied:copy.mediaCaption??(presentation.evidence==='redacted'?storyCopy[locale].redacted:presentation.evidence==='illustration'?labels.illustration:presentation.evidence==='supplied'?labels.supplied:asset.categoryKey==='webPlatform'?labels.publicInterface:storyCopy[locale].real);
  const caption=(source:string)=>customMedia?.items.find(item=>item.media?.url===source)?.caption||(source.includes('/bike-tower/screenshot-')?storyCopy[locale].redacted:isSuppliedCover(source)?labels.supplied:evidence);
  const alternativeText=(source:string)=>studioProjectAlt(asset.id,source,`${copy.title}. ${caption(source)}`);
- const media=(source:string,eager=false,sizes='(max-width:700px) 92vw, 1160px')=><StoryMedia source={source} alt={alternativeText(source)} eager={eager} sizes={sizes}/>;
+ const media=(source:string,eager=false,sizes=caseOpeningSizes)=><StoryMedia source={source} alt={alternativeText(source)} eager={eager} priority={eager} sizes={sizes}/>;
  const reveal=(source:string,caption:string,event:React.MouseEvent<HTMLButtonElement>)=>{opener.current=event.currentTarget;setExpanded({source:safeSource(source),caption});viewer.current?.showModal();};
  const opening=<section className={`case-opening opening--${presentation.opening}`} aria-labelledby="case-title">
   <div className="container case-wayfinding"><NavLink className="back-link" route={{...route,page:'projects',project:undefined}} navigate={navigate}><span aria-hidden="true"><Glyph name="left"/></span>{t.projectsSection.title}</NavLink><span className="case-edition">{labels.exhibition}</span></div>
