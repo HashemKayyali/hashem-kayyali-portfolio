@@ -35,7 +35,7 @@ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-
 html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-sheet-image img{background:var(--theme-panel-alt);}
 /* Give existing card families a consistent edge and elevation without altering geometry. */
 html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell :is(.pulse-scene--1 .pulse-scene-surface,.pulse-scene--2 .pulse-scene-surface,.profile-education,.dossier-folio,.dossier-tool,.desk-compose,.desk-channel,.desk-email-pair,.gallery-exhibit,.evidence-stage,.case-neighbor){box-shadow:inset 0 1px 0 #ffffff18,var(--ui-card-shadow);}
-html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell :is(.pulse-scene--1 .pulse-scene-surface,.pulse-scene--2 .pulse-scene-surface,.story-contact,.desk-compose,.profile-education,.dossier-folio--0){
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell :is(.pulse-scene--1 .pulse-scene-surface,.pulse-scene--2 .pulse-scene-surface,.story-contact,.desk-compose,.profile-education,.dossier-folio--0,.case-result>.container){
  --ui-action-bg:var(--theme-panel-accent);--ui-action-ink:var(--theme-field);
  --ui-secondary-bg:var(--theme-field);--ui-secondary-ink:var(--theme-panel-ink);--ui-control-edge:var(--theme-field-border);--ui-focus:var(--theme-panel-accent);
 }

@@ -29,11 +29,11 @@ async function cycle(t){
  return {stop:startThemeCycle(),advance,theme:()=>root.dataset.theme};
 }
 
-test('Advances one edition every 30 seconds, starting from Sterling, and loops',async t=>{
- const c=await cycle(t);c.advance(29_999);assert.equal(c.theme(),'metal');
+test('Advances one edition every 10 seconds, starting from Sterling, and loops',async t=>{
+ const c=await cycle(t);c.advance(9_999);assert.equal(c.theme(),'metal');
  c.advance(1);assert.equal(c.theme(),'atelier');
- c.advance(30_000);assert.equal(c.theme(),'burgundy');
- for(const expected of ['onyx','rose','metal']){c.advance(30_000);assert.equal(c.theme(),expected);}
+ c.advance(10_000);assert.equal(c.theme(),'burgundy');
+ for(const expected of ['onyx','rose','metal']){c.advance(10_000);assert.equal(c.theme(),expected);}
  assert.equal(storage.size,0,'automatic changes are never stored as a visitor choice');c.stop();
 });
 test('A stored menu choice disables the cycle entirely',async t=>{
@@ -42,7 +42,7 @@ test('A stored menu choice disables the cycle entirely',async t=>{
  clock+=120_000;t.mock.timers.tick(120_000);assert.equal(root.dataset.theme,'rose');stop();
 });
 test('Choosing an edition in the menu stops the cycle immediately',async t=>{
- const c=await cycle(t);c.advance(10_000);
+ const c=await cycle(t);c.advance(5_000);
  dispatchEvent(new CustomEvent('portfolio-theme-change',{detail:{id:'onyx',chosen:true}}));root.dataset.theme='onyx';
  c.advance(120_000);assert.equal(c.theme(),'onyx');
 });
@@ -59,18 +59,18 @@ test('Reduced motion never cycles',async t=>{
  const {startThemeCycle}=await import(url(cycleSource)+'#'+Math.random());const stop=startThemeCycle();
  clock+=90_000;t.mock.timers.tick(90_000);assert.equal(root.dataset.theme,'metal');stop();
 });
-test('Background tabs pause; returning restarts a full 30 seconds',async t=>{
- const c=await cycle(t);c.advance(20_000);doc.hidden=true;doc.dispatch('visibilitychange');
+test('Background tabs pause; returning restarts a full 10 seconds',async t=>{
+ const c=await cycle(t);c.advance(5_000);doc.hidden=true;doc.dispatch('visibilitychange');
  c.advance(60_000);assert.equal(c.theme(),'metal');
- doc.hidden=false;doc.dispatch('visibilitychange');c.advance(29_000);assert.equal(c.theme(),'metal');
+ doc.hidden=false;doc.dispatch('visibilitychange');c.advance(9_000);assert.equal(c.theme(),'metal');
  c.advance(1_000);assert.equal(c.theme(),'atelier');c.stop();
 });
 test('Repeated visibility events never create concurrent timers',async t=>{
  const c=await cycle(t);for(let i=0;i<5;i++)doc.dispatch('visibilitychange');
- c.advance(30_000);assert.equal(c.theme(),'atelier','exactly one step');c.advance(29_000);assert.equal(c.theme(),'atelier');c.stop();
+ c.advance(10_000);assert.equal(c.theme(),'atelier','exactly one step');c.advance(9_000);assert.equal(c.theme(),'atelier');c.stop();
 });
 test('Scrolling, typing, open menus, dialogs and transitions defer the change until quiet',async t=>{
- const c=await cycle(t);c.advance(29_500);dispatchEvent(new Event('scroll'));c.advance(500);
+ const c=await cycle(t);c.advance(9_500);dispatchEvent(new Event('scroll'));c.advance(500);
  assert.equal(c.theme(),'metal','no change while scrolling');c.advance(1_200);assert.equal(c.theme(),'atelier','lands once scrolling stops');
  for(const block of [()=>{doc.activeElement={matches:()=>true};},()=>{root.menuOpen=true;},()=>{root.dataset.projectTransit='true';},()=>{doc.selectors.add('dialog[open]');},()=>{doc.selectors.add('.route-stage[inert]');}]){
   const before=c.theme();block();c.advance(40_000);assert.equal(c.theme(),before,'deferred');

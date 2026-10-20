@@ -2,12 +2,12 @@ import {applyTheme,readThemeChoice,THEMES} from './themes';
 
 /*
  * Owner request (18 Oct 2026): starting on Sterling, the site moves to the next edition every
- * 30 seconds. A visitor's own menu choice stops the cycle; reduced motion never cycles; it
+ * 30 seconds (10 seconds since 21 Oct 2026). A visitor's own menu choice stops the cycle; reduced motion never cycles; it
  * pauses in background tabs and waits while the visitor scrolls or types, a menu or dialog is open,
  * or a page or project image is in transit. Choosing any edition in the menu (WCAG 2.2.2 stop
  * mechanism) ends the cycle for that visitor.
  */
-const INTERVAL=30_000,RETRY=1_200,SCROLL_QUIET=900;
+const INTERVAL=10_000,RETRY=1_200,SCROLL_QUIET=900;
 export function startThemeCycle(){
  const reduced=matchMedia('(prefers-reduced-motion:reduce)');
  const chosen=()=>{try{return readThemeChoice(localStorage)!==null;}catch{return false;}};

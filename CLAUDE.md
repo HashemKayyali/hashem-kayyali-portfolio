@@ -14,7 +14,7 @@ Open `http://127.0.0.1:5176/` (redirects to `/en/`) or `/ar/`. Public URLs are `
 
 ## Active architecture
 
-- Themes: Sterling (`metal`) is the default. `preview/theme-cycle.ts` moves to the next edition every 30s (paused for reduced motion, hidden tabs, scrolling, open menus/dialogs and transitions) until the visitor picks one in the menu, which is stored under `portfolio-v2-theme-choice`. Favicons, app icons and the social card (`/og-image-sterling.png`) use the Sterling HK Monogram Tile.
+- Themes: Sterling (`metal`) is the default. `preview/theme-cycle.ts` moves to the next edition every 10s (paused for reduced motion, hidden tabs, scrolling, open menus/dialogs and transitions) until the visitor picks one in the menu, which is stored under `portfolio-v2-theme-choice`. Favicons, app icons and the social card (`/og-image-sterling.png`) use the Sterling HK Monogram Tile.
 - React19, TypeScript and Vite. Active entry: `preview/main.tsx`. Shell/router: `preview/LightPortfolio.tsx`; route model: `preview/routes.ts`.
 - Root `App.tsx`, `sections/`, `index.tsx` and `vite.config.ts` are historical and only run through explicitly named `*:legacy` scripts. When the owner refers to the current website, work in `preview/`.
 - Eleven coded projects, five locales and five semantic themes. Preserve factual content, authentic company/R&D assets, existing typography, redactions and approved smoke/portrait behavior. Shared Home/About portrait stays mounted. Existing case hero composition is protected.

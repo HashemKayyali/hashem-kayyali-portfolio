@@ -23,10 +23,13 @@ export function useExperienceJourneyMotion(root:RefObject<HTMLElement|null>,loca
      if(!group.matches('.journey-folio-arrival')){gsap.fromTo(group,{y:30,opacity:0},{y:0,opacity:1,duration:.9,ease:'expo.out',clearProps:'transform,opacity'});return;}
      // A chapter unfolds in reading order: marker, period and title, context, then each role card.
      const rtl=document.documentElement.dir==='rtl';
-     gsap.timeline({defaults:{ease:'expo.out'}})
+     // Most chapters have no context paragraphs; an empty target only makes GSAP warn.
+     const context=group.querySelectorAll('.journey-responsibilities li,.journey-entry-context p');
+     const timeline=gsap.timeline({defaults:{ease:'expo.out'}});
+     if(context.length)timeline.fromTo(context,{y:18,opacity:0},{y:0,opacity:1,duration:.8,stagger:.05,clearProps:'transform,opacity'},.2);
+     timeline
       .fromTo(group.querySelector('.journey-track-index'),{scale:0,opacity:0},{scale:1,opacity:1,duration:.7,clearProps:'transform,opacity'},0)
       .fromTo(group.querySelectorAll('.journey-company-header>*'),{x:rtl?28:-28,opacity:0},{x:0,opacity:1,duration:.95,stagger:.08,clearProps:'transform,opacity'},.05)
-      .fromTo(group.querySelectorAll('.journey-responsibilities li,.journey-entry-context p'),{y:18,opacity:0},{y:0,opacity:1,duration:.8,stagger:.05,clearProps:'transform,opacity'},.2)
       // Role cards rise and unfold from their top edge. Transform/opacity only: the former clip-path
       // reveal repainted every large card on every frame and made the chapter arrivals stutter.
       .fromTo(group.querySelectorAll('.journey-role'),{y:24,scaleY:.94,opacity:0,transformOrigin:'50% 0%'},{y:0,scaleY:1,opacity:1,duration:1.05,stagger:.14,clearProps:'transform,opacity,transformOrigin'},.28)
