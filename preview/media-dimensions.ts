@@ -315,15 +315,15 @@ const dimensions: Record<string, { width: number; height: number }> = {
   },
   "/covers/terminal-nfc.webp": {
     "width": 1600,
-    "height": 902
+    "height": 900
   },
   "/covers/terminal-nfc-960.webp": {
     "width": 960,
-    "height": 541
+    "height": 540
   },
   "/covers/terminal-nfc-640.webp": {
     "width": 640,
-    "height": 361
+    "height": 360
   },
   "/covers/terminal-nfc-320.webp": {
     "width": 320,
