@@ -161,7 +161,7 @@ const de: Dictionary = {
         "period": "Januar 2026 – heute",
         "location": "Amman, Jordanien",
         "points": [
-          "Mitgründer von Eventies; leitet die praktische technische Entwicklung der Plattform und prägt Produktausrichtung und technische Entscheidungen mit.",
+          "Leitet die praktische technische Entwicklung der Eventies-Plattform und prägt Produktausrichtung und technische Entscheidungen mit.",
           "Der technische Verantwortungsbereich umfasst Produktplanung, Systemarchitektur, User Experience, Frontend- und Backend-Entwicklung, Integrationen, Bereitstellung und kontinuierliche Produktverbesserung.",
           "Verbindet betriebliche und geschäftliche Anforderungen mit Produktanforderungen und praxisnahen technischen Entscheidungen."
         ],
@@ -292,7 +292,7 @@ const de: Dictionary = {
       "short": "Ein Marktplatz für Eventservices, der Kundenanfragen mit Vermietung, Produktion, Unterhaltung und individuellen Lösungen verbindet.",
       "overview": "Eventplanung bedeutet oft, getrennte Anbieter und Servicekataloge zu durchsuchen. Eventies bündelt Vermietung, Produktion, Aktivierungen, Unterhaltung, Stände, Bildschirme und individuelle Lösungen in einem digitalen Marktplatz mit einer Kundenreise zur Servicesuche und operativen Abläufen zur Bearbeitung von Anfragen.",
       "purpose": "Fragmentierte Servicesuche vereinfachen und Kundenbedürfnisse mit strukturierten Eventanfragen verbinden.",
-      "contribution": "Mitgründer und technischer Leiter mit praktischer Verantwortung für Produktarchitektur, Nutzerreisen, Frontend- und Backend-Entwicklung, Servicekatalog, Datenbankdesign, Integrationen, Bereitstellung und kontinuierliche Verbesserung.",
+      "contribution": "Technischer Leiter mit praktischer Verantwortung für Produktarchitektur, Nutzerreisen, Frontend- und Backend-Entwicklung, Servicekatalog, Datenbankdesign, Integrationen, Bereitstellung und kontinuierliche Verbesserung.",
       "engineering": "Die Anwendung mit Next.js und TypeScript nutzt Supabase als gemeinsame Datenschicht. Produkt- und Datenbankentscheidungen verbinden den öffentlichen Katalog, den Anfrageprozess und die interne Bearbeitung während der Weiterentwicklung.",
       "capabilities": [
         "Eventservices finden",

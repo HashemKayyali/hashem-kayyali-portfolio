@@ -161,7 +161,7 @@ const en: Dictionary = {
         "period": "January 2026 – Present",
         "location": "Amman, Jordan",
         "points": [
-          "Co-founded Eventies and leads hands-on technical development of the platform, shaping product direction and engineering decisions.",
+          "Leads hands-on technical development of the Eventies platform, shaping product direction and engineering decisions.",
           "Technical scope covers product planning, system architecture, user experience, frontend and backend development, integrations, deployment and continuous product improvement.",
           "Connects operational and business needs to product requirements and practical engineering decisions."
         ],
@@ -292,7 +292,7 @@ const en: Dictionary = {
       "short": "An event-services marketplace connecting customer requests with rentals, production, entertainment, and custom event solutions.",
       "overview": "Planning an event often means searching across disconnected suppliers and service lists. Eventies brings event rentals, production services, activations, entertainment, booths, screens, and custom solutions into one digital marketplace, with a customer-facing discovery journey and an operational workflow for handling requests.",
       "purpose": "Make fragmented service discovery easier to navigate and connect customer needs to organized event-service requests.",
-      "contribution": "Co-founder and Technical Lead, with hands-on responsibility for product architecture, user journeys, frontend and backend development, service-catalog structure, database design, integrations, deployment and continuous improvement.",
+      "contribution": "Technical Lead, with hands-on responsibility for product architecture, user journeys, frontend and backend development, service-catalog structure, database design, integrations, deployment and continuous improvement.",
       "engineering": "The Next.js and TypeScript application uses Supabase for its shared data layer. Product and database decisions keep the public catalog, request journey, and internal handling of those requests connected as the platform evolves.",
       "capabilities": [
         "Event-service discovery",

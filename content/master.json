@@ -791,11 +791,11 @@
         ],
         "points": [
           {
-            "en": "Co-founded Eventies and leads hands-on technical development of the platform, shaping product direction and engineering decisions.",
-            "ar": "شارك في تأسيس Eventies ويقود التطوير التقني العملي للمنصة، ويسهم في توجيه المنتج وقراراته الهندسية.",
-            "de": "Mitgründer von Eventies; leitet die praktische technische Entwicklung der Plattform und prägt Produktausrichtung und technische Entscheidungen mit.",
-            "fr": "Cofondateur d’Eventies ; dirige le développement technique concret de la plateforme et contribue à l’orientation produit comme aux décisions d’ingénierie.",
-            "es": "Cofundador de Eventies; lidera el desarrollo técnico práctico de la plataforma y participa en la dirección del producto y en las decisiones de ingeniería."
+            "en": "Leads hands-on technical development of the Eventies platform, shaping product direction and engineering decisions.",
+            "ar": "يقود التطوير التقني العملي لمنصة Eventies، ويسهم في توجيه المنتج وقراراته الهندسية.",
+            "de": "Leitet die praktische technische Entwicklung der Eventies-Plattform und prägt Produktausrichtung und technische Entscheidungen mit.",
+            "fr": "Dirige le développement technique concret de la plateforme Eventies et contribue à l’orientation produit comme aux décisions d’ingénierie.",
+            "es": "Lidera el desarrollo técnico práctico de la plataforma de Eventies y participa en la dirección del producto y en las decisiones de ingeniería."
           },
           {
             "en": "Technical scope covers product planning, system architecture, user experience, frontend and backend development, integrations, deployment and continuous product improvement.",
@@ -1348,11 +1348,11 @@
         "es": "Simplificar el descubrimiento de servicios dispersos y convertir necesidades de clientes en solicitudes organizadas."
       },
       "contribution": {
-        "en": "Co-founder and Technical Lead, with hands-on responsibility for product architecture, user journeys, frontend and backend development, service-catalog structure, database design, integrations, deployment and continuous improvement.",
-        "ar": "شريك مؤسس وقائد تقني، ومسؤول عمليًا عن بنية المنتج ورحلات المستخدم وتطوير الواجهات والخدمات الخلفية وتنظيم كتالوج الخدمات وتصميم قاعدة البيانات والتكاملات والنشر والتحسين المستمر.",
-        "de": "Mitgründer und technischer Leiter mit praktischer Verantwortung für Produktarchitektur, Nutzerreisen, Frontend- und Backend-Entwicklung, Servicekatalog, Datenbankdesign, Integrationen, Bereitstellung und kontinuierliche Verbesserung.",
-        "fr": "Cofondateur et responsable technique, directement en charge de l’architecture produit, des parcours utilisateurs, du frontend et du backend, du catalogue de services, de la base de données, des intégrations, du déploiement et de l’amélioration continue.",
-        "es": "Cofundador y responsable técnico, con responsabilidad directa sobre la arquitectura del producto, los recorridos de usuario, el frontend y el backend, el catálogo de servicios, el diseño de la base de datos, las integraciones, el despliegue y la mejora continua."
+        "en": "Technical Lead, with hands-on responsibility for product architecture, user journeys, frontend and backend development, service-catalog structure, database design, integrations, deployment and continuous improvement.",
+        "ar": "قائد تقني، ومسؤول عمليًا عن بنية المنتج ورحلات المستخدم وتطوير الواجهات والخدمات الخلفية وتنظيم كتالوج الخدمات وتصميم قاعدة البيانات والتكاملات والنشر والتحسين المستمر.",
+        "de": "Technischer Leiter mit praktischer Verantwortung für Produktarchitektur, Nutzerreisen, Frontend- und Backend-Entwicklung, Servicekatalog, Datenbankdesign, Integrationen, Bereitstellung und kontinuierliche Verbesserung.",
+        "fr": "Responsable technique, directement en charge de l’architecture produit, des parcours utilisateurs, du frontend et du backend, du catalogue de services, de la base de données, des intégrations, du déploiement et de l’amélioration continue.",
+        "es": "Responsable técnico, con responsabilidad directa sobre la arquitectura del producto, los recorridos de usuario, el frontend y el backend, el catálogo de servicios, el diseño de la base de datos, las integraciones, el despliegue y la mejora continua."
       },
       "engineering": {
         "en": "The Next.js and TypeScript application uses Supabase for its shared data layer. Product and database decisions keep the public catalog, request journey, and internal handling of those requests connected as the platform evolves.",

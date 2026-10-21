@@ -161,7 +161,7 @@ const fr: Dictionary = {
         "period": "Janvier 2026 – aujourd’hui",
         "location": "Amman, Jordanie",
         "points": [
-          "Cofondateur d’Eventies ; dirige le développement technique concret de la plateforme et contribue à l’orientation produit comme aux décisions d’ingénierie.",
+          "Dirige le développement technique concret de la plateforme Eventies et contribue à l’orientation produit comme aux décisions d’ingénierie.",
           "Le périmètre technique couvre la planification produit, l’architecture système, l’expérience utilisateur, le frontend et le backend, les intégrations, le déploiement et l’amélioration continue du produit.",
           "Relie les besoins opérationnels et métier aux exigences produit et à des décisions d’ingénierie pragmatiques."
         ],
@@ -292,7 +292,7 @@ const fr: Dictionary = {
       "short": "Une place de marché événementielle qui relie les demandes clients à la location, à la production, au divertissement et aux solutions sur mesure.",
       "overview": "Organiser un événement implique souvent de chercher parmi des fournisseurs et des catalogues dispersés. Eventies réunit location, production, animations, divertissement, stands, écrans et solutions sur mesure dans une place de marché numérique, avec un parcours de découverte côté client et un processus opérationnel de traitement des demandes.",
       "purpose": "Simplifier la découverte de services dispersés et relier les besoins clients à des demandes événementielles structurées.",
-      "contribution": "Cofondateur et responsable technique, directement en charge de l’architecture produit, des parcours utilisateurs, du frontend et du backend, du catalogue de services, de la base de données, des intégrations, du déploiement et de l’amélioration continue.",
+      "contribution": "Responsable technique, directement en charge de l’architecture produit, des parcours utilisateurs, du frontend et du backend, du catalogue de services, de la base de données, des intégrations, du déploiement et de l’amélioration continue.",
       "engineering": "L’application Next.js et TypeScript utilise Supabase comme couche de données commune. Les choix produit et de base de données maintiennent le lien entre catalogue public, parcours de demande et traitement interne au fil de l’évolution de la plateforme.",
       "capabilities": [
         "Découverte de services événementiels",

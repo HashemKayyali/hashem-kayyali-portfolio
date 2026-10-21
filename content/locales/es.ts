@@ -161,7 +161,7 @@ const es: Dictionary = {
         "period": "Enero de 2026 – actualidad",
         "location": "Amán, Jordania",
         "points": [
-          "Cofundador de Eventies; lidera el desarrollo técnico práctico de la plataforma y participa en la dirección del producto y en las decisiones de ingeniería.",
+          "Lidera el desarrollo técnico práctico de la plataforma de Eventies y participa en la dirección del producto y en las decisiones de ingeniería.",
           "El alcance técnico abarca la planificación de producto, la arquitectura del sistema, la experiencia de usuario, el desarrollo frontend y backend, las integraciones, el despliegue y la mejora continua del producto.",
           "Conecta las necesidades operativas y de negocio con los requisitos del producto y con decisiones de ingeniería prácticas."
         ],
@@ -292,7 +292,7 @@ const es: Dictionary = {
       "short": "Un mercado de servicios para eventos que conecta solicitudes con alquileres, producción, entretenimiento y soluciones a medida.",
       "overview": "Organizar un evento suele exigir buscar entre proveedores y catálogos dispersos. Eventies reúne alquileres, producción, activaciones, entretenimiento, stands, pantallas y soluciones a medida en un mercado digital, con un recorrido de descubrimiento para el cliente y un flujo operativo para gestionar solicitudes.",
       "purpose": "Simplificar el descubrimiento de servicios dispersos y convertir necesidades de clientes en solicitudes organizadas.",
-      "contribution": "Cofundador y responsable técnico, con responsabilidad directa sobre la arquitectura del producto, los recorridos de usuario, el frontend y el backend, el catálogo de servicios, el diseño de la base de datos, las integraciones, el despliegue y la mejora continua.",
+      "contribution": "Responsable técnico, con responsabilidad directa sobre la arquitectura del producto, los recorridos de usuario, el frontend y el backend, el catálogo de servicios, el diseño de la base de datos, las integraciones, el despliegue y la mejora continua.",
       "engineering": "La aplicación Next.js y TypeScript utiliza Supabase como capa de datos compartida. Las decisiones de producto y base de datos conectan el catálogo público, el recorrido de solicitud y su gestión interna conforme evoluciona la plataforma.",
       "capabilities": [
         "Descubrimiento de servicios",
