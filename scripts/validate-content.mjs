@@ -404,7 +404,7 @@ const scan = (patterns) => {
     problems.push('en: approved education record');
   }
   const paragraphs = en.about.sections.flatMap(s => s.paragraphs).join('\n\n');
-  const approvedAboutHash = '5ea77cb8979aa842221dfc3b070a83c21bb8aca347601fab8056d9ad367072b8';
+  const approvedAboutHash = 'e4bda046e3893f2419979de26caf41d4f969bc417cf28a3bbf27c492153f3ad0';
   if (createHash('sha256').update(paragraphs).digest('hex') !== approvedAboutHash) {
     problems.push('en: approved six About paragraphs changed');
   }
@@ -427,7 +427,7 @@ const scan = (patterns) => {
       eventies: ['Next.js', 'TypeScript', 'Supabase'],
       'glitzz-lab': ['Next.js', 'TypeScript', 'Supabase', 'Meta WhatsApp Integration'],
       'umniah-youthconnect': ['Flutter', 'Dart', 'Supabase'],
-      'terminal-nfc': ['C#', 'WPF', '.NET Web API', 'REST APIs', 'NFC', 'Client–Server Architecture'],
+      'terminal-nfc': ['C#', 'WPF', 'Supabase', 'RFID', 'Motion Sensors'],
       'bike-tower': ['Flutter', 'Dart', 'ESP32-S3', 'Embedded C++', 'WebSockets', 'UDP', 'Custom PCB', 'LED Control'],
       'basket-beats': ['Flutter', 'Dart', 'Embedded C++', 'Sensors', 'WebSockets', 'UDP', 'Custom PCB'],
       'financial-operations': ['React', 'TypeScript', 'Supabase', 'PostgreSQL', 'Tailwind CSS', 'Recharts'],

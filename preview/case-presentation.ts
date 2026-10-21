@@ -4,7 +4,7 @@ type Presentation={identity:string;opening:'landscape'|'split'|'layers'|'diagram
 /** Presentation choices only. Facts, status and technologies come from dictionaries. */
 export const casePresentation:Record<ProjectId,Presentation>={
  'bike-tower':{identity:'physical-competition',opening:'landscape',evidence:'real',order:'engineering-first',build:'gallery'},
- 'terminal-nfc':{identity:'venue-operations',opening:'split',evidence:'redacted',order:'engineering-first',build:'pair'},
+ 'terminal-nfc':{identity:'venue-operations',opening:'diagram',evidence:'illustration',order:'engineering-first',build:'diagram'},
  eventies:{identity:'service-marketplace',opening:'layers',evidence:'real',order:'product-first',build:'gallery'},
  'basket-beats':{identity:'impact-to-event',opening:'landscape',evidence:'real',order:'engineering-first',build:'single'},
  'glitzz-lab':{identity:'connected-service',opening:'layers',evidence:'real',order:'product-first',build:'gallery'},
@@ -16,6 +16,8 @@ export const casePresentation:Record<ProjectId,Presentation>={
  'traffic-flow-analytics':{identity:'movement-analysis',opening:'split',evidence:'real',order:'engineering-first',build:'single'},
 };
 export function visibleCaseMedia(asset:ProjectAsset):string[] {
+ // The Terminal's supplied cover and its one screenshot show the retired POS/invoice system; the case study shows the current architecture only until new evidence is supplied.
+ if(asset.id==='terminal-nfc')return [];
  // Umniah screenshots stay confidential: only the owner-approved supplied cover is shown.
  if(asset.id==='umniah-youthconnect')return asset.image.startsWith('/covers/')?[asset.image]:[];
  return [asset.image,...(asset.id==='glitzz-lab'?asset.gallery.slice(0,5):asset.gallery)];

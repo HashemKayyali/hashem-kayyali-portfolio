@@ -15,7 +15,7 @@ const en: Dictionary = {
   },
   "hero": {
     "headline": "Practical products across software and connected systems.",
-    "supporting": "I build web, mobile, desktop, and embedded products — from requirements and system design to implementation, deployment, and improvement.",
+    "supporting": "R&D product engineering across web, mobile, desktop and embedded systems — from system design and firmware to integration, deployment and ongoing improvement.",
     "actions": {
       "viewProjects": "View Projects",
       "downloadResume": "Download Resume",
@@ -45,33 +45,33 @@ const en: Dictionary = {
   "about": {
     "title": "About",
     "subtitle": "Product engineering shaped by software, connected systems, technical operations, and real-world product use.",
-    "story1": "I'm an R&D Product Engineer and Software Engineer with hands-on experience building and improving products across software, embedded systems, IoT, and hardware–software integration. My work spans web, mobile, desktop, automation, and connected systems, from early requirements and system design through implementation, deployment, and continuous improvement.",
-    "story2": "I take an analytical approach to engineering and usually start with the problem before the technology. I focus on understanding the users, workflows, requirements, constraints, and business objective behind a system, then translate that context into clear priorities, system structure, and technical decisions. I break complex problems into smaller parts, compare different approaches, and evaluate solutions based on the expected outcome, time, cost, maintainability, and the value they add to the product.",
+    "story1": "Hashem Kayyali is an R&D Product Engineer and Software Engineer who builds and improves products across software, embedded systems, IoT and hardware–software integration. The work spans web, mobile, desktop, automation and connected systems, from early requirements and system design through implementation, deployment and continuous improvement.",
+    "story2": "Engineering decisions start with the problem, not the technology: the users, workflows, requirements, constraints and business objective behind a system. Complex problems are broken into parts, alternatives are compared, and solutions are judged on expected outcome, time, cost, maintainability and the value they add to the product.",
     "sections": [
       {
         "title": "Professional scope",
         "paragraphs": [
-          "I'm an R&D Product Engineer and Software Engineer with hands-on experience building and improving products across software, embedded systems, IoT, and hardware–software integration. My work spans web, mobile, desktop, automation, and connected systems, from early requirements and system design through implementation, deployment, and continuous improvement."
+          "Hashem Kayyali is an R&D Product Engineer and Software Engineer who builds and improves products across software, embedded systems, IoT and hardware–software integration. The work spans web, mobile, desktop, automation and connected systems, from early requirements and system design through implementation, deployment and continuous improvement."
         ]
       },
       {
         "title": "Analysis & engineering decisions",
         "paragraphs": [
-          "I take an analytical approach to engineering and usually start with the problem before the technology. I focus on understanding the users, workflows, requirements, constraints, and business objective behind a system, then translate that context into clear priorities, system structure, and technical decisions. I break complex problems into smaller parts, compare different approaches, and evaluate solutions based on the expected outcome, time, cost, maintainability, and the value they add to the product."
+          "Engineering decisions start with the problem, not the technology: the users, workflows, requirements, constraints and business objective behind a system. Complex problems are broken into parts, alternatives are compared, and solutions are judged on expected outcome, time, cost, maintainability and the value they add to the product."
         ]
       },
       {
         "title": "Communication & collaboration",
         "paragraphs": [
-          "Communication is an important part of how I work. I listen carefully, ask the questions needed to understand the real requirement, and adapt the way I communicate depending on whether I'm working with engineers, clients, or non-technical stakeholders. I'm comfortable discussing different viewpoints, explaining technical decisions clearly, and turning broad ideas and operational needs into structured and executable plans."
+          "Clear communication is part of the engineering. Requirements are clarified with engineers, clients and non-technical stakeholders alike, technical decisions are explained plainly, and broad ideas and operational needs become structured, executable plans."
         ]
       },
       {
         "title": "Product development & improvement",
         "paragraphs": [
-          "I'm most engaged by products that can evolve through real-world use. Whether I'm taking an idea from concept to a working system or improving an existing product, I use testing, feedback, and actual usage to decide what should be refined, simplified, rebuilt, or developed next.",
-          "When a project requires technology outside my current experience, I'm comfortable learning and evaluating it rather than forcing a familiar approach into the solution. I value constructive feedback, take responsibility for my decisions, and use mistakes as part of the process of improving both the product and the way I work.",
-          "What motivates me most is seeing the impact of the work itself — using engineering, analysis, and continuous learning to turn ideas into useful products and increase the value of the systems I work on."
+          "Products that evolve through real-world use are where the work is most rewarding. Whether taking an idea from concept to a working system or improving an existing product, testing, feedback and actual usage decide what to refine, simplify, rebuild or develop next.",
+          "When a project needs technology outside current experience, it is learned and evaluated on its merits rather than replaced by a familiar approach. Constructive feedback is welcome, decisions are owned, and mistakes feed back into both the product and the way of working.",
+          "The impact of the work is what matters most: using engineering, analysis and continuous learning to turn ideas into useful products and increase the value of the systems involved."
         ]
       }
     ],
@@ -150,7 +150,7 @@ const en: Dictionary = {
     "subtitle": "Professional experience, product ownership, engineering breadth, and the work behind each role.",
     "profileEyebrow": "Professional Profile",
     "profileHeadline": "R&D Product Engineer | Software Engineer | Embedded Systems, IoT & Hardware–Software Integration",
-    "profileSummary": "I'm an R&D Product Engineer and Software Engineer with hands-on experience building and improving products across software, embedded systems, IoT, and hardware–software integration. My work spans web, mobile, desktop, automation, and connected systems, from early requirements and system design through implementation, deployment, and continuous improvement.",
+    "profileSummary": "Hashem Kayyali is an R&D Product Engineer and Software Engineer who builds and improves products across software, embedded systems, IoT and hardware–software integration. The work spans web, mobile, desktop, automation and connected systems, from early requirements and system design through implementation, deployment and continuous improvement.",
     "journeyTitle": "Professional Journey",
     "journeySupport": "Progression across product development, technical operations, and customer-facing environments.",
     "roleDetails": "More about this role",
@@ -161,9 +161,9 @@ const en: Dictionary = {
         "period": "January 2026 – Present",
         "location": "Amman, Jordan",
         "points": [
-          "Co-founded Eventies and lead the hands-on technical development of the platform, shaping product direction and engineering decisions.",
-          "My responsibilities cover product planning, system architecture, user experience, frontend and backend development, integrations, deployment, and continuous product improvement.",
-          "I connect operational and business needs with product requirements and practical engineering decisions."
+          "Co-founded Eventies and leads hands-on technical development of the platform, shaping product direction and engineering decisions.",
+          "Technical scope covers product planning, system architecture, user experience, frontend and backend development, integrations, deployment and continuous product improvement.",
+          "Connects operational and business needs to product requirements and practical engineering decisions."
         ],
         "responsibilities": [
           "Product planning",
@@ -181,9 +181,9 @@ const en: Dictionary = {
         "period": "August 2025 – Present",
         "location": "Amman, Jordan",
         "points": [
-          "I develop complete products across R&D, software engineering, embedded systems, and hardware–software integration, from early concepts and prototypes through implementation, testing, deployment, and continuous improvement.",
+          "Develops complete products across R&D, software engineering, embedded systems and hardware–software integration, from early concepts and prototypes through implementation, testing, deployment and continuous improvement.",
           "The work includes web, mobile, and desktop software, embedded controllers, electronics, sensors, networking, automation systems, and interactive products.",
-          "I translate operational requirements into practical solutions and work across the full product lifecycle."
+          "Translates operational requirements into practical solutions across the full product lifecycle."
         ],
         "role": "R&D Product Engineer & Software Engineer",
         "mode": "On-site",
@@ -272,7 +272,7 @@ const en: Dictionary = {
   },
   "projectsSection": {
     "title": "Selected Projects",
-    "subtitle": "Selected projects showcasing practical ideas and technical solutions.",
+    "subtitle": "Selected case studies across web platforms, business systems, connected hardware and automation.",
     "browseLabel": "Browse all projects",
     "filters": {
       "all": "All",
@@ -292,7 +292,7 @@ const en: Dictionary = {
       "short": "An event-services marketplace connecting customer requests with rentals, production, entertainment, and custom event solutions.",
       "overview": "Planning an event often means searching across disconnected suppliers and service lists. Eventies brings event rentals, production services, activations, entertainment, booths, screens, and custom solutions into one digital marketplace, with a customer-facing discovery journey and an operational workflow for handling requests.",
       "purpose": "Make fragmented service discovery easier to navigate and connect customer needs to organized event-service requests.",
-      "contribution": "As co-founder and Technical Lead, I work hands-on across product architecture, user journeys, frontend and backend development, service-catalog organization, database design, integrations, deployment, and continuous improvement.",
+      "contribution": "Co-founder and Technical Lead, with hands-on responsibility for product architecture, user journeys, frontend and backend development, service-catalog structure, database design, integrations, deployment and continuous improvement.",
       "engineering": "The Next.js and TypeScript application uses Supabase for its shared data layer. Product and database decisions keep the public catalog, request journey, and internal handling of those requests connected as the platform evolves.",
       "capabilities": [
         "Event-service discovery",
@@ -321,7 +321,7 @@ const en: Dictionary = {
       "short": "A connected graduation and wedding service experience that links customer requests, internal workflows, and Meta WhatsApp communication.",
       "overview": "Graduation and wedding services need more than a booking screen: customer choices must reach the business in a form it can act on. Glitzz Lab connects service exploration and requests to internal workflows and automated customer and operational messaging through Meta WhatsApp services.",
       "purpose": "Keep the customer-to-operations journey connected, so requests and communication remain part of the same service workflow.",
-      "contribution": "I built the customer experience, frontend and backend workflows, Supabase data model, and Meta WhatsApp integration that connects service requests with business communication.",
+      "contribution": "Development covered the customer experience, frontend and backend workflows, the Supabase data model and the Meta WhatsApp integration that connects service requests with business communication.",
       "engineering": "Next.js and TypeScript connect the public service journey to Supabase-backed operational records. WhatsApp messaging is integrated into those workflows, tying customer communication to the request context rather than treating it as a separate manual task.",
       "capabilities": [
         "Service exploration and requests",
@@ -351,7 +351,7 @@ const en: Dictionary = {
       "short": "Member mobile workflows and authorized leader dashboards built around the same operational data and role-based access.",
       "overview": "Members and leaders need the same operational information in different forms. Umniah YouthConnect gives members mobile workflows for availability, shift-related information, internal support, and operational submissions, while authorized leaders use management dashboards for reporting, analytics, reviews, and exports.",
       "purpose": "Give each role a useful view of shared information without maintaining disconnected member and management records.",
-      "contribution": "I built the Flutter and Dart experiences, operational workflows, Supabase data layer, role-based access, management reporting, and export flows.",
+      "contribution": "Development covered the Flutter and Dart apps, operational workflows, the Supabase data layer, role-based access, management reporting and export flows.",
       "engineering": "A shared Supabase data layer supports distinct member and leader interfaces. Role-based access governs which records and actions are available, while submissions, reviews, analytics, and exports remain connected to the same operational context.",
       "capabilities": [
         "Member mobile workflows",
@@ -374,35 +374,34 @@ const en: Dictionary = {
       }
     },
     "terminal-nfc": {
-      "title": "The Terminal NFC",
+      "title": "The Terminal Simulator Control",
       "category": "Business System",
       "status": "Under Development · Private Project",
-      "short": "A venue operations system linking POS sales, customer accounts, NFC identification, and the actual use of interactive experiences.",
-      "overview": "A sale at the counter is only one part of operating an interactive venue. The Terminal NFC connects the POS to the applications running its experiences: staff create or select customer accounts and prepare transactions, while NFC cards or wristbands identify customers and associate each transaction with the correct account.",
-      "purpose": "Connect what was sold with what was actually used, so sales and experience operation share a coherent account and transaction context.",
-      "contribution": "I built the desktop POS and operational integrations, NFC account identification, centralized API, data workflows, and dashboard connections across the client–server system.",
-      "engineering": "A centralized .NET Web API validates account state and eligibility and mediates between desktop clients and the database. The POS, operational applications, and dashboard share centrally managed transactions, invoices, device usage, and system activity, with NFC serving as the identification layer within that larger architecture.",
+      "short": "A simulator control system with RFID employee authorization, game-session tracking, motion-sensor monitoring and a central management dashboard.",
+      "overview": "The Terminal Simulator Control governs how staff operate simulators at an interactive venue. Employees authorize access with RFID cards, a Windows client on each simulator records game sessions, and a central dashboard consolidates usage by employee and simulator. Paired motion sensors support monitoring and calibration of the physical equipment.",
+      "purpose": "Give venue operators controlled access to each simulator, clear staff accountability and reliable visibility into how equipment is used.",
+      "contribution": "Technical scope covers the Windows simulator clients, RFID-based access, the Supabase data and authorization layer, motion-sensor integration and the management dashboard, connected as one system.",
+      "engineering": "Each simulator runs a Windows client that controls access and records authorized game sessions. Administrator and maintenance access is handled separately, so it is not counted as gameplay. Supabase stores the operational data and enforces authorization, while paired motion sensors report movement for monitoring and calibration.",
       "capabilities": [
-        "Account-linked POS transactions",
-        "API-based eligibility validation",
-        "Shared sales and device-usage records"
+        "RFID employee authorization and session records",
+        "Administrator and maintenance access",
+        "Motion-sensor monitoring and calibration"
       ],
       "considerations": [
-        "Validating account state before operational access is granted.",
-        "Keeping transactions and actual device usage connected across multiple clients."
+        "Keeping simulator gameplay separate from administrator and maintenance use.",
+        "Keeping motion-sensor monitoring and calibration reliable across paired devices."
       ],
       "technology": [
         "C#",
         "WPF",
-        ".NET Web API",
-        "REST APIs",
-        "NFC",
-        "Client–Server Architecture"
+        "Supabase",
+        "RFID",
+        "Motion Sensors"
       ],
       "narrativeLabels": {
-        "purpose": "Sold → used",
-        "contribution": "Connecting the venue systems",
-        "engineering": "A central API between clients"
+        "purpose": "Controlled access, accountable use",
+        "contribution": "Clients, RFID & dashboard",
+        "engineering": "Simulator access and sensor monitoring"
       }
     },
     "bike-tower": {
@@ -412,7 +411,7 @@ const en: Dictionary = {
       "short": "A real-time multiplayer cycling installation linking connected bikes, synchronized games, and responsive lighting.",
       "overview": "Pedaling becomes a shared competitive input in Bike Tower. Embedded controllers process physical cycling and communicate with a central Flutter controller that coordinates connected bikes, player states, synchronized game logic, lighting, and live feedback. Tug of War is one example of the multiplayer experience.",
       "purpose": "Turn physical cycling into a coordinated multiplayer experience with immediate game and visual feedback.",
-      "contribution": "I developed the Flutter game controller, multiplayer logic, ESP32-S3 firmware, discovery and communication protocols, custom PCB, embedded input processing, and LED control.",
+      "contribution": "Technical scope covers the Flutter game controller, multiplayer logic, ESP32-S3 firmware, device discovery and communication protocols, a custom PCB, embedded input processing and LED control.",
       "engineering": "ESP32-S3 controllers process cycling input locally, while WebSockets and UDP connect devices to the central controller. Device discovery, interruption handling, reconnection, and firmware behavior keep physical inputs and multiplayer state coordinated across the installation.",
       "capabilities": [
         "Synchronized multiplayer cycling",
@@ -446,8 +445,8 @@ const en: Dictionary = {
       "short": "A connected basketball game that turns physical impacts into synchronized scoring and real-time feedback across several bases.",
       "overview": "A basketball hit must become one reliable digital event, even when impacts arrive rapidly. Basket Beats senses impacts at connected bases, processes them in embedded firmware, and sends scoring events to a central game controller that coordinates game modes, shared state, and real-time feedback.",
       "purpose": "Make fast physical play usable as consistent scoring across a distributed game installation.",
-      "contribution": "I built the Flutter controller, game logic, embedded C++ firmware, sensing and scoring pipeline, custom PCB, networking, and synchronized feedback across the connected bases.",
-      "engineering": "The event path accounts for rapid impacts and sensor noise before queued events cross WebSocket and UDP communication. Acknowledgements, retries, delayed-packet handling, and reconnection behavior help preserve event delivery and keep the controller’s scoring state consistent across several devices.",
+      "contribution": "Development covered the Flutter controller, game logic, embedded C++ firmware, the sensing and scoring pipeline, a custom PCB, networking and synchronized feedback across the connected bases.",
+      "engineering": "The firmware separates valid hits from sensor noise, including rapid successive impacts, so each real hit becomes a single event. Events are queued and sent to the controller over WebSocket and UDP; acknowledgements, retries, delayed-packet handling and reconnection keep the score consistent across several devices.",
       "capabilities": [
         "Impact-to-score processing",
         "Synchronized multi-base play",
@@ -479,7 +478,7 @@ const en: Dictionary = {
       "short": "An immersive cycling experience where a real exercise bike controls movement and speed inside a virtual world.",
       "overview": "The exercise bike is the game controller in VR Cycling. As a player pedals, physical movement becomes digital riding input that changes movement and speed in the virtual world, connecting the effort of cycling to the experience of riding through it.",
       "purpose": "Turn exercise into interactive VR gameplay through natural physical input and immediate virtual response.",
-      "contribution": "I developed the embedded movement-processing firmware and physical-to-virtual integration that connects bicycle input with the riding experience.",
+      "contribution": "Development focused on the embedded movement-processing firmware and the physical-to-virtual integration that connects bicycle input to the riding experience.",
       "engineering": "Embedded processing converts cycling movement into usable real-time riding input, then passes it into the virtual experience. The central integration challenge is maintaining responsive synchronization between pedaling and virtual motion so the interaction feels connected.",
       "capabilities": [
         "Physical bike as VR input",
@@ -509,7 +508,7 @@ const en: Dictionary = {
       "short": "A smart cycling trainer translating bicycle movement into live speed, cadence, and distance for training software and interactive applications.",
       "overview": "Bike-Land turns physical bicycle movement into structured cycling measurements. Sensors and custom firmware derive live speed, cadence, and distance, while hardware integration connects those metrics to training software and interactive applications. Its focus is useful measurement and integration, distinct from VR Cycling’s immersive gameplay.",
       "purpose": "Make live physical cycling metrics available to digital training and interactive experiences through a dependable embedded measurement path.",
-      "contribution": "I developed the custom firmware, physical sensor processing, cycling calculations, custom PCB, hardware integration, and connection of the measurements to compatible software.",
+      "contribution": "Development covered custom firmware, physical sensor processing, cycling calculations, a custom PCB, hardware integration and the connection of the measurements to compatible software.",
       "engineering": "The embedded pipeline processes physical sensor input into a coherent live measurement state before exposing it to connected applications. Stable real-time calculations and reliable hardware–software integration keep speed, cadence, and distance meaningful as cycling input changes.",
       "capabilities": [
         "Live speed, cadence, and distance",
@@ -540,7 +539,7 @@ const en: Dictionary = {
       "short": "A business accounting system connecting double-entry bookkeeping with partner balances, expenses, inventory, reconciliation, and traceable reversals.",
       "overview": "Financial operations need accounting rules that stay consistent beyond the dashboard. This general-purpose business system connects a structured General Ledger, Chart of Accounts, double-entry journal entries, and trial balance validation with transaction workflows, partner accounts, expenses, inventory, reconciliation, and reporting.",
       "purpose": "Keep financial movements consistent, traceable, and reversible while giving operational workflows and accounting reports a shared financial context.",
-      "contribution": "I built the React and TypeScript application, Supabase/PostgreSQL data model and accounting logic, journal and transaction workflows, partner balances, expenses and inventory, reconciliation, reporting, and controlled reversal flows.",
+      "contribution": "Development covered the React and TypeScript application, the Supabase/PostgreSQL data model and accounting logic, journal and transaction workflows, partner balances, expenses, inventory, reconciliation, reporting and controlled reversal flows.",
       "engineering": "Posting workflows persist journal entries, with database constraints validating balanced double-entry movements. General Ledger and trial balance views derive from shared financial state; audit reasons and linked reversal entries preserve the history of corrections rather than silently removing the original movement.",
       "capabilities": [
         "General Ledger, journals, and trial balance",
@@ -573,7 +572,7 @@ const en: Dictionary = {
       "short": "An organized outreach workflow for contacts, personalized campaigns, templates, sending queues, delivery state, and synchronized replies.",
       "overview": "Contact lists, message drafts, sending, and reply follow-up are often disconnected manual tasks. The Outreach Automation Platform brings them into one workflow: organize contacts, prepare personalized email campaigns using reusable templates, process controlled sending queues, track delivery state, synchronize replies, and review campaign activity.",
       "purpose": "Replace scattered outreach steps with a coordinated, traceable workflow that preserves the context of every contact and campaign.",
-      "contribution": "I built the Next.js/React interface, TypeScript backend orchestration, Supabase/PostgreSQL data model, SMTP/IMAP integration, template and campaign workflows, queue logic, reply synchronization, and activity history.",
+      "contribution": "Development covered the Next.js/React interface, TypeScript backend orchestration, the Supabase/PostgreSQL data model, SMTP/IMAP integration, template and campaign workflows, queue logic, reply synchronization and activity history.",
       "engineering": "Linked contact, campaign, template, message, queue, and reply records support backend orchestration. SMTP handles outgoing mail and IMAP brings replies back into the same context, while delivery state and activity history make campaign progress inspectable.",
       "capabilities": [
         "Personalized campaigns and reusable templates",
@@ -606,7 +605,7 @@ const en: Dictionary = {
       "short": "A desktop studio converting recorded traffic footage into tracked vehicle movements, annotated video, and CSV/Excel analysis outputs.",
       "overview": "Recorded traffic footage becomes structured movement data in Traffic Flow Analytics Studio. Users define counting lines and regions, then run vehicle detection, multi-object tracking, route analysis, and background video processing to produce annotated video and structured CSV/Excel exports.",
       "purpose": "Make recorded footage usable for repeatable movement analysis, with visual evidence and structured data from the same analysis session.",
-      "contribution": "I built the PySide6 desktop interface, OpenCV video tools, YOLOv8 and BoT-SORT detection/tracking pipeline, spatial counting rules, background processing, annotated output, and CSV/Excel exports.",
+      "contribution": "Development covered the PySide6 desktop interface, OpenCV video tools, the YOLOv8 detection and BoT-SORT tracking pipeline, spatial counting rules, background processing, annotated output and CSV/Excel exports.",
       "engineering": "The pipeline maintains object identities across frames and applies user-defined lines and regions to tracked movements. Computationally intensive analysis runs separately from the interface so the desktop remains responsive, while video annotations and tabular exports reflect the same movement rules.",
       "capabilities": [
         "Vehicle detection and multi-object tracking",
@@ -697,10 +696,10 @@ const en: Dictionary = {
   },
   "contact": {
     "title": "Contact",
-    "subtitle": "Direct channels for conversations about the work, product engineering, technical systems, and projects.",
+    "subtitle": "Direct channels for professional opportunities, technical collaboration and conversations about the work.",
     "eyebrow": "Product · Engineering · R&D",
-    "heading": "Product, engineering, and technical conversations.",
-    "supporting": "For questions about the work shown here, product discussions, technical conversations, or project-related communication, reach out directly by email or WhatsApp.",
+    "heading": "Opportunities, collaboration and technical conversations.",
+    "supporting": "For professional opportunities, technical collaboration or questions about the work shown here, reach out directly by email or WhatsApp.",
     "actions": {
       "email": "Email",
       "whatsapp": "WhatsApp"

@@ -15,7 +15,7 @@ const fr: Dictionary = {
   },
   "hero": {
     "headline": "Des produits concrets, du logiciel aux systèmes connectés.",
-    "supporting": "Je développe des produits web, mobiles, desktop et embarqués — des exigences et de la conception à l’implémentation, au déploiement et à l’amélioration.",
+    "supporting": "Ingénierie produit R&D pour le web, le mobile, le desktop et l’embarqué : de la conception système au firmware, puis à l’intégration et au déploiement.",
     "actions": {
       "viewProjects": "Voir les projets",
       "downloadResume": "Télécharger le CV",
@@ -45,33 +45,33 @@ const fr: Dictionary = {
   "about": {
     "title": "À propos",
     "subtitle": "Une ingénierie produit façonnée par le logiciel, les systèmes connectés, les opérations techniques et l’usage réel des produits.",
-    "story1": "Je suis ingénieur produit R&D et ingénieur logiciel, avec une expérience pratique dans la création et l’amélioration de produits logiciels, de systèmes embarqués, d’IoT et d’intégration matériel–logiciel. Mon travail couvre le web, le mobile, le desktop, l’automatisation et les systèmes connectés, des premières exigences et de la conception du système jusqu’à l’implémentation, au déploiement et à l’amélioration continue.",
-    "story2": "J’adopte une approche analytique de l’ingénierie et commence généralement par le problème avant la technologie. Je cherche à comprendre les utilisateurs, les processus, les exigences, les contraintes et l’objectif métier du système, puis traduis ce contexte en priorités claires, en structure et en décisions techniques. Je décompose les problèmes complexes, compare les approches et évalue les solutions selon le résultat attendu, le temps, le coût, la maintenabilité et la valeur apportée au produit.",
+    "story1": "Hashem Kayyali est ingénieur produit R&D et ingénieur logiciel : il conçoit et améliore des produits mêlant logiciel, systèmes embarqués, IoT et intégration matériel–logiciel. Son travail couvre le web, le mobile, le desktop, l’automatisation et les systèmes connectés, des premières exigences et de la conception système à l’implémentation, au déploiement et à l’amélioration continue.",
+    "story2": "Les décisions d’ingénierie partent du problème, pas de la technologie : les utilisateurs, les processus, les exigences, les contraintes et l’objectif métier derrière un système. Les problèmes complexes sont décomposés, les alternatives comparées, et les solutions jugées sur le résultat attendu, le délai, le coût, la maintenabilité et la valeur apportée au produit.",
     "sections": [
       {
         "title": "Périmètre professionnel",
         "paragraphs": [
-          "Je suis ingénieur produit R&D et ingénieur logiciel, avec une expérience pratique dans la création et l’amélioration de produits logiciels, de systèmes embarqués, d’IoT et d’intégration matériel–logiciel. Mon travail couvre le web, le mobile, le desktop, l’automatisation et les systèmes connectés, des premières exigences et de la conception du système jusqu’à l’implémentation, au déploiement et à l’amélioration continue."
+          "Hashem Kayyali est ingénieur produit R&D et ingénieur logiciel : il conçoit et améliore des produits mêlant logiciel, systèmes embarqués, IoT et intégration matériel–logiciel. Son travail couvre le web, le mobile, le desktop, l’automatisation et les systèmes connectés, des premières exigences et de la conception système à l’implémentation, au déploiement et à l’amélioration continue."
         ]
       },
       {
         "title": "Analyse et décisions techniques",
         "paragraphs": [
-          "J’adopte une approche analytique de l’ingénierie et commence généralement par le problème avant la technologie. Je cherche à comprendre les utilisateurs, les processus, les exigences, les contraintes et l’objectif métier du système, puis traduis ce contexte en priorités claires, en structure et en décisions techniques. Je décompose les problèmes complexes, compare les approches et évalue les solutions selon le résultat attendu, le temps, le coût, la maintenabilité et la valeur apportée au produit."
+          "Les décisions d’ingénierie partent du problème, pas de la technologie : les utilisateurs, les processus, les exigences, les contraintes et l’objectif métier derrière un système. Les problèmes complexes sont décomposés, les alternatives comparées, et les solutions jugées sur le résultat attendu, le délai, le coût, la maintenabilité et la valeur apportée au produit."
         ]
       },
       {
         "title": "Communication et collaboration",
         "paragraphs": [
-          "La communication occupe une place importante dans mon travail. J’écoute attentivement, pose les questions nécessaires pour comprendre le besoin réel et adapte ma communication selon que je travaille avec des ingénieurs, des clients ou des interlocuteurs non techniques. Je suis à l’aise pour discuter de points de vue différents, expliquer clairement les décisions techniques et transformer des idées générales et des besoins opérationnels en plans structurés et exécutables."
+          "Une communication claire fait partie du travail d’ingénierie. Les exigences sont clarifiées avec les ingénieurs, les clients et les interlocuteurs non techniques, les décisions techniques sont expliquées simplement, et les idées générales comme les besoins opérationnels deviennent des plans structurés et exécutables."
         ]
       },
       {
         "title": "Développement et amélioration des produits",
         "paragraphs": [
-          "Les produits qui évoluent grâce à leur utilisation réelle sont ceux qui m’engagent le plus. Que je transforme une idée en système fonctionnel ou améliore un produit existant, je m’appuie sur les tests, les retours et l’usage réel pour décider de ce qu’il faut affiner, simplifier, reconstruire ou développer ensuite.",
-          "Lorsqu’un projet nécessite une technologie qui dépasse mon expérience actuelle, je suis à l’aise pour l’apprendre et l’évaluer plutôt que d’imposer une approche familière à la solution. J’apprécie les retours constructifs, assume mes décisions et utilise les erreurs pour améliorer à la fois le produit et ma façon de travailler.",
-          "Ce qui me motive le plus est de voir l’impact du travail lui-même — utiliser l’ingénierie, l’analyse et l’apprentissage continu pour transformer des idées en produits utiles et accroître la valeur des systèmes sur lesquels je travaille."
+          "Les produits qui évoluent au contact de l’usage réel sont les plus stimulants. Qu’il s’agisse de mener une idée jusqu’à un système opérationnel ou d’améliorer un produit existant, les tests, les retours et l’usage réel décident de ce qu’il faut affiner, simplifier, reconstruire ou développer ensuite.",
+          "Lorsqu’un projet exige une technologie hors du champ d’expérience actuel, elle est apprise et évaluée sur ses mérites plutôt que remplacée par une approche familière. Les retours constructifs sont bienvenus, les décisions assumées, et les erreurs nourrissent à la fois le produit et la façon de travailler.",
+          "L’impact du travail compte avant tout : mobiliser l’ingénierie, l’analyse et l’apprentissage continu pour transformer des idées en produits utiles et accroître la valeur des systèmes concernés."
         ]
       }
     ],
@@ -150,7 +150,7 @@ const fr: Dictionary = {
     "subtitle": "Expérience professionnelle, responsabilité produit, diversité technique et travail concret derrière chaque rôle.",
     "profileEyebrow": "Profil professionnel",
     "profileHeadline": "Ingénieur produit R&D | Ingénieur logiciel | Systèmes embarqués, IoT et intégration matériel–logiciel",
-    "profileSummary": "Je suis ingénieur produit R&D et ingénieur logiciel, avec une expérience pratique dans la création et l’amélioration de produits logiciels, de systèmes embarqués, d’IoT et d’intégration matériel–logiciel. Mon travail couvre le web, le mobile, le desktop, l’automatisation et les systèmes connectés, des premières exigences et de la conception du système jusqu’à l’implémentation, au déploiement et à l’amélioration continue.",
+    "profileSummary": "Hashem Kayyali est ingénieur produit R&D et ingénieur logiciel : il conçoit et améliore des produits mêlant logiciel, systèmes embarqués, IoT et intégration matériel–logiciel. Son travail couvre le web, le mobile, le desktop, l’automatisation et les systèmes connectés, des premières exigences et de la conception système à l’implémentation, au déploiement et à l’amélioration continue.",
     "journeyTitle": "Parcours professionnel",
     "journeySupport": "Une progression entre développement produit, opérations techniques et environnements en contact avec les clients.",
     "roleDetails": "En savoir plus sur ce poste",
@@ -161,9 +161,9 @@ const fr: Dictionary = {
         "period": "Janvier 2026 – aujourd’hui",
         "location": "Amman, Jordanie",
         "points": [
-          "J’ai cofondé Eventies et dirige le développement technique concret de la plateforme, en contribuant à l’orientation produit et aux décisions d’ingénierie.",
-          "Mes responsabilités couvrent la planification produit, l’architecture système, l’expérience utilisateur, le frontend et le backend, les intégrations, le déploiement et l’amélioration continue.",
-          "Je relie les besoins opérationnels et métier aux exigences produit et aux décisions techniques concrètes."
+          "Cofondateur d’Eventies ; dirige le développement technique concret de la plateforme et contribue à l’orientation produit comme aux décisions d’ingénierie.",
+          "Le périmètre technique couvre la planification produit, l’architecture système, l’expérience utilisateur, le frontend et le backend, les intégrations, le déploiement et l’amélioration continue du produit.",
+          "Relie les besoins opérationnels et métier aux exigences produit et à des décisions d’ingénierie pragmatiques."
         ],
         "responsibilities": [
           "Planification produit",
@@ -181,9 +181,9 @@ const fr: Dictionary = {
         "period": "Août 2025 – aujourd’hui",
         "location": "Amman, Jordanie",
         "points": [
-          "Je développe des produits complets en R&D, ingénierie logicielle, systèmes embarqués et intégration matériel–logiciel, des premiers concepts et prototypes à l’implémentation, aux tests, au déploiement et à l’amélioration continue.",
+          "Développe des produits complets en R&D, ingénierie logicielle, systèmes embarqués et intégration matériel–logiciel, des premiers concepts et prototypes à l’implémentation, aux tests, au déploiement et à l’amélioration continue.",
           "Le travail comprend des logiciels web, mobiles et desktop, des contrôleurs embarqués, de l’électronique, des capteurs, des réseaux, des systèmes d’automatisation et des produits interactifs.",
-          "Je transforme les exigences opérationnelles en solutions concrètes et travaille sur l’ensemble du cycle de vie du produit."
+          "Traduit les exigences opérationnelles en solutions concrètes, sur l’ensemble du cycle de vie du produit."
         ],
         "role": "Ingénieur produit R&D et ingénieur logiciel",
         "mode": "Sur site",
@@ -202,7 +202,7 @@ const fr: Dictionary = {
             "employment": "Indépendant",
             "mode": "Hybride",
             "points": [
-              "J’ai dirigé la formation technique pratique d’étudiants universitaires en stage, couvrant les processus de développement logiciel, la création de contenu VR, l’accompagnement technique, les revues de progression et les livrables de projets."
+              "Direction de la formation technique pratique d’étudiants universitaires en stage, couvrant les processus de développement logiciel, la création de contenu VR, l’accompagnement technique, les revues de progression et les livrables de projets."
             ]
           },
           {
@@ -211,7 +211,7 @@ const fr: Dictionary = {
             "employment": "Temps plein",
             "mode": "Hybride",
             "points": [
-              "J’ai géré les opérations techniques quotidiennes des systèmes VR, ordinateurs, réseaux et équipements connectés : installation, configuration, dépannage, mises à jour, maintenance et fiabilité des systèmes."
+              "Gestion des opérations techniques quotidiennes des systèmes VR, ordinateurs, réseaux et équipements connectés : installation, configuration, dépannage, mises à jour, maintenance et fiabilité des systèmes."
             ]
           },
           {
@@ -220,7 +220,7 @@ const fr: Dictionary = {
             "employment": "Temps plein",
             "mode": "Sur site",
             "points": [
-              "J’ai débuté dans un rôle commercial au contact des clients avant de passer aux opérations techniques. J’accompagnais les clients, expliquais les expériences interactives et participais au fonctionnement quotidien du lieu."
+              "Début dans un rôle commercial au contact des clients, avant le passage aux opérations techniques : accompagnement des clients, présentation des expériences interactives et participation au fonctionnement quotidien du lieu."
             ]
           }
         ]
@@ -231,7 +231,7 @@ const fr: Dictionary = {
         "period": "Mars 2024 – janvier 2025",
         "location": "Amman, Jordanie",
         "points": [
-          "Mes responsabilités comprenaient la relation client, la vente de services de télécommunication, la compréhension des besoins, l’atteinte d’objectifs individuels et collectifs, le suivi client et la collaboration avec les collègues du marketing."
+          "Les responsabilités comprenaient la relation client, la vente de services de télécommunication, la compréhension des besoins, l’atteinte d’objectifs individuels et collectifs, le suivi client et la collaboration avec les collègues du marketing."
         ],
         "role": "Membre de l’équipe des opérations de l’unité jeunesse",
         "mode": "Hybride",
@@ -272,7 +272,7 @@ const fr: Dictionary = {
   },
   "projectsSection": {
     "title": "Projets sélectionnés",
-    "subtitle": "Une sélection de projets présentant des idées pratiques et des solutions techniques.",
+    "subtitle": "Études de cas sélectionnées : plateformes web, systèmes métier, matériel connecté et automatisation.",
     "browseLabel": "Parcourir tous les projets",
     "filters": {
       "all": "Tous",
@@ -292,7 +292,7 @@ const fr: Dictionary = {
       "short": "Une place de marché événementielle qui relie les demandes clients à la location, à la production, au divertissement et aux solutions sur mesure.",
       "overview": "Organiser un événement implique souvent de chercher parmi des fournisseurs et des catalogues dispersés. Eventies réunit location, production, animations, divertissement, stands, écrans et solutions sur mesure dans une place de marché numérique, avec un parcours de découverte côté client et un processus opérationnel de traitement des demandes.",
       "purpose": "Simplifier la découverte de services dispersés et relier les besoins clients à des demandes événementielles structurées.",
-      "contribution": "En tant que cofondateur et responsable technique, je contribue directement à l’architecture produit, aux parcours utilisateurs, au frontend et au backend, au catalogue de services, à la base de données, aux intégrations, au déploiement et à l’amélioration continue.",
+      "contribution": "Cofondateur et responsable technique, directement en charge de l’architecture produit, des parcours utilisateurs, du frontend et du backend, du catalogue de services, de la base de données, des intégrations, du déploiement et de l’amélioration continue.",
       "engineering": "L’application Next.js et TypeScript utilise Supabase comme couche de données commune. Les choix produit et de base de données maintiennent le lien entre catalogue public, parcours de demande et traitement interne au fil de l’évolution de la plateforme.",
       "capabilities": [
         "Découverte de services événementiels",
@@ -321,7 +321,7 @@ const fr: Dictionary = {
       "short": "Une expérience numérique de services de remise de diplôme et de mariage reliant demandes clients, processus internes et Meta WhatsApp.",
       "overview": "Les services de remise de diplôme et de mariage exigent plus qu’un écran de réservation : les choix du client doivent parvenir à l’entreprise sous une forme exploitable. Glitzz Lab relie découverte et demandes aux processus internes et aux messages automatisés clients et opérationnels via Meta WhatsApp.",
       "purpose": "Relier le parcours client aux opérations pour que demandes et communication appartiennent au même processus de service.",
-      "contribution": "J’ai développé l’expérience client, les processus frontend et backend, le modèle de données Supabase et l’intégration Meta WhatsApp reliant les demandes de service à la communication métier.",
+      "contribution": "Le développement a couvert l’expérience client, les workflows frontend et backend, le modèle de données Supabase et l’intégration Meta WhatsApp qui relie les demandes de service à la communication de l’entreprise.",
       "engineering": "Next.js et TypeScript relient le parcours public aux données opérationnelles dans Supabase. La messagerie WhatsApp s’intègre à ces processus et conserve le contexte de la demande, au lieu de constituer une tâche manuelle séparée.",
       "capabilities": [
         "Découverte et demandes de services",
@@ -351,7 +351,7 @@ const fr: Dictionary = {
       "short": "Des parcours mobiles pour les membres et des tableaux de bord autorisés pour les responsables, sur des données opérationnelles communes.",
       "overview": "Les membres et leurs responsables ont besoin des mêmes informations opérationnelles sous des formes différentes. Umniah YouthConnect propose aux membres des parcours mobiles pour les disponibilités, les horaires, le support interne et les soumissions opérationnelles, tandis que les responsables autorisés disposent de tableaux de bord pour les rapports, analyses, revues et exports.",
       "purpose": "Donner à chaque rôle une vue utile des informations communes, sans séparer les données des membres et de la gestion.",
-      "contribution": "J’ai développé les expériences Flutter et Dart, les processus opérationnels, la couche Supabase, les accès par rôle, les rapports de gestion et les exports.",
+      "contribution": "Le développement a couvert les applications Flutter et Dart, les workflows opérationnels, la couche de données Supabase, l’accès par rôle, les rapports de gestion et les exports.",
       "engineering": "Une couche Supabase commune soutient des interfaces distinctes pour membres et responsables. Les accès par rôle définissent les données et actions disponibles, tandis que soumissions, revues, analyses et exports restent liés au même contexte opérationnel.",
       "capabilities": [
         "Parcours mobiles des membres",
@@ -374,35 +374,34 @@ const fr: Dictionary = {
       }
     },
     "terminal-nfc": {
-      "title": "The Terminal NFC",
+      "title": "The Terminal Simulator Control",
       "category": "Système métier",
       "status": "En développement · Projet privé",
-      "short": "Un système opérationnel reliant ventes au point de vente, comptes clients, identification NFC et utilisation réelle des expériences interactives.",
-      "overview": "La vente au comptoir n’est qu’une partie du fonctionnement d’un lieu interactif. The Terminal NFC relie le point de vente aux applications qui pilotent ses expériences : le personnel crée ou sélectionne un compte et prépare la transaction, tandis que cartes ou bracelets NFC identifient le client et rattachent chaque opération au bon compte.",
-      "purpose": "Relier ce qui a été vendu à ce qui a réellement été utilisé, dans un contexte cohérent de comptes et de transactions.",
-      "contribution": "J’ai développé le point de vente desktop, les intégrations opérationnelles, l’identification des comptes par NFC, l’API centrale, les flux de données et les connexions au tableau de bord de l’architecture client-serveur.",
-      "engineering": "Une API .NET centrale valide l’état et l’éligibilité des comptes et relie les clients desktop à la base de données. Le point de vente, les applications opérationnelles et le tableau de bord partagent transactions, factures, utilisation des appareils et activité système ; NFC joue le rôle d’identification dans cette architecture plus large.",
+      "short": "Contrôle des simulateurs : autorisation RFID des employés, suivi des sessions de jeu, capteurs de mouvement et tableau de bord de gestion central.",
+      "overview": "The Terminal Simulator Control encadre la manière dont le personnel utilise les simulateurs d’un lieu interactif. Les employés autorisent l’accès avec des cartes RFID, un client Windows sur chaque simulateur enregistre les sessions de jeu et un tableau de bord central regroupe l’usage par employé et par simulateur. Des capteurs de mouvement appairés permettent de surveiller et de calibrer l’équipement physique.",
+      "purpose": "Donner aux exploitants un accès contrôlé à chaque simulateur, une responsabilité claire du personnel et une visibilité fiable sur l’usage des équipements.",
+      "contribution": "Le périmètre technique couvre les clients Windows des simulateurs, l’accès par RFID, la couche de données et d’autorisation Supabase, l’intégration des capteurs de mouvement et le tableau de bord de gestion, réunis en un seul système.",
+      "engineering": "Chaque simulateur exécute un client Windows qui contrôle l’accès et enregistre les sessions de jeu autorisées. L’accès administrateur et maintenance est traité à part : il n’est pas compté comme du jeu. Supabase stocke les données opérationnelles et applique les autorisations, tandis que des capteurs de mouvement appairés transmettent les mouvements pour la surveillance et le calibrage.",
       "capabilities": [
-        "Transactions de vente liées aux comptes",
-        "Validation d’éligibilité via API",
-        "Données communes de vente et d’utilisation"
+        "Autorisation RFID et journal des sessions",
+        "Accès administrateur et maintenance",
+        "Surveillance et calibrage des capteurs de mouvement"
       ],
       "considerations": [
-        "Valider l’état du compte avant d’autoriser l’accès opérationnel.",
-        "Relier transactions et utilisation réelle entre plusieurs clients."
+        "Séparer le jeu sur simulateur de l’usage administrateur et maintenance.",
+        "Garder fiables la surveillance et le calibrage des capteurs de mouvement sur les appareils appairés."
       ],
       "technology": [
         "C#",
         "WPF",
-        ".NET Web API",
-        "REST APIs",
-        "NFC",
-        "Architecture client-serveur"
+        "Supabase",
+        "RFID",
+        "Capteurs de mouvement"
       ],
       "narrativeLabels": {
-        "purpose": "Vendu → utilisé",
-        "contribution": "Relier les systèmes du lieu",
-        "engineering": "Une API centrale entre clients"
+        "purpose": "Accès contrôlé, usage traçable",
+        "contribution": "Clients, RFID et tableau de bord",
+        "engineering": "Accès aux simulateurs et surveillance des capteurs"
       }
     },
     "bike-tower": {
@@ -412,7 +411,7 @@ const fr: Dictionary = {
       "short": "Une installation cycliste multijoueur en temps réel reliant vélos connectés, jeux synchronisés et éclairage réactif.",
       "overview": "Dans Bike Tower, le pédalage devient une entrée compétitive partagée. Les contrôleurs embarqués traitent le mouvement et communiquent avec un contrôleur Flutter central qui coordonne vélos, états des joueurs, logique de jeu synchronisée, éclairage et retours en direct. Tug of War illustre l’expérience multijoueur.",
       "purpose": "Transformer le pédalage en expérience multijoueur coordonnée avec des retours de jeu et visuels immédiats.",
-      "contribution": "J’ai développé le contrôleur de jeu Flutter, la logique multijoueur, le firmware ESP32-S3, les protocoles de découverte et de communication, le PCB sur mesure, le traitement embarqué et le contrôle LED.",
+      "contribution": "Le périmètre technique couvre le contrôleur de jeu Flutter, la logique multijoueur, le firmware ESP32-S3, les protocoles de découverte et de communication, un PCB sur mesure, le traitement embarqué des entrées et le contrôle LED.",
       "engineering": "Les contrôleurs ESP32-S3 traitent localement les entrées cyclistes, tandis que WebSockets et UDP relient les appareils au contrôleur central. Découverte, gestion des interruptions, reconnexion et comportement du firmware coordonnent les entrées physiques et l’état multijoueur.",
       "capabilities": [
         "Cyclisme multijoueur synchronisé",
@@ -446,8 +445,8 @@ const fr: Dictionary = {
       "short": "Un jeu de basketball connecté transformant les impacts en scores synchronisés et retours en temps réel sur plusieurs bases.",
       "overview": "Un impact de basketball doit devenir un événement numérique fiable, même lorsque les frappes se succèdent rapidement. Basket Beats détecte les impacts sur des bases connectées, les traite dans le firmware et transmet les événements de score à un contrôleur central qui coordonne modes de jeu, état partagé et retours immédiats.",
       "purpose": "Rendre le jeu physique rapide exploitable comme score cohérent dans une installation distribuée.",
-      "contribution": "J’ai développé le contrôleur Flutter, la logique de jeu, le firmware C++ embarqué, la chaîne de détection et de score, le PCB sur mesure, la communication et les retours synchronisés entre bases.",
-      "engineering": "La chaîne tient compte des impacts rapides et du bruit des capteurs avant de transmettre les événements en file via WebSocket et UDP. Accusés de réception, reprises, gestion des paquets retardés et reconnexion contribuent à préserver la livraison et la cohérence du score entre appareils.",
+      "contribution": "Le développement a couvert le contrôleur Flutter, la logique de jeu, le firmware C++ embarqué, la chaîne de détection et de score, un PCB sur mesure, le réseau et le retour synchronisé sur les bases connectées.",
+      "engineering": "Le firmware distingue les vrais impacts du bruit des capteurs, y compris lorsqu’ils se succèdent rapidement, afin que chaque impact réel produise un seul événement. Les événements sont mis en file puis envoyés au contrôleur via WebSocket et UDP ; accusés de réception, reprises, gestion des paquets retardés et reconnexion maintiennent un score cohérent entre plusieurs appareils.",
       "capabilities": [
         "Traitement des impacts en scores",
         "Jeu synchronisé entre plusieurs bases",
@@ -479,7 +478,7 @@ const fr: Dictionary = {
       "short": "Une expérience cycliste immersive où un vélo d’exercice réel contrôle le mouvement et la vitesse dans un monde virtuel.",
       "overview": "Le vélo d’exercice est la manette de VR Cycling. Lorsque le joueur pédale, le mouvement physique devient une entrée numérique qui modifie déplacement et vitesse dans le monde virtuel, reliant l’effort cycliste à l’expérience de traversée de cet univers.",
       "purpose": "Transformer l’exercice en jeu VR interactif grâce à une interaction physique naturelle et une réponse virtuelle immédiate.",
-      "contribution": "J’ai développé le firmware embarqué de traitement du mouvement et l’intégration physique–virtuel qui relie les entrées du vélo à l’expérience de conduite.",
+      "contribution": "Le développement s’est concentré sur le firmware embarqué de traitement du mouvement et sur l’intégration physique-virtuel qui relie les entrées du vélo à l’expérience de conduite.",
       "engineering": "Le traitement embarqué transforme le pédalage en entrées de conduite utilisables en temps réel, puis les transmet à l’expérience virtuelle. L’enjeu central est une synchronisation réactive entre pédalage et mouvement virtuel pour préserver la continuité de l’interaction.",
       "capabilities": [
         "Vélo physique comme entrée VR",
@@ -509,7 +508,7 @@ const fr: Dictionary = {
       "short": "Un trainer cycliste intelligent transformant le mouvement en vitesse, cadence et distance en direct pour logiciels d’entraînement et applications interactives.",
       "overview": "Bike-Land convertit le mouvement réel du vélo en mesures cyclistes structurées. Capteurs et firmware sur mesure produisent vitesse, cadence et distance en direct, puis l’intégration matérielle relie ces données aux logiciels d’entraînement et applications interactives. Le projet se concentre sur la mesure et l’intégration, distinctes du jeu immersif de VR Cycling.",
       "purpose": "Rendre les mesures cyclistes réelles accessibles à l’entraînement numérique et aux expériences interactives par une chaîne embarquée fiable.",
-      "contribution": "J’ai développé le firmware sur mesure, le traitement des capteurs, les calculs cyclistes, le PCB, l’intégration matérielle et la connexion des mesures aux logiciels compatibles.",
+      "contribution": "Le développement a couvert un firmware sur mesure, le traitement des capteurs physiques, les calculs de pédalage, un PCB sur mesure, l’intégration matérielle et la liaison des mesures avec des logiciels compatibles.",
       "engineering": "La chaîne embarquée transforme les entrées des capteurs en un état de mesure cohérent avant de l’exposer aux applications connectées. Calculs stables en temps réel et intégration fiable maintiennent la pertinence de la vitesse, de la cadence et de la distance lorsque le pédalage change.",
       "capabilities": [
         "Vitesse, cadence et distance en direct",
@@ -540,7 +539,7 @@ const fr: Dictionary = {
       "short": "Un système comptable reliant partie double, soldes partenaires, dépenses, stocks, rapprochement et contrepassations traçables.",
       "overview": "Les opérations financières exigent des règles comptables cohérentes au-delà du tableau de bord. Ce système généraliste relie grand livre structuré, plan comptable, écritures en partie double et validation de la balance aux transactions, comptes partenaires, dépenses, stocks, rapprochements et rapports.",
       "purpose": "Maintenir des mouvements financiers cohérents, traçables et réversibles, avec un contexte commun aux processus opérationnels et rapports comptables.",
-      "contribution": "J’ai développé l’application React et TypeScript, le modèle Supabase/PostgreSQL et la logique comptable, les écritures et transactions, les soldes partenaires, les dépenses et stocks, les rapprochements, rapports et contrepassations contrôlées.",
+      "contribution": "Le développement a couvert l’application React et TypeScript, le modèle Supabase/PostgreSQL et la logique comptable, les écritures et transactions, les soldes partenaires, les dépenses, les stocks, les rapprochements, les rapports et les contrepassations contrôlées.",
       "engineering": "Les processus de comptabilisation enregistrent les écritures, avec des contraintes en base validant l’équilibre de la partie double. Grand livre et balance reposent sur un état financier commun ; les motifs d’audit et écritures de contrepassation liées conservent l’historique des corrections plutôt que d’effacer le mouvement initial.",
       "capabilities": [
         "Grand livre, écritures et balance",
@@ -573,7 +572,7 @@ const fr: Dictionary = {
       "short": "Un processus de prospection organisé pour contacts, campagnes personnalisées, modèles, files d’envoi, état de livraison et réponses synchronisées.",
       "overview": "Listes de contacts, brouillons, envoi et suivi des réponses sont souvent des tâches manuelles séparées. La plateforme les réunit : organiser les contacts, préparer des campagnes personnalisées avec des modèles réutilisables, traiter des files d’envoi contrôlées, suivre la livraison, synchroniser les réponses et examiner l’activité des campagnes.",
       "purpose": "Remplacer les étapes dispersées par un processus coordonné et traçable conservant le contexte de chaque contact et campagne.",
-      "contribution": "J’ai développé l’interface Next.js/React, l’orchestration backend TypeScript, le modèle Supabase/PostgreSQL, l’intégration SMTP/IMAP, les modèles et campagnes, les files, la synchronisation des réponses et l’historique d’activité.",
+      "contribution": "Le développement a couvert l’interface Next.js/React, l’orchestration backend en TypeScript, le modèle Supabase/PostgreSQL, l’intégration SMTP/IMAP, les workflows de modèles et de campagnes, la logique de file d’attente, la synchronisation des réponses et l’historique d’activité.",
       "engineering": "Les données liées de contacts, campagnes, modèles, messages, files et réponses soutiennent l’orchestration backend. SMTP gère l’envoi et IMAP ramène les réponses dans le même contexte ; l’état de livraison et l’historique rendent la progression vérifiable.",
       "capabilities": [
         "Campagnes personnalisées et modèles réutilisables",
@@ -606,7 +605,7 @@ const fr: Dictionary = {
       "short": "Un studio desktop convertissant des vidéos de circulation en mouvements de véhicules suivis, vidéo annotée et exports CSV/Excel.",
       "overview": "Les vidéos de circulation enregistrées deviennent des données de mouvement structurées. L’utilisateur définit lignes de comptage et régions, puis lance détection de véhicules, suivi multi-objets, analyse des trajets et traitement en arrière-plan pour produire vidéo annotée et exports CSV/Excel.",
       "purpose": "Rendre les vidéos exploitables pour une analyse répétable, avec preuves visuelles et données structurées issues de la même session.",
-      "contribution": "J’ai développé l’interface PySide6, les outils vidéo OpenCV, la chaîne de détection et suivi YOLOv8/BoT-SORT, les règles spatiales de comptage, le traitement en arrière-plan, les sorties annotées et les exports CSV/Excel.",
+      "contribution": "Le développement a couvert l’interface desktop PySide6, les outils vidéo OpenCV, la chaîne de détection YOLOv8 et de suivi BoT-SORT, les règles de comptage spatiales, le traitement en arrière-plan, la sortie annotée et les exports CSV/Excel.",
       "engineering": "La chaîne conserve l’identité des objets entre images et applique lignes et régions définies par l’utilisateur aux mouvements suivis. L’analyse intensive s’exécute séparément de l’interface pour la garder réactive, tandis qu’annotations et exports tabulaires reflètent les mêmes règles de mouvement.",
       "capabilities": [
         "Détection de véhicules et suivi multi-objets",
@@ -697,10 +696,10 @@ const fr: Dictionary = {
   },
   "contact": {
     "title": "Contact",
-    "subtitle": "Des canaux directs pour échanger autour des travaux présentés, de l’ingénierie produit, des systèmes techniques et des projets.",
+    "subtitle": "Des canaux directs pour les opportunités professionnelles, la collaboration technique et les échanges autour des travaux présentés.",
     "eyebrow": "Produit · Ingénierie · R&D",
-    "heading": "Échanges autour du produit, de l’ingénierie et de la technique.",
-    "supporting": "Pour toute question sur les travaux présentés, discussion produit, échange technique ou communication liée à un projet, le contact direct est possible par e-mail ou WhatsApp.",
+    "heading": "Opportunités, collaboration et échanges techniques.",
+    "supporting": "Pour une opportunité professionnelle, une collaboration technique ou une question sur les travaux présentés, le contact direct est possible par e-mail ou WhatsApp.",
     "actions": {
       "email": "E-mail",
       "whatsapp": "WhatsApp"

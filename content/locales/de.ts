@@ -15,7 +15,7 @@ const de: Dictionary = {
   },
   "hero": {
     "headline": "Praktische Produkte aus Software und vernetzten Systemen.",
-    "supporting": "Ich entwickle Web-, Mobile-, Desktop- und Embedded-Produkte — von Anforderungen und Systementwurf bis zu Umsetzung, Bereitstellung und Verbesserung.",
+    "supporting": "F&E-Produktentwicklung für Web, Mobile, Desktop und Embedded-Systeme – von Systementwurf und Firmware bis zu Integration, Bereitstellung und Weiterentwicklung.",
     "actions": {
       "viewProjects": "Projekte ansehen",
       "downloadResume": "Lebenslauf herunterladen",
@@ -45,33 +45,33 @@ const de: Dictionary = {
   "about": {
     "title": "Über mich",
     "subtitle": "Produktentwicklung geprägt von Software, vernetzten Systemen, technischem Betrieb und realer Produktnutzung.",
-    "story1": "Ich bin Produktentwicklungsingenieur im Bereich F&E und Softwareingenieur mit praktischer Erfahrung im Aufbau und in der Verbesserung von Produkten aus Software, eingebetteten Systemen, IoT und Hardware-Software-Integration. Meine Arbeit umfasst Web, Mobile, Desktop, Automatisierung und vernetzte Systeme — von ersten Anforderungen und Systementwurf bis zu Umsetzung, Bereitstellung und kontinuierlicher Verbesserung.",
-    "story2": "Ich gehe analytisch an Engineering heran und beginne meist beim Problem vor der Technologie. Ich möchte Nutzer, Abläufe, Anforderungen, Einschränkungen und das Geschäftsziel hinter einem System verstehen und übersetze diesen Kontext in klare Prioritäten, Systemstrukturen und technische Entscheidungen. Komplexe Probleme zerlege ich in kleinere Teile, vergleiche verschiedene Ansätze und bewerte Lösungen nach erwartetem Ergebnis, Zeit, Kosten, Wartbarkeit und ihrem Mehrwert für das Produkt.",
+    "story1": "Hashem Kayyali ist Produktentwicklungsingenieur (F&E) und Softwareingenieur und entwickelt und verbessert Produkte aus Software, eingebetteten Systemen, IoT und Hardware-Software-Integration. Die Arbeit reicht von Web, Mobile und Desktop über Automatisierung bis zu vernetzten Systemen – von den ersten Anforderungen und dem Systementwurf bis zu Umsetzung, Bereitstellung und kontinuierlicher Verbesserung.",
+    "story2": "Technische Entscheidungen beginnen beim Problem, nicht bei der Technologie: bei Nutzern, Abläufen, Anforderungen, Einschränkungen und dem Geschäftsziel hinter einem System. Komplexe Probleme werden in Teile zerlegt, Alternativen verglichen und Lösungen nach erwartetem Ergebnis, Zeit, Kosten, Wartbarkeit und Nutzen für das Produkt bewertet.",
     "sections": [
       {
         "title": "Beruflicher Schwerpunkt",
         "paragraphs": [
-          "Ich bin Produktentwicklungsingenieur im Bereich F&E und Softwareingenieur mit praktischer Erfahrung im Aufbau und in der Verbesserung von Produkten aus Software, eingebetteten Systemen, IoT und Hardware-Software-Integration. Meine Arbeit umfasst Web, Mobile, Desktop, Automatisierung und vernetzte Systeme — von ersten Anforderungen und Systementwurf bis zu Umsetzung, Bereitstellung und kontinuierlicher Verbesserung."
+          "Hashem Kayyali ist Produktentwicklungsingenieur (F&E) und Softwareingenieur und entwickelt und verbessert Produkte aus Software, eingebetteten Systemen, IoT und Hardware-Software-Integration. Die Arbeit reicht von Web, Mobile und Desktop über Automatisierung bis zu vernetzten Systemen – von den ersten Anforderungen und dem Systementwurf bis zu Umsetzung, Bereitstellung und kontinuierlicher Verbesserung."
         ]
       },
       {
         "title": "Analyse & technische Entscheidungen",
         "paragraphs": [
-          "Ich gehe analytisch an Engineering heran und beginne meist beim Problem vor der Technologie. Ich möchte Nutzer, Abläufe, Anforderungen, Einschränkungen und das Geschäftsziel hinter einem System verstehen und übersetze diesen Kontext in klare Prioritäten, Systemstrukturen und technische Entscheidungen. Komplexe Probleme zerlege ich in kleinere Teile, vergleiche verschiedene Ansätze und bewerte Lösungen nach erwartetem Ergebnis, Zeit, Kosten, Wartbarkeit und ihrem Mehrwert für das Produkt."
+          "Technische Entscheidungen beginnen beim Problem, nicht bei der Technologie: bei Nutzern, Abläufen, Anforderungen, Einschränkungen und dem Geschäftsziel hinter einem System. Komplexe Probleme werden in Teile zerlegt, Alternativen verglichen und Lösungen nach erwartetem Ergebnis, Zeit, Kosten, Wartbarkeit und Nutzen für das Produkt bewertet."
         ]
       },
       {
         "title": "Kommunikation & Zusammenarbeit",
         "paragraphs": [
-          "Kommunikation ist ein wichtiger Teil meiner Arbeit. Ich höre aufmerksam zu, stelle die nötigen Fragen, um die tatsächliche Anforderung zu verstehen, und passe meine Kommunikation an Ingenieure, Kunden oder nichttechnische Beteiligte an. Unterschiedliche Sichtweisen zu diskutieren, technische Entscheidungen verständlich zu erklären und breite Ideen sowie operative Bedürfnisse in strukturierte, umsetzbare Pläne zu übersetzen, gehört für mich dazu."
+          "Klare Kommunikation gehört zur Ingenieurarbeit. Anforderungen werden mit Entwicklern, Kunden und nicht-technischen Beteiligten gleichermaßen geklärt, technische Entscheidungen verständlich erklärt, und grobe Ideen und betriebliche Bedürfnisse werden zu strukturierten, umsetzbaren Plänen."
         ]
       },
       {
         "title": "Produktentwicklung & Verbesserung",
         "paragraphs": [
-          "Am meisten interessieren mich Produkte, die sich durch reale Nutzung weiterentwickeln. Ob ich eine Idee vom Konzept zum funktionierenden System führe oder ein bestehendes Produkt verbessere: Tests, Rückmeldungen und tatsächliche Nutzung helfen mir zu entscheiden, was verfeinert, vereinfacht, neu aufgebaut oder als Nächstes entwickelt werden sollte.",
-          "Wenn ein Projekt eine Technologie außerhalb meiner bisherigen Erfahrung erfordert, lerne und bewerte ich sie, statt einen vertrauten Ansatz in die Lösung zu zwingen. Ich schätze konstruktive Rückmeldungen, übernehme Verantwortung für meine Entscheidungen und nutze Fehler, um sowohl das Produkt als auch meine Arbeitsweise zu verbessern.",
-          "Mich motiviert vor allem die Wirkung der Arbeit selbst — mit Engineering, Analyse und kontinuierlichem Lernen Ideen in nützliche Produkte zu verwandeln und den Wert der Systeme zu steigern, an denen ich arbeite."
+          "Am lohnendsten sind Produkte, die sich im realen Einsatz weiterentwickeln. Ob eine Idee zum funktionierenden System wird oder ein bestehendes Produkt verbessert wird: Tests, Feedback und tatsächliche Nutzung entscheiden, was verfeinert, vereinfacht, neu gebaut oder als Nächstes entwickelt wird.",
+          "Verlangt ein Projekt Technologie jenseits der bisherigen Erfahrung, wird sie auf ihre Eignung geprüft und erlernt, statt sie durch einen vertrauten Ansatz zu ersetzen. Konstruktives Feedback ist willkommen, Entscheidungen werden verantwortet, und Fehler fließen in Produkt und Arbeitsweise zurück.",
+          "Die Wirkung der Arbeit zählt am meisten: Ingenieurwissen, Analyse und stetiges Lernen machen aus Ideen nützliche Produkte und steigern den Wert der beteiligten Systeme."
         ]
       }
     ],
@@ -150,7 +150,7 @@ const de: Dictionary = {
     "subtitle": "Berufserfahrung, Produktverantwortung, technische Bandbreite und die Arbeit hinter jeder Rolle.",
     "profileEyebrow": "Berufliches Profil",
     "profileHeadline": "Produktentwicklungsingenieur (F&E) | Softwareingenieur | Eingebettete Systeme, IoT & Hardware-Software-Integration",
-    "profileSummary": "Ich bin Produktentwicklungsingenieur im Bereich F&E und Softwareingenieur mit praktischer Erfahrung im Aufbau und in der Verbesserung von Produkten aus Software, eingebetteten Systemen, IoT und Hardware-Software-Integration. Meine Arbeit umfasst Web, Mobile, Desktop, Automatisierung und vernetzte Systeme — von ersten Anforderungen und Systementwurf bis zu Umsetzung, Bereitstellung und kontinuierlicher Verbesserung.",
+    "profileSummary": "Hashem Kayyali ist Produktentwicklungsingenieur (F&E) und Softwareingenieur und entwickelt und verbessert Produkte aus Software, eingebetteten Systemen, IoT und Hardware-Software-Integration. Die Arbeit reicht von Web, Mobile und Desktop über Automatisierung bis zu vernetzten Systemen – von den ersten Anforderungen und dem Systementwurf bis zu Umsetzung, Bereitstellung und kontinuierlicher Verbesserung.",
     "journeyTitle": "Beruflicher Werdegang",
     "journeySupport": "Entwicklung über Produktentwicklung, technischen Betrieb und kundennahe Umgebungen hinweg.",
     "roleDetails": "Mehr zu dieser Position",
@@ -161,9 +161,9 @@ const de: Dictionary = {
         "period": "Januar 2026 – heute",
         "location": "Amman, Jordanien",
         "points": [
-          "Eventies mitgegründet und praktische technische Entwicklung der Plattform geleitet; dabei Produktausrichtung und technische Entscheidungen mitgestaltet.",
-          "Meine Aufgaben umfassen Produktplanung, Systemarchitektur, User Experience, Frontend- und Backend-Entwicklung, Integrationen, Bereitstellung und kontinuierliche Produktverbesserung.",
-          "Ich verbinde operative und geschäftliche Bedürfnisse mit Produktanforderungen und praktischen technischen Entscheidungen."
+          "Mitgründer von Eventies; leitet die praktische technische Entwicklung der Plattform und prägt Produktausrichtung und technische Entscheidungen mit.",
+          "Der technische Verantwortungsbereich umfasst Produktplanung, Systemarchitektur, User Experience, Frontend- und Backend-Entwicklung, Integrationen, Bereitstellung und kontinuierliche Produktverbesserung.",
+          "Verbindet betriebliche und geschäftliche Anforderungen mit Produktanforderungen und praxisnahen technischen Entscheidungen."
         ],
         "responsibilities": [
           "Produktplanung",
@@ -181,9 +181,9 @@ const de: Dictionary = {
         "period": "August 2025 – heute",
         "location": "Amman, Jordanien",
         "points": [
-          "Ich entwickle vollständige Produkte in F&E, Softwareentwicklung, eingebetteten Systemen und Hardware-Software-Integration — von frühen Konzepten und Prototypen bis zu Umsetzung, Tests, Bereitstellung und kontinuierlicher Verbesserung.",
+          "Entwickelt vollständige Produkte in F&E, Softwareentwicklung, eingebetteten Systemen und Hardware-Software-Integration – von frühen Konzepten und Prototypen bis zu Umsetzung, Tests, Bereitstellung und kontinuierlicher Verbesserung.",
           "Die Arbeit umfasst Web-, Mobile- und Desktop-Software, eingebettete Controller, Elektronik, Sensoren, Netzwerke, Automatisierungssysteme und interaktive Produkte.",
-          "Ich übersetze operative Anforderungen in praktische Lösungen und arbeite über den gesamten Produktlebenszyklus hinweg."
+          "Übersetzt betriebliche Anforderungen in praxistaugliche Lösungen über den gesamten Produktlebenszyklus."
         ],
         "role": "Produktentwicklungsingenieur (F&E) & Softwareingenieur",
         "mode": "Vor Ort",
@@ -220,7 +220,7 @@ const de: Dictionary = {
             "employment": "Vollzeit",
             "mode": "Vor Ort",
             "points": [
-              "In einer kundenorientierten Vertriebsrolle begonnen, bevor ich in den technischen Betrieb wechselte. Kunden unterstützt, interaktive Erlebnisse erklärt und am täglichen Veranstaltungsbetrieb mitgewirkt."
+              "Einstieg in einer kundenorientierten Vertriebsrolle mit anschließendem Wechsel in den technischen Betrieb. Kunden unterstützt, interaktive Erlebnisse erklärt und am täglichen Veranstaltungsbetrieb mitgewirkt."
             ]
           }
         ]
@@ -272,7 +272,7 @@ const de: Dictionary = {
   },
   "projectsSection": {
     "title": "Ausgewählte Projekte",
-    "subtitle": "Ausgewählte Projekte, die praktische Ideen und technische Lösungen zeigen.",
+    "subtitle": "Ausgewählte Fallstudien zu Webplattformen, Geschäftssystemen, vernetzter Hardware und Automatisierung.",
     "browseLabel": "Alle Projekte durchsuchen",
     "filters": {
       "all": "Alle",
@@ -292,7 +292,7 @@ const de: Dictionary = {
       "short": "Ein Marktplatz für Eventservices, der Kundenanfragen mit Vermietung, Produktion, Unterhaltung und individuellen Lösungen verbindet.",
       "overview": "Eventplanung bedeutet oft, getrennte Anbieter und Servicekataloge zu durchsuchen. Eventies bündelt Vermietung, Produktion, Aktivierungen, Unterhaltung, Stände, Bildschirme und individuelle Lösungen in einem digitalen Marktplatz mit einer Kundenreise zur Servicesuche und operativen Abläufen zur Bearbeitung von Anfragen.",
       "purpose": "Fragmentierte Servicesuche vereinfachen und Kundenbedürfnisse mit strukturierten Eventanfragen verbinden.",
-      "contribution": "Als Mitgründer und technischer Leiter arbeite ich praktisch an Produktarchitektur, Nutzerreisen, Frontend und Backend, Servicekatalog, Datenbankdesign, Integrationen, Bereitstellung und kontinuierlicher Verbesserung.",
+      "contribution": "Mitgründer und technischer Leiter mit praktischer Verantwortung für Produktarchitektur, Nutzerreisen, Frontend- und Backend-Entwicklung, Servicekatalog, Datenbankdesign, Integrationen, Bereitstellung und kontinuierliche Verbesserung.",
       "engineering": "Die Anwendung mit Next.js und TypeScript nutzt Supabase als gemeinsame Datenschicht. Produkt- und Datenbankentscheidungen verbinden den öffentlichen Katalog, den Anfrageprozess und die interne Bearbeitung während der Weiterentwicklung.",
       "capabilities": [
         "Eventservices finden",
@@ -321,7 +321,7 @@ const de: Dictionary = {
       "short": "Eine digitale Serviceerfahrung für Abschlussfeiern und Hochzeiten, die Kundenanfragen, interne Abläufe und Meta WhatsApp verbindet.",
       "overview": "Services für Abschlussfeiern und Hochzeiten brauchen mehr als einen Buchungsbildschirm: Kundenwünsche müssen im Betrieb umsetzbar ankommen. Glitzz Lab verbindet Servicesuche und Anfragen mit internen Abläufen sowie automatisierter Kunden- und Betriebskommunikation über Meta WhatsApp.",
       "purpose": "Den Weg vom Kunden zum Betrieb verbinden, damit Anfragen und Kommunikation im selben Serviceprozess bleiben.",
-      "contribution": "Ich entwickelte die Kundenerfahrung, Frontend- und Backend-Abläufe, das Supabase-Datenmodell und die Meta-WhatsApp-Integration für Serviceanfragen und Geschäftskommunikation.",
+      "contribution": "Die Entwicklung umfasste das Kundenerlebnis, Frontend- und Backend-Abläufe, das Supabase-Datenmodell und die Meta-WhatsApp-Integration, die Serviceanfragen mit der Geschäftskommunikation verbindet.",
       "engineering": "Next.js und TypeScript verbinden den öffentlichen Serviceprozess mit operativen Datensätzen in Supabase. WhatsApp-Nachrichten sind in diese Abläufe eingebunden und behalten den Anfragekontext, statt einen separaten manuellen Schritt zu bilden.",
       "capabilities": [
         "Servicesuche und Anfragen",
@@ -351,7 +351,7 @@ const de: Dictionary = {
       "short": "Mobile Abläufe für Mitglieder und autorisierte Leitungsdashboards auf gemeinsamer Datenbasis mit rollenbasiertem Zugriff.",
       "overview": "Mitglieder und Leitung benötigen dieselben Betriebsinformationen in unterschiedlichen Formen. Umniah YouthConnect bietet mobile Abläufe für Verfügbarkeit, Schichtinformationen, internen Support und operative Meldungen; autorisierte Verantwortliche nutzen Dashboards für Berichte, Analysen, Prüfungen und Exporte.",
       "purpose": "Jeder Rolle eine passende Sicht auf gemeinsame Daten geben, ohne getrennte Mitglieds- und Verwaltungsdaten zu pflegen.",
-      "contribution": "Ich entwickelte die Flutter- und Dart-Oberflächen, Betriebsabläufe, Supabase-Datenschicht, rollenbasierten Zugriff sowie Verwaltungsberichte und Exporte.",
+      "contribution": "Die Entwicklung umfasste die Flutter- und Dart-Apps, Betriebsabläufe, die Supabase-Datenschicht, rollenbasierten Zugriff, Management-Berichte und Exportfunktionen.",
       "engineering": "Eine gemeinsame Supabase-Datenschicht trägt unterschiedliche Oberflächen für Mitglieder und Leitung. Rollenbasierter Zugriff steuert verfügbare Datensätze und Aktionen; Meldungen, Prüfungen, Analysen und Exporte bleiben im selben Betriebskontext.",
       "capabilities": [
         "Mobile Mitgliedsabläufe",
@@ -374,35 +374,34 @@ const de: Dictionary = {
       }
     },
     "terminal-nfc": {
-      "title": "The Terminal NFC",
+      "title": "The Terminal Simulator Control",
       "category": "Geschäftssystem",
       "status": "In Entwicklung · Privates Projekt",
-      "short": "Ein Betriebssystem für den Veranstaltungsort, das POS-Verkäufe, Kundenkonten und NFC mit der tatsächlichen Nutzung interaktiver Erlebnisse verbindet.",
-      "overview": "Ein Verkauf an der Kasse ist nur ein Teil des Betriebs eines interaktiven Veranstaltungsorts. The Terminal NFC verbindet das POS mit den Anwendungen für die Erlebnisse: Mitarbeiter erstellen oder wählen Kundenkonten und bereiten Transaktionen vor; NFC-Karten oder Armbänder identifizieren Kunden und ordnen Vorgänge dem richtigen Konto zu.",
-      "purpose": "Verbinden, was verkauft wurde und tatsächlich genutzt wird, damit Verkauf und Erlebnisbetrieb denselben Konto- und Transaktionskontext teilen.",
-      "contribution": "Ich entwickelte Desktop-POS und operative Integrationen, NFC-Kontoidentifikation, zentrale API, Datenabläufe und Dashboard-Anbindungen im Client-Server-System.",
-      "engineering": "Eine zentrale .NET Web API prüft Kontozustand und Nutzungsberechtigung und vermittelt zwischen Desktop-Clients und Datenbank. POS, Betriebsanwendungen und Dashboard teilen zentral verwaltete Transaktionen, Rechnungen, Gerätenutzung und Systemaktivität; NFC bildet darin die Identifikationsschicht.",
+      "short": "Simulator-Steuerung mit RFID-Mitarbeiterautorisierung, Spielsitzungserfassung, Bewegungssensor-Überwachung und zentralem Management-Dashboard.",
+      "overview": "The Terminal Simulator Control regelt, wie Mitarbeitende Simulatoren in einem interaktiven Veranstaltungsort bedienen. Der Zugang wird per RFID-Karte autorisiert, ein Windows-Client an jedem Simulator erfasst die Spielsitzungen, und ein zentrales Dashboard bündelt die Nutzung nach Mitarbeitenden und Simulatoren. Gekoppelte Bewegungssensoren unterstützen Überwachung und Kalibrierung der physischen Geräte.",
+      "purpose": "Betreibern kontrollierten Zugang zu jedem Simulator, klare Zuständigkeit der Mitarbeitenden und verlässliche Einblicke in die Gerätenutzung geben.",
+      "contribution": "Der technische Umfang umfasst die Windows-Simulator-Clients, den RFID-basierten Zugang, die Supabase-Daten- und Berechtigungsschicht, die Integration der Bewegungssensoren und das Management-Dashboard – als ein zusammenhängendes System.",
+      "engineering": "Auf jedem Simulator läuft ein Windows-Client, der den Zugang steuert und autorisierte Spielsitzungen erfasst. Administrator- und Wartungszugriffe werden getrennt behandelt und daher nicht als Spielbetrieb gezählt. Supabase speichert die Betriebsdaten und setzt die Berechtigungen durch, während gekoppelte Bewegungssensoren Bewegungsdaten für Überwachung und Kalibrierung melden.",
       "capabilities": [
-        "Kontogebundene POS-Transaktionen",
-        "API-basierte Berechtigungsprüfung",
-        "Gemeinsame Verkaufs- und Gerätenutzungsdaten"
+        "RFID-Autorisierung und Sitzungsprotokolle",
+        "Administrator- und Wartungszugriff",
+        "Überwachung und Kalibrierung der Bewegungssensoren"
       ],
       "considerations": [
-        "Kontozustand vor Freigabe der Nutzung prüfen.",
-        "Transaktionen und tatsächliche Gerätenutzung über mehrere Clients verbinden."
+        "Spielbetrieb am Simulator von Administrator- und Wartungsnutzung trennen.",
+        "Überwachung und Kalibrierung der Bewegungssensoren über gekoppelte Geräte hinweg zuverlässig halten."
       ],
       "technology": [
         "C#",
         "WPF",
-        ".NET Web API",
-        "REST APIs",
-        "NFC",
-        "Client-Server-Architektur"
+        "Supabase",
+        "RFID",
+        "Bewegungssensoren"
       ],
       "narrativeLabels": {
-        "purpose": "Verkauft → genutzt",
-        "contribution": "Die Betriebssysteme verbinden",
-        "engineering": "Zentrale API zwischen Clients"
+        "purpose": "Kontrollierter Zugang, nachvollziehbare Nutzung",
+        "contribution": "Clients, RFID & Dashboard",
+        "engineering": "Simulatorzugang und Sensorüberwachung"
       }
     },
     "bike-tower": {
@@ -412,7 +411,7 @@ const de: Dictionary = {
       "short": "Eine interaktive Mehrspieler-Radinstallation mit vernetzten Rädern, synchronisierten Spielen und reaktionsfähiger Beleuchtung.",
       "overview": "In Bike Tower wird Treten zum gemeinsamen Wettbewerbseingang. Eingebettete Controller verarbeiten die Bewegung und kommunizieren mit einer zentralen Flutter-Steuerung, die vernetzte Räder, Spielerzustände, synchronisierte Spiellogik, Beleuchtung und Live-Feedback koordiniert. Tug of War ist ein Beispiel des Mehrspieler-Erlebnisses.",
       "purpose": "Physisches Radfahren in ein koordiniertes Mehrspieler-Erlebnis mit unmittelbarer Spiel- und visueller Rückmeldung verwandeln.",
-      "contribution": "Ich entwickelte Flutter-Spielsteuerung, Mehrspielerlogik, ESP32-S3-Firmware, Erkennungs- und Kommunikationsprotokolle, kundenspezifische PCB, eingebettete Eingangsverarbeitung und LED-Steuerung.",
+      "contribution": "Der technische Umfang umfasst die Flutter-Spielsteuerung, die Mehrspielerlogik, ESP32-S3-Firmware, Erkennungs- und Kommunikationsprotokolle, eine kundenspezifische PCB, eingebettete Eingangsverarbeitung und LED-Steuerung.",
       "engineering": "ESP32-S3-Controller verarbeiten Radbewegungen lokal; WebSockets und UDP verbinden Geräte mit der Zentrale. Geräteerkennung, Unterbrechungsbehandlung, Wiederverbindung und Firmware-Verhalten halten physische Eingaben und Mehrspielerzustand koordiniert.",
       "capabilities": [
         "Synchronisiertes Mehrspieler-Radfahren",
@@ -446,8 +445,8 @@ const de: Dictionary = {
       "short": "Ein vernetztes Basketballspiel, das Treffer in synchronisierte Punkte und Echtzeitfeedback über mehrere Stationen übersetzt.",
       "overview": "Ein Basketballtreffer muss genau ein verlässliches digitales Ereignis werden, auch bei schnellen Folgen. Basket Beats erkennt Treffer an vernetzten Stationen, verarbeitet sie in eingebetteter Firmware und sendet Punkteereignisse an eine zentrale Spielsteuerung für Spielmodi, gemeinsamen Zustand und Echtzeitfeedback.",
       "purpose": "Schnelles physisches Spiel in konsistente Punkte über eine verteilte Installation übersetzen.",
-      "contribution": "Ich entwickelte Flutter-Steuerung, Spiellogik, eingebettete C++-Firmware, Sensor- und Punkteverarbeitung, kundenspezifische PCB, Netzwerkkommunikation und synchronisierte Rückmeldung der Stationen.",
-      "engineering": "Der Ereignispfad berücksichtigt schnelle Treffer und Sensorrauschen, bevor gepufferte Ereignisse über WebSocket und UDP übertragen werden. Bestätigungen, Wiederholungen, Behandlung verspäteter Pakete und Wiederverbindung sichern die Zustellung und einen konsistenten Punktestand über mehrere Geräte.",
+      "contribution": "Die Entwicklung umfasste die Flutter-Steuerung, die Spiellogik, eingebettete C++-Firmware, die Sensorik- und Punkteerfassung, eine kundenspezifische PCB, Netzwerkkommunikation und synchronisiertes Feedback über alle verbundenen Stationen.",
+      "engineering": "Die Firmware trennt echte Treffer von Sensorrauschen, auch bei schnell aufeinanderfolgenden Aufprallen, sodass jeder tatsächliche Treffer genau ein Ereignis ergibt. Die Ereignisse werden gepuffert und über WebSocket und UDP an die Steuerung gesendet; Bestätigungen, Wiederholungen, Behandlung verspäteter Pakete und Wiederverbindung halten den Punktestand über mehrere Geräte konsistent.",
       "capabilities": [
         "Treffer in Punkte umsetzen",
         "Synchronisiertes Spiel über mehrere Stationen",
@@ -479,7 +478,7 @@ const de: Dictionary = {
       "short": "Ein immersives Raderlebnis, bei dem ein echtes Trainingsrad Bewegung und Geschwindigkeit in einer virtuellen Welt steuert.",
       "overview": "Das Trainingsrad ist der Spielcontroller von VR Cycling. Beim Treten wird die physische Bewegung in digitale Fahreingaben übersetzt, die Bewegung und Geschwindigkeit in der virtuellen Welt verändern und die Anstrengung mit dem virtuellen Fahren verbinden.",
       "purpose": "Training durch natürliche physische Eingaben und unmittelbare virtuelle Reaktion in interaktives VR-Spiel verwandeln.",
-      "contribution": "Ich entwickelte die eingebettete Firmware zur Bewegungsverarbeitung und die physisch-virtuelle Integration zwischen Fahrradeingaben und Fahrerlebnis.",
+      "contribution": "Die Entwicklung konzentrierte sich auf die eingebettete Firmware zur Bewegungsverarbeitung und die Integration von physischer und virtueller Welt, die die Fahrradeingabe mit dem Fahrerlebnis verbindet.",
       "engineering": "Die eingebettete Verarbeitung wandelt Radbewegung in nutzbare Echtzeit-Fahreingaben um und übergibt sie an das virtuelle Erlebnis. Die zentrale Integrationsaufgabe ist eine reaktionsfähige Synchronisierung zwischen Treten und virtueller Bewegung.",
       "capabilities": [
         "Physisches Rad als VR-Eingabe",
@@ -509,7 +508,7 @@ const de: Dictionary = {
       "short": "Ein smarter Radtrainer, der Bewegung in Live-Geschwindigkeit, Trittfrequenz und Distanz für Trainingssoftware und interaktive Anwendungen umsetzt.",
       "overview": "Bike-Land wandelt reale Fahrradbewegung in strukturierte Messwerte um. Sensoren und kundenspezifische Firmware ermitteln Geschwindigkeit, Trittfrequenz und Distanz live; die Hardwareintegration verbindet diese mit Trainingssoftware und interaktiven Anwendungen. Der Schwerpunkt liegt auf Messung und Integration und unterscheidet sich vom immersiven Spiel in VR Cycling.",
       "purpose": "Reale Live-Radmetriken über einen verlässlichen eingebetteten Messpfad für digitales Training und interaktive Erlebnisse bereitstellen.",
-      "contribution": "Ich entwickelte kundenspezifische Firmware, Sensorsignalverarbeitung, Radberechnungen, PCB, Hardwareintegration und die Anbindung der Messwerte an kompatible Software.",
+      "contribution": "Die Entwicklung umfasste eigene Firmware, die Verarbeitung physischer Sensordaten, Berechnungen zum Radfahren, eine kundenspezifische PCB, Hardware-Integration und die Anbindung der Messwerte an kompatible Software.",
       "engineering": "Die eingebettete Verarbeitung wandelt Sensorsignale in einen konsistenten Live-Messzustand um, bevor Anwendungen darauf zugreifen. Stabile Echtzeitberechnungen und verlässliche Hardware-Software-Integration halten Geschwindigkeit, Trittfrequenz und Distanz bei wechselnder Bewegung aussagekräftig.",
       "capabilities": [
         "Live-Geschwindigkeit, Trittfrequenz und Distanz",
@@ -540,7 +539,7 @@ const de: Dictionary = {
       "short": "Ein Buchhaltungssystem, das doppelte Buchführung mit Partnerkonten, Ausgaben, Bestand, Abstimmung und nachvollziehbaren Stornierungen verbindet.",
       "overview": "Finanzprozesse brauchen Buchungsregeln, die über das Dashboard hinaus konsistent bleiben. Dieses allgemein einsetzbare Geschäftssystem verbindet strukturiertes Hauptbuch, Kontenplan, doppelte Journalbuchungen und Saldenprüfung mit Transaktionen, Partnerkonten, Ausgaben, Bestand, Abstimmung und Berichten.",
       "purpose": "Finanzbewegungen konsistent, nachvollziehbar und reversibel halten und Betriebsabläufen sowie Buchhaltungsberichten einen gemeinsamen Finanzkontext geben.",
-      "contribution": "Ich entwickelte die React- und TypeScript-Anwendung, das Supabase/PostgreSQL-Datenmodell und die Buchungslogik, Journal- und Transaktionsabläufe, Partnerstände, Ausgaben und Bestand, Abstimmung, Berichte und kontrollierte Stornierung.",
+      "contribution": "Die Entwicklung umfasste die React- und TypeScript-Anwendung, das Supabase/PostgreSQL-Datenmodell und die Buchungslogik, Journal- und Transaktionsabläufe, Partnerstände, Ausgaben, Bestand, Abstimmung, Berichte und kontrollierte Stornierungen.",
       "engineering": "Buchungsabläufe speichern Journaleinträge; Datenbankregeln prüfen ausgeglichene Soll- und Habenbewegungen. Hauptbuch- und Saldenansichten nutzen den gemeinsamen Finanzzustand. Prüfgründe und verknüpfte Gegenbuchungen bewahren die Korrekturhistorie, statt die ursprüngliche Bewegung still zu entfernen.",
       "capabilities": [
         "Hauptbuch, Journal und Saldenprüfung",
@@ -573,7 +572,7 @@ const de: Dictionary = {
       "short": "Ein organisierter Outreach-Ablauf für Kontakte, personalisierte Kampagnen, Vorlagen, Versandwarteschlangen, Zustellung und synchronisierte Antworten.",
       "overview": "Kontaktlisten, Nachrichtenentwürfe, Versand und Antwortnachverfolgung sind oft getrennte manuelle Aufgaben. Die Outreach Automation Platform bündelt sie: Kontakte organisieren, personalisierte E-Mail-Kampagnen mit wiederverwendbaren Vorlagen vorbereiten, kontrollierte Warteschlangen verarbeiten, Zustellung verfolgen, Antworten synchronisieren und Kampagnenaktivität prüfen.",
       "purpose": "Verteilte Outreach-Schritte durch einen koordinierten, nachvollziehbaren Ablauf mit Kontakt- und Kampagnenkontext ersetzen.",
-      "contribution": "Ich entwickelte Next.js/React-Oberfläche, TypeScript-Backend-Orchestrierung, Supabase/PostgreSQL-Datenmodell, SMTP/IMAP-Integration, Vorlagen- und Kampagnenabläufe, Warteschlangenlogik, Antwortsynchronisierung und Aktivitätshistorie.",
+      "contribution": "Die Entwicklung umfasste die Next.js/React-Oberfläche, die Backend-Orchestrierung in TypeScript, das Supabase/PostgreSQL-Datenmodell, die SMTP/IMAP-Anbindung, Vorlagen- und Kampagnenabläufe, die Warteschlangenlogik, die Synchronisierung von Antworten und den Aktivitätsverlauf.",
       "engineering": "Verknüpfte Kontakt-, Kampagnen-, Vorlagen-, Nachrichten-, Warteschlangen- und Antwortdaten tragen die Backend-Orchestrierung. SMTP übernimmt den Versand, IMAP führt Antworten in denselben Kontext zurück; Zustellstatus und Aktivitätshistorie machen Fortschritt überprüfbar.",
       "capabilities": [
         "Personalisierte Kampagnen und wiederverwendbare Vorlagen",
@@ -606,7 +605,7 @@ const de: Dictionary = {
       "short": "Ein Desktop-Studio, das Verkehrsvideos in verfolgte Fahrzeugbewegungen, annotierte Videos und CSV/Excel-Auswertungen umwandelt.",
       "overview": "Aufgezeichnete Verkehrsvideos werden in Traffic Flow Analytics Studio zu strukturierten Bewegungsdaten. Nutzer definieren Zähllinien und Regionen und starten Fahrzeugerkennung, Mehrfachobjektverfolgung, Routenanalyse und Hintergrundverarbeitung für annotierte Videos und CSV/Excel-Exporte.",
       "purpose": "Aufnahmen für wiederholbare Bewegungsanalysen nutzen und visuelle Belege sowie strukturierte Daten aus derselben Sitzung erzeugen.",
-      "contribution": "Ich entwickelte die PySide6-Desktop-Oberfläche, OpenCV-Videowerkzeuge, YOLOv8/BoT-SORT-Erkennungs- und Trackingpipeline, räumliche Zählregeln, Hintergrundverarbeitung, annotierte Ausgabe und CSV/Excel-Exporte.",
+      "contribution": "Die Entwicklung umfasste die PySide6-Desktop-Oberfläche, OpenCV-Videowerkzeuge, die Pipeline aus YOLOv8-Erkennung und BoT-SORT-Tracking, räumliche Zählregeln, Hintergrundverarbeitung, annotierte Ausgabe und CSV/Excel-Exporte.",
       "engineering": "Die Pipeline erhält Objektidentitäten über Frames hinweg und wendet nutzerdefinierte Linien und Regionen auf Bewegungen an. Rechenintensive Analyse läuft getrennt von der Oberfläche, damit diese reaktionsfähig bleibt; Videoannotationen und Tabellen folgen denselben Bewegungsregeln.",
       "capabilities": [
         "Fahrzeugerkennung und Mehrfachobjektverfolgung",
@@ -697,10 +696,10 @@ const de: Dictionary = {
   },
   "contact": {
     "title": "Kontakt",
-    "subtitle": "Direkte Kanäle für Gespräche über die gezeigten Arbeiten, Produktentwicklung, technische Systeme und Projekte.",
+    "subtitle": "Direkte Kanäle für berufliche Möglichkeiten, technische Zusammenarbeit und Gespräche über die gezeigten Arbeiten.",
     "eyebrow": "Produkt · Engineering · F&E",
-    "heading": "Gespräche über Produkte, Engineering und Technik.",
-    "supporting": "Für Fragen zu den hier gezeigten Arbeiten, Produktgespräche, technische Themen oder projektbezogene Kommunikation ist eine direkte Kontaktaufnahme per E-Mail oder WhatsApp möglich.",
+    "heading": "Möglichkeiten, Zusammenarbeit und technische Gespräche.",
+    "supporting": "Für berufliche Möglichkeiten, technische Zusammenarbeit oder Fragen zu den hier gezeigten Arbeiten ist eine direkte Kontaktaufnahme per E-Mail oder WhatsApp möglich.",
     "actions": {
       "email": "E-Mail",
       "whatsapp": "WhatsApp"

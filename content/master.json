@@ -31,11 +31,11 @@
       "es": "Productos prácticos de software y sistemas conectados."
     },
     "supporting": {
-      "en": "I build web, mobile, desktop, and embedded products — from requirements and system design to implementation, deployment, and improvement.",
-      "ar": "أبني منتجات للويب والموبايل وسطح المكتب والأنظمة المضمنة، من المتطلبات وتصميم النظام إلى التنفيذ والنشر والتحسين.",
-      "de": "Ich entwickle Web-, Mobile-, Desktop- und Embedded-Produkte — von Anforderungen und Systementwurf bis zu Umsetzung, Bereitstellung und Verbesserung.",
-      "fr": "Je développe des produits web, mobiles, desktop et embarqués — des exigences et de la conception à l’implémentation, au déploiement et à l’amélioration.",
-      "es": "Desarrollo productos web, móviles, de escritorio y embebidos: desde requisitos y diseño hasta implementación, despliegue y mejora."
+      "en": "R&D product engineering across web, mobile, desktop and embedded systems — from system design and firmware to integration, deployment and ongoing improvement.",
+      "ar": "هندسة منتجات بحث وتطوير للويب والموبايل وسطح المكتب والأنظمة المضمنة، من تصميم النظام والبرمجيات المضمنة إلى التكامل والنشر والتحسين المستمر.",
+      "de": "F&E-Produktentwicklung für Web, Mobile, Desktop und Embedded-Systeme – von Systementwurf und Firmware bis zu Integration, Bereitstellung und Weiterentwicklung.",
+      "fr": "Ingénierie produit R&D pour le web, le mobile, le desktop et l’embarqué : de la conception système au firmware, puis à l’intégration et au déploiement.",
+      "es": "Ingeniería de producto I+D para web, móvil, escritorio y sistemas embebidos: del diseño del sistema y el firmware a la integración y el despliegue."
     },
     "actions": {
       "viewProjects": {
@@ -193,18 +193,18 @@
       "es": "Ingeniería de producto guiada por software, sistemas conectados, operaciones técnicas y uso real del producto."
     },
     "story1": {
-      "en": "I'm an R&D Product Engineer and Software Engineer with hands-on experience building and improving products across software, embedded systems, IoT, and hardware–software integration. My work spans web, mobile, desktop, automation, and connected systems, from early requirements and system design through implementation, deployment, and continuous improvement.",
-      "ar": "أنا مهندس منتجات بحث وتطوير ومهندس برمجيات، ولدي خبرة عملية في بناء المنتجات وتحسينها في مجالات البرمجيات والأنظمة المضمنة وإنترنت الأشياء وتكامل العتاد والبرمجيات. يشمل عملي الويب والموبايل وسطح المكتب والأتمتة والأنظمة المتصلة، من المتطلبات الأولية وتصميم النظام إلى التنفيذ والنشر والتحسين المستمر.",
-      "de": "Ich bin Produktentwicklungsingenieur im Bereich F&E und Softwareingenieur mit praktischer Erfahrung im Aufbau und in der Verbesserung von Produkten aus Software, eingebetteten Systemen, IoT und Hardware-Software-Integration. Meine Arbeit umfasst Web, Mobile, Desktop, Automatisierung und vernetzte Systeme — von ersten Anforderungen und Systementwurf bis zu Umsetzung, Bereitstellung und kontinuierlicher Verbesserung.",
-      "fr": "Je suis ingénieur produit R&D et ingénieur logiciel, avec une expérience pratique dans la création et l’amélioration de produits logiciels, de systèmes embarqués, d’IoT et d’intégration matériel–logiciel. Mon travail couvre le web, le mobile, le desktop, l’automatisation et les systèmes connectés, des premières exigences et de la conception du système jusqu’à l’implémentation, au déploiement et à l’amélioration continue.",
-      "es": "Soy Ingeniero de Producto I+D e Ingeniero de Software, con experiencia práctica en la creación y mejora de productos de software, sistemas embebidos, IoT e integración hardware–software. Mi trabajo abarca web, móvil, escritorio, automatización y sistemas conectados, desde los requisitos iniciales y el diseño del sistema hasta la implementación, el despliegue y la mejora continua."
+      "en": "Hashem Kayyali is an R&D Product Engineer and Software Engineer who builds and improves products across software, embedded systems, IoT and hardware–software integration. The work spans web, mobile, desktop, automation and connected systems, from early requirements and system design through implementation, deployment and continuous improvement.",
+      "ar": "هاشم كيالي مهندس منتجات بحث وتطوير ومهندس برمجيات يبني المنتجات ويطورها في البرمجيات والأنظمة المضمنة وإنترنت الأشياء وتكامل العتاد والبرمجيات. يمتد عمله إلى الويب والموبايل وسطح المكتب والأتمتة والأنظمة المتصلة، من المتطلبات الأولى وتصميم النظام إلى التنفيذ والنشر والتحسين المستمر.",
+      "de": "Hashem Kayyali ist Produktentwicklungsingenieur (F&E) und Softwareingenieur und entwickelt und verbessert Produkte aus Software, eingebetteten Systemen, IoT und Hardware-Software-Integration. Die Arbeit reicht von Web, Mobile und Desktop über Automatisierung bis zu vernetzten Systemen – von den ersten Anforderungen und dem Systementwurf bis zu Umsetzung, Bereitstellung und kontinuierlicher Verbesserung.",
+      "fr": "Hashem Kayyali est ingénieur produit R&D et ingénieur logiciel : il conçoit et améliore des produits mêlant logiciel, systèmes embarqués, IoT et intégration matériel–logiciel. Son travail couvre le web, le mobile, le desktop, l’automatisation et les systèmes connectés, des premières exigences et de la conception système à l’implémentation, au déploiement et à l’amélioration continue.",
+      "es": "Hashem Kayyali es ingeniero de producto I+D e ingeniero de software: crea y mejora productos que combinan software, sistemas embebidos, IoT e integración hardware–software. Su trabajo abarca web, móvil, escritorio, automatización y sistemas conectados, desde los primeros requisitos y el diseño del sistema hasta la implementación, el despliegue y la mejora continua."
     },
     "story2": {
-      "en": "I take an analytical approach to engineering and usually start with the problem before the technology. I focus on understanding the users, workflows, requirements, constraints, and business objective behind a system, then translate that context into clear priorities, system structure, and technical decisions. I break complex problems into smaller parts, compare different approaches, and evaluate solutions based on the expected outcome, time, cost, maintainability, and the value they add to the product.",
-      "ar": "أتبع نهجًا تحليليًا في الهندسة، وأبدأ عادةً بالمشكلة قبل التقنية. أركز على فهم المستخدمين وسير العمل والمتطلبات والقيود والهدف التجاري وراء النظام، ثم أحوّل هذا السياق إلى أولويات واضحة وبنية للنظام وقرارات تقنية. أقسّم المشكلات المعقدة إلى أجزاء أصغر، وأقارن بين الأساليب المختلفة، وأقيّم الحلول وفق النتيجة المتوقعة والوقت والتكلفة وقابلية الصيانة والقيمة التي تضيفها إلى المنتج.",
-      "de": "Ich gehe analytisch an Engineering heran und beginne meist beim Problem vor der Technologie. Ich möchte Nutzer, Abläufe, Anforderungen, Einschränkungen und das Geschäftsziel hinter einem System verstehen und übersetze diesen Kontext in klare Prioritäten, Systemstrukturen und technische Entscheidungen. Komplexe Probleme zerlege ich in kleinere Teile, vergleiche verschiedene Ansätze und bewerte Lösungen nach erwartetem Ergebnis, Zeit, Kosten, Wartbarkeit und ihrem Mehrwert für das Produkt.",
-      "fr": "J’adopte une approche analytique de l’ingénierie et commence généralement par le problème avant la technologie. Je cherche à comprendre les utilisateurs, les processus, les exigences, les contraintes et l’objectif métier du système, puis traduis ce contexte en priorités claires, en structure et en décisions techniques. Je décompose les problèmes complexes, compare les approches et évalue les solutions selon le résultat attendu, le temps, le coût, la maintenabilité et la valeur apportée au produit.",
-      "es": "Abordo la ingeniería de forma analítica y normalmente empiezo por el problema antes que por la tecnología. Me centro en comprender los usuarios, los flujos de trabajo, los requisitos, las limitaciones y el objetivo empresarial del sistema, y traduzco ese contexto en prioridades claras, estructura y decisiones técnicas. Divido los problemas complejos en partes más pequeñas, comparo enfoques y evalúo las soluciones según el resultado esperado, el tiempo, el coste, la mantenibilidad y el valor que aportan al producto."
+      "en": "Engineering decisions start with the problem, not the technology: the users, workflows, requirements, constraints and business objective behind a system. Complex problems are broken into parts, alternatives are compared, and solutions are judged on expected outcome, time, cost, maintainability and the value they add to the product.",
+      "ar": "تبدأ القرارات الهندسية بالمشكلة لا بالتقنية: المستخدمون وسير العمل والمتطلبات والقيود والهدف التجاري وراء النظام. تُقسَّم المشكلات المعقدة إلى أجزاء، وتُقارَن البدائل، وتُقيَّم الحلول بحسب النتيجة المتوقعة والوقت والتكلفة وقابلية الصيانة والقيمة التي تضيفها إلى المنتج.",
+      "de": "Technische Entscheidungen beginnen beim Problem, nicht bei der Technologie: bei Nutzern, Abläufen, Anforderungen, Einschränkungen und dem Geschäftsziel hinter einem System. Komplexe Probleme werden in Teile zerlegt, Alternativen verglichen und Lösungen nach erwartetem Ergebnis, Zeit, Kosten, Wartbarkeit und Nutzen für das Produkt bewertet.",
+      "fr": "Les décisions d’ingénierie partent du problème, pas de la technologie : les utilisateurs, les processus, les exigences, les contraintes et l’objectif métier derrière un système. Les problèmes complexes sont décomposés, les alternatives comparées, et les solutions jugées sur le résultat attendu, le délai, le coût, la maintenabilité et la valeur apportée au produit.",
+      "es": "Las decisiones de ingeniería parten del problema, no de la tecnología: los usuarios, los flujos de trabajo, los requisitos, las restricciones y el objetivo de negocio que hay detrás de un sistema. Los problemas complejos se dividen en partes, se comparan alternativas y las soluciones se valoran por el resultado esperado, el tiempo, el coste, la mantenibilidad y el valor que aportan al producto."
     },
     "engineeringFocusTitle": {
       "en": "Engineering Focus",
@@ -592,11 +592,11 @@
         },
         "paragraphs": [
           {
-            "en": "I'm an R&D Product Engineer and Software Engineer with hands-on experience building and improving products across software, embedded systems, IoT, and hardware–software integration. My work spans web, mobile, desktop, automation, and connected systems, from early requirements and system design through implementation, deployment, and continuous improvement.",
-            "ar": "أنا مهندس منتجات بحث وتطوير ومهندس برمجيات، ولدي خبرة عملية في بناء المنتجات وتحسينها في مجالات البرمجيات والأنظمة المضمنة وإنترنت الأشياء وتكامل العتاد والبرمجيات. يشمل عملي الويب والموبايل وسطح المكتب والأتمتة والأنظمة المتصلة، من المتطلبات الأولية وتصميم النظام إلى التنفيذ والنشر والتحسين المستمر.",
-            "de": "Ich bin Produktentwicklungsingenieur im Bereich F&E und Softwareingenieur mit praktischer Erfahrung im Aufbau und in der Verbesserung von Produkten aus Software, eingebetteten Systemen, IoT und Hardware-Software-Integration. Meine Arbeit umfasst Web, Mobile, Desktop, Automatisierung und vernetzte Systeme — von ersten Anforderungen und Systementwurf bis zu Umsetzung, Bereitstellung und kontinuierlicher Verbesserung.",
-            "fr": "Je suis ingénieur produit R&D et ingénieur logiciel, avec une expérience pratique dans la création et l’amélioration de produits logiciels, de systèmes embarqués, d’IoT et d’intégration matériel–logiciel. Mon travail couvre le web, le mobile, le desktop, l’automatisation et les systèmes connectés, des premières exigences et de la conception du système jusqu’à l’implémentation, au déploiement et à l’amélioration continue.",
-            "es": "Soy Ingeniero de Producto I+D e Ingeniero de Software, con experiencia práctica en la creación y mejora de productos de software, sistemas embebidos, IoT e integración hardware–software. Mi trabajo abarca web, móvil, escritorio, automatización y sistemas conectados, desde los requisitos iniciales y el diseño del sistema hasta la implementación, el despliegue y la mejora continua."
+            "en": "Hashem Kayyali is an R&D Product Engineer and Software Engineer who builds and improves products across software, embedded systems, IoT and hardware–software integration. The work spans web, mobile, desktop, automation and connected systems, from early requirements and system design through implementation, deployment and continuous improvement.",
+            "ar": "هاشم كيالي مهندس منتجات بحث وتطوير ومهندس برمجيات يبني المنتجات ويطورها في البرمجيات والأنظمة المضمنة وإنترنت الأشياء وتكامل العتاد والبرمجيات. يمتد عمله إلى الويب والموبايل وسطح المكتب والأتمتة والأنظمة المتصلة، من المتطلبات الأولى وتصميم النظام إلى التنفيذ والنشر والتحسين المستمر.",
+            "de": "Hashem Kayyali ist Produktentwicklungsingenieur (F&E) und Softwareingenieur und entwickelt und verbessert Produkte aus Software, eingebetteten Systemen, IoT und Hardware-Software-Integration. Die Arbeit reicht von Web, Mobile und Desktop über Automatisierung bis zu vernetzten Systemen – von den ersten Anforderungen und dem Systementwurf bis zu Umsetzung, Bereitstellung und kontinuierlicher Verbesserung.",
+            "fr": "Hashem Kayyali est ingénieur produit R&D et ingénieur logiciel : il conçoit et améliore des produits mêlant logiciel, systèmes embarqués, IoT et intégration matériel–logiciel. Son travail couvre le web, le mobile, le desktop, l’automatisation et les systèmes connectés, des premières exigences et de la conception système à l’implémentation, au déploiement et à l’amélioration continue.",
+            "es": "Hashem Kayyali es ingeniero de producto I+D e ingeniero de software: crea y mejora productos que combinan software, sistemas embebidos, IoT e integración hardware–software. Su trabajo abarca web, móvil, escritorio, automatización y sistemas conectados, desde los primeros requisitos y el diseño del sistema hasta la implementación, el despliegue y la mejora continua."
           }
         ]
       },
@@ -610,11 +610,11 @@
         },
         "paragraphs": [
           {
-            "en": "I take an analytical approach to engineering and usually start with the problem before the technology. I focus on understanding the users, workflows, requirements, constraints, and business objective behind a system, then translate that context into clear priorities, system structure, and technical decisions. I break complex problems into smaller parts, compare different approaches, and evaluate solutions based on the expected outcome, time, cost, maintainability, and the value they add to the product.",
-            "ar": "أتبع نهجًا تحليليًا في الهندسة، وأبدأ عادةً بالمشكلة قبل التقنية. أركز على فهم المستخدمين وسير العمل والمتطلبات والقيود والهدف التجاري وراء النظام، ثم أحوّل هذا السياق إلى أولويات واضحة وبنية للنظام وقرارات تقنية. أقسّم المشكلات المعقدة إلى أجزاء أصغر، وأقارن بين الأساليب المختلفة، وأقيّم الحلول وفق النتيجة المتوقعة والوقت والتكلفة وقابلية الصيانة والقيمة التي تضيفها إلى المنتج.",
-            "de": "Ich gehe analytisch an Engineering heran und beginne meist beim Problem vor der Technologie. Ich möchte Nutzer, Abläufe, Anforderungen, Einschränkungen und das Geschäftsziel hinter einem System verstehen und übersetze diesen Kontext in klare Prioritäten, Systemstrukturen und technische Entscheidungen. Komplexe Probleme zerlege ich in kleinere Teile, vergleiche verschiedene Ansätze und bewerte Lösungen nach erwartetem Ergebnis, Zeit, Kosten, Wartbarkeit und ihrem Mehrwert für das Produkt.",
-            "fr": "J’adopte une approche analytique de l’ingénierie et commence généralement par le problème avant la technologie. Je cherche à comprendre les utilisateurs, les processus, les exigences, les contraintes et l’objectif métier du système, puis traduis ce contexte en priorités claires, en structure et en décisions techniques. Je décompose les problèmes complexes, compare les approches et évalue les solutions selon le résultat attendu, le temps, le coût, la maintenabilité et la valeur apportée au produit.",
-            "es": "Abordo la ingeniería de forma analítica y normalmente empiezo por el problema antes que por la tecnología. Me centro en comprender los usuarios, los flujos de trabajo, los requisitos, las limitaciones y el objetivo empresarial del sistema, y traduzco ese contexto en prioridades claras, estructura y decisiones técnicas. Divido los problemas complejos en partes más pequeñas, comparo enfoques y evalúo las soluciones según el resultado esperado, el tiempo, el coste, la mantenibilidad y el valor que aportan al producto."
+            "en": "Engineering decisions start with the problem, not the technology: the users, workflows, requirements, constraints and business objective behind a system. Complex problems are broken into parts, alternatives are compared, and solutions are judged on expected outcome, time, cost, maintainability and the value they add to the product.",
+            "ar": "تبدأ القرارات الهندسية بالمشكلة لا بالتقنية: المستخدمون وسير العمل والمتطلبات والقيود والهدف التجاري وراء النظام. تُقسَّم المشكلات المعقدة إلى أجزاء، وتُقارَن البدائل، وتُقيَّم الحلول بحسب النتيجة المتوقعة والوقت والتكلفة وقابلية الصيانة والقيمة التي تضيفها إلى المنتج.",
+            "de": "Technische Entscheidungen beginnen beim Problem, nicht bei der Technologie: bei Nutzern, Abläufen, Anforderungen, Einschränkungen und dem Geschäftsziel hinter einem System. Komplexe Probleme werden in Teile zerlegt, Alternativen verglichen und Lösungen nach erwartetem Ergebnis, Zeit, Kosten, Wartbarkeit und Nutzen für das Produkt bewertet.",
+            "fr": "Les décisions d’ingénierie partent du problème, pas de la technologie : les utilisateurs, les processus, les exigences, les contraintes et l’objectif métier derrière un système. Les problèmes complexes sont décomposés, les alternatives comparées, et les solutions jugées sur le résultat attendu, le délai, le coût, la maintenabilité et la valeur apportée au produit.",
+            "es": "Las decisiones de ingeniería parten del problema, no de la tecnología: los usuarios, los flujos de trabajo, los requisitos, las restricciones y el objetivo de negocio que hay detrás de un sistema. Los problemas complejos se dividen en partes, se comparan alternativas y las soluciones se valoran por el resultado esperado, el tiempo, el coste, la mantenibilidad y el valor que aportan al producto."
           }
         ]
       },
@@ -628,11 +628,11 @@
         },
         "paragraphs": [
           {
-            "en": "Communication is an important part of how I work. I listen carefully, ask the questions needed to understand the real requirement, and adapt the way I communicate depending on whether I'm working with engineers, clients, or non-technical stakeholders. I'm comfortable discussing different viewpoints, explaining technical decisions clearly, and turning broad ideas and operational needs into structured and executable plans.",
-            "ar": "التواصل جزء مهم من أسلوب عملي. أستمع بعناية، وأطرح الأسئلة اللازمة لفهم المتطلب الحقيقي، وأكيّف طريقة تواصلي بحسب ما إذا كنت أعمل مع مهندسين أو عملاء أو أصحاب مصلحة غير تقنيين. أرتاح إلى مناقشة وجهات النظر المختلفة وشرح القرارات التقنية بوضوح وتحويل الأفكار العامة والاحتياجات التشغيلية إلى خطط منظمة وقابلة للتنفيذ.",
-            "de": "Kommunikation ist ein wichtiger Teil meiner Arbeit. Ich höre aufmerksam zu, stelle die nötigen Fragen, um die tatsächliche Anforderung zu verstehen, und passe meine Kommunikation an Ingenieure, Kunden oder nichttechnische Beteiligte an. Unterschiedliche Sichtweisen zu diskutieren, technische Entscheidungen verständlich zu erklären und breite Ideen sowie operative Bedürfnisse in strukturierte, umsetzbare Pläne zu übersetzen, gehört für mich dazu.",
-            "fr": "La communication occupe une place importante dans mon travail. J’écoute attentivement, pose les questions nécessaires pour comprendre le besoin réel et adapte ma communication selon que je travaille avec des ingénieurs, des clients ou des interlocuteurs non techniques. Je suis à l’aise pour discuter de points de vue différents, expliquer clairement les décisions techniques et transformer des idées générales et des besoins opérationnels en plans structurés et exécutables.",
-            "es": "La comunicación es una parte importante de mi forma de trabajar. Escucho con atención, hago las preguntas necesarias para comprender el requisito real y adapto mi comunicación según trabaje con ingenieros, clientes o interlocutores no técnicos. Me siento cómodo al debatir diferentes puntos de vista, explicar decisiones técnicas con claridad y convertir ideas generales y necesidades operativas en planes estructurados y ejecutables."
+            "en": "Clear communication is part of the engineering. Requirements are clarified with engineers, clients and non-technical stakeholders alike, technical decisions are explained plainly, and broad ideas and operational needs become structured, executable plans.",
+            "ar": "التواصل الواضح جزء من العمل الهندسي. تُوضَّح المتطلبات مع المهندسين والعملاء والأطراف غير التقنية على حد سواء، وتُشرح القرارات التقنية ببساطة، وتتحول الأفكار العامة والاحتياجات التشغيلية إلى خطط منظمة قابلة للتنفيذ.",
+            "de": "Klare Kommunikation gehört zur Ingenieurarbeit. Anforderungen werden mit Entwicklern, Kunden und nicht-technischen Beteiligten gleichermaßen geklärt, technische Entscheidungen verständlich erklärt, und grobe Ideen und betriebliche Bedürfnisse werden zu strukturierten, umsetzbaren Plänen.",
+            "fr": "Une communication claire fait partie du travail d’ingénierie. Les exigences sont clarifiées avec les ingénieurs, les clients et les interlocuteurs non techniques, les décisions techniques sont expliquées simplement, et les idées générales comme les besoins opérationnels deviennent des plans structurés et exécutables.",
+            "es": "La comunicación clara forma parte de la ingeniería. Los requisitos se aclaran con ingenieros, clientes y personas no técnicas por igual, las decisiones técnicas se explican con sencillez y las ideas generales y las necesidades operativas se convierten en planes estructurados y ejecutables."
           }
         ]
       },
@@ -646,25 +646,25 @@
         },
         "paragraphs": [
           {
-            "en": "I'm most engaged by products that can evolve through real-world use. Whether I'm taking an idea from concept to a working system or improving an existing product, I use testing, feedback, and actual usage to decide what should be refined, simplified, rebuilt, or developed next.",
-            "ar": "أكثر ما يشدني هو المنتجات التي تتطور من خلال الاستخدام الفعلي. سواء كنت أحوّل فكرة إلى نظام يعمل أو أحسّن منتجًا قائمًا، أستند إلى الاختبار والملاحظات والاستخدام الحقيقي لتحديد ما ينبغي تحسينه أو تبسيطه أو إعادة بنائه أو تطويره لاحقًا.",
-            "de": "Am meisten interessieren mich Produkte, die sich durch reale Nutzung weiterentwickeln. Ob ich eine Idee vom Konzept zum funktionierenden System führe oder ein bestehendes Produkt verbessere: Tests, Rückmeldungen und tatsächliche Nutzung helfen mir zu entscheiden, was verfeinert, vereinfacht, neu aufgebaut oder als Nächstes entwickelt werden sollte.",
-            "fr": "Les produits qui évoluent grâce à leur utilisation réelle sont ceux qui m’engagent le plus. Que je transforme une idée en système fonctionnel ou améliore un produit existant, je m’appuie sur les tests, les retours et l’usage réel pour décider de ce qu’il faut affiner, simplifier, reconstruire ou développer ensuite.",
-            "es": "Me interesan especialmente los productos que pueden evolucionar con el uso real. Tanto al llevar una idea del concepto a un sistema funcional como al mejorar un producto existente, utilizo pruebas, comentarios y uso efectivo para decidir qué perfeccionar, simplificar, reconstruir o desarrollar después."
+            "en": "Products that evolve through real-world use are where the work is most rewarding. Whether taking an idea from concept to a working system or improving an existing product, testing, feedback and actual usage decide what to refine, simplify, rebuild or develop next.",
+            "ar": "المنتجات التي تتطور بالاستخدام الفعلي هي الأكثر إثراءً للعمل. وسواء بدأ العمل بفكرة وصولًا إلى نظام يعمل أو بتحسين منتج قائم، فإن الاختبار والملاحظات والاستخدام الحقيقي هي التي تحدد ما يُحسَّن أو يُبسَّط أو يُعاد بناؤه أو يُطوَّر لاحقًا.",
+            "de": "Am lohnendsten sind Produkte, die sich im realen Einsatz weiterentwickeln. Ob eine Idee zum funktionierenden System wird oder ein bestehendes Produkt verbessert wird: Tests, Feedback und tatsächliche Nutzung entscheiden, was verfeinert, vereinfacht, neu gebaut oder als Nächstes entwickelt wird.",
+            "fr": "Les produits qui évoluent au contact de l’usage réel sont les plus stimulants. Qu’il s’agisse de mener une idée jusqu’à un système opérationnel ou d’améliorer un produit existant, les tests, les retours et l’usage réel décident de ce qu’il faut affiner, simplifier, reconstruire ou développer ensuite.",
+            "es": "Los productos que evolucionan con el uso real son los más gratificantes. Ya sea llevar una idea hasta un sistema funcional o mejorar un producto existente, las pruebas, los comentarios y el uso real deciden qué refinar, simplificar, reconstruir o desarrollar después."
           },
           {
-            "en": "When a project requires technology outside my current experience, I'm comfortable learning and evaluating it rather than forcing a familiar approach into the solution. I value constructive feedback, take responsibility for my decisions, and use mistakes as part of the process of improving both the product and the way I work.",
-            "ar": "عندما يتطلب مشروع تقنية خارج نطاق خبرتي الحالية، أتعلمها وأقيّمها بدلًا من فرض نهج مألوف على الحل. أقدّر الملاحظات البنّاءة، وأتحمل مسؤولية قراراتي، وأستفيد من الأخطاء ضمن عملية تحسين المنتج وطريقة عملي معًا.",
-            "de": "Wenn ein Projekt eine Technologie außerhalb meiner bisherigen Erfahrung erfordert, lerne und bewerte ich sie, statt einen vertrauten Ansatz in die Lösung zu zwingen. Ich schätze konstruktive Rückmeldungen, übernehme Verantwortung für meine Entscheidungen und nutze Fehler, um sowohl das Produkt als auch meine Arbeitsweise zu verbessern.",
-            "fr": "Lorsqu’un projet nécessite une technologie qui dépasse mon expérience actuelle, je suis à l’aise pour l’apprendre et l’évaluer plutôt que d’imposer une approche familière à la solution. J’apprécie les retours constructifs, assume mes décisions et utilise les erreurs pour améliorer à la fois le produit et ma façon de travailler.",
-            "es": "Cuando un proyecto requiere una tecnología fuera de mi experiencia actual, me siento cómodo aprendiéndola y evaluándola en lugar de imponer un enfoque conocido a la solución. Valoro los comentarios constructivos, asumo la responsabilidad de mis decisiones y utilizo los errores para mejorar tanto el producto como mi forma de trabajar."
+            "en": "When a project needs technology outside current experience, it is learned and evaluated on its merits rather than replaced by a familiar approach. Constructive feedback is welcome, decisions are owned, and mistakes feed back into both the product and the way of working.",
+            "ar": "حين يتطلب مشروع تقنية خارج الخبرة الحالية، تُتعلَّم هذه التقنية وتُقيَّم بحسب جدواها بدل استبدالها بنهج مألوف. والملاحظات البناءة مرحَّب بها، والقرارات يتحمل صاحبها مسؤوليتها، والأخطاء تعود بالفائدة على المنتج وعلى أسلوب العمل معًا.",
+            "de": "Verlangt ein Projekt Technologie jenseits der bisherigen Erfahrung, wird sie auf ihre Eignung geprüft und erlernt, statt sie durch einen vertrauten Ansatz zu ersetzen. Konstruktives Feedback ist willkommen, Entscheidungen werden verantwortet, und Fehler fließen in Produkt und Arbeitsweise zurück.",
+            "fr": "Lorsqu’un projet exige une technologie hors du champ d’expérience actuel, elle est apprise et évaluée sur ses mérites plutôt que remplacée par une approche familière. Les retours constructifs sont bienvenus, les décisions assumées, et les erreurs nourrissent à la fois le produit et la façon de travailler.",
+            "es": "Cuando un proyecto exige tecnología ajena a la experiencia actual, se aprende y se evalúa por sus méritos en lugar de sustituirla por un enfoque conocido. Se agradecen los comentarios constructivos, se asumen las decisiones y los errores retroalimentan tanto el producto como la forma de trabajar."
           },
           {
-            "en": "What motivates me most is seeing the impact of the work itself — using engineering, analysis, and continuous learning to turn ideas into useful products and increase the value of the systems I work on.",
-            "ar": "أكثر ما يحفزني هو رؤية أثر العمل نفسه — توظيف الهندسة والتحليل والتعلّم المستمر لتحويل الأفكار إلى منتجات مفيدة وزيادة قيمة الأنظمة التي أعمل عليها.",
-            "de": "Mich motiviert vor allem die Wirkung der Arbeit selbst — mit Engineering, Analyse und kontinuierlichem Lernen Ideen in nützliche Produkte zu verwandeln und den Wert der Systeme zu steigern, an denen ich arbeite.",
-            "fr": "Ce qui me motive le plus est de voir l’impact du travail lui-même — utiliser l’ingénierie, l’analyse et l’apprentissage continu pour transformer des idées en produits utiles et accroître la valeur des systèmes sur lesquels je travaille.",
-            "es": "Lo que más me motiva es ver el impacto del propio trabajo: utilizar la ingeniería, el análisis y el aprendizaje continuo para convertir ideas en productos útiles y aumentar el valor de los sistemas en los que trabajo."
+            "en": "The impact of the work is what matters most: using engineering, analysis and continuous learning to turn ideas into useful products and increase the value of the systems involved.",
+            "ar": "الأثر الفعلي للعمل هو الأهم: توظيف الهندسة والتحليل والتعلم المستمر لتحويل الأفكار إلى منتجات مفيدة ورفع قيمة الأنظمة المعنية.",
+            "de": "Die Wirkung der Arbeit zählt am meisten: Ingenieurwissen, Analyse und stetiges Lernen machen aus Ideen nützliche Produkte und steigern den Wert der beteiligten Systeme.",
+            "fr": "L’impact du travail compte avant tout : mobiliser l’ingénierie, l’analyse et l’apprentissage continu pour transformer des idées en produits utiles et accroître la valeur des systèmes concernés.",
+            "es": "Lo que más importa es el impacto del trabajo: usar la ingeniería, el análisis y el aprendizaje continuo para convertir ideas en productos útiles y aumentar el valor de los sistemas implicados."
           }
         ]
       }
@@ -700,11 +700,11 @@
       "es": "Ingeniero de Producto I+D | Ingeniero de Software | Sistemas embebidos, IoT e integración hardware–software"
     },
     "profileSummary": {
-      "en": "I'm an R&D Product Engineer and Software Engineer with hands-on experience building and improving products across software, embedded systems, IoT, and hardware–software integration. My work spans web, mobile, desktop, automation, and connected systems, from early requirements and system design through implementation, deployment, and continuous improvement.",
-      "ar": "أنا مهندس منتجات بحث وتطوير ومهندس برمجيات، ولدي خبرة عملية في بناء المنتجات وتحسينها في مجالات البرمجيات والأنظمة المضمنة وإنترنت الأشياء وتكامل العتاد والبرمجيات. يشمل عملي الويب والموبايل وسطح المكتب والأتمتة والأنظمة المتصلة، من المتطلبات الأولية وتصميم النظام إلى التنفيذ والنشر والتحسين المستمر.",
-      "de": "Ich bin Produktentwicklungsingenieur im Bereich F&E und Softwareingenieur mit praktischer Erfahrung im Aufbau und in der Verbesserung von Produkten aus Software, eingebetteten Systemen, IoT und Hardware-Software-Integration. Meine Arbeit umfasst Web, Mobile, Desktop, Automatisierung und vernetzte Systeme — von ersten Anforderungen und Systementwurf bis zu Umsetzung, Bereitstellung und kontinuierlicher Verbesserung.",
-      "fr": "Je suis ingénieur produit R&D et ingénieur logiciel, avec une expérience pratique dans la création et l’amélioration de produits logiciels, de systèmes embarqués, d’IoT et d’intégration matériel–logiciel. Mon travail couvre le web, le mobile, le desktop, l’automatisation et les systèmes connectés, des premières exigences et de la conception du système jusqu’à l’implémentation, au déploiement et à l’amélioration continue.",
-      "es": "Soy Ingeniero de Producto I+D e Ingeniero de Software, con experiencia práctica en la creación y mejora de productos de software, sistemas embebidos, IoT e integración hardware–software. Mi trabajo abarca web, móvil, escritorio, automatización y sistemas conectados, desde los requisitos iniciales y el diseño del sistema hasta la implementación, el despliegue y la mejora continua."
+      "en": "Hashem Kayyali is an R&D Product Engineer and Software Engineer who builds and improves products across software, embedded systems, IoT and hardware–software integration. The work spans web, mobile, desktop, automation and connected systems, from early requirements and system design through implementation, deployment and continuous improvement.",
+      "ar": "هاشم كيالي مهندس منتجات بحث وتطوير ومهندس برمجيات يبني المنتجات ويطورها في البرمجيات والأنظمة المضمنة وإنترنت الأشياء وتكامل العتاد والبرمجيات. يمتد عمله إلى الويب والموبايل وسطح المكتب والأتمتة والأنظمة المتصلة، من المتطلبات الأولى وتصميم النظام إلى التنفيذ والنشر والتحسين المستمر.",
+      "de": "Hashem Kayyali ist Produktentwicklungsingenieur (F&E) und Softwareingenieur und entwickelt und verbessert Produkte aus Software, eingebetteten Systemen, IoT und Hardware-Software-Integration. Die Arbeit reicht von Web, Mobile und Desktop über Automatisierung bis zu vernetzten Systemen – von den ersten Anforderungen und dem Systementwurf bis zu Umsetzung, Bereitstellung und kontinuierlicher Verbesserung.",
+      "fr": "Hashem Kayyali est ingénieur produit R&D et ingénieur logiciel : il conçoit et améliore des produits mêlant logiciel, systèmes embarqués, IoT et intégration matériel–logiciel. Son travail couvre le web, le mobile, le desktop, l’automatisation et les systèmes connectés, des premières exigences et de la conception système à l’implémentation, au déploiement et à l’amélioration continue.",
+      "es": "Hashem Kayyali es ingeniero de producto I+D e ingeniero de software: crea y mejora productos que combinan software, sistemas embebidos, IoT e integración hardware–software. Su trabajo abarca web, móvil, escritorio, automatización y sistemas conectados, desde los primeros requisitos y el diseño del sistema hasta la implementación, el despliegue y la mejora continua."
     },
     "journeyTitle": {
       "en": "Professional Journey",
@@ -791,25 +791,25 @@
         ],
         "points": [
           {
-            "en": "Co-founded Eventies and lead the hands-on technical development of the platform, shaping product direction and engineering decisions.",
-            "ar": "شاركت في تأسيس Eventies وأقود التطوير التقني العملي للمنصة، مع المساهمة في توجيه المنتج وقراراته الهندسية.",
-            "de": "Eventies mitgegründet und praktische technische Entwicklung der Plattform geleitet; dabei Produktausrichtung und technische Entscheidungen mitgestaltet.",
-            "fr": "J’ai cofondé Eventies et dirige le développement technique concret de la plateforme, en contribuant à l’orientation produit et aux décisions d’ingénierie.",
-            "es": "Cofundé Eventies y lidero el desarrollo técnico práctico de la plataforma, definiendo la dirección del producto y las decisiones de ingeniería."
+            "en": "Co-founded Eventies and leads hands-on technical development of the platform, shaping product direction and engineering decisions.",
+            "ar": "شارك في تأسيس Eventies ويقود التطوير التقني العملي للمنصة، ويسهم في توجيه المنتج وقراراته الهندسية.",
+            "de": "Mitgründer von Eventies; leitet die praktische technische Entwicklung der Plattform und prägt Produktausrichtung und technische Entscheidungen mit.",
+            "fr": "Cofondateur d’Eventies ; dirige le développement technique concret de la plateforme et contribue à l’orientation produit comme aux décisions d’ingénierie.",
+            "es": "Cofundador de Eventies; lidera el desarrollo técnico práctico de la plataforma y participa en la dirección del producto y en las decisiones de ingeniería."
           },
           {
-            "en": "My responsibilities cover product planning, system architecture, user experience, frontend and backend development, integrations, deployment, and continuous product improvement.",
-            "ar": "تشمل مسؤولياتي تخطيط المنتج وبنية النظام وتجربة المستخدم وتطوير الواجهات والخدمات الخلفية والتكاملات والنشر والتحسين المستمر.",
-            "de": "Meine Aufgaben umfassen Produktplanung, Systemarchitektur, User Experience, Frontend- und Backend-Entwicklung, Integrationen, Bereitstellung und kontinuierliche Produktverbesserung.",
-            "fr": "Mes responsabilités couvrent la planification produit, l’architecture système, l’expérience utilisateur, le frontend et le backend, les intégrations, le déploiement et l’amélioration continue.",
-            "es": "Mis responsabilidades abarcan planificación de producto, arquitectura del sistema, experiencia de usuario, desarrollo frontend y backend, integraciones, despliegue y mejora continua."
+            "en": "Technical scope covers product planning, system architecture, user experience, frontend and backend development, integrations, deployment and continuous product improvement.",
+            "ar": "يشمل النطاق التقني تخطيط المنتج وبنية النظام وتجربة المستخدم وتطوير الواجهات والخدمات الخلفية والتكاملات والنشر والتحسين المستمر للمنتج.",
+            "de": "Der technische Verantwortungsbereich umfasst Produktplanung, Systemarchitektur, User Experience, Frontend- und Backend-Entwicklung, Integrationen, Bereitstellung und kontinuierliche Produktverbesserung.",
+            "fr": "Le périmètre technique couvre la planification produit, l’architecture système, l’expérience utilisateur, le frontend et le backend, les intégrations, le déploiement et l’amélioration continue du produit.",
+            "es": "El alcance técnico abarca la planificación de producto, la arquitectura del sistema, la experiencia de usuario, el desarrollo frontend y backend, las integraciones, el despliegue y la mejora continua del producto."
           },
           {
-            "en": "I connect operational and business needs with product requirements and practical engineering decisions.",
-            "ar": "أربط الاحتياجات التشغيلية والتجارية بمتطلبات المنتج والقرارات الهندسية العملية.",
-            "de": "Ich verbinde operative und geschäftliche Bedürfnisse mit Produktanforderungen und praktischen technischen Entscheidungen.",
-            "fr": "Je relie les besoins opérationnels et métier aux exigences produit et aux décisions techniques concrètes.",
-            "es": "Conecto las necesidades operativas y empresariales con los requisitos del producto y las decisiones técnicas prácticas."
+            "en": "Connects operational and business needs to product requirements and practical engineering decisions.",
+            "ar": "يربط الاحتياجات التشغيلية والتجارية بمتطلبات المنتج وبقرارات هندسية عملية.",
+            "de": "Verbindet betriebliche und geschäftliche Anforderungen mit Produktanforderungen und praxisnahen technischen Entscheidungen.",
+            "fr": "Relie les besoins opérationnels et métier aux exigences produit et à des décisions d’ingénierie pragmatiques.",
+            "es": "Conecta las necesidades operativas y de negocio con los requisitos del producto y con decisiones de ingeniería prácticas."
           }
         ]
       },
@@ -859,11 +859,11 @@
         },
         "points": [
           {
-            "en": "I develop complete products across R&D, software engineering, embedded systems, and hardware–software integration, from early concepts and prototypes through implementation, testing, deployment, and continuous improvement.",
-            "ar": "أطوّر منتجات متكاملة في البحث والتطوير وهندسة البرمجيات والأنظمة المضمنة وتكامل العتاد والبرمجيات، من الأفكار والنماذج الأولية إلى التنفيذ والاختبار والنشر والتحسين المستمر.",
-            "de": "Ich entwickle vollständige Produkte in F&E, Softwareentwicklung, eingebetteten Systemen und Hardware-Software-Integration — von frühen Konzepten und Prototypen bis zu Umsetzung, Tests, Bereitstellung und kontinuierlicher Verbesserung.",
-            "fr": "Je développe des produits complets en R&D, ingénierie logicielle, systèmes embarqués et intégration matériel–logiciel, des premiers concepts et prototypes à l’implémentation, aux tests, au déploiement et à l’amélioration continue.",
-            "es": "Desarrollo productos completos en I+D, ingeniería de software, sistemas embebidos e integración hardware–software, desde conceptos y prototipos iniciales hasta implementación, pruebas, despliegue y mejora continua."
+            "en": "Develops complete products across R&D, software engineering, embedded systems and hardware–software integration, from early concepts and prototypes through implementation, testing, deployment and continuous improvement.",
+            "ar": "يطوّر منتجات متكاملة في البحث والتطوير وهندسة البرمجيات والأنظمة المضمنة وتكامل العتاد والبرمجيات، من الأفكار والنماذج الأولية إلى التنفيذ والاختبار والنشر والتحسين المستمر.",
+            "de": "Entwickelt vollständige Produkte in F&E, Softwareentwicklung, eingebetteten Systemen und Hardware-Software-Integration – von frühen Konzepten und Prototypen bis zu Umsetzung, Tests, Bereitstellung und kontinuierlicher Verbesserung.",
+            "fr": "Développe des produits complets en R&D, ingénierie logicielle, systèmes embarqués et intégration matériel–logiciel, des premiers concepts et prototypes à l’implémentation, aux tests, au déploiement et à l’amélioration continue.",
+            "es": "Desarrolla productos completos en I+D, ingeniería de software, sistemas embebidos e integración hardware–software, desde conceptos y prototipos iniciales hasta implementación, pruebas, despliegue y mejora continua."
           },
           {
             "en": "The work includes web, mobile, and desktop software, embedded controllers, electronics, sensors, networking, automation systems, and interactive products.",
@@ -873,11 +873,11 @@
             "es": "El trabajo incluye software web, móvil y de escritorio, controladores embebidos, electrónica, sensores, redes, sistemas de automatización y productos interactivos."
           },
           {
-            "en": "I translate operational requirements into practical solutions and work across the full product lifecycle.",
-            "ar": "أحوّل المتطلبات التشغيلية إلى حلول عملية وأعمل عبر دورة حياة المنتج كاملة.",
-            "de": "Ich übersetze operative Anforderungen in praktische Lösungen und arbeite über den gesamten Produktlebenszyklus hinweg.",
-            "fr": "Je transforme les exigences opérationnelles en solutions concrètes et travaille sur l’ensemble du cycle de vie du produit.",
-            "es": "Traduzco requisitos operativos en soluciones prácticas y trabajo durante todo el ciclo de vida del producto."
+            "en": "Translates operational requirements into practical solutions across the full product lifecycle.",
+            "ar": "يحوّل المتطلبات التشغيلية إلى حلول عملية على امتداد دورة حياة المنتج كاملة.",
+            "de": "Übersetzt betriebliche Anforderungen in praxistaugliche Lösungen über den gesamten Produktlebenszyklus.",
+            "fr": "Traduit les exigences opérationnelles en solutions concrètes, sur l’ensemble du cycle de vie du produit.",
+            "es": "Traduce los requisitos operativos en soluciones prácticas a lo largo de todo el ciclo de vida del producto."
           }
         ]
       },
@@ -932,10 +932,10 @@
             "points": [
               {
                 "en": "Led practical technical training for university students completing their field training, covering software development workflows, VR content creation, technical guidance, progress reviews, and practical project deliverables.",
-                "ar": "قدت تدريبًا تقنيًا عمليًا لطلاب الجامعات خلال تدريبهم الميداني، شمل سير عمل تطوير البرمجيات وإنشاء محتوى الواقع الافتراضي والتوجيه التقني ومراجعة التقدم ومخرجات المشاريع العملية.",
+                "ar": "تدريب تقني عملي لطلاب الجامعات خلال تدريبهم الميداني، شمل سير عمل تطوير البرمجيات وإنشاء محتوى الواقع الافتراضي والتوجيه التقني ومراجعة التقدم ومخرجات المشاريع العملية.",
                 "de": "Praktische technische Schulungen für Studierende im Pflichtpraktikum geleitet: Softwareentwicklungsabläufe, Erstellung von VR-Inhalten, technische Anleitung, Fortschrittsprüfungen und praktische Projektergebnisse.",
-                "fr": "J’ai dirigé la formation technique pratique d’étudiants universitaires en stage, couvrant les processus de développement logiciel, la création de contenu VR, l’accompagnement technique, les revues de progression et les livrables de projets.",
-                "es": "Dirigí la formación técnica práctica de estudiantes universitarios en prácticas, abarcando flujos de desarrollo de software, creación de contenido VR, orientación técnica, revisiones de progreso y entregables de proyectos prácticos."
+                "fr": "Direction de la formation technique pratique d’étudiants universitaires en stage, couvrant les processus de développement logiciel, la création de contenu VR, l’accompagnement technique, les revues de progression et les livrables de projets.",
+                "es": "Dirección de la formación técnica práctica de estudiantes universitarios en prácticas, abarcando flujos de desarrollo de software, creación de contenido VR, orientación técnica, revisiones de progreso y entregables de proyectos prácticos."
               }
             ]
           },
@@ -971,10 +971,10 @@
             "points": [
               {
                 "en": "Managed daily technical operations for VR systems, computers, networking, and connected hardware, including installation, configuration, troubleshooting, updates, maintenance, and system reliability.",
-                "ar": "أدرت العمليات التقنية اليومية لأنظمة الواقع الافتراضي والحواسيب والشبكات والعتاد المتصل، بما يشمل التركيب والإعداد واستكشاف الأعطال والتحديثات والصيانة وموثوقية الأنظمة.",
+                "ar": "إدارة العمليات التقنية اليومية لأنظمة الواقع الافتراضي والحواسيب والشبكات والعتاد المتصل، بما يشمل التركيب والإعداد واستكشاف الأعطال والتحديثات والصيانة وموثوقية الأنظمة.",
                 "de": "Den täglichen technischen Betrieb von VR-Systemen, Computern, Netzwerken und vernetzter Hardware betreut, einschließlich Installation, Konfiguration, Fehlerbehebung, Updates, Wartung und Systemzuverlässigkeit.",
-                "fr": "J’ai géré les opérations techniques quotidiennes des systèmes VR, ordinateurs, réseaux et équipements connectés : installation, configuration, dépannage, mises à jour, maintenance et fiabilité des systèmes.",
-                "es": "Gestioné las operaciones técnicas diarias de sistemas VR, ordenadores, redes y hardware conectado, incluyendo instalación, configuración, resolución de problemas, actualizaciones, mantenimiento y fiabilidad del sistema."
+                "fr": "Gestion des opérations techniques quotidiennes des systèmes VR, ordinateurs, réseaux et équipements connectés : installation, configuration, dépannage, mises à jour, maintenance et fiabilité des systèmes.",
+                "es": "Gestión de las operaciones técnicas diarias de sistemas VR, ordenadores, redes y hardware conectado, incluidas instalación, configuración, resolución de problemas, actualizaciones, mantenimiento y fiabilidad del sistema."
               }
             ]
           },
@@ -1010,10 +1010,10 @@
             "points": [
               {
                 "en": "Started in a customer-facing sales role before transitioning into technical operations. Supported customers, explained interactive experiences, and participated in daily venue operations.",
-                "ar": "بدأت في دور مبيعات مباشر مع العملاء قبل الانتقال إلى العمليات التقنية. دعمت العملاء وشرحت التجارب التفاعلية وشاركت في العمليات اليومية للمكان.",
-                "de": "In einer kundenorientierten Vertriebsrolle begonnen, bevor ich in den technischen Betrieb wechselte. Kunden unterstützt, interaktive Erlebnisse erklärt und am täglichen Veranstaltungsbetrieb mitgewirkt.",
-                "fr": "J’ai débuté dans un rôle commercial au contact des clients avant de passer aux opérations techniques. J’accompagnais les clients, expliquais les expériences interactives et participais au fonctionnement quotidien du lieu.",
-                "es": "Comencé en ventas de cara al cliente antes de pasar a operaciones técnicas. Atendí a clientes, expliqué experiencias interactivas y participé en las operaciones diarias del establecimiento."
+                "ar": "بداية في دور مبيعات مباشر مع العملاء قبل الانتقال إلى العمليات التقنية، مع دعم العملاء وشرح التجارب التفاعلية والمشاركة في العمليات اليومية للمكان.",
+                "de": "Einstieg in einer kundenorientierten Vertriebsrolle mit anschließendem Wechsel in den technischen Betrieb. Kunden unterstützt, interaktive Erlebnisse erklärt und am täglichen Veranstaltungsbetrieb mitgewirkt.",
+                "fr": "Début dans un rôle commercial au contact des clients, avant le passage aux opérations techniques : accompagnement des clients, présentation des expériences interactives et participation au fonctionnement quotidien du lieu.",
+                "es": "Inicio en un puesto de ventas de cara al cliente, antes del paso a operaciones técnicas: atención a clientes, explicación de las experiencias interactivas y participación en las operaciones diarias del establecimiento."
               }
             ]
           }
@@ -1062,7 +1062,7 @@
             "en": "Responsibilities included customer engagement, telecommunications service sales, understanding customer requirements, meeting individual and team targets, customer follow-up, and collaboration with marketing colleagues.",
             "ar": "شملت المسؤوليات التواصل مع العملاء وبيع خدمات الاتصالات وفهم متطلباتهم وتحقيق الأهداف الفردية والجماعية ومتابعة العملاء والتعاون مع زملاء التسويق.",
             "de": "Zu den Aufgaben gehörten Kundenansprache, Verkauf von Telekommunikationsdiensten, Ermittlung von Kundenanforderungen, Erreichen individueller und gemeinsamer Ziele, Kundennachbetreuung und Zusammenarbeit mit Marketingkollegen.",
-            "fr": "Mes responsabilités comprenaient la relation client, la vente de services de télécommunication, la compréhension des besoins, l’atteinte d’objectifs individuels et collectifs, le suivi client et la collaboration avec les collègues du marketing.",
+            "fr": "Les responsabilités comprenaient la relation client, la vente de services de télécommunication, la compréhension des besoins, l’atteinte d’objectifs individuels et collectifs, le suivi client et la collaboration avec les collègues du marketing.",
             "es": "Las responsabilidades incluían interacción con clientes, venta de servicios de telecomunicaciones, comprensión de requisitos, cumplimiento de objetivos individuales y de equipo, seguimiento de clientes y colaboración con compañeros de marketing."
           }
         ]
@@ -1242,11 +1242,11 @@
       "es": "Proyectos seleccionados"
     },
     "subtitle": {
-      "en": "Selected projects showcasing practical ideas and technical solutions.",
-      "ar": "مشاريع مختارة تعرض أفكارًا عملية وحلولًا تقنية.",
-      "de": "Ausgewählte Projekte, die praktische Ideen und technische Lösungen zeigen.",
-      "fr": "Une sélection de projets présentant des idées pratiques et des solutions techniques.",
-      "es": "Proyectos seleccionados que muestran ideas prácticas y soluciones técnicas."
+      "en": "Selected case studies across web platforms, business systems, connected hardware and automation.",
+      "ar": "دراسات حالة مختارة في منصات الويب وأنظمة الأعمال والأجهزة المتصلة والأتمتة.",
+      "de": "Ausgewählte Fallstudien zu Webplattformen, Geschäftssystemen, vernetzter Hardware und Automatisierung.",
+      "fr": "Études de cas sélectionnées : plateformes web, systèmes métier, matériel connecté et automatisation.",
+      "es": "Casos de estudio seleccionados sobre plataformas web, sistemas de negocio, hardware conectado y automatización."
     },
     "filters": {
       "all": {
@@ -1348,11 +1348,11 @@
         "es": "Simplificar el descubrimiento de servicios dispersos y convertir necesidades de clientes en solicitudes organizadas."
       },
       "contribution": {
-        "en": "As co-founder and Technical Lead, I work hands-on across product architecture, user journeys, frontend and backend development, service-catalog organization, database design, integrations, deployment, and continuous improvement.",
-        "ar": "بصفتي شريكًا مؤسسًا وقائدًا تقنيًا، أعمل عمليًا على بنية المنتج ورحلات المستخدم وتطوير الواجهات والخدمات الخلفية وتنظيم كتالوج الخدمات وتصميم قاعدة البيانات والتكاملات والنشر والتحسين المستمر.",
-        "de": "Als Mitgründer und technischer Leiter arbeite ich praktisch an Produktarchitektur, Nutzerreisen, Frontend und Backend, Servicekatalog, Datenbankdesign, Integrationen, Bereitstellung und kontinuierlicher Verbesserung.",
-        "fr": "En tant que cofondateur et responsable technique, je contribue directement à l’architecture produit, aux parcours utilisateurs, au frontend et au backend, au catalogue de services, à la base de données, aux intégrations, au déploiement et à l’amélioration continue.",
-        "es": "Como cofundador y responsable técnico, trabajo directamente en arquitectura del producto, recorridos de usuario, frontend y backend, catálogo de servicios, diseño de base de datos, integraciones, despliegue y mejora continua."
+        "en": "Co-founder and Technical Lead, with hands-on responsibility for product architecture, user journeys, frontend and backend development, service-catalog structure, database design, integrations, deployment and continuous improvement.",
+        "ar": "شريك مؤسس وقائد تقني، ومسؤول عمليًا عن بنية المنتج ورحلات المستخدم وتطوير الواجهات والخدمات الخلفية وتنظيم كتالوج الخدمات وتصميم قاعدة البيانات والتكاملات والنشر والتحسين المستمر.",
+        "de": "Mitgründer und technischer Leiter mit praktischer Verantwortung für Produktarchitektur, Nutzerreisen, Frontend- und Backend-Entwicklung, Servicekatalog, Datenbankdesign, Integrationen, Bereitstellung und kontinuierliche Verbesserung.",
+        "fr": "Cofondateur et responsable technique, directement en charge de l’architecture produit, des parcours utilisateurs, du frontend et du backend, du catalogue de services, de la base de données, des intégrations, du déploiement et de l’amélioration continue.",
+        "es": "Cofundador y responsable técnico, con responsabilidad directa sobre la arquitectura del producto, los recorridos de usuario, el frontend y el backend, el catálogo de servicios, el diseño de la base de datos, las integraciones, el despliegue y la mejora continua."
       },
       "engineering": {
         "en": "The Next.js and TypeScript application uses Supabase for its shared data layer. Product and database decisions keep the public catalog, request journey, and internal handling of those requests connected as the platform evolves.",
@@ -1468,11 +1468,11 @@
         "es": "Conectar el recorrido del cliente con las operaciones para que solicitudes y comunicación formen parte del mismo flujo."
       },
       "contribution": {
-        "en": "I built the customer experience, frontend and backend workflows, Supabase data model, and Meta WhatsApp integration that connects service requests with business communication.",
-        "ar": "بنيت تجربة العميل وسير عمل الواجهات والخدمات الخلفية ونموذج بيانات Supabase وتكامل Meta WhatsApp الذي يربط طلبات الخدمات بتواصل العمل.",
-        "de": "Ich entwickelte die Kundenerfahrung, Frontend- und Backend-Abläufe, das Supabase-Datenmodell und die Meta-WhatsApp-Integration für Serviceanfragen und Geschäftskommunikation.",
-        "fr": "J’ai développé l’expérience client, les processus frontend et backend, le modèle de données Supabase et l’intégration Meta WhatsApp reliant les demandes de service à la communication métier.",
-        "es": "Desarrollé la experiencia del cliente, los flujos frontend y backend, el modelo de datos Supabase y la integración con Meta WhatsApp que conecta solicitudes y comunicación empresarial."
+        "en": "Development covered the customer experience, frontend and backend workflows, the Supabase data model and the Meta WhatsApp integration that connects service requests with business communication.",
+        "ar": "شمل التطوير تجربة العميل وسير العمل في الواجهات والخدمات الخلفية ونموذج بيانات Supabase وتكامل Meta WhatsApp الذي يربط طلبات الخدمة بالتواصل التجاري.",
+        "de": "Die Entwicklung umfasste das Kundenerlebnis, Frontend- und Backend-Abläufe, das Supabase-Datenmodell und die Meta-WhatsApp-Integration, die Serviceanfragen mit der Geschäftskommunikation verbindet.",
+        "fr": "Le développement a couvert l’expérience client, les workflows frontend et backend, le modèle de données Supabase et l’intégration Meta WhatsApp qui relie les demandes de service à la communication de l’entreprise.",
+        "es": "El desarrollo abarcó la experiencia del cliente, los flujos frontend y backend, el modelo de datos de Supabase y la integración con Meta WhatsApp que conecta las solicitudes de servicio con la comunicación del negocio."
       },
       "engineering": {
         "en": "Next.js and TypeScript connect the public service journey to Supabase-backed operational records. WhatsApp messaging is integrated into those workflows, tying customer communication to the request context rather than treating it as a separate manual task.",
@@ -1589,11 +1589,11 @@
         "es": "Dar a cada rol una vista útil de la información compartida sin mantener registros desconectados de miembros y gestión."
       },
       "contribution": {
-        "en": "I built the Flutter and Dart experiences, operational workflows, Supabase data layer, role-based access, management reporting, and export flows.",
-        "ar": "بنيت تجارب Flutter وDart وسير العمل التشغيلي وطبقة بيانات Supabase والصلاحيات بحسب الدور وتقارير الإدارة ومسارات التصدير.",
-        "de": "Ich entwickelte die Flutter- und Dart-Oberflächen, Betriebsabläufe, Supabase-Datenschicht, rollenbasierten Zugriff sowie Verwaltungsberichte und Exporte.",
-        "fr": "J’ai développé les expériences Flutter et Dart, les processus opérationnels, la couche Supabase, les accès par rôle, les rapports de gestion et les exports.",
-        "es": "Desarrollé las experiencias Flutter y Dart, los flujos operativos, la capa Supabase, el acceso por roles, los informes de gestión y las exportaciones."
+        "en": "Development covered the Flutter and Dart apps, operational workflows, the Supabase data layer, role-based access, management reporting and export flows.",
+        "ar": "شمل التطوير تطبيقات Flutter وDart وسير العمل التشغيلي وطبقة بيانات Supabase والوصول حسب الدور وتقارير الإدارة ومسارات التصدير.",
+        "de": "Die Entwicklung umfasste die Flutter- und Dart-Apps, Betriebsabläufe, die Supabase-Datenschicht, rollenbasierten Zugriff, Management-Berichte und Exportfunktionen.",
+        "fr": "Le développement a couvert les applications Flutter et Dart, les workflows opérationnels, la couche de données Supabase, l’accès par rôle, les rapports de gestion et les exports.",
+        "es": "El desarrollo abarcó las aplicaciones Flutter y Dart, los flujos operativos, la capa de datos de Supabase, el acceso por roles, los informes de gestión y la exportación."
       },
       "engineering": {
         "en": "A shared Supabase data layer supports distinct member and leader interfaces. Role-based access governs which records and actions are available, while submissions, reviews, analytics, and exports remain connected to the same operational context.",
@@ -1672,7 +1672,7 @@
     },
     {
       "id": "terminal-nfc",
-      "title": "The Terminal NFC",
+      "title": "The Terminal Simulator Control",
       "category": {
         "en": "Business System",
         "ar": "نظام أعمال",
@@ -1688,109 +1688,108 @@
         "es": "En desarrollo · Proyecto privado"
       },
       "short": {
-        "en": "A venue operations system linking POS sales, customer accounts, NFC identification, and the actual use of interactive experiences.",
-        "ar": "نظام عمليات يربط مبيعات نقاط البيع وحسابات العملاء والتعريف عبر NFC بالاستخدام الفعلي للتجارب التفاعلية.",
-        "de": "Ein Betriebssystem für den Veranstaltungsort, das POS-Verkäufe, Kundenkonten und NFC mit der tatsächlichen Nutzung interaktiver Erlebnisse verbindet.",
-        "fr": "Un système opérationnel reliant ventes au point de vente, comptes clients, identification NFC et utilisation réelle des expériences interactives.",
-        "es": "Un sistema operativo del recinto que conecta ventas POS, cuentas de clientes e identificación NFC con el uso real de experiencias interactivas."
+        "en": "A simulator control system with RFID employee authorization, game-session tracking, motion-sensor monitoring and a central management dashboard.",
+        "ar": "نظام تحكم بالمحاكيات يجمع تفويض الموظفين عبر RFID وتتبع جلسات اللعب ومراقبة مستشعرات الحركة ولوحة إدارة مركزية.",
+        "de": "Simulator-Steuerung mit RFID-Mitarbeiterautorisierung, Spielsitzungserfassung, Bewegungssensor-Überwachung und zentralem Management-Dashboard.",
+        "fr": "Contrôle des simulateurs : autorisation RFID des employés, suivi des sessions de jeu, capteurs de mouvement et tableau de bord de gestion central.",
+        "es": "Control de simuladores con autorización RFID de empleados, seguimiento de sesiones, sensores de movimiento y panel de gestión central."
       },
       "overview": {
-        "en": "A sale at the counter is only one part of operating an interactive venue. The Terminal NFC connects the POS to the applications running its experiences: staff create or select customer accounts and prepare transactions, while NFC cards or wristbands identify customers and associate each transaction with the correct account.",
-        "ar": "البيع عند الكاونتر جزء واحد فقط من تشغيل مكان تفاعلي. يربط The Terminal NFC نقاط البيع بالتطبيقات التي تشغّل التجارب؛ ينشئ الموظفون حسابات العملاء أو يختارونها ويجهزون المعاملات، وتعرّف بطاقات NFC أو أساور العملاء وتربط كل معاملة بحسابها الصحيح.",
-        "de": "Ein Verkauf an der Kasse ist nur ein Teil des Betriebs eines interaktiven Veranstaltungsorts. The Terminal NFC verbindet das POS mit den Anwendungen für die Erlebnisse: Mitarbeiter erstellen oder wählen Kundenkonten und bereiten Transaktionen vor; NFC-Karten oder Armbänder identifizieren Kunden und ordnen Vorgänge dem richtigen Konto zu.",
-        "fr": "La vente au comptoir n’est qu’une partie du fonctionnement d’un lieu interactif. The Terminal NFC relie le point de vente aux applications qui pilotent ses expériences : le personnel crée ou sélectionne un compte et prépare la transaction, tandis que cartes ou bracelets NFC identifient le client et rattachent chaque opération au bon compte.",
-        "es": "Una venta en el mostrador es solo una parte de operar un recinto interactivo. The Terminal NFC conecta el POS con las aplicaciones que ejecutan sus experiencias: el personal crea o selecciona cuentas y prepara transacciones, mientras tarjetas o pulseras NFC identifican a los clientes y vinculan cada operación a la cuenta correcta."
+        "en": "The Terminal Simulator Control governs how staff operate simulators at an interactive venue. Employees authorize access with RFID cards, a Windows client on each simulator records game sessions, and a central dashboard consolidates usage by employee and simulator. Paired motion sensors support monitoring and calibration of the physical equipment.",
+        "ar": "يحدد The Terminal Simulator Control كيفية تشغيل الموظفين للمحاكيات في مكان تفاعلي. يفوّض الموظفون الوصول ببطاقات RFID، ويسجّل عميل ويندوز على كل محاكي جلسات اللعب، وتجمع لوحة مركزية الاستخدام حسب الموظف والمحاكي. وتدعم مستشعرات حركة مقترنة مراقبة المعدات الفعلية ومعايرتها.",
+        "de": "The Terminal Simulator Control regelt, wie Mitarbeitende Simulatoren in einem interaktiven Veranstaltungsort bedienen. Der Zugang wird per RFID-Karte autorisiert, ein Windows-Client an jedem Simulator erfasst die Spielsitzungen, und ein zentrales Dashboard bündelt die Nutzung nach Mitarbeitenden und Simulatoren. Gekoppelte Bewegungssensoren unterstützen Überwachung und Kalibrierung der physischen Geräte.",
+        "fr": "The Terminal Simulator Control encadre la manière dont le personnel utilise les simulateurs d’un lieu interactif. Les employés autorisent l’accès avec des cartes RFID, un client Windows sur chaque simulateur enregistre les sessions de jeu et un tableau de bord central regroupe l’usage par employé et par simulateur. Des capteurs de mouvement appairés permettent de surveiller et de calibrer l’équipement physique.",
+        "es": "The Terminal Simulator Control regula cómo el personal opera los simuladores de un recinto interactivo. Los empleados autorizan el acceso con tarjetas RFID, un cliente Windows en cada simulador registra las sesiones de juego y un panel central reúne el uso por empleado y simulador. Sensores de movimiento emparejados ayudan a supervisar y calibrar el equipo físico."
       },
       "purpose": {
-        "en": "Connect what was sold with what was actually used, so sales and experience operation share a coherent account and transaction context.",
-        "ar": "ربط ما تم بيعه بما تم استخدامه فعليًا، لتعمل المبيعات وتشغيل التجارب ضمن سياق موحد للحسابات والمعاملات.",
-        "de": "Verbinden, was verkauft wurde und tatsächlich genutzt wird, damit Verkauf und Erlebnisbetrieb denselben Konto- und Transaktionskontext teilen.",
-        "fr": "Relier ce qui a été vendu à ce qui a réellement été utilisé, dans un contexte cohérent de comptes et de transactions.",
-        "es": "Conectar lo vendido con lo realmente utilizado para que ventas y operación compartan un contexto coherente de cuentas y transacciones."
+        "en": "Give venue operators controlled access to each simulator, clear staff accountability and reliable visibility into how equipment is used.",
+        "ar": "منح مشغّلي المكان تحكمًا في الوصول إلى كل محاكي، ومساءلة واضحة للموظفين، ورؤية موثوقة لكيفية استخدام المعدات.",
+        "de": "Betreibern kontrollierten Zugang zu jedem Simulator, klare Zuständigkeit der Mitarbeitenden und verlässliche Einblicke in die Gerätenutzung geben.",
+        "fr": "Donner aux exploitants un accès contrôlé à chaque simulateur, une responsabilité claire du personnel et une visibilité fiable sur l’usage des équipements.",
+        "es": "Dar a los operadores un acceso controlado a cada simulador, responsabilidad clara del personal y visibilidad fiable del uso de los equipos."
       },
       "contribution": {
-        "en": "I built the desktop POS and operational integrations, NFC account identification, centralized API, data workflows, and dashboard connections across the client–server system.",
-        "ar": "بنيت برنامج نقاط البيع لسطح المكتب والتكاملات التشغيلية وتعريف الحسابات عبر NFC وواجهة API المركزية ومسارات البيانات وربط لوحة المتابعة ضمن بنية العميل والخادم.",
-        "de": "Ich entwickelte Desktop-POS und operative Integrationen, NFC-Kontoidentifikation, zentrale API, Datenabläufe und Dashboard-Anbindungen im Client-Server-System.",
-        "fr": "J’ai développé le point de vente desktop, les intégrations opérationnelles, l’identification des comptes par NFC, l’API centrale, les flux de données et les connexions au tableau de bord de l’architecture client-serveur.",
-        "es": "Desarrollé el POS de escritorio, las integraciones operativas, la identificación de cuentas NFC, la API central, los flujos de datos y las conexiones del panel dentro del sistema cliente-servidor."
+        "en": "Technical scope covers the Windows simulator clients, RFID-based access, the Supabase data and authorization layer, motion-sensor integration and the management dashboard, connected as one system.",
+        "ar": "يشمل النطاق التقني عملاء ويندوز للمحاكيات والوصول المعتمد على RFID وطبقة بيانات Supabase وصلاحياتها وتكامل مستشعرات الحركة ولوحة الإدارة، مترابطة في نظام واحد.",
+        "de": "Der technische Umfang umfasst die Windows-Simulator-Clients, den RFID-basierten Zugang, die Supabase-Daten- und Berechtigungsschicht, die Integration der Bewegungssensoren und das Management-Dashboard – als ein zusammenhängendes System.",
+        "fr": "Le périmètre technique couvre les clients Windows des simulateurs, l’accès par RFID, la couche de données et d’autorisation Supabase, l’intégration des capteurs de mouvement et le tableau de bord de gestion, réunis en un seul système.",
+        "es": "El alcance técnico abarca los clientes Windows de los simuladores, el acceso por RFID, la capa de datos y autorización de Supabase, la integración de sensores de movimiento y el panel de gestión, conectados como un solo sistema."
       },
       "engineering": {
-        "en": "A centralized .NET Web API validates account state and eligibility and mediates between desktop clients and the database. The POS, operational applications, and dashboard share centrally managed transactions, invoices, device usage, and system activity, with NFC serving as the identification layer within that larger architecture.",
-        "ar": "تتحقق واجهة .NET Web API مركزية من حالة الحساب وأهليته وتتوسط بين برامج سطح المكتب وقاعدة البيانات. تشترك نقاط البيع والتطبيقات التشغيلية ولوحة المتابعة في بيانات مركزية للمعاملات والفواتير واستخدام الأجهزة ونشاط النظام، ويؤدي NFC دور طبقة التعريف ضمن هذه البنية الأوسع.",
-        "de": "Eine zentrale .NET Web API prüft Kontozustand und Nutzungsberechtigung und vermittelt zwischen Desktop-Clients und Datenbank. POS, Betriebsanwendungen und Dashboard teilen zentral verwaltete Transaktionen, Rechnungen, Gerätenutzung und Systemaktivität; NFC bildet darin die Identifikationsschicht.",
-        "fr": "Une API .NET centrale valide l’état et l’éligibilité des comptes et relie les clients desktop à la base de données. Le point de vente, les applications opérationnelles et le tableau de bord partagent transactions, factures, utilisation des appareils et activité système ; NFC joue le rôle d’identification dans cette architecture plus large.",
-        "es": "Una .NET Web API central valida el estado y la elegibilidad de las cuentas y media entre clientes de escritorio y base de datos. POS, aplicaciones operativas y panel comparten transacciones, facturas, uso de dispositivos y actividad del sistema gestionados centralmente; NFC actúa como capa de identificación dentro de esa arquitectura."
+        "en": "Each simulator runs a Windows client that controls access and records authorized game sessions. Administrator and maintenance access is handled separately, so it is not counted as gameplay. Supabase stores the operational data and enforces authorization, while paired motion sensors report movement for monitoring and calibration.",
+        "ar": "يعمل على كل محاكي عميل ويندوز يتحكم بالوصول ويسجّل جلسات اللعب المصرّح بها. ويُعالَج وصول المسؤولين والصيانة بشكل منفصل فلا يُحتسب كلعب. وتخزّن Supabase البيانات التشغيلية وتطبّق الصلاحيات، بينما تنقل مستشعرات حركة مقترنة بيانات الحركة للمراقبة والمعايرة.",
+        "de": "Auf jedem Simulator läuft ein Windows-Client, der den Zugang steuert und autorisierte Spielsitzungen erfasst. Administrator- und Wartungszugriffe werden getrennt behandelt und daher nicht als Spielbetrieb gezählt. Supabase speichert die Betriebsdaten und setzt die Berechtigungen durch, während gekoppelte Bewegungssensoren Bewegungsdaten für Überwachung und Kalibrierung melden.",
+        "fr": "Chaque simulateur exécute un client Windows qui contrôle l’accès et enregistre les sessions de jeu autorisées. L’accès administrateur et maintenance est traité à part : il n’est pas compté comme du jeu. Supabase stocke les données opérationnelles et applique les autorisations, tandis que des capteurs de mouvement appairés transmettent les mouvements pour la surveillance et le calibrage.",
+        "es": "Cada simulador ejecuta un cliente Windows que controla el acceso y registra las sesiones de juego autorizadas. El acceso de administración y mantenimiento se gestiona por separado, por lo que no cuenta como juego. Supabase almacena los datos operativos y aplica la autorización, mientras sensores de movimiento emparejados informan del movimiento para la supervisión y la calibración."
       },
       "capabilities": [
         {
-          "en": "Account-linked POS transactions",
-          "ar": "معاملات نقاط بيع مرتبطة بالحسابات",
-          "de": "Kontogebundene POS-Transaktionen",
-          "fr": "Transactions de vente liées aux comptes",
-          "es": "Transacciones POS vinculadas a cuentas"
+          "en": "RFID employee authorization and session records",
+          "ar": "تفويض الموظفين عبر RFID وسجلات الجلسات",
+          "de": "RFID-Autorisierung und Sitzungsprotokolle",
+          "fr": "Autorisation RFID et journal des sessions",
+          "es": "Autorización RFID y registro de sesiones"
         },
         {
-          "en": "API-based eligibility validation",
-          "ar": "التحقق من الأهلية عبر API",
-          "de": "API-basierte Berechtigungsprüfung",
-          "fr": "Validation d’éligibilité via API",
-          "es": "Validación de elegibilidad por API"
+          "en": "Administrator and maintenance access",
+          "ar": "وصول المسؤولين والصيانة",
+          "de": "Administrator- und Wartungszugriff",
+          "fr": "Accès administrateur et maintenance",
+          "es": "Acceso de administración y mantenimiento"
         },
         {
-          "en": "Shared sales and device-usage records",
-          "ar": "سجلات مشتركة للمبيعات واستخدام الأجهزة",
-          "de": "Gemeinsame Verkaufs- und Gerätenutzungsdaten",
-          "fr": "Données communes de vente et d’utilisation",
-          "es": "Registros compartidos de ventas y uso"
+          "en": "Motion-sensor monitoring and calibration",
+          "ar": "مراقبة مستشعرات الحركة ومعايرتها",
+          "de": "Überwachung und Kalibrierung der Bewegungssensoren",
+          "fr": "Surveillance et calibrage des capteurs de mouvement",
+          "es": "Supervisión y calibración de sensores de movimiento"
         }
       ],
       "considerations": [
         {
-          "en": "Validating account state before operational access is granted.",
-          "ar": "التحقق من حالة الحساب قبل منح الوصول التشغيلي.",
-          "de": "Kontozustand vor Freigabe der Nutzung prüfen.",
-          "fr": "Valider l’état du compte avant d’autoriser l’accès opérationnel.",
-          "es": "Validar el estado de la cuenta antes de conceder acceso operativo."
+          "en": "Keeping simulator gameplay separate from administrator and maintenance use.",
+          "ar": "الفصل بين اللعب على المحاكي واستخدام المسؤولين والصيانة.",
+          "de": "Spielbetrieb am Simulator von Administrator- und Wartungsnutzung trennen.",
+          "fr": "Séparer le jeu sur simulateur de l’usage administrateur et maintenance.",
+          "es": "Separar el juego en el simulador del uso de administración y mantenimiento."
         },
         {
-          "en": "Keeping transactions and actual device usage connected across multiple clients.",
-          "ar": "ربط المعاملات بالاستخدام الفعلي للأجهزة عبر عدة برامج عميلة.",
-          "de": "Transaktionen und tatsächliche Gerätenutzung über mehrere Clients verbinden.",
-          "fr": "Relier transactions et utilisation réelle entre plusieurs clients.",
-          "es": "Conectar transacciones y uso real de dispositivos entre varios clientes."
+          "en": "Keeping motion-sensor monitoring and calibration reliable across paired devices.",
+          "ar": "الحفاظ على موثوقية مراقبة مستشعرات الحركة ومعايرتها عبر الأجهزة المقترنة.",
+          "de": "Überwachung und Kalibrierung der Bewegungssensoren über gekoppelte Geräte hinweg zuverlässig halten.",
+          "fr": "Garder fiables la surveillance et le calibrage des capteurs de mouvement sur les appareils appairés.",
+          "es": "Mantener fiables la supervisión y la calibración de los sensores de movimiento en los dispositivos emparejados."
         }
       ],
       "narrativeLabels": {
         "purpose": {
-          "en": "Sold → used",
-          "ar": "المبيع ← الاستخدام",
-          "de": "Verkauft → genutzt",
-          "fr": "Vendu → utilisé",
-          "es": "Vendido → utilizado"
+          "en": "Controlled access, accountable use",
+          "ar": "وصول منضبط واستخدام خاضع للمساءلة",
+          "de": "Kontrollierter Zugang, nachvollziehbare Nutzung",
+          "fr": "Accès contrôlé, usage traçable",
+          "es": "Acceso controlado, uso trazable"
         },
         "contribution": {
-          "en": "Connecting the venue systems",
-          "ar": "ربط أنظمة المكان",
-          "de": "Die Betriebssysteme verbinden",
-          "fr": "Relier les systèmes du lieu",
-          "es": "Conectar los sistemas del recinto"
+          "en": "Clients, RFID & dashboard",
+          "ar": "العملاء وRFID ولوحة الإدارة",
+          "de": "Clients, RFID & Dashboard",
+          "fr": "Clients, RFID et tableau de bord",
+          "es": "Clientes, RFID y panel"
         },
         "engineering": {
-          "en": "A central API between clients",
-          "ar": "واجهة مركزية بين البرامج",
-          "de": "Zentrale API zwischen Clients",
-          "fr": "Une API centrale entre clients",
-          "es": "Una API central entre clientes"
+          "en": "Simulator access and sensor monitoring",
+          "ar": "الوصول إلى المحاكي ومراقبة المستشعرات",
+          "de": "Simulatorzugang und Sensorüberwachung",
+          "fr": "Accès aux simulateurs et surveillance des capteurs",
+          "es": "Acceso a simuladores y supervisión de sensores"
         }
       },
       "technology": [
         "C#",
         "WPF",
-        ".NET Web API",
-        "REST APIs",
-        "NFC",
-        "Client–Server Architecture"
+        "Supabase",
+        "RFID",
+        "Motion Sensors"
       ]
     },
     {
@@ -1832,11 +1831,11 @@
         "es": "Convertir el ciclismo físico en una experiencia multijugador coordinada con respuesta inmediata del juego y la iluminación."
       },
       "contribution": {
-        "en": "I developed the Flutter game controller, multiplayer logic, ESP32-S3 firmware, discovery and communication protocols, custom PCB, embedded input processing, and LED control.",
-        "ar": "طوّرت متحكم الألعاب بـFlutter ومنطق اللعب المتعدد وبرمجيات ESP32-S3 وبروتوكولات اكتشاف الأجهزة والاتصال وPCB مخصصًا ومعالجة المدخلات المضمنة والتحكم بإضاءة LED.",
-        "de": "Ich entwickelte Flutter-Spielsteuerung, Mehrspielerlogik, ESP32-S3-Firmware, Erkennungs- und Kommunikationsprotokolle, kundenspezifische PCB, eingebettete Eingangsverarbeitung und LED-Steuerung.",
-        "fr": "J’ai développé le contrôleur de jeu Flutter, la logique multijoueur, le firmware ESP32-S3, les protocoles de découverte et de communication, le PCB sur mesure, le traitement embarqué et le contrôle LED.",
-        "es": "Desarrollé el controlador Flutter, la lógica multijugador, el firmware ESP32-S3, los protocolos de descubrimiento y comunicación, el PCB personalizado, el procesamiento embebido y el control LED."
+        "en": "Technical scope covers the Flutter game controller, multiplayer logic, ESP32-S3 firmware, device discovery and communication protocols, a custom PCB, embedded input processing and LED control.",
+        "ar": "يشمل النطاق التقني متحكم اللعبة بـFlutter ومنطق اللعب المتعدد وبرمجيات ESP32-S3 المضمنة وبروتوكولات اكتشاف الأجهزة والاتصال وPCB مخصصًا ومعالجة المدخلات المضمنة والتحكم بإضاءة LED.",
+        "de": "Der technische Umfang umfasst die Flutter-Spielsteuerung, die Mehrspielerlogik, ESP32-S3-Firmware, Erkennungs- und Kommunikationsprotokolle, eine kundenspezifische PCB, eingebettete Eingangsverarbeitung und LED-Steuerung.",
+        "fr": "Le périmètre technique couvre le contrôleur de jeu Flutter, la logique multijoueur, le firmware ESP32-S3, les protocoles de découverte et de communication, un PCB sur mesure, le traitement embarqué des entrées et le contrôle LED.",
+        "es": "El alcance técnico abarca el controlador de juego Flutter, la lógica multijugador, el firmware ESP32-S3, los protocolos de descubrimiento y comunicación, un PCB personalizado, el procesamiento embebido de entradas y el control LED."
       },
       "engineering": {
         "en": "ESP32-S3 controllers process cycling input locally, while WebSockets and UDP connect devices to the central controller. Device discovery, interruption handling, reconnection, and firmware behavior keep physical inputs and multiplayer state coordinated across the installation.",
@@ -1957,18 +1956,18 @@
         "es": "Convertir el juego físico rápido en puntuación coherente dentro de una instalación distribuida."
       },
       "contribution": {
-        "en": "I built the Flutter controller, game logic, embedded C++ firmware, sensing and scoring pipeline, custom PCB, networking, and synchronized feedback across the connected bases.",
-        "ar": "بنيت متحكم Flutter ومنطق الألعاب وبرمجيات C++ المضمنة ومسار الاستشعار وتسجيل النقاط وPCB مخصصًا والشبكات والتغذية الراجعة المتزامنة للقواعد المتصلة.",
-        "de": "Ich entwickelte Flutter-Steuerung, Spiellogik, eingebettete C++-Firmware, Sensor- und Punkteverarbeitung, kundenspezifische PCB, Netzwerkkommunikation und synchronisierte Rückmeldung der Stationen.",
-        "fr": "J’ai développé le contrôleur Flutter, la logique de jeu, le firmware C++ embarqué, la chaîne de détection et de score, le PCB sur mesure, la communication et les retours synchronisés entre bases.",
-        "es": "Desarrollé el controlador Flutter, la lógica de juego, el firmware C++ embebido, el procesamiento de sensores y puntuación, el PCB personalizado, la comunicación y la respuesta sincronizada de las bases."
+        "en": "Development covered the Flutter controller, game logic, embedded C++ firmware, the sensing and scoring pipeline, a custom PCB, networking and synchronized feedback across the connected bases.",
+        "ar": "شمل التطوير متحكم Flutter ومنطق اللعبة وبرمجيات C++ المضمنة ومسار الاستشعار والتسجيل وPCB مخصصًا والشبكات والتغذية الراجعة المتزامنة عبر القواعد المتصلة.",
+        "de": "Die Entwicklung umfasste die Flutter-Steuerung, die Spiellogik, eingebettete C++-Firmware, die Sensorik- und Punkteerfassung, eine kundenspezifische PCB, Netzwerkkommunikation und synchronisiertes Feedback über alle verbundenen Stationen.",
+        "fr": "Le développement a couvert le contrôleur Flutter, la logique de jeu, le firmware C++ embarqué, la chaîne de détection et de score, un PCB sur mesure, le réseau et le retour synchronisé sur les bases connectées.",
+        "es": "El desarrollo abarcó el controlador Flutter, la lógica de juego, el firmware embebido en C++, el flujo de detección y puntuación, un PCB personalizado, la red y la respuesta sincronizada en las bases conectadas."
       },
       "engineering": {
-        "en": "The event path accounts for rapid impacts and sensor noise before queued events cross WebSocket and UDP communication. Acknowledgements, retries, delayed-packet handling, and reconnection behavior help preserve event delivery and keep the controller’s scoring state consistent across several devices.",
-        "ar": "يراعي مسار الحدث الضربات السريعة وضجيج المستشعرات قبل نقل الأحداث المنتظرة عبر WebSocket وUDP. تساعد التأكيدات وإعادة المحاولة ومعالجة تأخر الحزم وإعادة الاتصال على الحفاظ على تسليم الأحداث واتساق حالة التسجيل في المتحكم عبر عدة أجهزة.",
-        "de": "Der Ereignispfad berücksichtigt schnelle Treffer und Sensorrauschen, bevor gepufferte Ereignisse über WebSocket und UDP übertragen werden. Bestätigungen, Wiederholungen, Behandlung verspäteter Pakete und Wiederverbindung sichern die Zustellung und einen konsistenten Punktestand über mehrere Geräte.",
-        "fr": "La chaîne tient compte des impacts rapides et du bruit des capteurs avant de transmettre les événements en file via WebSocket et UDP. Accusés de réception, reprises, gestion des paquets retardés et reconnexion contribuent à préserver la livraison et la cohérence du score entre appareils.",
-        "es": "El flujo considera impactos rápidos y ruido de sensores antes de transmitir eventos en cola por WebSocket y UDP. Confirmaciones, reintentos, gestión de paquetes retrasados y reconexión ayudan a preservar la entrega y la coherencia de la puntuación entre dispositivos."
+        "en": "The firmware separates valid hits from sensor noise, including rapid successive impacts, so each real hit becomes a single event. Events are queued and sent to the controller over WebSocket and UDP; acknowledgements, retries, delayed-packet handling and reconnection keep the score consistent across several devices.",
+        "ar": "يفصل البرنامج المضمن الضربات الصحيحة عن ضجيج المستشعرات، بما في ذلك الضربات السريعة المتتالية، فتتحول كل ضربة فعلية إلى حدث واحد. تُصطف الأحداث وتُرسل إلى المتحكم عبر WebSocket وUDP، وتحافظ التأكيدات وإعادة المحاولة ومعالجة تأخر الحزم وإعادة الاتصال على اتساق النتيجة عبر عدة أجهزة.",
+        "de": "Die Firmware trennt echte Treffer von Sensorrauschen, auch bei schnell aufeinanderfolgenden Aufprallen, sodass jeder tatsächliche Treffer genau ein Ereignis ergibt. Die Ereignisse werden gepuffert und über WebSocket und UDP an die Steuerung gesendet; Bestätigungen, Wiederholungen, Behandlung verspäteter Pakete und Wiederverbindung halten den Punktestand über mehrere Geräte konsistent.",
+        "fr": "Le firmware distingue les vrais impacts du bruit des capteurs, y compris lorsqu’ils se succèdent rapidement, afin que chaque impact réel produise un seul événement. Les événements sont mis en file puis envoyés au contrôleur via WebSocket et UDP ; accusés de réception, reprises, gestion des paquets retardés et reconnexion maintiennent un score cohérent entre plusieurs appareils.",
+        "es": "El firmware separa los impactos válidos del ruido de los sensores, incluso cuando se suceden con rapidez, de modo que cada impacto real genera un único evento. Los eventos se ponen en cola y se envían al controlador por WebSocket y UDP; confirmaciones, reintentos, gestión de paquetes retrasados y reconexión mantienen la puntuación coherente entre varios dispositivos."
       },
       "capabilities": [
         {
@@ -2081,11 +2080,11 @@
         "es": "Transformar el ejercicio en juego VR interactivo mediante entradas físicas naturales y respuesta virtual inmediata."
       },
       "contribution": {
-        "en": "I developed the embedded movement-processing firmware and physical-to-virtual integration that connects bicycle input with the riding experience.",
-        "ar": "طوّرت البرمجيات المضمنة لمعالجة الحركة والتكامل بين العالمين المادي والافتراضي لربط مدخلات الدراجة بتجربة القيادة.",
-        "de": "Ich entwickelte die eingebettete Firmware zur Bewegungsverarbeitung und die physisch-virtuelle Integration zwischen Fahrradeingaben und Fahrerlebnis.",
-        "fr": "J’ai développé le firmware embarqué de traitement du mouvement et l’intégration physique–virtuel qui relie les entrées du vélo à l’expérience de conduite.",
-        "es": "Desarrollé el firmware embebido de procesamiento de movimiento y la integración físico-virtual que conecta las entradas de la bicicleta con la experiencia de conducción."
+        "en": "Development focused on the embedded movement-processing firmware and the physical-to-virtual integration that connects bicycle input to the riding experience.",
+        "ar": "ركّز التطوير على البرمجيات المضمنة لمعالجة الحركة وعلى التكامل بين العالم الفعلي والافتراضي الذي يربط مدخلات الدراجة بتجربة القيادة.",
+        "de": "Die Entwicklung konzentrierte sich auf die eingebettete Firmware zur Bewegungsverarbeitung und die Integration von physischer und virtueller Welt, die die Fahrradeingabe mit dem Fahrerlebnis verbindet.",
+        "fr": "Le développement s’est concentré sur le firmware embarqué de traitement du mouvement et sur l’intégration physique-virtuel qui relie les entrées du vélo à l’expérience de conduite.",
+        "es": "El desarrollo se centró en el firmware embebido de procesamiento del movimiento y en la integración físico-virtual que conecta la entrada de la bicicleta con la experiencia de conducción."
       },
       "engineering": {
         "en": "Embedded processing converts cycling movement into usable real-time riding input, then passes it into the virtual experience. The central integration challenge is maintaining responsive synchronization between pedaling and virtual motion so the interaction feels connected.",
@@ -2185,7 +2184,7 @@
         "ar": "مدرب دراجات ذكي يحول حركة الدراجة إلى سرعة ومعدل تبديل ومسافة لحظية لبرامج التدريب والتطبيقات التفاعلية.",
         "de": "Ein smarter Radtrainer, der Bewegung in Live-Geschwindigkeit, Trittfrequenz und Distanz für Trainingssoftware und interaktive Anwendungen umsetzt.",
         "fr": "Un trainer cycliste intelligent transformant le mouvement en vitesse, cadence et distance en direct pour logiciels d’entraînement et applications interactives.",
-        "es": "Un entrenador ciclista inteligente que convierte movimiento en velocidad, cadencia y distancia en directo para software de entrenamiento y aplicaciones interactivas."
+        "es": "Un entrenador ciclista inteligente que convierte el movimiento en velocidad, cadencia y distancia en directo para software de entrenamiento."
       },
       "overview": {
         "en": "Bike-Land turns physical bicycle movement into structured cycling measurements. Sensors and custom firmware derive live speed, cadence, and distance, while hardware integration connects those metrics to training software and interactive applications. Its focus is useful measurement and integration, distinct from VR Cycling’s immersive gameplay.",
@@ -2202,11 +2201,11 @@
         "es": "Poner métricas físicas en directo a disposición del entrenamiento digital y experiencias interactivas mediante un flujo de medición embebido fiable."
       },
       "contribution": {
-        "en": "I developed the custom firmware, physical sensor processing, cycling calculations, custom PCB, hardware integration, and connection of the measurements to compatible software.",
-        "ar": "طوّرت البرمجيات المخصصة ومعالجة المستشعرات الفعلية وحسابات الدراجات وPCB مخصصًا وتكامل العتاد وربط القياسات بالبرامج المتوافقة.",
-        "de": "Ich entwickelte kundenspezifische Firmware, Sensorsignalverarbeitung, Radberechnungen, PCB, Hardwareintegration und die Anbindung der Messwerte an kompatible Software.",
-        "fr": "J’ai développé le firmware sur mesure, le traitement des capteurs, les calculs cyclistes, le PCB, l’intégration matérielle et la connexion des mesures aux logiciels compatibles.",
-        "es": "Desarrollé el firmware personalizado, el procesamiento de sensores, los cálculos ciclistas, el PCB, la integración de hardware y la conexión de mediciones con software compatible."
+        "en": "Development covered custom firmware, physical sensor processing, cycling calculations, a custom PCB, hardware integration and the connection of the measurements to compatible software.",
+        "ar": "شمل التطوير برمجيات مضمنة مخصصة ومعالجة إشارات المستشعرات الفعلية وحسابات القيادة وPCB مخصصًا وتكامل العتاد وربط القياسات ببرمجيات متوافقة.",
+        "de": "Die Entwicklung umfasste eigene Firmware, die Verarbeitung physischer Sensordaten, Berechnungen zum Radfahren, eine kundenspezifische PCB, Hardware-Integration und die Anbindung der Messwerte an kompatible Software.",
+        "fr": "Le développement a couvert un firmware sur mesure, le traitement des capteurs physiques, les calculs de pédalage, un PCB sur mesure, l’intégration matérielle et la liaison des mesures avec des logiciels compatibles.",
+        "es": "El desarrollo abarcó firmware propio, el procesamiento de sensores físicos, los cálculos de ciclismo, un PCB personalizado, la integración de hardware y la conexión de las mediciones con software compatible."
       },
       "engineering": {
         "en": "The embedded pipeline processes physical sensor input into a coherent live measurement state before exposing it to connected applications. Stable real-time calculations and reliable hardware–software integration keep speed, cadence, and distance meaningful as cycling input changes.",
@@ -2330,11 +2329,11 @@
         "es": "Mantener movimientos financieros coherentes, trazables y reversibles, dando a los flujos operativos y los informes un contexto financiero compartido."
       },
       "contribution": {
-        "en": "I built the React and TypeScript application, Supabase/PostgreSQL data model and accounting logic, journal and transaction workflows, partner balances, expenses and inventory, reconciliation, reporting, and controlled reversal flows.",
-        "ar": "بنيت تطبيق React وTypeScript ونموذج بيانات Supabase/PostgreSQL والمنطق المحاسبي وسير القيود والمعاملات وأرصدة الشركاء والمصروفات والمخزون والتسوية والتقارير ومسارات العكس المنضبط.",
-        "de": "Ich entwickelte die React- und TypeScript-Anwendung, das Supabase/PostgreSQL-Datenmodell und die Buchungslogik, Journal- und Transaktionsabläufe, Partnerstände, Ausgaben und Bestand, Abstimmung, Berichte und kontrollierte Stornierung.",
-        "fr": "J’ai développé l’application React et TypeScript, le modèle Supabase/PostgreSQL et la logique comptable, les écritures et transactions, les soldes partenaires, les dépenses et stocks, les rapprochements, rapports et contrepassations contrôlées.",
-        "es": "Desarrollé la aplicación React y TypeScript, el modelo Supabase/PostgreSQL y la lógica contable, los flujos de asientos y transacciones, saldos de socios, gastos e inventario, conciliación, informes y reversiones controladas."
+        "en": "Development covered the React and TypeScript application, the Supabase/PostgreSQL data model and accounting logic, journal and transaction workflows, partner balances, expenses, inventory, reconciliation, reporting and controlled reversal flows.",
+        "ar": "شمل التطوير تطبيق React وTypeScript ونموذج بيانات Supabase/PostgreSQL والمنطق المحاسبي وسير القيود والمعاملات وأرصدة الشركاء والمصروفات والمخزون والتسوية والتقارير ومسارات العكس المنضبط.",
+        "de": "Die Entwicklung umfasste die React- und TypeScript-Anwendung, das Supabase/PostgreSQL-Datenmodell und die Buchungslogik, Journal- und Transaktionsabläufe, Partnerstände, Ausgaben, Bestand, Abstimmung, Berichte und kontrollierte Stornierungen.",
+        "fr": "Le développement a couvert l’application React et TypeScript, le modèle Supabase/PostgreSQL et la logique comptable, les écritures et transactions, les soldes partenaires, les dépenses, les stocks, les rapprochements, les rapports et les contrepassations contrôlées.",
+        "es": "El desarrollo abarcó la aplicación React y TypeScript, el modelo Supabase/PostgreSQL y la lógica contable, los flujos de asientos y transacciones, los saldos de socios, los gastos, el inventario, la conciliación, los informes y las reversiones controladas."
       },
       "engineering": {
         "en": "Posting workflows persist journal entries, with database constraints validating balanced double-entry movements. General Ledger and trial balance views derive from shared financial state; audit reasons and linked reversal entries preserve the history of corrections rather than silently removing the original movement.",
@@ -2460,11 +2459,11 @@
         "es": "Sustituir pasos dispersos por un flujo coordinado y trazable que preserve el contexto de cada contacto y campaña."
       },
       "contribution": {
-        "en": "I built the Next.js/React interface, TypeScript backend orchestration, Supabase/PostgreSQL data model, SMTP/IMAP integration, template and campaign workflows, queue logic, reply synchronization, and activity history.",
-        "ar": "بنيت واجهة Next.js/React وتنسيق الخدمات الخلفية بـTypeScript ونموذج بيانات Supabase/PostgreSQL وتكامل SMTP/IMAP ومسارات القوالب والحملات ومنطق الطوابير ومزامنة الردود وسجل النشاط.",
-        "de": "Ich entwickelte Next.js/React-Oberfläche, TypeScript-Backend-Orchestrierung, Supabase/PostgreSQL-Datenmodell, SMTP/IMAP-Integration, Vorlagen- und Kampagnenabläufe, Warteschlangenlogik, Antwortsynchronisierung und Aktivitätshistorie.",
-        "fr": "J’ai développé l’interface Next.js/React, l’orchestration backend TypeScript, le modèle Supabase/PostgreSQL, l’intégration SMTP/IMAP, les modèles et campagnes, les files, la synchronisation des réponses et l’historique d’activité.",
-        "es": "Desarrollé la interfaz Next.js/React, la orquestación backend TypeScript, el modelo Supabase/PostgreSQL, la integración SMTP/IMAP, plantillas y campañas, lógica de colas, sincronización de respuestas e historial de actividad."
+        "en": "Development covered the Next.js/React interface, TypeScript backend orchestration, the Supabase/PostgreSQL data model, SMTP/IMAP integration, template and campaign workflows, queue logic, reply synchronization and activity history.",
+        "ar": "شمل التطوير واجهة Next.js/React وتنسيق الخدمات الخلفية بـTypeScript ونموذج بيانات Supabase/PostgreSQL وتكامل SMTP/IMAP وسير القوالب والحملات ومنطق الطوابير ومزامنة الردود وسجل النشاط.",
+        "de": "Die Entwicklung umfasste die Next.js/React-Oberfläche, die Backend-Orchestrierung in TypeScript, das Supabase/PostgreSQL-Datenmodell, die SMTP/IMAP-Anbindung, Vorlagen- und Kampagnenabläufe, die Warteschlangenlogik, die Synchronisierung von Antworten und den Aktivitätsverlauf.",
+        "fr": "Le développement a couvert l’interface Next.js/React, l’orchestration backend en TypeScript, le modèle Supabase/PostgreSQL, l’intégration SMTP/IMAP, les workflows de modèles et de campagnes, la logique de file d’attente, la synchronisation des réponses et l’historique d’activité.",
+        "es": "El desarrollo abarcó la interfaz Next.js/React, la orquestación backend en TypeScript, el modelo Supabase/PostgreSQL, la integración SMTP/IMAP, los flujos de plantillas y campañas, la lógica de colas, la sincronización de respuestas y el historial de actividad."
       },
       "engineering": {
         "en": "Linked contact, campaign, template, message, queue, and reply records support backend orchestration. SMTP handles outgoing mail and IMAP brings replies back into the same context, while delivery state and activity history make campaign progress inspectable.",
@@ -2590,11 +2589,11 @@
         "es": "Hacer utilizable el vídeo para análisis de movimiento repetibles con evidencia visual y datos estructurados de la misma sesión."
       },
       "contribution": {
-        "en": "I built the PySide6 desktop interface, OpenCV video tools, YOLOv8 and BoT-SORT detection/tracking pipeline, spatial counting rules, background processing, annotated output, and CSV/Excel exports.",
-        "ar": "بنيت واجهة PySide6 لسطح المكتب وأدوات فيديو OpenCV ومسار الكشف والتتبع بـYOLOv8 وBoT-SORT وقواعد العد المكانية والمعالجة الخلفية والمخرجات المشروحة وتصدير CSV/Excel.",
-        "de": "Ich entwickelte die PySide6-Desktop-Oberfläche, OpenCV-Videowerkzeuge, YOLOv8/BoT-SORT-Erkennungs- und Trackingpipeline, räumliche Zählregeln, Hintergrundverarbeitung, annotierte Ausgabe und CSV/Excel-Exporte.",
-        "fr": "J’ai développé l’interface PySide6, les outils vidéo OpenCV, la chaîne de détection et suivi YOLOv8/BoT-SORT, les règles spatiales de comptage, le traitement en arrière-plan, les sorties annotées et les exports CSV/Excel.",
-        "es": "Desarrollé la interfaz PySide6, las herramientas OpenCV, el flujo de detección y seguimiento YOLOv8/BoT-SORT, las reglas espaciales de conteo, el procesamiento en segundo plano, las salidas anotadas y las exportaciones CSV/Excel."
+        "en": "Development covered the PySide6 desktop interface, OpenCV video tools, the YOLOv8 detection and BoT-SORT tracking pipeline, spatial counting rules, background processing, annotated output and CSV/Excel exports.",
+        "ar": "شمل التطوير واجهة سطح المكتب بـPySide6 وأدوات الفيديو بـOpenCV ومسار الكشف بـYOLOv8 والتتبع بـBoT-SORT وقواعد العد المكانية والمعالجة في الخلفية والمخرجات المشروحة والتصدير إلى CSV/Excel.",
+        "de": "Die Entwicklung umfasste die PySide6-Desktop-Oberfläche, OpenCV-Videowerkzeuge, die Pipeline aus YOLOv8-Erkennung und BoT-SORT-Tracking, räumliche Zählregeln, Hintergrundverarbeitung, annotierte Ausgabe und CSV/Excel-Exporte.",
+        "fr": "Le développement a couvert l’interface desktop PySide6, les outils vidéo OpenCV, la chaîne de détection YOLOv8 et de suivi BoT-SORT, les règles de comptage spatiales, le traitement en arrière-plan, la sortie annotée et les exports CSV/Excel.",
+        "es": "El desarrollo abarcó la interfaz de escritorio PySide6, las herramientas de vídeo con OpenCV, el flujo de detección YOLOv8 y seguimiento BoT-SORT, las reglas espaciales de conteo, el procesamiento en segundo plano, la salida anotada y las exportaciones CSV/Excel."
       },
       "engineering": {
         "en": "The pipeline maintains object identities across frames and applies user-defined lines and regions to tracked movements. Computationally intensive analysis runs separately from the interface so the desktop remains responsive, while video annotations and tabular exports reflect the same movement rules.",
@@ -2987,11 +2986,11 @@
       "es": "Contacto"
     },
     "subtitle": {
-      "en": "Direct channels for conversations about the work, product engineering, technical systems, and projects.",
-      "ar": "قنوات مباشرة للنقاش حول الأعمال المعروضة وهندسة المنتجات والأنظمة التقنية والمشاريع.",
-      "de": "Direkte Kanäle für Gespräche über die gezeigten Arbeiten, Produktentwicklung, technische Systeme und Projekte.",
-      "fr": "Des canaux directs pour échanger autour des travaux présentés, de l’ingénierie produit, des systèmes techniques et des projets.",
-      "es": "Canales directos para conversar sobre el trabajo mostrado, ingeniería de producto, sistemas técnicos y proyectos."
+      "en": "Direct channels for professional opportunities, technical collaboration and conversations about the work.",
+      "ar": "قنوات مباشرة للفرص المهنية والتعاون التقني والنقاش حول الأعمال المعروضة.",
+      "de": "Direkte Kanäle für berufliche Möglichkeiten, technische Zusammenarbeit und Gespräche über die gezeigten Arbeiten.",
+      "fr": "Des canaux directs pour les opportunités professionnelles, la collaboration technique et les échanges autour des travaux présentés.",
+      "es": "Canales directos para oportunidades profesionales, colaboración técnica y conversaciones sobre el trabajo mostrado."
     },
     "eyebrow": {
       "en": "Product · Engineering · R&D",
@@ -3001,18 +3000,18 @@
       "es": "Producto · Ingeniería · I+D"
     },
     "heading": {
-      "en": "Product, engineering, and technical conversations.",
-      "ar": "نقاشات حول المنتجات والهندسة والجوانب التقنية.",
-      "de": "Gespräche über Produkte, Engineering und Technik.",
-      "fr": "Échanges autour du produit, de l’ingénierie et de la technique.",
-      "es": "Conversaciones sobre producto, ingeniería y tecnología."
+      "en": "Opportunities, collaboration and technical conversations.",
+      "ar": "فرص وتعاون ونقاشات تقنية.",
+      "de": "Möglichkeiten, Zusammenarbeit und technische Gespräche.",
+      "fr": "Opportunités, collaboration et échanges techniques.",
+      "es": "Oportunidades, colaboración y conversaciones técnicas."
     },
     "supporting": {
-      "en": "For questions about the work shown here, product discussions, technical conversations, or project-related communication, reach out directly by email or WhatsApp.",
-      "ar": "للاستفسارات حول الأعمال المعروضة هنا أو مناقشة منتج أو موضوع تقني أو التواصل المتعلق بمشروع، يمكن التواصل مباشرة عبر البريد الإلكتروني أو واتساب.",
-      "de": "Für Fragen zu den hier gezeigten Arbeiten, Produktgespräche, technische Themen oder projektbezogene Kommunikation ist eine direkte Kontaktaufnahme per E-Mail oder WhatsApp möglich.",
-      "fr": "Pour toute question sur les travaux présentés, discussion produit, échange technique ou communication liée à un projet, le contact direct est possible par e-mail ou WhatsApp.",
-      "es": "Para preguntas sobre el trabajo mostrado, conversaciones de producto, temas técnicos o comunicación relacionada con un proyecto, el contacto directo está disponible por correo electrónico o WhatsApp."
+      "en": "For professional opportunities, technical collaboration or questions about the work shown here, reach out directly by email or WhatsApp.",
+      "ar": "للفرص المهنية أو التعاون التقني أو الاستفسار عن الأعمال المعروضة هنا، يمكن التواصل مباشرة عبر البريد الإلكتروني أو واتساب.",
+      "de": "Für berufliche Möglichkeiten, technische Zusammenarbeit oder Fragen zu den hier gezeigten Arbeiten ist eine direkte Kontaktaufnahme per E-Mail oder WhatsApp möglich.",
+      "fr": "Pour une opportunité professionnelle, une collaboration technique ou une question sur les travaux présentés, le contact direct est possible par e-mail ou WhatsApp.",
+      "es": "Para oportunidades profesionales, colaboración técnica o preguntas sobre el trabajo mostrado, el contacto directo está disponible por correo electrónico o WhatsApp."
     },
     "actions": {
       "email": {
@@ -3323,6 +3322,13 @@
       "de": "Meta-WhatsApp-Integration",
       "fr": "Intégration Meta WhatsApp",
       "es": "Integración con Meta WhatsApp"
+    },
+    "Motion Sensors": {
+      "en": "Motion Sensors",
+      "ar": "مستشعرات الحركة",
+      "de": "Bewegungssensoren",
+      "fr": "Capteurs de mouvement",
+      "es": "Sensores de movimiento"
     }
   }
 }

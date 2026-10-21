@@ -13,9 +13,11 @@ export default function CaseArchitecture({asset,compact=false}:{asset:ProjectAss
   {title:'Flutter',detail:labels.controller},
   {title:copy.capabilities[2],detail:'LED Control'},
  ]:terminal?[
-  {title:'NFC',detail:labels.identity},{title:'WPF POS',detail:labels.clients},
-  {title:'.NET Web API',detail:copy.capabilities[1]},
-  {title:labels.sharedData,detail:copy.capabilities[2]},
+  {title:'RFID',detail:labels.termAuth},
+  {title:labels.termClients,detail:labels.termClientsDetail},
+  {title:'Supabase',detail:labels.termData},
+  {title:labels.termDashboard,detail:labels.termDashboardDetail},
+  {title:labels.termSensors,detail:labels.termSensorsDetail},
  ]:access?[
   {title:labels.member,detail:'Flutter / Dart'},
   {title:'Supabase',detail:labels.sharedData},
@@ -40,17 +42,19 @@ export default function CaseArchitecture({asset,compact=false}:{asset:ProjectAss
   {title:'Sensors',detail:labels.input},{title:'Embedded C++',detail:labels.processing},
   {title:copy.capabilities[0],detail:''},{title:copy.capabilities[2],detail:''},
  ]:asset.id==='financial-operations'?[
-  {title:'React / TypeScript',detail:labels.clients},
-  {title:'PostgreSQL',detail:labels.sharedData},
+  {title:'React / TypeScript',detail:labels.webApp},
+  {title:'Supabase / PostgreSQL',detail:labels.sharedData},
   {title:copy.capabilities[0],detail:''},{title:copy.capabilities[2],detail:''},
  ]:asset.id==='outreach-automation'?[
   {title:copy.capabilities[0],detail:'Next.js / TypeScript'},
   {title:copy.capabilities[1],detail:'SMTP'},
   {title:copy.capabilities[2],detail:'IMAP'},
  ]:[
-  {title:'OpenCV / YOLOv8',detail:copy.capabilities[0]},
-  {title:'BoT-SORT',detail:copy.capabilities[1]},
-  {title:'PySide6',detail:copy.capabilities[2]},
+  {title:'YOLOv8',detail:labels.trDetect},
+  {title:'BoT-SORT',detail:labels.trTrack},
+  {title:labels.trCount,detail:labels.trCountDetail},
+  {title:'PySide6',detail:labels.trUi},
+  {title:'CSV / Excel',detail:labels.trReports},
  ];
  return <figure className={`case-architecture${compact?' case-architecture--compact':''}`} aria-label={labels.illustration}>
   <div className="system-caption"><span className="brand-dash" aria-hidden="true"/><span>{labels.illustration}</span></div>

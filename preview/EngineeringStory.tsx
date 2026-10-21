@@ -10,11 +10,11 @@ import MotionField from './MotionField';
 function Architecture() {
  const {locale}=useI18n();const copy=storyCopy[locale];
  return <figure className="architecture" aria-label={copy.diagram}>
-  <div className="architecture-clients" dir="ltr"><span><b>WPF POS</b><small>{copy.terminal[0]}</small></span><span><b>NFC</b><small>{copy.terminal[1]}</small></span></div>
+  <div className="architecture-clients" dir="ltr"><span><b>RFID</b><small>{copy.terminal[0]}</small></span><span><b>Windows</b><small>{copy.terminal[1]}</small></span></div>
   <div className="architecture-links" aria-hidden="true"><span><Glyph name="down"/></span><span><Glyph name="down"/></span></div>
-  <div className="architecture-api"><span className="index">01 — API</span><strong dir="ltr">.NET Web API</strong><p>{copy.terminal[2]}</p></div>
+  <div className="architecture-api"><span className="index">01 — Data</span><strong dir="ltr">Supabase</strong><p>{copy.terminal[2]}</p></div>
   <div className="architecture-links" aria-hidden="true"><span><Glyph name="up-down"/></span><span><Glyph name="up-down"/></span></div>
-  <div className="architecture-clients"><span><b>{locale==='ar'?'البيانات المركزية':locale==='de'?'Zentrale Daten':locale==='fr'?'Données centrales':locale==='es'?'Datos centrales':'Central data'}</b><small>{locale==='ar'?'الحسابات · الفواتير · الاستخدام':locale==='de'?'Konten · Rechnungen · Nutzung':locale==='fr'?'Comptes · factures · utilisation':locale==='es'?'Cuentas · facturas · uso':'Accounts · invoices · usage'}</small></span><span><b>{locale==='ar'?'الأجهزة المتصلة':locale==='de'?'Verbundene Geräte':locale==='fr'?'Appareils connectés':locale==='es'?'Dispositivos conectados':'Connected devices'}</b><small>{copy.terminal[2]}</small></span></div>
+  <div className="architecture-clients"><span><b>{locale==='ar'?'البيانات التشغيلية':locale==='de'?'Betriebsdaten':locale==='fr'?'Données opérationnelles':locale==='es'?'Datos operativos':'Operational data'}</b><small>{locale==='ar'?'الموظفون · الجلسات · الاستخدام':locale==='de'?'Mitarbeitende · Sitzungen · Nutzung':locale==='fr'?'Employés · sessions · usage':locale==='es'?'Empleados · sesiones · uso':'Employees · sessions · usage'}</small></span><span><b>{locale==='ar'?'مستشعرات الحركة':locale==='de'?'Bewegungssensoren':locale==='fr'?'Capteurs de mouvement':locale==='es'?'Sensores de movimiento':'Motion sensors'}</b><small>{copy.terminal[2]}</small></span></div>
   <figcaption>{copy.diagram}</figcaption>
  </figure>;
 }

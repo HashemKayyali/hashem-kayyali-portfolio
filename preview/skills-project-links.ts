@@ -22,7 +22,7 @@ export const PROJECT_SKILLS={
  'eventies':['next-js','react','typescript','tailwind-css','responsive-ui','supabase'],
  'glitzz-lab':['next-js','react','typescript','tailwind-css','responsive-ui','supabase','rest-apis'],
  'umniah-youthconnect':['flutter','dart','supabase','cross-platform','excel-csv'],
- 'terminal-nfc':['csharp','wpf','dotnet-web-api','rest-apis','supabase','nfc','microcontrollers','real-time-communication','custom-hardware'],
+ 'terminal-nfc':['csharp','wpf','supabase','microcontrollers','real-time-communication','custom-hardware'],
  'bike-tower':['flutter','dart','cross-platform','microcontrollers','embedded-cpp','websocket','wifi','real-time-communication','pcb-design','custom-hardware'],
  'basket-beats':['flutter','dart','microcontrollers','embedded-cpp','websocket','wifi','real-time-communication','pcb-design','custom-hardware'],
  'vr-cycling':['microcontrollers','embedded-cpp','ble','real-time-communication','pcb-design','custom-hardware'],
