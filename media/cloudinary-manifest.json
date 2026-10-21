@@ -638,10 +638,10 @@
    "source": "/covers/terminal-nfc.webp",
    "format": "webp",
    "width": 1600,
-   "height": 902,
-   "bytes": 109328,
-   "md5": "6c8c1266ee222be3a12362eb5a2cb441",
-   "sha256": "43fa1087b9dbef0e70e14feca6447f36ae8f22233c6a8d488cbc7a2f0a8f0636",
+   "height": 900,
+   "bytes": 148488,
+   "md5": "d9eee80b8aa2d53b26d1700d60ecaed6",
+   "sha256": "36fe6ba28d572e26063ffc333ff545e574d6855c0df8f9a2e8768063d695a74c",
    "localFallbacks": [
     "/covers/terminal-nfc-320.webp",
     "/covers/terminal-nfc-640.webp",
@@ -650,6 +650,7 @@
    ],
    "usedBy": [
     "ProductImage srcset (terminal-nfc)",
+    "preview/terminal-evidence.ts",
     "projectAssets terminal-nfc cover"
    ],
    "privacy": "approved public media",
@@ -662,7 +663,8 @@
     "bytes": 109328,
     "md5": "6c8c1266ee222be3a12362eb5a2cb441",
     "secureUrl": "https://res.cloudinary.com/dymhoaarh/image/upload/v1792406761/portfolio/projects/terminal-nfc/cover.webp",
-    "verifiedAt": "2026-10-19T10:46:02.310Z"
+    "verifiedAt": "2026-10-19T10:46:02.310Z",
+    "stale": true
    }
   },
   {

@@ -9,6 +9,7 @@ import HomeSilk from './HomeSilk';
 import dimensions from './media-dimensions';
 import { type PreviewRoute, type Navigate } from './routes';
 import {caseCopy} from './case-copy';
+import {terminalEvidence} from './terminal-evidence';
 import StoryMedia from './StoryMedia';
 import {storyCopy} from './story-copy';
 import {NavLink} from './PageShell';
@@ -38,7 +39,7 @@ export function ProductImage({ asset, full = false, eager = false, sizes = '(max
     sizes={sizes}
     loading={eager ? 'eager' : 'lazy'} decoding="async"
     fetchPriority={eager?'high':undefined}
-    alt={studioProjectAlt(asset.id, asset.image, supplied ? `${t.projects[asset.id].title}. ${caseCopy[locale].supplied}` : t.projects[asset.id].mediaCaption ?? format(t.projectModal.a11y.screenshot, { title: t.projects[asset.id].title, index: 1 }))} />;
+    alt={studioProjectAlt(asset.id, asset.image, supplied ? `${t.projects[asset.id].title}. ${terminalEvidence[asset.image]?.[locale].alt??caseCopy[locale].supplied}` : t.projects[asset.id].mediaCaption ?? format(t.projectModal.a11y.screenshot, { title: t.projects[asset.id].title, index: 1 }))} />;
 }
 
 export function Hero({route,navigate}:{route:PreviewRoute;navigate:Navigate}) {

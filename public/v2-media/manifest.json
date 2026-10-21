@@ -307,7 +307,7 @@
     "source": "preview/media-sources/bike-concept.png",
     "stem": "bike-concept",
     "classification": "AI-generated conceptual artwork via imagegen",
-    "purpose": "Symbolic physical input \u2192 coordinated light; not real hardware or installation",
+    "purpose": "Symbolic physical input → coordinated light; not real hardware or installation",
     "redactions": [],
     "derivatives": [
       {
@@ -492,6 +492,168 @@
         "width": 512,
         "height": 384,
         "bytes": 30538
+      }
+    ]
+  },
+  {
+    "source": "owner-supplied screenshot 16.webp (crop (0, 0, 1283, 515))",
+    "stem": "terminal-sim-01",
+    "classification": "actual interface, demo data",
+    "purpose": "The Terminal Simulator Control admin dashboard (current system); records shown are demo/test data",
+    "derivatives": [
+      {
+        "src": "/v2-media/terminal-sim-01-320.webp",
+        "width": 320,
+        "height": 128,
+        "bytes": 5280
+      },
+      {
+        "src": "/v2-media/terminal-sim-01-640.webp",
+        "width": 640,
+        "height": 257,
+        "bytes": 14614
+      },
+      {
+        "src": "/v2-media/terminal-sim-01-1280.webp",
+        "width": 1280,
+        "height": 514,
+        "bytes": 35652
+      },
+      {
+        "src": "/v2-media/terminal-sim-01-1283.webp",
+        "width": 1283,
+        "height": 515,
+        "bytes": 35506
+      }
+    ]
+  },
+  {
+    "source": "owner-supplied screenshot 5.png (uncropped)",
+    "stem": "terminal-sim-02",
+    "classification": "actual interface, demo data",
+    "purpose": "The Terminal Simulator Control admin dashboard (current system); records shown are demo/test data",
+    "derivatives": [
+      {
+        "src": "/v2-media/terminal-sim-02-320.webp",
+        "width": 320,
+        "height": 269,
+        "bytes": 9696
+      },
+      {
+        "src": "/v2-media/terminal-sim-02-640.webp",
+        "width": 640,
+        "height": 538,
+        "bytes": 27268
+      },
+      {
+        "src": "/v2-media/terminal-sim-02-1280.webp",
+        "width": 1280,
+        "height": 1076,
+        "bytes": 79156
+      },
+      {
+        "src": "/v2-media/terminal-sim-02-1440.webp",
+        "width": 1440,
+        "height": 1210,
+        "bytes": 91114
+      }
+    ]
+  },
+  {
+    "source": "owner-supplied screenshot 16.webp (crop (255, 515, 925, 1010))",
+    "stem": "terminal-sim-03",
+    "classification": "actual interface, demo data",
+    "purpose": "The Terminal Simulator Control admin dashboard (current system); records shown are demo/test data",
+    "derivatives": [
+      {
+        "src": "/v2-media/terminal-sim-03-320.webp",
+        "width": 320,
+        "height": 236,
+        "bytes": 5642
+      },
+      {
+        "src": "/v2-media/terminal-sim-03-640.webp",
+        "width": 640,
+        "height": 473,
+        "bytes": 16164
+      },
+      {
+        "src": "/v2-media/terminal-sim-03-670.webp",
+        "width": 670,
+        "height": 495,
+        "bytes": 16778
+      }
+    ]
+  },
+  {
+    "source": "owner-supplied screenshot 16.webp (crop (255, 1012, 925, 1450))",
+    "stem": "terminal-sim-04",
+    "classification": "actual interface, demo data",
+    "purpose": "The Terminal Simulator Control admin dashboard (current system); records shown are demo/test data",
+    "derivatives": [
+      {
+        "src": "/v2-media/terminal-sim-04-320.webp",
+        "width": 320,
+        "height": 209,
+        "bytes": 4790
+      },
+      {
+        "src": "/v2-media/terminal-sim-04-640.webp",
+        "width": 640,
+        "height": 418,
+        "bytes": 13972
+      },
+      {
+        "src": "/v2-media/terminal-sim-04-670.webp",
+        "width": 670,
+        "height": 438,
+        "bytes": 14398
+      }
+    ]
+  },
+  {
+    "source": "owner-supplied screenshot 18.webp (crop (0, 0, 266, 740))",
+    "stem": "terminal-sim-05",
+    "classification": "actual interface, demo data",
+    "purpose": "The Terminal Simulator Control admin dashboard (current system); records shown are demo/test data",
+    "derivatives": [
+      {
+        "src": "/v2-media/terminal-sim-05-266.webp",
+        "width": 266,
+        "height": 740,
+        "bytes": 18978
+      }
+    ]
+  },
+  {
+    "source": "owner-supplied screenshot 2.png (crop (0, 0, 1440, 775))",
+    "stem": "terminal-sim-06",
+    "classification": "actual interface, demo data",
+    "purpose": "The Terminal Simulator Control admin dashboard (current system); records shown are demo/test data",
+    "derivatives": [
+      {
+        "src": "/v2-media/terminal-sim-06-320.webp",
+        "width": 320,
+        "height": 172,
+        "bytes": 8744
+      },
+      {
+        "src": "/v2-media/terminal-sim-06-640.webp",
+        "width": 640,
+        "height": 344,
+        "bytes": 25612
+      },
+      {
+        "src": "/v2-media/terminal-sim-06-1280.webp",
+        "width": 1280,
+        "height": 689,
+        "bytes": 77734
+      },
+      {
+        "src": "/v2-media/terminal-sim-06-1440.webp",
+        "width": 1440,
+        "height": 775,
+        "bytes": 90920
       }
     ]
   }

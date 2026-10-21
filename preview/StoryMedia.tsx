@@ -9,6 +9,8 @@ const dimensions:Record<string,{width:number;height:number}>={...original,...gen
 const stems:Record<string,string>={
  '/projects/the-terminal-nfc/cover.webp':'terminal-cover',
  '/projects/the-terminal-nfc/screenshot-01.webp':'terminal-invoices',
+
+ ...Object.fromEntries([['01',1283],['02',1440],['03',670],['04',670],['05',266],['06',1440]].map(([n,w])=>[`/v2-media/terminal-sim-${n}-${w}.webp`,`terminal-sim-${n}`])),
  ...Object.fromEntries([1,2,3,4].map(index=>[`/projects/bike-tower/screenshot-${String(index).padStart(2,'0')}.webp`,`bike-interface-${index}`]))
 };
 export function mediaVariants(source:string) {

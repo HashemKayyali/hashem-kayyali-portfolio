@@ -6,6 +6,7 @@ import {NavLink} from './PageShell';
 import type {Navigate,PreviewRoute} from './routes';
 import StoryMedia,{caseOpeningSizes,safeSource} from './StoryMedia';
 import {caseCopy} from './case-copy';
+import {terminalEvidence} from './terminal-evidence';
 import {storyCopy} from './story-copy';
 import {casePresentation,visibleCaseMedia,caseNeighbors} from './case-presentation';
 import CaseArchitecture from './CaseArchitecture';
@@ -30,8 +31,8 @@ export default function SignatureCaseStudy({asset,route,navigate}:Props) {
  useCaseMotion(root,`${asset.id}:${locale}`,locale==='ar');
  useEffect(()=>{viewer.current?.close();setExpanded(null);},[asset.id,locale]);
  const evidence=copy.mediaCaption??(presentation.evidence==='redacted'?storyCopy[locale].redacted:presentation.evidence==='illustration'?labels.illustration:presentation.evidence==='supplied'?labels.supplied:asset.categoryKey==='webPlatform'?labels.publicInterface:storyCopy[locale].real);
- const caption=(source:string)=>studioProjectCaption(asset.id,source)||(source.includes('/bike-tower/screenshot-')?storyCopy[locale].redacted:isSuppliedCover(source)||isCloudinaryUrl(source)?labels.supplied:evidence);
- const alternativeText=(source:string)=>studioProjectAlt(asset.id,source,`${copy.title}. ${caption(source)}`);
+ const caption=(source:string)=>studioProjectCaption(asset.id,source)||(asset.id==='terminal-nfc'?terminalEvidence[source]?.[locale].caption:undefined)||(source.includes('/bike-tower/screenshot-')?storyCopy[locale].redacted:isSuppliedCover(source)||isCloudinaryUrl(source)?labels.supplied:evidence);
+ const alternativeText=(source:string)=>studioProjectAlt(asset.id,source,asset.id==='terminal-nfc'&&terminalEvidence[source]?`${copy.title}. ${terminalEvidence[source][locale].alt}`:`${copy.title}. ${caption(source)}`);
  const media=(source:string,eager=false,sizes=caseOpeningSizes)=><StoryMedia source={source} alt={alternativeText(source)} eager={eager} priority={eager} sizes={sizes}/>;
  const reveal=(source:string,caption:string,event:React.MouseEvent<HTMLButtonElement>)=>{opener.current=event.currentTarget;setExpanded({source:safeSource(source),caption});viewer.current?.showModal();};
  const opening=<section className={`case-opening opening--${presentation.opening}`} aria-labelledby="case-title">

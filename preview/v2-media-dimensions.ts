@@ -158,5 +158,81 @@ export default {
   "/v2-media/fluid-still.webp": {
     "width": 384,
     "height": 256
+  },
+  "/v2-media/terminal-sim-01-320.webp": {
+    "width": 320,
+    "height": 128
+  },
+  "/v2-media/terminal-sim-01-640.webp": {
+    "width": 640,
+    "height": 257
+  },
+  "/v2-media/terminal-sim-01-1280.webp": {
+    "width": 1280,
+    "height": 514
+  },
+  "/v2-media/terminal-sim-01-1283.webp": {
+    "width": 1283,
+    "height": 515
+  },
+  "/v2-media/terminal-sim-02-320.webp": {
+    "width": 320,
+    "height": 269
+  },
+  "/v2-media/terminal-sim-02-640.webp": {
+    "width": 640,
+    "height": 538
+  },
+  "/v2-media/terminal-sim-02-1280.webp": {
+    "width": 1280,
+    "height": 1076
+  },
+  "/v2-media/terminal-sim-02-1440.webp": {
+    "width": 1440,
+    "height": 1210
+  },
+  "/v2-media/terminal-sim-03-320.webp": {
+    "width": 320,
+    "height": 236
+  },
+  "/v2-media/terminal-sim-03-640.webp": {
+    "width": 640,
+    "height": 473
+  },
+  "/v2-media/terminal-sim-03-670.webp": {
+    "width": 670,
+    "height": 495
+  },
+  "/v2-media/terminal-sim-04-320.webp": {
+    "width": 320,
+    "height": 209
+  },
+  "/v2-media/terminal-sim-04-640.webp": {
+    "width": 640,
+    "height": 418
+  },
+  "/v2-media/terminal-sim-04-670.webp": {
+    "width": 670,
+    "height": 438
+  },
+  "/v2-media/terminal-sim-05-266.webp": {
+    "width": 266,
+    "height": 740
+  },
+  "/v2-media/terminal-sim-06-320.webp": {
+    "width": 320,
+    "height": 172
+  },
+  "/v2-media/terminal-sim-06-640.webp": {
+    "width": 640,
+    "height": 344
+  },
+  "/v2-media/terminal-sim-06-1280.webp": {
+    "width": 1280,
+    "height": 689
+  },
+  "/v2-media/terminal-sim-06-1440.webp": {
+    "width": 1440,
+    "height": 775
   }
 };
