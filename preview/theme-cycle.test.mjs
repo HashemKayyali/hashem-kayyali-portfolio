@@ -69,12 +69,12 @@ test('Repeated visibility events never create concurrent timers',async t=>{
  const c=await cycle(t);for(let i=0;i<5;i++)doc.dispatch('visibilitychange');
  c.advance(10_000);assert.equal(c.theme(),'atelier','exactly one step');c.advance(9_000);assert.equal(c.theme(),'atelier');c.stop();
 });
-test('Scrolling, typing, open menus, dialogs and transitions defer the change until quiet',async t=>{
+test('Scrolling, typing, open menus, dialogs and transitions never delay the change',async t=>{
  const c=await cycle(t);c.advance(9_500);dispatchEvent(new Event('scroll'));c.advance(500);
- assert.equal(c.theme(),'metal','no change while scrolling');c.advance(1_200);assert.equal(c.theme(),'atelier','lands once scrolling stops');
+ assert.equal(c.theme(),'atelier','changes on schedule even while scrolling');
  for(const block of [()=>{doc.activeElement={matches:()=>true};},()=>{root.menuOpen=true;},()=>{root.dataset.projectTransit='true';},()=>{doc.selectors.add('dialog[open]');},()=>{doc.selectors.add('.route-stage[inert]');}]){
-  const before=c.theme();block();c.advance(40_000);assert.equal(c.theme(),before,'deferred');
-  doc.activeElement=null;root.menuOpen=false;delete root.dataset.projectTransit;doc.selectors.clear();c.advance(1_200);assert.notEqual(c.theme(),before,'resumes');c.advance(-0);
+  const before=c.theme();block();c.advance(10_000);assert.notEqual(c.theme(),before,'not deferred');
+  doc.activeElement=null;root.menuOpen=false;delete root.dataset.projectTransit;doc.selectors.clear();
  }
  c.stop();
 });
