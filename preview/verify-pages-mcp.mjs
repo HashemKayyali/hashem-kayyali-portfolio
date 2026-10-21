@@ -1,7 +1,7 @@
 import {connect} from './mcp-client.mjs';
 import {writeFile} from 'node:fs/promises';
 import {projectAssets,filterOrder} from '../data/projectAssets.ts';
-import {profile,RESUME_PDF,RESUME_DOCX} from '../data/profile.ts';
+import {profile,RESUME_PDF} from '../data/profile.ts';
 const client=await connect('playwright'),records=[];
 const call=async(name,args)=>{const result=await client.call(name,args);records.push({name,result});if(result.isError)throw new Error(JSON.stringify(result));return result;};
 try {
@@ -47,7 +47,7 @@ try {
   await page.goto('http://127.0.0.1:4176/preview/en/contact/');await page.locator('form').waitFor();await page.locator('button[type=submit]').click();assert(await page.locator('.prepared-draft').count()===0,'Empty form accepted');
   await page.locator('#contact-name').fill('Portfolio Review');await page.locator('#contact-email').fill('review@example.com');await page.locator('#contact-message').fill('Reviewing the local engineering portfolio preview.');await page.locator('button[type=submit]').click();await page.locator('.prepared-draft').waitFor();const mailto=await page.locator('.prepared-draft').getAttribute('href');assert(mailto.startsWith('mailto:${profile.email}?')&&new URL(mailto).searchParams.get('body').includes('review@example.com'),'Draft recipient or body incorrect');await page.locator('#contact-message').fill('Changed');assert(await page.locator('.prepared-draft').count()===0,'Stale draft retained after edits');
   assert(await page.locator('a[href="${profile.social.email}"]').count()===1,'Real email link missing');
-  await page.goto('http://127.0.0.1:4176/preview/en/experience/');await page.locator('.education').waitFor();assert(await page.locator('a[href="${RESUME_PDF}"]').count()===1&&await page.locator('a[href="${RESUME_DOCX}"]').count()===1,'Resume links missing');
+  await page.goto('http://127.0.0.1:4176/preview/en/experience/');await page.locator('.education').waitFor();assert(await page.locator('a[href="${RESUME_PDF}"]').count()===1&&await page.locator('a[href$=".docx"]').count()===0,'Resume links missing');
   await page.goto('http://127.0.0.1:4176/preview/ar/projects/unknown/');await page.locator('.not-found').waitFor();await page.locator('.not-found a').click();await page.locator('.hero').waitFor();
   return {filters:6,cases:11,history:true,reload:true,localizedNavigation:true,headingFocus:true,mobileMenu:true,dialogKeyboard:true,contactDraftValidated:true,resumeLinks:true,recoverableNotFound:true};
  }`});console.log('Navigation, all 11 cases, contact and keyboard flows passed');

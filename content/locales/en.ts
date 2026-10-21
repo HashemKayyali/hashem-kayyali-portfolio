@@ -241,9 +241,8 @@ const en: Dictionary = {
     "downloadCard": {
       "title": "Download Resume",
       "copy": "A concise document version of the professional experience, engineering scope, and selected work presented in this portfolio.",
-      "availability": "Available as PDF and Word.",
-      "pdf": "Download PDF",
-      "word": "Download Word"
+      "availability": "Available as PDF.",
+      "pdf": "Download PDF"
     },
     "education": {
       "title": "Education",

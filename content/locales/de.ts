@@ -241,9 +241,8 @@ const de: Dictionary = {
     "downloadCard": {
       "title": "Lebenslauf herunterladen",
       "copy": "Eine kompakte Dokumentversion der Berufserfahrung, des technischen Umfangs und der ausgewählten Arbeiten aus diesem Portfolio.",
-      "availability": "Als PDF und Word verfügbar.",
-      "pdf": "PDF herunterladen",
-      "word": "Word herunterladen"
+      "availability": "Als PDF verfügbar.",
+      "pdf": "PDF herunterladen"
     },
     "education": {
       "title": "Ausbildung",

@@ -1084,11 +1084,11 @@
         "es": "Una versión documental concisa de la experiencia profesional, el alcance de ingeniería y los trabajos seleccionados que aparecen en este portafolio."
       },
       "availability": {
-        "en": "Available as PDF and Word.",
-        "ar": "متاحة بصيغتي PDF وWord.",
-        "de": "Als PDF und Word verfügbar.",
-        "fr": "Disponible en PDF et Word.",
-        "es": "Disponible en PDF y Word."
+        "en": "Available as PDF.",
+        "ar": "متاحة بصيغة PDF.",
+        "de": "Als PDF verfügbar.",
+        "fr": "Disponible en PDF.",
+        "es": "Disponible en PDF."
       },
       "pdf": {
         "en": "Download PDF",
@@ -1096,13 +1096,6 @@
         "de": "PDF herunterladen",
         "fr": "Télécharger le PDF",
         "es": "Descargar PDF"
-      },
-      "word": {
-        "en": "Download Word",
-        "ar": "تحميل Word",
-        "de": "Word herunterladen",
-        "fr": "Télécharger Word",
-        "es": "Descargar Word"
       }
     },
     "education": {

@@ -241,9 +241,8 @@ const ar: Dictionary = {
     "downloadCard": {
       "title": "تحميل السيرة الذاتية",
       "copy": "نسخة مختصرة تجمع الخبرة المهنية والنطاق الهندسي وأبرز الأعمال المعروضة في هذا البورتفوليو.",
-      "availability": "متاحة بصيغتي PDF وWord.",
-      "pdf": "تحميل PDF",
-      "word": "تحميل Word"
+      "availability": "متاحة بصيغة PDF.",
+      "pdf": "تحميل PDF"
     },
     "education": {
       "title": "التعليم",

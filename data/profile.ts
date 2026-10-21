@@ -22,7 +22,6 @@ export const profile: Profile = {
 };
 
 export const RESUME_PDF = '/resume/hashem-kayyali-resume.pdf';
-export const RESUME_DOCX = '/resume/hashem-kayyali-resume.docx';
 export const PROFILE_IMAGE = '/images/hashem-profile.webp';
 
 /**

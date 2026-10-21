@@ -3,7 +3,7 @@ import { Download, FileText, GraduationCap } from 'lucide-react';
 import SectionWrapper from '../components/SectionWrapper';
 import { useReveal } from '../components/useReveal';
 import BurgundyWarpBackground from '../components/ui/burgundy-warp-background';
-import { RESUME_DOCX, RESUME_PDF } from '../data/profile';
+import { RESUME_PDF } from '../data/profile';
 import { projectAssets } from '../data/projectAssets';
 import { useI18n } from '../i18n/useI18n';
 import ExperienceTimeline from '../components/ExperienceTimeline';
@@ -74,9 +74,6 @@ const Resume: React.FC = () => {
             <div className="resume-download__actions m-beats m-beats--inline m-beats--tight">
               <a href={RESUME_PDF} download className="resume-btn resume-btn--primary">
                 <Download size={16} aria-hidden="true" /> {t.resume.downloadCard.pdf}
-              </a>
-              <a href={RESUME_DOCX} download className="resume-btn resume-btn--ghost">
-                <Download size={16} aria-hidden="true" /> {t.resume.downloadCard.word}
               </a>
             </div>
             <p className="resume-download__note">

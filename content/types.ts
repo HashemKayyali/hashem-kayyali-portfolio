@@ -178,7 +178,6 @@ export interface Dictionary {
       copy: string;
       availability: string;
       pdf: string;
-      word: string;
     };
     education: {
       title: string;

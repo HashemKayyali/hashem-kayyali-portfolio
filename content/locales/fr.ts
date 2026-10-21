@@ -241,9 +241,8 @@ const fr: Dictionary = {
     "downloadCard": {
       "title": "Télécharger le CV",
       "copy": "Une version documentaire concise de l’expérience professionnelle, du périmètre d’ingénierie et des travaux sélectionnés présentés dans ce portfolio.",
-      "availability": "Disponible en PDF et Word.",
-      "pdf": "Télécharger le PDF",
-      "word": "Télécharger Word"
+      "availability": "Disponible en PDF.",
+      "pdf": "Télécharger le PDF"
     },
     "education": {
       "title": "Formation",

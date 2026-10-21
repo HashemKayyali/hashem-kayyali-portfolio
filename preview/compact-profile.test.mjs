@@ -9,7 +9,7 @@ import {renderToStaticMarkup} from 'react-dom/server';
 import * as skillLinks from './skills-project-links.ts';
 const {SKILL_IDS,projectsForSkills}=skillLinks;
 import {projectAssets} from '../data/projectAssets.ts';
-import {experienceAssets,RESUME_PDF,RESUME_DOCX} from '../data/profile.ts';
+import {experienceAssets,RESUME_PDF} from '../data/profile.ts';
 import {workbenchArtwork,disciplineArtwork,workbenchCopy} from './skills-workbench-copy.ts';
 import {pageCopy} from './page-copy.ts';
 
@@ -35,7 +35,7 @@ const motion={captureLayout(){},captureEvidence(){}};
 function component(path,locale){
  const states=[];let cursor=0;
  const hooks={...React,useEffect(){},useLayoutEffect(){},useMemo:create=>create(),useRef:value=>({current:value}),useState(initial){const slot=cursor++;if(!(slot in states))states[slot]=typeof initial==='function'?initial():initial;return [states[slot],value=>{states[slot]=typeof value==='function'?value(states[slot]):value;}];}};
- const imports={react:hooks,'lucide-react':new Proxy({},{get:()=>icon}),'../i18n/useI18n':{useI18n:()=>({t:dictionaries[locale],locale})},'../data/profile':{experienceAssets,RESUME_PDF,RESUME_DOCX},'./CompactHero':{__esModule:true,default:Hero},'./experience-journey-motion':{useExperienceJourneyMotion(){}},'../data/projectAssets':{projectAssets},'./page-copy':{pageCopy},'./PageShell':{NavLink:({children,route,navigate,...props})=>React.createElement('a',{...props,href:`/${route.project??route.page}/`},children)},'./PortfolioSections':{ProductImage:()=>null},'./skills-project-links':skillLinks,'./skills-workbench-copy':{workbenchArtwork,disciplineArtwork,workbenchCopy},'./skills-workbench-motion':{useSkillsWorkbenchMotion:()=>motion}};
+ const imports={react:hooks,'lucide-react':new Proxy({},{get:()=>icon}),'../i18n/useI18n':{useI18n:()=>({t:dictionaries[locale],locale})},'../data/profile':{experienceAssets,RESUME_PDF},'./CompactHero':{__esModule:true,default:Hero},'./experience-journey-motion':{useExperienceJourneyMotion(){}},'../data/projectAssets':{projectAssets},'./page-copy':{pageCopy},'./PageShell':{NavLink:({children,route,navigate,...props})=>React.createElement('a',{...props,href:`/${route.project??route.page}/`},children)},'./PortfolioSections':{ProductImage:()=>null},'./skills-project-links':skillLinks,'./skills-workbench-copy':{workbenchArtwork,disciplineArtwork,workbenchCopy},'./skills-workbench-motion':{useSkillsWorkbenchMotion:()=>motion}};
  const Component=loadTs(path,imports).default;
  return {render(){cursor=0;return Component({route:{locale,page:'skills'},navigate(){}});}};
 }
@@ -61,7 +61,7 @@ for(const locale of Object.keys(dictionaries))test(`${locale}: every career fact
  for(const fact of facts)assert.ok(visible.includes(normalize(fact)),`Missing fact: ${fact}`);
  for(const value of [...Object.values(dictionary.resume.education),...Object.values(dictionary.resume.downloadCard),dictionary.resume.coreStrengths.title,...dictionary.resume.coreStrengths.items,dictionary.resume.profileEyebrow,dictionary.resume.journeyTitle,dictionary.resume.journeySupport,dictionary.resume.title])assert.ok(visible.includes(normalize(value)),`Missing supporting source: ${value}`);
  assert.equal(nodes(tree,node=>node.type==='a'&&node.props.href===RESUME_PDF).length,1);
- assert.equal(nodes(tree,node=>node.type==='a'&&node.props.href===RESUME_DOCX).length,1);
+ assert.equal(nodes(tree,node=>node.type==='a'&&String(node.props.href).endsWith('.docx')).length,0);
 });
 
 for(const locale of Object.keys(dictionaries))test(`${locale}: all 32 tools select exact evidence immediately in their group`,()=>{

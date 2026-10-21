@@ -82,8 +82,8 @@ async function check(name, action) { try { await action(); results.push({name,ok
       await page.setViewportSize({width:1366,height:900});
       await page.screenshot({path:`output/playwright/modernization-${locale}-desktop.jpg`,type:'jpeg',quality:90});
     }
-    await check('resume PDF/DOCX served successfully',async()=>{
-      for(const path of ['/resume/hashem-kayyali-resume.pdf','/resume/hashem-kayyali-resume.docx']) assert.equal((await context.request.get(base+path)).status(),200);
+    await check('resume PDF served successfully',async()=>{
+      for(const path of ['/resume/hashem-kayyali-resume.pdf']) assert.equal((await context.request.get(base+path)).status(),200);
     });
     await check('no browser runtime errors',async()=>assert.deepEqual(errors,[]));
   }

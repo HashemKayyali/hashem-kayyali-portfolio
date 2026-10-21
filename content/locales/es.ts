@@ -241,9 +241,8 @@ const es: Dictionary = {
     "downloadCard": {
       "title": "Descargar currículum",
       "copy": "Una versión documental concisa de la experiencia profesional, el alcance de ingeniería y los trabajos seleccionados que aparecen en este portafolio.",
-      "availability": "Disponible en PDF y Word.",
-      "pdf": "Descargar PDF",
-      "word": "Descargar Word"
+      "availability": "Disponible en PDF.",
+      "pdf": "Descargar PDF"
     },
     "education": {
       "title": "Formación",
