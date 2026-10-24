@@ -4,6 +4,7 @@ import {ScrollTrigger} from 'gsap/ScrollTrigger';
 import {SplitText} from 'gsap/SplitText';
 import {useGSAP} from '@gsap/react';
 import {allowsMotion} from './route-motion';
+import {liteMotion} from './lite-motion';
 
 gsap.registerPlugin(ScrollTrigger,SplitText,useGSAP);
 /** Home has one entrance score and viewport-owned chapters, not per-element effects. */
@@ -59,6 +60,12 @@ export function useHomeMotion(root:RefObject<HTMLElement|null>,locale:string,rtl
     contexts.push(gsap.context(()=>{
      const label=section.classList.contains('home-about')?'about':section.classList.contains('home-bottom')?'career':section.classList.contains('home-invitation')?'invitation':'projects';
      const line=section.querySelector('.home-section-rule');
+     if(liteMotion()){
+      // Phones: one tween for the chapter, no rule scrub or field parallax.
+      const parts=[...section.querySelectorAll('h2'),...section.querySelectorAll('div:last-child>p,.focus-strip,.career-summary li,.home-toolkit>p,.skill-tags,:scope>p,.button-primary')];
+      gsap.from(parts,{y:14,opacity:.3,duration:.5,stagger:.04,ease:'power3.out',clearProps:'transform,opacity',scrollTrigger:{id:`home:${label}:entry`,trigger:section,start:'top 87%',once:true}});
+      return;
+     }
      if(line)gsap.fromTo(line,{scaleX:0,transformOrigin:rtl?'right':'left'},{scaleX:1,ease:'none',scrollTrigger:{id:`home:${label}:rule`,trigger:section,start:'top 85%',end:'top 28%',scrub:.6}});
      const chapter=gsap.timeline({id:`home:${label}:chapter`,scrollTrigger:{id:`home:${label}:entry`,trigger:section,start:'top 87%',toggleActions:'play none none reverse'},defaults:{duration:.75,ease:'power3.out'}});
      const heads=section.querySelectorAll('h2');chapter.from(heads,{y:18,clearProps:'transform'},0);

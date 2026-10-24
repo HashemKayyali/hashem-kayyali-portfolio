@@ -28,8 +28,6 @@ html .light-portfolio.luxury-portfolio.atelier-compact .toolbelt-track{display:f
 html .light-portfolio.luxury-portfolio.atelier-compact .toolbelt-group{display:flex;align-items:center;gap:28px;flex-shrink:0;width:max-content;list-style:none;margin:0;padding:0 28px 0 0;}
 html .light-portfolio.luxury-portfolio.atelier-compact .toolbelt-item{display:flex;align-items:center;gap:11px;min-height:50px;flex-shrink:0;max-width:222px;font-size:17px;line-height:1.25;color:var(--ink);}
 html .light-portfolio.luxury-portfolio.atelier-compact .toolbelt-item>bdi{max-width:150px;overflow-wrap:anywhere;}
-html .light-portfolio.luxury-portfolio.atelier-compact .toolbelt-mark{display:grid;place-items:center;flex-shrink:0;width:38px;height:38px;background:#f1eee7;border-radius:8px;padding:4px;}
-html .light-portfolio.luxury-portfolio.atelier-compact .toolbelt-mark img{display:block;width:30px;height:30px;object-fit:contain;}
 html .light-portfolio.luxury-portfolio.atelier-compact .skill-toolbelt[data-mode=static] .toolbelt-window{overflow-x:auto;scrollbar-width:thin;scrollbar-color:var(--burgundy) transparent;}
 html .light-portfolio.luxury-portfolio.atelier-compact .skill-toolbelt[data-mode=static] .toolbelt-group[aria-hidden=true]{display:none;}
 html .light-portfolio.luxury-portfolio.atelier-compact .skill-toolbelt[data-mode=static] .toolbelt-track{will-change:auto;}

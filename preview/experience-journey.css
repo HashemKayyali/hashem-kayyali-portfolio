@@ -102,10 +102,16 @@ html[dir=rtl] .experience-journey .journey-read-link svg{scale:-1 1;}
 .experience-journey .journey-track-index i{width:11px;height:11px;border-width:1.5px;transition:background .4s ease,box-shadow .4s ease,transform .4s cubic-bezier(.22,1,.36,1);}
 .experience-journey .journey-folio-arrival[data-active] .journey-track-index i{background:var(--burgundy);transform:scale(1.15);box-shadow:0 0 0 6px color-mix(in srgb,var(--burgundy) 16%,transparent);}
 .experience-journey .journey-folio-arrival{padding-inline-start:44px;padding-block-end:clamp(36px,4vw,72px);}
-.experience-journey .journey-company-header .journey-date{font:400 clamp(15px,1vw,19px)/1.3 'Libre Caslon Condensed',Georgia,serif;letter-spacing:.02em;color:var(--burgundy);}
+.experience-journey .journey-company-header .journey-date{font:400 clamp(15px,1vw,19px)/1.3 var(--atelier-type);letter-spacing:.02em;color:var(--burgundy);}
 .experience-journey .journey-company-title h2{font-size:clamp(30px,2.4vw,48px);line-height:1.08;}
-.experience-journey .journey-role{border-radius:16px;transition:transform .45s cubic-bezier(.22,1,.36,1),box-shadow .45s ease;}
-@media(hover:hover) and (pointer:fine){.experience-journey .journey-role:hover{transform:translateY(-3px);box-shadow:0 22px 40px -28px #000c;}}
+.experience-journey .journey-role{border-radius:16px;}
+/* The hover lift only exists where hover does. A transition that is always on would also chase
+   every frame GSAP writes while a card arrives, so arrivals switch it off until they settle. */
+@media(hover:hover) and (pointer:fine){
+ .experience-journey .journey-role{transition:transform .45s cubic-bezier(.22,1,.36,1),box-shadow .45s ease;}
+ .experience-journey [data-arriving],.experience-journey [data-arriving] .journey-role{transition:none;}
+ .experience-journey .journey-role:hover{transform:translateY(-3px);box-shadow:0 22px 40px -28px #000c;}
+}
 
 @media(min-width:1101px){
  .experience-journey .journey-body{grid-template-columns:minmax(260px,.42fr) minmax(0,1fr);column-gap:clamp(40px,5vw,120px);row-gap:clamp(48px,5vw,96px);}
@@ -121,7 +127,7 @@ html[dir=rtl] .experience-journey .journey-read-link svg{scale:-1 1;}
  .experience-journey .journey-rail-steps{list-style:none;margin:0;padding:0;display:grid;gap:2px;border-block-start:1px solid var(--line);padding-block-start:18px;}
  .experience-journey .journey-rail-steps li{display:grid;grid-template-columns:14px 28px 1fr;align-items:center;gap:8px;min-height:34px;color:var(--muted);font-size:clamp(14px,.95vw,18px);transition:color .35s ease;}
  .experience-journey .journey-rail-steps i{width:7px;height:7px;border-radius:50%;border:1px solid var(--muted);transition:background .35s ease,border-color .35s ease;}
- .experience-journey .journey-rail-steps bdi{font:500 11px/1 ui-monospace,Consolas,monospace;color:var(--burgundy);}
+ .experience-journey .journey-rail-steps bdi{font:500 11px/1 var(--atelier-type);color:var(--burgundy);}
  .experience-journey[data-journey-active="0"] :is(.journey-rail-mark,.journey-rail-name)[data-index="0"],
  .experience-journey[data-journey-active="1"] :is(.journey-rail-mark,.journey-rail-name)[data-index="1"],
  .experience-journey[data-journey-active="2"] :is(.journey-rail-mark,.journey-rail-name)[data-index="2"],

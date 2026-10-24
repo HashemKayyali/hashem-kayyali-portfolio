@@ -5,7 +5,7 @@ html .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .g
 html .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-filters button:is(:hover,[aria-pressed=true]){background:var(--atelier-petrol);color:var(--ink);border-color:var(--media-frame-border);}
 html .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-filters button::after{content:'';width:5px;height:5px;border-radius:50%;background:var(--burgundy);order:-1;opacity:0;transition:opacity .2s;}
 html .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-filters button[aria-pressed=true]::after{opacity:1;}
-html .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .filter-count{font:10px/1.4 ui-monospace,Consolas,monospace;opacity:.8;}
+html .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .filter-count{font:10px/1.4 var(--atelier-type);opacity:.8;}
 html[lang=ar] .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-filters button{font-size:12px;}
 html .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-result-count{font-size:10px;white-space:nowrap;}
 html .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibits{position:relative;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px 14px;border:0;background:transparent;align-items:start;}

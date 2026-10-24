@@ -2,6 +2,7 @@ import type {RefObject} from 'react';
 import {useGSAP} from '@gsap/react';
 import {gsap} from 'gsap';
 import {allowsMotion} from './route-motion';
+import {liteMotion} from './lite-motion';
 
 gsap.registerPlugin(useGSAP);
 /** Native sticky layout and one bounded evidence sequence, on every viewport. */
@@ -59,7 +60,12 @@ export function useHomeStoryMotion(root:RefObject<HTMLDivElement|null>,locale:st
     if(media.matches||!allowsMotion()||node.getBoundingClientRect().top<0)continue;
     owned.add(()=>{
      const animation=gsap.timeline({id:`home-story:arrival:${arrivals.size}`});
-     if(node.matches('.story-contact'))animation
+     if(liteMotion()){
+      // Phones: one tween over everything that arrives (no masked words, no rule draw).
+      const targets=node.matches('.story-contact')?node.querySelectorAll('.story-contact-word,.story-contact-action'):node.matches('.story-chapter')?node.querySelectorAll('.story-step-label,h3,p'):node.querySelectorAll('.story-career-company,.story-career-role,.story-career-period');
+      animation.fromTo(targets,{y:14,opacity:.3},{y:0,opacity:1,duration:.5,stagger:.04,ease:'power3.out',clearProps:'transform,opacity'});
+     }
+     else if(node.matches('.story-contact'))animation
       .fromTo(node.querySelectorAll('.story-contact-word'),{yPercent:105},{yPercent:0,duration:1,stagger:.065,ease:'power4.out',clearProps:'transform'},0)
       .fromTo(node.querySelector('.story-correspondence-rule'),{scaleX:0},{scaleX:1,duration:1,ease:'power3.inOut'},.1)
       .fromTo(node.querySelector('.story-contact-action'),{y:16,opacity:.3},{y:0,opacity:1,duration:.7,ease:'power3.out',clearProps:'transform,opacity'},.2);

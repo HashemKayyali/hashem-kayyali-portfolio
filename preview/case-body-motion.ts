@@ -1,6 +1,7 @@
 import {gsap} from 'gsap';
 import {onLayoutResize} from './layout-resize';
 import {allowsMotion} from './route-motion';
+import {liteMotion} from './lite-motion';
 
 /** Chapters reveal once on approach. Focus and restored reading positions settle immediately. */
 export function observeCaseBody(el:HTMLElement,rtl:boolean){
@@ -42,9 +43,10 @@ function observeReadyCaseBody(el:HTMLElement,rtl:boolean){
   let timeline!:gsap.core.Timeline;
   try{
    const context=gsap.context(()=>{
-    gsap.set(targets,{y:20,x:rtl?4:-4,opacity:.4});
+    // One tween instead of set + to: the chapter's targets are read once, not read-write-read.
+    const lite=liteMotion();
     timeline=gsap.timeline({id:`case:body:${chapter.id||'capabilities'}`})
-     .to(targets,{y:0,x:0,opacity:1,duration:.72,stagger:.065,ease:'power3.out',clearProps:'transform,opacity'});
+     .fromTo(targets,{y:lite?14:20,x:lite?0:rtl?4:-4,opacity:.4},{y:0,x:0,opacity:1,duration:lite?.5:.72,stagger:lite?.04:.065,ease:'power3.out',clearProps:'transform,opacity'});
    },chapter);
    records.set(chapter,{context,timeline,targets});
   }catch{targets.forEach(node=>{node.style.removeProperty('transform');node.style.removeProperty('opacity');});}

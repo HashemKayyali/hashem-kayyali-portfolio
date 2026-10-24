@@ -1,7 +1,7 @@
 /* Latin editorial typography only. Arabic inherits its existing, untouched rules. */
 html:not([dir=rtl]) {
- --font-heading:'Instrument Sans','Instrument Fallback',Arial,sans-serif;
- --font-body:'Geist Sans','Geist Fallback',Arial,sans-serif;
+ --font-heading:var(--atelier-type);
+ --font-body:var(--atelier-type);
  font-family:var(--font-body);
  font-weight:400;
 }

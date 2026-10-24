@@ -29,7 +29,7 @@
 .home-about {padding-block:57px;}
 .home-about>div>p {font-size:21px;line-height:1.75;}
 .home-projects {padding-block-start:62px;}
-.home-projects .page-section-title h2 {font-family:'Roboto Slab',Georgia,serif;font-size:clamp(35px,4.5vw,60px);font-weight:450;letter-spacing:-.06em;}
+.home-projects .page-section-title h2 {font-family:var(--atelier-type);font-size:clamp(35px,4.5vw,60px);font-weight:450;letter-spacing:-.06em;}
 .featured-projects {gap:102px;}
 .project-destination {gap:50px;align-items:center;}
 .project-visual {position:relative;min-width:0;}

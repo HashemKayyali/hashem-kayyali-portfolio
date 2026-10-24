@@ -5,7 +5,7 @@
 .hero-copy {padding-block:14px 0;}
 .hero h1 {margin-block:21px 20px;line-height:.96;letter-spacing:-.065em;font-size:clamp(58px,5.4vw,80px);font-weight:450;}
 .hero-name-part {display:block;}
-.hero-name-part--1 {font-family:'Roboto Slab',Georgia,serif;font-size:1.13em;color:var(--burgundy);font-weight:450;letter-spacing:-.06em;margin-block-start:7px;}
+.hero-name-part--1 {font-family:var(--atelier-type);font-size:1.13em;color:var(--burgundy);font-weight:450;letter-spacing:-.06em;margin-block-start:7px;}
 .hero-role {font-size:clamp(21px,1.9vw,27px);font-weight:500;line-height:1.32;letter-spacing:-.04em;}
 .hero-role span {font-weight:400;font-size:.79em;color:var(--ink);margin-block-start:5px;}
 .hero-scope {max-width:470px;font-size:12px;line-height:1.7;margin-block-start:12px;}
@@ -32,11 +32,11 @@
 .featured-project--1 .product-image img {object-fit:contain;max-height:none;}
 .featured-project--2 .project-destination {width:100%;grid-template-columns:minmax(0,1.65fr) minmax(0,1fr);}
 .featured-project--2 .spotlight-image {padding:36px;background:var(--surface);}
-.spotlight-copy h3 {font-family:'Roboto Slab',Georgia,serif;font-weight:450;font-size:34px;letter-spacing:-.045em;}
+.spotlight-copy h3 {font-family:var(--atelier-type);font-weight:450;font-size:34px;letter-spacing:-.045em;}
 .spotlight-copy >p {color:#51464d;}
 .evidence-note {font-size:11px;line-height:1.7;color:var(--muted);margin-block-start:12px;}
 .case-study:is(.case-study--bike-tower,.case-study--terminal-nfc,.case-study--eventies) .case-intro {padding-block:43px 35px;}
-.case-study:is(.case-study--bike-tower,.case-study--terminal-nfc,.case-study--eventies) .case-intro h1 {font-family:'Roboto Slab',Georgia,serif;font-size:clamp(38px,4.5vw,65px);font-weight:450;letter-spacing:-.045em;max-width:100%;}
+.case-study:is(.case-study--bike-tower,.case-study--terminal-nfc,.case-study--eventies) .case-intro h1 {font-family:var(--atelier-type);font-size:clamp(38px,4.5vw,65px);font-weight:450;letter-spacing:-.045em;max-width:100%;}
 .case-study:is(.case-study--bike-tower,.case-study--terminal-nfc,.case-study--eventies) .case-overview {font-size:18px;line-height:1.8;max-width:83ch;}
 .case-study--bike-tower .case-cover {width:min(1331px,calc(100% - 64px));}
 .case-study--bike-tower .case-cover img {max-height:690px;object-fit:cover;object-position:center;}

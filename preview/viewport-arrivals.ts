@@ -3,6 +3,7 @@ import {onLayoutResize} from './layout-resize';
 import {gsap} from 'gsap';
 import {allowsMotion} from './route-motion';
 import {arrivalDisposition} from './viewport-arrivals-model';
+import {liteMotion} from './lite-motion';
 
 // Only gaps between established page timelines belong to this observer. The
 // gallery and Contact already own their complete entrance; Case/Experience own
@@ -59,7 +60,7 @@ export function useViewportArrivals(root:RefObject<HTMLDivElement|null>,key:stri
    try{
     record.context?.add(()=>{
      record.timeline=gsap.timeline({id:`arrivals:${key}:${sequence++}`,onComplete:()=>settle(record)})
-      .to(record.node,{y:0,rotationX:0,opacity:1,duration:.95,delay:Math.min(index,3)*.07,ease:'expo.out',clearProps:'transform,opacity'});
+      .to(record.node,{y:0,rotationX:0,opacity:1,duration:liteMotion()?.55:.95,delay:Math.min(index,3)*.07,ease:'expo.out',clearProps:'transform,opacity'});
     });
    }catch{settle(record);}
   };
@@ -83,7 +84,7 @@ export function useViewportArrivals(root:RefObject<HTMLDivElement|null>,key:stri
    if(disposition==='settled'){settle(record);return;}
    if(disposition==='deferred')return;
    try{
-    record.context=gsap.context(()=>{gsap.set(node,{y:36,rotationX:-3,transformPerspective:900,opacity:0});},stage!);
+    record.context=gsap.context(()=>{gsap.set(node,liteMotion()?{y:20,opacity:0}:{y:36,rotationX:-3,transformPerspective:900,opacity:0});},stage!);
     record.state='armed';node.dataset.viewportEntrance='armed';observer.observe(node);
    }catch{settle(record);}
   };

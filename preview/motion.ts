@@ -4,6 +4,7 @@ import {ScrollTrigger} from 'gsap/ScrollTrigger';
 import {useGSAP} from '@gsap/react';
 import {allowsMotion} from './route-motion';
 import {projectVisualInFlight} from './project-transit';
+import {liteMotion} from './lite-motion';
 
 gsap.registerPlugin(ScrollTrigger,useGSAP);
 /** Read-only inspection of actual GSAP objects in this isolated review build. */
@@ -100,6 +101,13 @@ export function useFeaturedMotion(root:RefObject<HTMLElement|null>,key:string,rt
    project.dataset.motion='running';
    observer.disconnect();
    animationContext=gsap.context(()=>{
+   if(liteMotion()){
+    // Phones: the media and copy arrive as one opacity/translate tween when the story nears the viewport.
+    // No clip-path masks (each repainted a full-width image per frame) and no depth/exit scrubs.
+    const parts=[mask,copy?.querySelector('h3'),copy?.querySelector('.project-meta'),copy?.querySelector('p'),copy?.querySelector('.project-technical'),copy?.querySelector('.project-bottom'),secondary].filter(Boolean);
+    gsap.fromTo(parts,{y:14,opacity:.25},{y:0,opacity:1,duration:.55,stagger:.04,ease:'power3.out',clearProps:'transform,opacity',scrollTrigger:{id:prefix+key+':reveal',trigger:project,start:'top 88%',once:true}});
+    return;
+   }
    const timeline=gsap.timeline({id:prefix+key+':entrance',scrollTrigger:{id:prefix+key+':reveal',trigger:project,start:'top 88%',toggleActions:'play none none reverse'},defaults:{ease:'power3.out'}});
    const terminal=key.startsWith('terminal-nfc');
    timeline.fromTo(mask,{clipPath:terminal?(rtl?'inset(0% 0% 0% 82%)':'inset(0% 82% 0% 0%)'):'inset(0% 0% 82% 0%)'},{clipPath:'inset(0% 0% 0% 0%)',duration:homeScene?1.05:1.1,ease:'power3.inOut'},0)

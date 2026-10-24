@@ -29,7 +29,7 @@ html[lang=ar] .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shel
 html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .app-cover .gallery-artwork{display:block;height:auto;margin:0;background:transparent;}
 html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .app-cover .project-media-primary{width:100%;padding:0;border:0;margin:0;}
 html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .app-cover .gallery-artwork figcaption{position:static;display:flex;align-items:center;gap:12px;padding:8px 7px 2px;background:transparent;color:var(--burgundy);font-size:14px;text-align:start;}
-html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .app-cover figcaption bdi{font:10px ui-monospace,Consolas,monospace;}
+html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .app-cover figcaption bdi{font:10px var(--atelier-type);}
 html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .app-cover figcaption svg{margin-inline-start:auto;}
 html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .app-cover:hover{z-index:4;border-color:var(--burgundy);}
 html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .app-cover:focus-visible{z-index:4;outline:2px solid var(--burgundy);outline-offset:4px;}

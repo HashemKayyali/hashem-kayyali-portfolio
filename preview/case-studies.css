@@ -9,7 +9,7 @@
 .case-opening-copy {position:relative;z-index:2;max-width:950px;}
 .case-opening .project-meta {display:flex;flex-wrap:wrap;justify-content:flex-start;gap:10px 28px;line-height:1.8;font-size:11px;}
 .case-status {color:var(--muted);}
-.case-opening h1 {color:var(--burgundy);font-family:'Roboto Slab',Georgia,serif;font-size:clamp(52px,7vw,100px);font-weight:450;letter-spacing:-.055em;line-height:1.05;margin-block:25px;max-width:16ch;overflow-wrap:anywhere;}
+.case-opening h1 {color:var(--burgundy);font-family:var(--atelier-type);font-size:clamp(52px,7vw,100px);font-weight:450;letter-spacing:-.055em;line-height:1.05;margin-block:25px;max-width:16ch;overflow-wrap:anywhere;}
 .case-title-mask {display:block;overflow:clip;padding-block-end:.12em;}
 .case-title-text {display:block;}
 .case-deck {font-size:clamp(18px,1.7vw,24px);line-height:1.65;max-width:60ch;color:var(--ink);}

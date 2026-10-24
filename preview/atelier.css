@@ -65,7 +65,7 @@
 .light-portfolio.luxury-portfolio .atelier-person-meta p{font-size:12px;line-height:1.8;color:var(--muted);margin-block-start:8px;}
 .light-portfolio.luxury-portfolio .atelier-profile-portrait{border:1px solid var(--frame-metal);background:var(--atelier-raised);padding:12px;margin:0;}
 .light-portfolio.luxury-portfolio .atelier-profile-portrait img{width:100%;height:360px;object-fit:cover;object-position:50% 35%;border-radius:64px 0 0 0;}
-.light-portfolio.luxury-portfolio .atelier-profile-portrait figcaption{display:flex;justify-content:space-between;gap:12px;padding-block-start:14px;font:11px/1.6 ui-monospace,Consolas,monospace;color:var(--burgundy);}
+.light-portfolio.luxury-portfolio .atelier-profile-portrait figcaption{display:flex;justify-content:space-between;gap:12px;padding-block-start:14px;font:11px/1.6 var(--atelier-type);color:var(--burgundy);}
 .light-portfolio.luxury-portfolio .profile-chapter-heading h2{color:var(--ink);}
 .light-portfolio.luxury-portfolio .profile-reading{border-color:var(--line);}
 .light-portfolio.luxury-portfolio .profile-toolkit{padding:24px 28px;background:var(--surface);border:1px solid var(--line);border-radius:6px;}

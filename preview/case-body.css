@@ -27,7 +27,7 @@ html .light-portfolio.luxury-portfolio.atelier-compact .signature-case .case-bod
  & .case-engineering .system-caption{font-size:12px;line-height:1.55;gap:12px;margin-block-end:24px;color:var(--muted);}
  & .case-engineering .system-path{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(150px,100%),1fr));gap:24px;}
  & .case-engineering .system-node{position:relative;min-width:0;padding:0 10px 4px 0;border:0;}
- & .case-engineering .system-number{display:grid;place-items:center;width:54px;height:54px;margin-block-end:16px;border:1px solid var(--burgundy);border-radius:50%;color:var(--burgundy);background:var(--paper);font:12px/1 ui-monospace,Consolas,monospace;}
+ & .case-engineering .system-number{display:grid;place-items:center;width:54px;height:54px;margin-block-end:16px;border:1px solid var(--burgundy);border-radius:50%;color:var(--burgundy);background:var(--paper);font:12px/1 var(--atelier-type);}
  & .case-engineering .system-node strong{font-size:23px;line-height:1.3;font-weight:500;overflow-wrap:anywhere;}
  & .case-engineering .system-node small{font-size:16px;line-height:1.5;margin-block-start:8px;color:var(--muted);}
  & .case-engineering .system-connector{top:27px;inset-inline-start:70px;inset-inline-end:-8px;width:auto;height:1px;border-radius:0;background:var(--line);}
@@ -44,11 +44,11 @@ html .light-portfolio.luxury-portfolio.atelier-compact .signature-case .case-bod
  & .evidence-peek--previous{inset-inline-start:1%;transform:translateY(-50%) rotateY(26deg) scale(.88);}
  & .evidence-peek--next{inset-inline-end:1%;transform:translateY(-50%) rotateY(-26deg) scale(.88);}
  & .evidence-peek img{display:block;width:100%;height:auto;aspect-ratio:var(--media-ratio);object-fit:contain;border-radius:4px;}
- & .evidence-stage-mark{inset:14px auto auto;inset-inline-start:16px;z-index:5;font:11px/1.5 ui-monospace,Consolas,monospace;color:var(--burgundy);padding:3px 6px;border-radius:3px;background:var(--paper);}
+ & .evidence-stage-mark{inset:14px auto auto;inset-inline-start:16px;z-index:5;font:11px/1.5 var(--atelier-type);color:var(--burgundy);padding:3px 6px;border-radius:3px;background:var(--paper);}
  & .evidence-stage-mark>span{color:var(--muted);}
  & .evidence-toolbar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0 0;border:0;background:transparent;}
  & .evidence-caption{display:flex;align-items:baseline;gap:16px;min-width:0;flex:1;font-size:16px;line-height:1.5;color:var(--muted);margin:0;}
- & .evidence-caption bdi{white-space:nowrap;flex-shrink:0;color:var(--burgundy);font:11px/1.5 ui-monospace,Consolas,monospace;}
+ & .evidence-caption bdi{white-space:nowrap;flex-shrink:0;color:var(--burgundy);font:11px/1.5 var(--atelier-type);}
  & .evidence-controls{display:flex;flex-shrink:0;gap:8px;}
  & .evidence-controls button{display:grid;place-items:center;min-width:44px;min-height:44px;width:44px;height:44px;border:1px solid var(--line);border-radius:7px;background:var(--surface);color:var(--ink);cursor:pointer;touch-action:manipulation;}
  & .evidence-controls button:hover:enabled{background:var(--burgundy);border-color:var(--burgundy);color:var(--on-accent);}
@@ -58,12 +58,12 @@ html .light-portfolio.luxury-portfolio.atelier-compact .signature-case .case-bod
  & .evidence-thumbnail img{display:block;width:auto;max-width:100%;height:auto;max-height:48px;object-fit:contain!important;border-radius:2px;opacity:.7;transition:opacity .2s;}
  & .evidence-thumbnail[aria-pressed=true]{border-color:var(--burgundy);background:var(--atelier-petrol);}
  & .evidence-thumbnail:is(:hover,[aria-pressed=true]) img{opacity:1;}
- & .evidence-thumb-number{position:absolute;inset:4px auto auto;inset-inline-start:7px;font:10px/1 ui-monospace,Consolas,monospace;color:var(--burgundy);}
+ & .evidence-thumb-number{position:absolute;inset:4px auto auto;inset-inline-start:7px;font:10px/1 var(--atelier-type);color:var(--burgundy);}
  & .evidence-selection-frame{position:absolute;inset:-3px;pointer-events:none;border:1px solid var(--burgundy);border-radius:8px;}
  & .case-gallery[data-count='1'] .evidence-slide{padding-inline:24px;}
  & .decision-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;list-style:none;padding:0;margin:0;}
  & .decision-list li{display:grid;grid-template-columns:40px minmax(0,1fr);align-items:start;gap:18px;margin:0;padding:22px;border:1px solid var(--line);border-radius:9px;background:var(--surface);box-shadow:inset 0 1px 0 #ffffff15,var(--ui-card-shadow);}
- & .decision-list .index{display:grid;place-items:center;width:38px;height:38px;margin:0;padding:0;border:1px solid var(--line);border-radius:7px;color:var(--burgundy);font:11px/1 ui-monospace,Consolas,monospace;}
+ & .decision-list .index{display:grid;place-items:center;width:38px;height:38px;margin:0;padding:0;border:1px solid var(--line);border-radius:7px;color:var(--burgundy);font:11px/1 var(--atelier-type);}
  & .decision-list p{font-size:21px;line-height:1.55;color:var(--ink);margin:0;max-width:none;}
  & .case-result{padding-block:30px 0;border:0;background:transparent;}
  & .case-result>.container{display:block;min-width:0;padding:clamp(22px,2.2vw,32px);border:1px solid color-mix(in srgb,var(--atelier-on-light) 20%,transparent);border-radius:12px;background:var(--atelier-light);color:var(--atelier-on-light);box-shadow:inset 0 1px 0 #ffffff50,var(--ui-card-shadow);}
@@ -71,7 +71,7 @@ html .light-portfolio.luxury-portfolio.atelier-compact .signature-case .case-bod
  & .case-result .index{color:var(--atelier-light-accent);}
  & .capability-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin:0;padding:0;list-style:none;}
  & .capability-list li{display:grid;grid-template-columns:24px minmax(0,1fr);gap:12px;align-items:start;padding:18px 0 0;border:0;border-block-start:1px solid color-mix(in srgb,var(--atelier-on-light) 25%,transparent);}
- & .capability-list span{padding-block-start:7px;color:var(--atelier-light-accent);font:11px/1.5 ui-monospace,Consolas,monospace;}
+ & .capability-list span{padding-block-start:7px;color:var(--atelier-light-accent);font:11px/1.5 var(--atelier-type);}
  & .capability-list h3{font-size:26px;line-height:1.3;font-weight:500;letter-spacing:0;color:var(--atelier-on-light);margin:0;overflow-wrap:anywhere;}
  & .case-links{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px 32px;margin-block-start:26px;padding-block-start:18px;border-block-start:1px solid color-mix(in srgb,var(--atelier-on-light) 25%,transparent);font-size:14px;color:var(--atelier-light-muted);}
  & .case-links :is(a,.arrow){color:var(--atelier-light-accent);}

@@ -17,7 +17,7 @@
 .profile-chapter {padding-block:0 40px;margin-block-end:35px;border-block-end:1px solid var(--line);}
 .profile-chapter:last-child {padding-block-end:0;margin-block-end:0;border:0;}
 .profile-chapter-heading {display:flex;gap:18px;align-items:baseline;margin-block-end:22px;}
-.profile-chapter h2 {font-family:'Roboto Slab',Georgia,serif;font-size:clamp(23px,2.3vw,31px);font-weight:450;line-height:1.4;letter-spacing:-.035em;scroll-margin-block-start:110px;}
+.profile-chapter h2 {font-family:var(--atelier-type);font-size:clamp(23px,2.3vw,31px);font-weight:450;line-height:1.4;letter-spacing:-.035em;scroll-margin-block-start:110px;}
 .profile-chapter p {font-size:17px;line-height:1.95;color:var(--muted);max-width:65ch;margin-block:0 22px;}
 .profile-chapter:first-child p {font-size:20px;line-height:1.85;color:var(--ink);}
 .profile-toolkit {margin-block-start:65px;border-block:1px solid var(--line);padding-block:22px;}
@@ -75,7 +75,7 @@
 .skill-category-nav a[aria-current=location] {color:var(--burgundy);border-block-end-color:var(--burgundy);}
 .profile-skill-section {padding-block:0 36px;margin-block-end:35px;border-block-end:1px solid var(--line);}
 .profile-skill-section>header {display:flex;align-items:baseline;gap:19px;}
-.profile-skill-section h2 {font-family:'Roboto Slab',Georgia,serif;font-size:clamp(24px,2.5vw,33px);font-weight:450;line-height:1.35;letter-spacing:-.035em;scroll-margin-block-start:110px;}
+.profile-skill-section h2 {font-family:var(--atelier-type);font-size:clamp(24px,2.5vw,33px);font-weight:450;line-height:1.35;letter-spacing:-.035em;scroll-margin-block-start:110px;}
 .profile-skill-list {list-style:none;padding:0;margin-block:23px 29px;display:flex;flex-wrap:wrap;gap:11px 24px;}
 .profile-skill-list li {font-size:15px;line-height:1.8;color:var(--ink);overflow-wrap:anywhere;}
 .skill-project-evidence {border-inline-start:2px solid var(--burgundy);padding-inline-start:24px;}
@@ -92,9 +92,9 @@
 .profile-contact .contact-field {opacity:.25;inset-inline-end:-220px;pointer-events:none;}
 .profile-contact .contact-page-grid {display:contents;}
 .profile-contact .direct-contact {grid-column:1;grid-row:2;padding-block-start:15px;}
-.profile-contact .direct-contact h2 {font-family:'Roboto Slab',Georgia,serif;font-size:25px;font-weight:450;line-height:1.45;letter-spacing:-.025em;}
+.profile-contact .direct-contact h2 {font-family:var(--atelier-type);font-size:25px;font-weight:450;line-height:1.45;letter-spacing:-.025em;}
 .profile-contact .contact-form-region {grid-column:2;grid-row:1/span 2;align-self:start;border-inline-start:1px solid var(--line);padding-inline-start:clamp(24px,4vw,56px);}
-.profile-contact .contact-form-region h2 {font-family:'Roboto Slab',Georgia,serif;font-size:29px;line-height:1.45;margin-block:12px 22px;}
+.profile-contact .contact-form-region h2 {font-family:var(--atelier-type);font-size:29px;line-height:1.45;margin-block:12px 22px;}
 .profile-contact .contact-form {gap:22px;}
 .profile-contact .form-help {font-size:13px;line-height:1.85;margin-block-end:6px;}
 .profile-contact .contact-form label {font-size:13px;gap:11px;}

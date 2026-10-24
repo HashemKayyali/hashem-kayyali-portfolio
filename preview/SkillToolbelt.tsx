@@ -3,21 +3,13 @@ import {gsap} from 'gsap';import {useGSAP} from '@gsap/react';
 import {useI18n} from '../i18n/useI18n';import {engineeringHomeCopy} from './engineering-home-copy';import {allowsMotion} from './route-motion';
 import type {ProjectId} from '../content/types';
 
-type Artwork={asset:string};
-const artwork:Artwork[]=[
- {asset:'nextjs'},{asset:'react'},{asset:'typescript'},{asset:'javascript'},{asset:'tailwindcss'},{asset:'toolbelt-devices'},
- {asset:'react'},{asset:'flutter'},{asset:'dart'},{asset:'androidstudio'},{asset:'toolbelt-cross-platform'},
- {asset:'csharp'},{asset:'toolbelt-desktop'},{asset:'dotnetcore'},{asset:'toolbelt-api'},{asset:'supabase'},{asset:'postgresql'},{asset:'toolbelt-database'},{asset:'toolbelt-socket'},
- {asset:'espressif'},{asset:'cplusplus'},{asset:'toolbelt-bluetooth'},{asset:'toolbelt-nfc'},{asset:'toolbelt-wifi'},{asset:'toolbelt-realtime'},{asset:'toolbelt-pcb'},{asset:'toolbelt-hardware'},
- {asset:'python'},{asset:'opencv'},{asset:'toolbelt-vision'},{asset:'toolbelt-email'},{asset:'toolbelt-spreadsheet'},
-];
 // Additional tools are sourced from approved project technology fields.
-const evidence:Array<Artwork&{project:ProjectId;index:number}>=[
- {project:'glitzz-lab',index:3,asset:'whatsapp'},{project:'terminal-nfc',index:5,asset:'toolbelt-client-server'},
- {project:'bike-tower',index:5,asset:'toolbelt-datagrams'},{project:'bike-tower',index:7,asset:'toolbelt-led'},
- {project:'basket-beats',index:3,asset:'toolbelt-sensors'},{project:'vr-cycling',index:3,asset:'toolbelt-integration'},
- {project:'financial-operations',index:5,asset:'toolbelt-chart'},{project:'outreach-automation',index:5,asset:'toolbelt-email'},
- {project:'traffic-flow-analytics',index:1,asset:'qt'},{project:'traffic-flow-analytics',index:3,asset:'toolbelt-detection'},{project:'traffic-flow-analytics',index:4,asset:'toolbelt-tracking'},
+const evidence:Array<{project:ProjectId;index:number}>=[
+ {project:'glitzz-lab',index:3},{project:'terminal-nfc',index:5},
+ {project:'bike-tower',index:5},{project:'bike-tower',index:7},
+ {project:'basket-beats',index:3},{project:'vr-cycling',index:3},
+ {project:'financial-operations',index:5},{project:'outreach-automation',index:5},
+ {project:'traffic-flow-analytics',index:1},{project:'traffic-flow-analytics',index:3},{project:'traffic-flow-analytics',index:4},
 ];
 const controls={
  en:{games:'Interactive games'},ar:{games:'ألعاب تفاعلية'},de:{games:'Interaktive Spiele'},fr:{games:'Jeux interactifs'},es:{games:'Juegos interactivos'},
@@ -26,7 +18,7 @@ const controls={
 export default function SkillToolbelt(){
  const {t,locale}=useI18n(),copy=controls[locale],root=useRef<HTMLElement>(null),phase=useRef([0,0]);
  const reasons=useRef({offscreen:true,hidden:false});
- const items=t.about.skills.flat().map((name,index)=>({name,...artwork[index]})).concat(evidence.map(({project,index,...art})=>({name:t.projects[project].technology[index],...art})),[{name:engineeringHomeCopy[locale].hardware,asset:'toolbelt-hardware'},{name:copy.games,asset:'toolbelt-games'}]);
+ const items=t.about.skills.flat().map(name=>({name})).concat(evidence.map(({project,index})=>({name:t.projects[project].technology[index]})),[{name:engineeringHomeCopy[locale].hardware},{name:copy.games}]);
  const split=Math.ceil(items.length/2),rows=[items.slice(0,split),items.slice(split)];
  useGSAP(()=>{
   const el=root.current;if(!el)return;const media=gsap.matchMedia();
@@ -54,6 +46,6 @@ export default function SkillToolbelt(){
  },{scope:root,dependencies:[locale],revertOnUpdate:true});
  return <section ref={root} className="skill-toolbelt" aria-labelledby="toolbelt-title" data-mode="static">
   <header className="vision-canvas toolbelt-header"><h2 id="toolbelt-title">{t.about.toolkitTitle}</h2></header>
-  {rows.map((row,index)=><div className={`toolbelt-window toolbelt-window--${index}`} key={index} role="group" tabIndex={0} aria-label={t.about.engineeringFocusTitle}><div className="toolbelt-track" dir="ltr">{[false,true].map(duplicate=><ul className="toolbelt-group" key={String(duplicate)} aria-hidden={duplicate||undefined}>{row.map((item,i)=><li className="toolbelt-item" key={i} data-toolbelt-skill={duplicate?undefined:(index?split:0)+i}><span className="toolbelt-mark" aria-hidden="true"><img src={`/v2-icons/${item.asset}.svg`} width="30" height="30" alt="" decoding="async"/></span><bdi lang={/[\u0600-\u06ff]/.test(item.name)?'ar':undefined}>{item.name}</bdi></li>)}</ul>)}</div></div>)}
+  {rows.map((row,index)=><div className={`toolbelt-window toolbelt-window--${index}`} key={index} role="group" tabIndex={0} aria-label={t.about.engineeringFocusTitle}><div className="toolbelt-track" dir="ltr">{[false,true].map(duplicate=><ul className="toolbelt-group" key={String(duplicate)} aria-hidden={duplicate||undefined}>{row.map((item,i)=><li className="toolbelt-item" key={i} data-toolbelt-skill={duplicate?undefined:(index?split:0)+i}><bdi lang={/[\u0600-\u06ff]/.test(item.name)?'ar':undefined}>{item.name}</bdi></li>)}</ul>)}</div></div>)}
  </section>;
 }

@@ -1,9 +1,8 @@
 /* User-directed Atelier: smaller editorial scale, full media, hero-only smoke. */
-@font-face{font-family:'Libre Caslon Condensed';font-style:normal;font-weight:400 700;font-display:swap;src:url('/fonts/libre-caslon-condensed-v2.ttf') format('truetype');}
 @font-face{font-family:Almarai;unicode-range:U+0600-06FF,U+0750-077F,U+08A0-08FF,U+FB50-FDFF,U+FE70-FEFF;font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/almarai-regular-v2.ttf') format('truetype');}
 @font-face{font-family:Almarai;unicode-range:U+0600-06FF,U+0750-077F,U+08A0-08FF,U+FB50-FDFF,U+FE70-FEFF;font-style:normal;font-weight:700;font-display:swap;src:url('/fonts/almarai-bold-v2.ttf') format('truetype');}
-html{--atelier-type:'Libre Caslon Condensed',Georgia,serif;--font-heading:var(--atelier-type);--font-body:var(--atelier-type);}
-html[lang=ar]{--atelier-type:Almarai,'Libre Caslon Condensed',Tahoma,sans-serif;}
+html{--atelier-type:'Times New Roman',Times,'Liberation Serif',Tinos,serif;--font-heading:var(--atelier-type);--font-body:var(--atelier-type);}
+html[lang=ar]{--atelier-type:Almarai,'Times New Roman',Times,'Liberation Serif',Tinos,serif;}
 html .light-portfolio.luxury-portfolio.atelier-compact{font-family:var(--atelier-type);font-size:17px;--atelier-gutter:clamp(20px,2.4vw,40px);--vision-gutter:var(--atelier-gutter);}
 html .light-portfolio.luxury-portfolio.atelier-compact :is(h1,h2,h3,h4,p,a,button,select,input,textarea,summary,.pulse-signal-track){font-family:var(--atelier-type)!important;letter-spacing:0;}
 html[lang=ar] .light-portfolio.luxury-portfolio.atelier-compact{font-size:15px;}

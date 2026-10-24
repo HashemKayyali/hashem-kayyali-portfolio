@@ -46,18 +46,20 @@ test('Choosing an edition in the menu stops the cycle immediately',async t=>{
  dispatchEvent(new CustomEvent('portfolio-theme-change',{detail:{id:'onyx',chosen:true}}));root.dataset.theme='onyx';
  c.advance(120_000);assert.equal(c.theme(),'onyx');
 });
-test('Constrained devices (Save-Data, low memory or 2 cores) never cycle',async t=>{
+test('Constrained devices (Save-Data, low memory, 2 cores) still cycle every 10 seconds',async t=>{
  for(const navigatorStub of [{connection:{saveData:true}},{deviceMemory:2},{hardwareConcurrency:2}]){
   installDom();Object.defineProperty(globalThis,'navigator',{value:navigatorStub,configurable:true});t.mock.timers.enable({apis:['setTimeout']});
   const {startThemeCycle}=await import(url(cycleSource)+'#'+Math.random());const stop=startThemeCycle();
-  clock+=90_000;t.mock.timers.tick(90_000);assert.equal(root.dataset.theme,'metal',JSON.stringify(navigatorStub));stop();t.mock.timers.reset();
+  clock+=9_999;t.mock.timers.tick(9_999);assert.equal(root.dataset.theme,'metal',JSON.stringify(navigatorStub));
+  clock+=1;t.mock.timers.tick(1);assert.equal(root.dataset.theme,'atelier',JSON.stringify(navigatorStub));stop();t.mock.timers.reset();
  }
  Object.defineProperty(globalThis,'navigator',{value:{hardwareConcurrency:8},configurable:true});
 });
-test('Reduced motion never cycles',async t=>{
+test('Reduced motion still cycles every 10 seconds',async t=>{
  installDom();reduced=true;t.mock.timers.enable({apis:['setTimeout']});
  const {startThemeCycle}=await import(url(cycleSource)+'#'+Math.random());const stop=startThemeCycle();
- clock+=90_000;t.mock.timers.tick(90_000);assert.equal(root.dataset.theme,'metal');stop();
+ clock+=10_000;t.mock.timers.tick(10_000);assert.equal(root.dataset.theme,'atelier');
+ clock+=10_000;t.mock.timers.tick(10_000);assert.equal(root.dataset.theme,'burgundy');stop();
 });
 test('Background tabs pause; returning restarts a full 10 seconds',async t=>{
  const c=await cycle(t);c.advance(5_000);doc.hidden=true;doc.dispatch('visibilitychange');

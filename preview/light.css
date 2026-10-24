@@ -1,8 +1,8 @@
 /* Light Burgundy Motion: a separate, review-only direction. */
 :root {
   color-scheme: light;
-  --font-heading: 'Inter', Arial, sans-serif;
-  font-family: 'Inter', Arial, sans-serif;
+  --font-heading: var(--atelier-type);
+  font-family: var(--atelier-type);
   color: var(--ink);
   background: var(--paper);
   font-synthesis: none;

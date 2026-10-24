@@ -8,20 +8,20 @@ html .light-portfolio.luxury-portfolio.atelier-compact .dossier-signal-line{heig
 html .light-portfolio.luxury-portfolio.atelier-compact .dossier-signals ul{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:1px;margin:0;padding:1px;list-style:none;background:var(--line);border-radius:9px;overflow:hidden;}
 html .light-portfolio.luxury-portfolio.atelier-compact .dossier-signals li{display:flex;align-items:center;gap:10px;min-width:0;padding:16px 14px;background:var(--white);font-size:18px;line-height:1.3;}
 html .light-portfolio.luxury-portfolio.atelier-compact .dossier-signal-icon{color:var(--burgundy);flex-shrink:0;}
-html .light-portfolio.luxury-portfolio.atelier-compact .dossier-signals li>.index{font:9px/1.5 ui-monospace,Consolas,monospace;color:var(--muted);margin-inline-start:auto;}
+html .light-portfolio.luxury-portfolio.atelier-compact .dossier-signals li>.index{font:9px/1.5 var(--atelier-type);color:var(--muted);margin-inline-start:auto;}
 html .light-portfolio.luxury-portfolio.atelier-compact .dossier-index{display:flex;flex-wrap:wrap;gap:6px 18px;border-block:1px solid var(--line);padding-block:8px;margin-bottom:20px;}
 html .light-portfolio.luxury-portfolio.atelier-compact .dossier-index a{display:flex;align-items:center;gap:9px;min-height:44px;min-width:0;font-size:16px;color:var(--muted);}
 html .light-portfolio.luxury-portfolio.atelier-compact .dossier-index a:hover,html .light-portfolio.luxury-portfolio.atelier-compact .dossier-index a[aria-current]{color:var(--burgundy);}
-html .light-portfolio.luxury-portfolio.atelier-compact .dossier-index .index{font:9px/1.4 ui-monospace,Consolas,monospace;}
+html .light-portfolio.luxury-portfolio.atelier-compact .dossier-index .index{font:9px/1.4 var(--atelier-type);}
 html .light-portfolio.luxury-portfolio.atelier-compact .dossier-index-dot{width:4px;height:4px;border-radius:50%;background:currentColor;opacity:0;flex-shrink:0;}
 html .light-portfolio.luxury-portfolio.atelier-compact .dossier-index [aria-current] .dossier-index-dot{opacity:1;}
 html .light-portfolio.luxury-portfolio.atelier-compact .dossier-folios{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;}
 html .light-portfolio.luxury-portfolio.atelier-compact .dossier-folio{position:relative;min-width:0;padding:24px;background:var(--white);border:1px solid var(--line);border-radius:10px;}
 html .light-portfolio.luxury-portfolio.atelier-compact .dossier-folio-rule{position:absolute;top:-1px;inset-inline:24px;height:2px;background:var(--burgundy);}
 html .light-portfolio.luxury-portfolio.atelier-compact .dossier-folio-header{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:start;gap:16px;margin-bottom:16px;}
-html .light-portfolio.luxury-portfolio.atelier-compact .dossier-ordinal{font:42px/1 'Libre Caslon Condensed',Georgia,serif;color:var(--burgundy);}
+html .light-portfolio.luxury-portfolio.atelier-compact .dossier-ordinal{font:42px/1 var(--atelier-type);color:var(--burgundy);}
 html .light-portfolio.luxury-portfolio.atelier-compact .dossier-folio h2{font-size:clamp(25px,2.1vw,34px);font-weight:450;line-height:1.15;margin:0;scroll-margin-top:90px;}
-html .light-portfolio.luxury-portfolio.atelier-compact .dossier-registration{font:16px/1.5 ui-monospace,Consolas,monospace;color:var(--muted);}
+html .light-portfolio.luxury-portfolio.atelier-compact .dossier-registration{font:16px/1.5 var(--atelier-type);color:var(--muted);}
 html .light-portfolio.luxury-portfolio.atelier-compact .dossier-paragraphs{display:grid;gap:18px;}
 html .light-portfolio.luxury-portfolio.atelier-compact .dossier-folio p{font-size:18px;line-height:1.6;margin:0;color:var(--muted);max-width:74ch;}
 html .light-portfolio.luxury-portfolio.atelier-compact .dossier-folio--0{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,.65fr) minmax(0,1.35fr);gap:28px;background:var(--atelier-light);color:var(--atelier-on-light);border-color:var(--media-frame-border);}
@@ -40,9 +40,9 @@ html .light-portfolio.luxury-portfolio.atelier-compact .dossier-tools{display:gr
 html .light-portfolio.luxury-portfolio.atelier-compact .dossier-tool{border:1px solid var(--line);border-radius:8px;background:var(--white);min-width:0;}
 html .light-portfolio.luxury-portfolio.atelier-compact .dossier-tool summary{display:flex;align-items:center;gap:14px;min-height:56px;padding:12px 16px;cursor:pointer;list-style:none;}
 html .light-portfolio.luxury-portfolio.atelier-compact .dossier-tool summary::-webkit-details-marker{display:none;}
-html .light-portfolio.luxury-portfolio.atelier-compact .dossier-tool summary>.index{font:9px/1.5 ui-monospace,Consolas,monospace;}
+html .light-portfolio.luxury-portfolio.atelier-compact .dossier-tool summary>.index{font:9px/1.5 var(--atelier-type);}
 html .light-portfolio.luxury-portfolio.atelier-compact .dossier-tool h3{font-size:21px;font-weight:450;line-height:1.3;min-width:0;flex:1;margin:0;}
-html .light-portfolio.luxury-portfolio.atelier-compact .dossier-tool-count{font:10px/1.5 ui-monospace,Consolas,monospace;color:var(--muted);}
+html .light-portfolio.luxury-portfolio.atelier-compact .dossier-tool-count{font:10px/1.5 var(--atelier-type);color:var(--muted);}
 html .light-portfolio.luxury-portfolio.atelier-compact .dossier-tool summary>svg{flex-shrink:0;color:var(--burgundy);transition:transform .25s;}
 html .light-portfolio.luxury-portfolio.atelier-compact .dossier-tool[open] summary>svg{transform:rotate(45deg);}
 html .light-portfolio.luxury-portfolio.atelier-compact .dossier-tool-panel ul{display:flex;flex-wrap:wrap;gap:7px;margin:0;padding:2px 16px 16px;list-style:none;}

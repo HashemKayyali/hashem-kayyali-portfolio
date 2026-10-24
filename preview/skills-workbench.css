@@ -14,7 +14,7 @@ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .skills
 .skills-workbench [data-wb-category]{display:inline-flex;align-items:center;gap:7px;min-height:44px;padding:7px 10px;text-align:start;border:1px solid var(--line);background:var(--white);color:var(--ink);border-radius:6px;font-size:15px;line-height:1.3;cursor:pointer;translate:none;box-shadow:none;}
 .skills-workbench [data-wb-category][aria-pressed=true]{background:var(--theme-accent);border-color:var(--theme-accent);color:var(--theme-on-accent);}
 .skills-workbench [data-wb-category]{scroll-margin-block-start:calc(var(--app-header-height,76px) + 16px);}
-.skills-workbench .wb-category-count{font:10px/1.2 ui-monospace,Consolas,monospace;margin-inline-start:2px;}
+.skills-workbench .wb-category-count{font:10px/1.2 var(--atelier-type);margin-inline-start:2px;}
 .skills-workbench .wb-mark{display:grid;place-items:center;flex:none;width:26px;height:26px;padding:3px;border-radius:5px;background:#f1eee7;}
 .skills-workbench .wb-mark img{display:block;width:20px;height:20px;object-fit:contain;}
 .skills-workbench [data-wb-category] .wb-mark{width:22px;height:22px;padding:2px;}
@@ -24,7 +24,7 @@ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .skills
 .skills-workbench :is(.wb-inventory,.wb-inspector){--ink:var(--theme-panel-ink);--muted:var(--theme-panel-muted);--burgundy:var(--theme-panel-accent);--line:color-mix(in srgb,var(--theme-panel-ink) 24%,transparent);--ui-focus:var(--theme-panel-accent);--ui-action-bg:var(--theme-panel-accent);--ui-action-ink:var(--theme-field);--ui-secondary-bg:var(--theme-field);--ui-secondary-ink:var(--theme-panel-ink);background:var(--theme-panel);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:18px;min-width:0;}
 .skills-workbench .wb-inventory-heading{display:flex;align-items:baseline;justify-content:space-between;gap:14px;padding-block-end:12px;border-block-end:1px solid var(--line);margin-block-end:15px;}
 .skills-workbench .wb-current{font-size:23px;line-height:1.25;}
-.skills-workbench .wb-count{flex:none;font:11px/1.3 ui-monospace,Consolas,monospace;color:var(--burgundy);}
+.skills-workbench .wb-count{flex:none;font:11px/1.3 var(--atelier-type);color:var(--burgundy);}
 .skills-workbench .wb-tools{display:grid;gap:18px;}
 .skills-workbench .wb-tool-group{min-width:0;}
 .skills-workbench .wb-tool-group[hidden]{display:none!important;}
@@ -62,7 +62,7 @@ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .skills
 html[lang=ar] .skills-workbench :is(.wb-section-heading h2,.wb-scope h3,.wb-evidence-heading h2){line-height:1.6;}
 html[lang=ar] .skills-workbench :is(.wb-section-heading>p,.wb-scope p,.wb-preview-caption p){font-size:15px;line-height:1.85;}
 html[lang=ar] .skills-workbench :is([data-wb-category],.wb-tool,.wb-reset,.wb-current,.wb-tool-group h3){font-size:14px;line-height:1.7;}
-html[lang=ar] .skills-workbench .wb-tool bdi:not([lang=ar]){font-family:'Libre Caslon Condensed',Georgia,serif;font-size:17px;}
+html[lang=ar] .skills-workbench .wb-tool bdi:not([lang=ar]){font-family:var(--atelier-type);font-size:17px;}
 @media(max-width:1000px){.skills-workbench .wb-layout{grid-template-columns:minmax(0,1.5fr) minmax(255px,1fr);gap:16px;}}
 @media(max-width:800px){
  .skills-workbench .wb-hero-art{max-width:310px;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;}
