@@ -24,7 +24,7 @@ html .light-portfolio.luxury-portfolio.atelier-compact .theme-options button[ari
 html .light-portfolio.luxury-portfolio.atelier-compact .theme-options button:is(:hover,:focus-visible){background:var(--atelier-petrol);outline:1px solid var(--burgundy);outline-offset:-2px;}
 html .light-portfolio.luxury-portfolio.atelier-compact .theme-options .theme-swatches i{width:18px;height:23px;}
 html[lang=ar] .light-portfolio.luxury-portfolio.atelier-compact :is(.theme-trigger,.theme-options button){font-size:13px;line-height:1.7;}
-html[data-theme=burgundy] .light-portfolio.luxury-portfolio.atelier-compact ::selection{background:var(--burgundy);color:var(--on-accent);}
+html[data-theme=burgundy]{--selection-ink:var(--on-accent);}
 @media(max-width:1150px){html .light-portfolio.luxury-portfolio.atelier-compact .theme-trigger-label{display:none;}html .light-portfolio.luxury-portfolio.atelier-compact .header-layout{gap:10px;}}
 @media(max-width:800px){html .light-portfolio.luxury-portfolio.atelier-compact .header-preferences{order:1;gap:6px;}html .light-portfolio.luxury-portfolio.atelier-compact .theme-trigger{width:46px;padding:8px;gap:0;}html .light-portfolio.luxury-portfolio.atelier-compact .theme-trigger>.theme-chevron{display:none;}.theme-trigger>.theme-emblem{display:block;}html .light-portfolio.luxury-portfolio.atelier-compact .theme-options{position:fixed;top:calc(var(--app-header-height) + 6px);inset-inline-end:16px;}html .light-portfolio.luxury-portfolio.atelier-compact .header-preferences .language-trigger{width:108px;min-height:44px;gap:6px;padding-inline:9px;}html .light-portfolio.luxury-portfolio.atelier-compact .header-layout{gap:7px;}}
 @media(prefers-reduced-motion:reduce){html{transition:none!important;}.theme-options{animation:none!important;}}

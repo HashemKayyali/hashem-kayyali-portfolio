@@ -16,7 +16,10 @@ a { color: inherit; text-decoration: none; }
 button { cursor: pointer; }
 img { display: block; max-width: 100%; }
 figure, h1, h2, h3, h4, h5, p { margin: 0; }
-::selection { color: var(--burgundy); background: var(--blush); }
+/* The only ::selection rule. Any ::selection rule makes Chrome compute a highlight style for every
+   element on each restyle, and four of them (one per wrapper/theme) made each theme change much
+   heavier. Colours: the accent, with the theme's on-accent ink (see themes.css). */
+::selection { background: var(--burgundy); color: var(--selection-ink, var(--atelier-on-light)); }
 :focus-visible { outline: 2px solid var(--burgundy); outline-offset: 5px; }
 html { scroll-padding-top: 100px; }
 [id] { scroll-margin-top: 5px; }

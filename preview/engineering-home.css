@@ -4,7 +4,6 @@
 .light-portfolio.homepage-redesign .vision-canvas,.light-portfolio.homepage-redesign .site-header .container,.light-portfolio.homepage-redesign.route--home .compact-footer{width:calc(100% - var(--vision-gutter)*2);max-width:1920px;margin-inline:auto;}
 .light-portfolio.homepage-redesign :is(a,button,select):focus-visible{outline:2px solid var(--signal-blue);outline-offset:5px;}
 .light-portfolio.homepage-redesign .pulse-scene--0 :is(a,button):focus-visible{outline-color:#e3f4c9;}
-.homepage-redesign ::selection{background:var(--signal-blue);color:white;}
 .homepage-redesign .skip-link{background:var(--signal-blue);color:white;}
 .light-portfolio.homepage-redesign .site-header{background:var(--signal-paper);color:var(--signal-ink);border-color:var(--signal-line);}
 .light-portfolio.homepage-redesign.route--home .header-layout{min-height:76px;gap:20px;padding-block:0;}

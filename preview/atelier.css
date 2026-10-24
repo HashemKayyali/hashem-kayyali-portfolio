@@ -20,7 +20,6 @@
 .light-portfolio.luxury-portfolio :is(a,button,select,input,textarea,summary):focus-visible{outline:2px solid var(--burgundy);outline-offset:5px;}
 .light-portfolio.luxury-portfolio :is(.button-primary,.skip-link){background:var(--burgundy);color:var(--atelier-on-light);}
 .light-portfolio.luxury-portfolio .button-primary:hover{background:var(--wine);}
-.luxury-portfolio ::selection{background:var(--burgundy);color:var(--atelier-on-light);}
 .light-portfolio.luxury-portfolio .motion-field:not(.app-atmosphere-paint){background:none;opacity:.14;}
 .light-portfolio.luxury-portfolio .compact-footer{background:var(--paper);color:var(--muted);border-color:var(--line);}
 .light-portfolio.luxury-portfolio .compact-footer a{color:var(--burgundy);}
