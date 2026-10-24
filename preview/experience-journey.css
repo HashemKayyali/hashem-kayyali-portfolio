@@ -105,11 +105,9 @@ html[dir=rtl] .experience-journey .journey-read-link svg{scale:-1 1;}
 .experience-journey .journey-company-header .journey-date{font:400 clamp(15px,1vw,19px)/1.3 var(--atelier-type);letter-spacing:.02em;color:var(--burgundy);}
 .experience-journey .journey-company-title h2{font-size:clamp(30px,2.4vw,48px);line-height:1.08;}
 .experience-journey .journey-role{border-radius:16px;}
-/* The hover lift only exists where hover does. A transition that is always on would also chase
-   every frame GSAP writes while a card arrives, so arrivals switch it off until they settle. */
+/* The hover lift only exists where hover does. */
 @media(hover:hover) and (pointer:fine){
  .experience-journey .journey-role{transition:transform .45s cubic-bezier(.22,1,.36,1),box-shadow .45s ease;}
- .experience-journey [data-arriving],.experience-journey [data-arriving] .journey-role{transition:none;}
  .experience-journey .journey-role:hover{transform:translateY(-3px);box-shadow:0 22px 40px -28px #000c;}
 }
 

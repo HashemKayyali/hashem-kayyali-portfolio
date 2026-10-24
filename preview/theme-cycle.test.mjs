@@ -36,15 +36,17 @@ test('Advances one edition every 10 seconds, starting from Sterling, and loops',
  for(const expected of ['onyx','rose','metal']){c.advance(10_000);assert.equal(c.theme(),expected);}
  assert.equal(storage.size,0,'automatic changes are never stored as a visitor choice');c.stop();
 });
-test('A stored menu choice disables the cycle entirely',async t=>{
+test('A stored menu choice no longer disables the cycle: it continues from that edition',async t=>{
  installDom();storage.set('portfolio-v2-theme-choice','rose');root.dataset.theme='rose';t.mock.timers.enable({apis:['setTimeout']});
  const {startThemeCycle}=await import(url(cycleSource)+'#'+Math.random());const stop=startThemeCycle();
- clock+=120_000;t.mock.timers.tick(120_000);assert.equal(root.dataset.theme,'rose');stop();
+ clock+=10_000;t.mock.timers.tick(10_000);assert.equal(root.dataset.theme,'metal');
+ clock+=10_000;t.mock.timers.tick(10_000);assert.equal(root.dataset.theme,'atelier');stop();
 });
-test('Choosing an edition in the menu stops the cycle immediately',async t=>{
+test('Choosing an edition in the menu keeps it 10 seconds, then the cycle continues',async t=>{
  const c=await cycle(t);c.advance(5_000);
- dispatchEvent(new CustomEvent('portfolio-theme-change',{detail:{id:'onyx',chosen:true}}));root.dataset.theme='onyx';
- c.advance(120_000);assert.equal(c.theme(),'onyx');
+ root.dataset.theme='onyx';dispatchEvent(new CustomEvent('portfolio-theme-change',{detail:{id:'onyx',chosen:true}}));
+ c.advance(9_999);assert.equal(c.theme(),'onyx','the pick stays a full interval');
+ c.advance(1);assert.equal(c.theme(),'rose','then the cycle moves on');c.stop();
 });
 test('Constrained devices (Save-Data, low memory, 2 cores) still cycle every 10 seconds',async t=>{
  for(const navigatorStub of [{connection:{saveData:true}},{deviceMemory:2},{hardwareConcurrency:2}]){
