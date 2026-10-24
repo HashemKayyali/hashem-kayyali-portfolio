@@ -376,3 +376,21 @@
 }
 /* The live smoke fades in over the static glow once its first frame is ready (smoke-stage.ts). */
 :root .atelier-app-shell .app-atmosphere-paint canvas{transition:opacity .5s cubic-bezier(.2,.7,.2,1);}
+
+/* Projects collection (24 Oct 2026): every card shows its image at one shared height, wide or
+   narrow. The image box no longer takes "whatever the text leaves" in a fixed-height card: long
+   titles squeezed it until the picture overflowed its frame or slid over the card header. Cards
+   keep the shared row height as a minimum and grow with their text instead. */
+@media(min-width:1101px){
+ :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index{--art-h:calc(var(--card-h)*.4);}
+ :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibit{height:auto;min-height:var(--card-h);}
+ :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibit>.gallery-project-link{grid-template-rows:auto var(--art-h) auto!important;align-content:start;}
+ :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibit .gallery-artwork{height:var(--art-h);overflow:hidden;}
+ :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibit .gallery-media-mask{--frame-height:calc(var(--art-h) - 8px);max-height:none;}
+ @container (min-width:640px){
+  :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibit>.gallery-project-link{grid-template-rows:auto minmax(var(--art-h),1fr)!important;align-content:stretch;}
+  :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibit .gallery-artwork{align-self:center;}
+  :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibit .gallery-media-mask{--frame-height:calc(var(--art-h) - 8px);}
+  :root .light-portfolio.luxury-portfolio.atelier-compact .atelier-project-index .gallery-exhibit .gallery-artwork figcaption{display:none;}
+ }
+}

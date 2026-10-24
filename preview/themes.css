@@ -34,12 +34,6 @@ html[data-theme-transition=true]::view-transition-group(root){animation-duration
 html[data-theme-transition=true]::view-transition-old(root){animation:theme-out .32s ease both;mix-blend-mode:normal;}
 html[data-theme-transition=true]::view-transition-new(root){animation:theme-in .32s ease both;mix-blend-mode:normal;}
 html[data-theme-transition=true]::view-transition{pointer-events:none;}
-/* The automatic 30-second cycle blends slowly so it reads as ambience, not a flash. It uses a typed
-   view transition (themes.ts) instead of an <html> attribute, which would restyle the whole page. */
-html:active-view-transition-type(theme-auto)::view-transition-group(root){animation-duration:1.4s;}
-html:active-view-transition-type(theme-auto)::view-transition-old(root){animation:none;mix-blend-mode:normal;}
-html:active-view-transition-type(theme-auto)::view-transition-new(root){animation:theme-in 1.4s ease-in-out both;mix-blend-mode:normal;}
-html:active-view-transition-type(theme-auto)::view-transition{pointer-events:none;}
 @keyframes theme-out{to{opacity:0;}}
 @keyframes theme-in{from{opacity:0;}to{opacity:1;}}
 @media(prefers-reduced-motion:reduce){::view-transition-old(root),::view-transition-new(root){animation:none!important;}}

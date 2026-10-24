@@ -17,7 +17,6 @@ export function readStoredTheme(storage:Pick<Storage,'getItem'>):ThemeId{return 
 export function readThemeChoice(storage:Pick<Storage,'getItem'>):ThemeId|null{try{const value=storage.getItem(THEME_STORAGE_KEY);return THEMES.find(t=>t.id===value)?.id??null;}catch{return null;}}
 export function themeSmokeRamp(theme:PortfolioTheme){return theme.smoke?.ramp??[theme.colors.paper,theme.colors.paper,theme.colors.smokeA,theme.colors.smokeB,theme.colors.paper];}
 let transition:ViewTransition|undefined,version=0;
-const supportsTransitionTypes=()=>typeof document.startViewTransition==='function'&&typeof ViewTransition!=='undefined'&&'types' in ViewTransition.prototype;
 /** Route/image choreography takes priority over a palette-only viewport blend. */
 export function cancelThemeTransition(){transition?.skipTransition();transition=undefined;delete document.documentElement.dataset.themeTransition;}
 /** persist: the visitor chose it in the menu. animate: blend the change (menu picks and the automatic cycle). */
@@ -37,14 +36,6 @@ export function applyTheme(id:ThemeId,persist=true,animate=persist){
  const device=navigator as Navigator&{connection?:{saveData?:boolean};deviceMemory?:number};
  const reduced=matchMedia('(prefers-reduced-motion:reduce)').matches||device.connection?.saveData||(device.deviceMemory??8)<=2||device.hardwareConcurrency<=2;
  const routeBusy=document.querySelector('.route-stage')?.hasAttribute('inert')||Boolean(root.dataset.projectTransit);
- // The automatic cycle blends through a typed view transition: unlike a data attribute on <html>,
- // the type only matches ::view-transition pseudo-elements, so it adds no document-wide restyle.
- if(!persist&&animate&&root.dataset.theme!==theme.id&&!reduced&&!routeBusy){
-  if(!supportsTransitionTypes()){write();return;}
-  const active=(document as unknown as {startViewTransition:(options:{update:()=>void;types:string[]})=>ViewTransition}).startViewTransition({update:write,types:['theme-auto']});transition=active;
-  void active.ready.catch(()=>{});void active.finished.catch(()=>{}).finally(()=>{if(transition===active)transition=undefined;});
-  return;
- }
  if(persist&&animate&&root.dataset.theme!==theme.id&&document.startViewTransition&&!reduced&&!routeBusy){
   root.dataset.themeTransition='true';const active=document.startViewTransition(write);transition=active;
   void active.ready.catch(()=>{});void active.finished.catch(()=>{}).finally(()=>{if(transition===active){transition=undefined;delete root.dataset.themeTransition;}});
