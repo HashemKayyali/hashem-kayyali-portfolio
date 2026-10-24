@@ -29,19 +29,17 @@ export function useEngineeringHomeMotion(root:RefObject<HTMLElement|null>,locale
    const arm=()=>{
     if(!alive||!allowsMotion())return;
     owned.add(()=>{
+     // Owner decision (25 Oct 2026): on phones and touch tablets the three project cards have no motion:
+     // plain cards in normal flow, no sticky stack, depth/dim scrub, entrance or progress scrub. Their
+     // ScrollTriggers kept interrupting the first scroll down to them on a phone.
+     if(liteMotion()){element.dataset.homeDeck='static';return;}
      const desktop=Boolean(match.conditions?.desktop);
      gsap.fromTo('.pulse-work-progress',{scaleX:0},{scaleX:1,ease:'none',scrollTrigger:{id:'signal:work-progress',trigger:element.querySelector('.pulse-scenes'),start:'top 75%',end:'bottom 70%',scrub:.3}});
-     const lite=liteMotion();
      const setups=new Map<Element,()=>void>(),initialized=new Set<Element>();
      const ensure=(target:Element)=>{if(!alive||!allowsMotion()||initialized.has(target))return;initialized.add(target);owned.add(()=>setups.get(target)?.());};
      scenes.forEach((scene,index)=>setups.set(markers[index],()=>{
       const marker=markers[index];
-      const entrance=gsap.timeline({id:'signal:scene:'+index,scrollTrigger:{id:'signal:scene-entry:'+index,trigger:marker,start:'top 88%',toggleActions:lite?'play none none none':'play none none reverse'},defaults:{ease:'power3.out'}});
-      if(lite){
-       // Phones: one tween for the whole scene, no mask line, tilt or image parallax.
-       entrance.fromTo([...scene.querySelectorAll('.pulse-scene-copy h3,.pulse-scene-copy>p,.pulse-scene-copy ul,.pulse-case-link,.project-media-primary')],{y:14,opacity:.2},{y:0,opacity:1,duration:.55,stagger:.05,clearProps:'transform,opacity'},0);
-       return;
-      }
+      const entrance=gsap.timeline({id:'signal:scene:'+index,scrollTrigger:{id:'signal:scene-entry:'+index,trigger:marker,start:'top 88%',toggleActions:'play none none reverse'},defaults:{ease:'power3.out'}});
       entrance.fromTo(scene.querySelector('.pulse-scene-copy h3 .pulse-line-mask>span'),{yPercent:105},{yPercent:0,duration:.9},0)
        .fromTo(scene.querySelectorAll('.pulse-scene-copy>p,.pulse-scene-copy ul,.pulse-case-link'),{y:17,opacity:.15},{y:0,opacity:1,duration:.65,stagger:.08},.15);
       entrance.fromTo(scene.querySelectorAll('.project-media-primary'),{y:14,opacity:.25},{y:0,opacity:1,duration:.7,stagger:.09,clearProps:'transform,opacity'},.12);
@@ -50,7 +48,7 @@ export function useEngineeringHomeMotion(root:RefObject<HTMLElement|null>,locale
       gsap.fromTo(scene.querySelector('.project-media-set'),{y:6},{y:0,ease:'none',scrollTrigger:{id:'signal:image-depth:'+index,trigger:marker,start:'top bottom',end:()=>'+='+scene.offsetHeight,scrub:.65}});
      }));
      const deck=element.querySelector<HTMLElement>('.pulse-scenes')!;
-     // Shared signature deck (also used by Projects): sticky layering with scrubbed depth, all viewports.
+     // Shared signature deck (also used by Projects): sticky layering with scrubbed depth (desktop only on Home).
      const stack=createCardStack(deck,{id:'signal',surface:'.pulse-scene-surface',offset:14,mobileOffset:8,depth:.035});
      disposers.push(()=>stack.dispose());
      const sceneTargets=new Map<Element,Element>(scenes.map((scene,index)=>[scene,markers[index]]));
@@ -109,7 +107,7 @@ export function useEngineeringHomeMotion(root:RefObject<HTMLElement|null>,locale
      clearTimeout(readinessTimer);if(alive)frame=requestAnimationFrame(()=>{frame=requestAnimationFrame(start);});
     });
    });
-   return()=>{alive=false;cancelAnimationFrame(frame);clearTimeout(readinessTimer);disposers.forEach(dispose=>dispose());owned.revert();if(hero)hero.dataset.intro='complete';delete element.dataset.motionPolicy;};
+   return()=>{delete element.dataset.homeDeck;alive=false;cancelAnimationFrame(frame);clearTimeout(readinessTimer);disposers.forEach(dispose=>dispose());owned.revert();if(hero)hero.dataset.intro='complete';delete element.dataset.motionPolicy;};
   },element);
   return()=>media.revert();
  },{scope:root,dependencies:[locale],revertOnUpdate:true});

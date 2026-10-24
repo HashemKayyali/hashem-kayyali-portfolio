@@ -76,6 +76,8 @@ html[dir=rtl] .homepage-redesign :is([data-intro=waiting],[data-intro=preparing]
 .homepage-redesign .pulse-work-index a{display:flex;align-items:center;gap:15px;font-size:12px;min-height:53px;}
 .homepage-redesign .pulse-work-index bdi{font:10px var(--atelier-type);color:var(--signal-blue);}
 .homepage-redesign .pulse-work-progress{position:absolute;inset-inline-start:0;inset-block-end:-1px;height:2px;width:100%;background:var(--signal-blue);transform:scaleX(0);transform-origin:left;}
+/* Phones: the deck has no scroll motion (engineering-home-motion.ts), so the rule is simply drawn. */
+[data-home-deck=static] .pulse-work-progress{transform:scaleX(1);}
 .homepage-redesign .pulse-scene{position:relative;margin-block-end:50px;scroll-margin-top:100px;}
 .homepage-redesign .pulse-scene-surface{position:relative;overflow:hidden;background:var(--signal-green);color:#eef4e8;border-radius:12px;min-height:540px;padding:28px 32px 26px;transform-origin:50% 0%;}
 .homepage-redesign .pulse-scene--1 .pulse-scene-surface{background:#dce0ff;color:var(--signal-ink);}
