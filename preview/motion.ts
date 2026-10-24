@@ -5,6 +5,7 @@ import {useGSAP} from '@gsap/react';
 import {allowsMotion} from './route-motion';
 import {projectVisualInFlight} from './project-transit';
 import {liteMotion} from './lite-motion';
+import {refreshScrollTriggers} from './scroll-refresh';
 
 gsap.registerPlugin(ScrollTrigger,useGSAP);
 /** Read-only inspection of actual GSAP objects in this isolated review build. */
@@ -64,7 +65,7 @@ export function usePortfolioMotion(root:RefObject<HTMLDivElement|null>,key:strin
     }
    }
    let alive=true;let refreshFrame=0;
-   const refresh=()=>{cancelAnimationFrame(refreshFrame);refreshFrame=requestAnimationFrame(()=>{if(alive)ScrollTrigger.refresh();});};
+   const refresh=()=>{cancelAnimationFrame(refreshFrame);refreshFrame=requestAnimationFrame(()=>{if(alive)refreshScrollTriggers();});};
    const pause=(event:Event)=>{
     const paused=Boolean((event as CustomEvent).detail);
     for(const trigger of ScrollTrigger.getAll())if(trigger.trigger&&element.contains(trigger.trigger))paused?trigger.disable(false):trigger.enable(false);
@@ -128,7 +129,7 @@ export function useFeaturedMotion(root:RefObject<HTMLElement|null>,key:string,rt
    project.dataset.motion='armed';
    const observer=new IntersectionObserver(entries=>{if(entries.some(entry=>entry.isIntersecting))initialize();},{rootMargin:'180px 0px'});
    observer.observe(project);
-   const refresh=()=>{if(animationContext)ScrollTrigger.refresh();};
+   const refresh=()=>{if(animationContext)refreshScrollTriggers();};
    project.querySelectorAll('img').forEach(img=>img.addEventListener('load',refresh,{once:true}));
    return()=>{alive=false;observer.disconnect();project.removeEventListener('focusin',focus);animationContext?.revert();delete project.dataset.motion;project.querySelectorAll('img').forEach(img=>img.removeEventListener('load',refresh));};
   },project);

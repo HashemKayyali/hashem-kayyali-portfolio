@@ -5,6 +5,7 @@ import {ScrollTrigger} from 'gsap/ScrollTrigger';
 import {createCardStack} from './card-stack';
 import {allowsMotion} from './route-motion';
 import {liteMotion} from './lite-motion';
+import {refreshScrollTriggers} from './scroll-refresh';
 
 gsap.registerPlugin(useGSAP,ScrollTrigger);
 
@@ -80,7 +81,7 @@ export function useEngineeringHomeMotion(root:RefObject<HTMLElement|null>,locale
       }
      };
      element.addEventListener('focusin',focus);disposers.push(()=>element.removeEventListener('focusin',focus));
-     ScrollTrigger.refresh();
+     refreshScrollTriggers();
     });
    };
    const start=()=>{

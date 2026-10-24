@@ -3,6 +3,7 @@ import {gsap} from 'gsap';
 import {ScrollTrigger} from 'gsap/ScrollTrigger';
 import {useGSAP} from '@gsap/react';
 import {allowsMotion} from './route-motion';
+import {refreshScrollTriggers} from './scroll-refresh';
 
 gsap.registerPlugin(ScrollTrigger,useGSAP);
 
@@ -24,7 +25,7 @@ export function useProfileMotion(root:RefObject<HTMLElement|null>,key:string) {
     else timeline.from(section,{y:16,clearProps:'transform'});
    }
    let alive=true;let frame=0;
-   const refresh=()=>{cancelAnimationFrame(frame);frame=requestAnimationFrame(()=>{if(alive)ScrollTrigger.refresh();});};
+   const refresh=()=>{cancelAnimationFrame(frame);frame=requestAnimationFrame(()=>{if(alive)refreshScrollTriggers();});};
    const toggles=element.querySelectorAll('details');
    toggles.forEach(details=>details.addEventListener('toggle',refresh));
    void document.fonts.ready.then(refresh);

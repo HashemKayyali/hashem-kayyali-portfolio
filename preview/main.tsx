@@ -50,6 +50,9 @@ import {startSmoothScroll,haltSmoothScroll} from './smooth-scroll';
 import {ScrollTrigger} from 'gsap/ScrollTrigger';
 import {startUiMotion} from './ui-motion';
 import {startThemeCycle} from './theme-cycle';
+import {configureScrollRefresh} from './scroll-refresh';
+// ScrollTrigger's own refresh on window load waits for scrolling to stop (see scroll-refresh.ts).
+configureScrollRefresh();
 
 initializeTheme();
 

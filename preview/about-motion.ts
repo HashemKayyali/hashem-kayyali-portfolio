@@ -2,6 +2,7 @@ import type {RefObject} from 'react';
 import {onLayoutResize} from './layout-resize';
 import {gsap} from 'gsap';import {ScrollTrigger} from 'gsap/ScrollTrigger';import {useGSAP} from '@gsap/react';
 import {allowsMotion} from './route-motion';
+import {refreshScrollTriggers} from './scroll-refresh';
 import {liteMotion} from './lite-motion';
 gsap.registerPlugin(ScrollTrigger,useGSAP);
 
@@ -10,7 +11,7 @@ export function useAboutMotion(root:RefObject<HTMLElement|null>,locale:string){
  useGSAP(()=>{
   const el=root.current;if(!el)return;
   let alive=true,refreshFrame=0;
-  const refresh=()=>{cancelAnimationFrame(refreshFrame);refreshFrame=requestAnimationFrame(()=>{if(alive)ScrollTrigger.refresh();});};
+  const refresh=()=>{cancelAnimationFrame(refreshFrame);refreshFrame=requestAnimationFrame(()=>{if(alive)refreshScrollTriggers();});};
   const media=gsap.matchMedia();
   media.add({motion:'(prefers-reduced-motion:no-preference)',reduced:'(prefers-reduced-motion:reduce)'},()=>{
    if(!allowsMotion())return;

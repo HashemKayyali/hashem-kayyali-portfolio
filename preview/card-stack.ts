@@ -1,5 +1,6 @@
 import {gsap} from 'gsap';
 import {onLayoutResize} from './layout-resize';
+import {refreshScrollTriggers,whenScrollIdle} from './scroll-refresh';
 import {ScrollTrigger} from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
@@ -13,7 +14,7 @@ gsap.registerPlugin(ScrollTrigger);
 const DEPTH=4;
 export type CardStackOptions={id:string;surface?:string;offset?:number;mobileOffset?:number;depth?:number};
 export function createCardStack(deck:HTMLElement,options:CardStackOptions){
- let context:gsap.Context|undefined,frame=0,alive=true,built='';
+ let context:gsap.Context|undefined,frame=0,alive=true,built='',queued=false;
  const rebuild=()=>{
   frame=0;if(!alive)return;
   const items=[...deck.children].filter((node):node is HTMLElement=>node instanceof HTMLElement&&node.matches('[data-stack-item]:not([data-filtered=true])')&&node.offsetParent!==null);
@@ -38,7 +39,7 @@ export function createCardStack(deck:HTMLElement,options:CardStackOptions){
   const tallest=Math.max(0,...items.map(item=>item.offsetHeight));
   const fits=items.length>1&&tallest+top+Math.min(items.length,DEPTH)*offset+24<viewport;
   deck.dataset.stack=fits?'active':'static';
-  if(!fits){built=signature;ScrollTrigger.refresh();return;}
+  if(!fits){built=signature;refreshScrollTriggers();return;}
   deck.style.setProperty('--stack-tail',Math.max(48,tallest-items.at(-1)!.offsetHeight+48)+'px');
   context=gsap.context(()=>{
    items.slice(0,-1).forEach((item,index)=>{
@@ -55,9 +56,10 @@ export function createCardStack(deck:HTMLElement,options:CardStackOptions){
     if(cover)ScrollTrigger.create({id:`${options.id}:buried:${index}`,trigger:cover,start:`top ${top+DEPTH*offset}px`,end:()=>ScrollTrigger.maxScroll(window)+1,toggleClass:{targets:item,className:'stack-buried'}});
    });
   },deck);
-  built=signature;ScrollTrigger.refresh();
+  built=signature;refreshScrollTriggers();
  };
- const schedule=()=>{if(!frame)frame=requestAnimationFrame(rebuild);};
+ // A rebuild reverts every layer and refreshes ScrollTrigger: never in the middle of a scroll.
+ const schedule=()=>{if(!queued){queued=true;whenScrollIdle(()=>{queued=false;if(alive&&!frame)frame=requestAnimationFrame(rebuild);});}};
  const resize=new ResizeObserver(schedule);resize.observe(deck);
  // A phone's address bar fires resize with only innerHeight changed: nothing to rebuild, nothing to measure.
  const unresize=onLayoutResize(schedule);
