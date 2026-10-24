@@ -11,7 +11,6 @@ import {engineeringHomeCopy} from './engineering-home-copy';
 import {useEngineeringHomeMotion} from './engineering-home-motion';
 import type {Navigate,PreviewRoute} from './routes';
 import './engineering-home.css';
-import SkillToolbelt from './SkillToolbelt';
 import HomeStory from './HomeStory';
 
 type Props={route:PreviewRoute;navigate:Navigate};
@@ -43,7 +42,6 @@ export default function EngineeringHome({route,navigate}:Props){
 
   </section>
   <div className="pulse-hero-foot vision-canvas"><span>{t.hero.technicalMeta[0]}</span><a href="#vision-work">{copy.work}<ArrowDown size={17} aria-hidden="true"/></a></div></div>
-  <SkillToolbelt/>
   <section className="pulse-work vision-canvas" id="vision-work" aria-labelledby="vision-work-title"><header className="pulse-work-heading"><div><span className="pulse-kicker">01 / {copy.work}</span><h2 id="vision-work-title">{copy.selected}</h2></div><NavLink className="pulse-text-link" route={{...route,page:'projects',project:undefined}} navigate={navigate}>{labels.allProjects}<Up/></NavLink></header><nav className="pulse-work-index" aria-label={copy.work}>{projects.map((asset,index)=><a href={`#home-work-${asset.id}`} key={asset.id}><bdi>0{index+1}</bdi>{t.projects[asset.id].title}<ArrowDown size={14} aria-hidden="true"/></a>)}<span className="pulse-work-progress" aria-hidden="true"/></nav><div className="pulse-scenes">{projects.map((asset,index)=><Scene key={asset.id} asset={asset} index={index} route={route} navigate={navigate}/>)}</div></section>
   <HomeStory route={route} navigate={navigate}/>
  </main>;

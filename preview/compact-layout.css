@@ -9,10 +9,6 @@ html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .pulse-
 html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .pulse-scene-media .project-media-primary{--frame-height:clamp(220px,20vw,280px);}
 html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .pulse-scene-top{margin-block-end:16px;padding-block-end:10px;}
 html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .pulse-scene-bottom{margin-block-start:16px;padding-block-start:10px;}
-html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .toolbelt-header h2{font-size:16px;}
-html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .toolbelt-item{min-height:44px;font-size:15px;}
-html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .toolbelt-mark{width:32px;height:32px;}
-html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .toolbelt-mark img{width:26px;height:26px;}
 html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-career-entry{padding-inline:18px;}
 html .light-portfolio.luxury-portfolio.atelier-compact.atelier-app-shell .story-career-rule{inset-inline-start:18px;width:calc(100% - 36px);}
 @media(max-width:800px){
