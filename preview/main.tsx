@@ -208,3 +208,6 @@ const initialRoute = readRoute();
 Promise.all([loadDictionary(initialRoute.locale),initialRoute.project?prefetchCaseStudy():Promise.resolve(),initialRoute.experience==='creative'?prefetchCreative():Promise.resolve()])
   .then(([dictionary]) => createRoot(document.getElementById('root')!).render(<Preview initialRoute={initialRoute} dictionary={dictionary} />))
   .catch(() => { document.getElementById('root')!.textContent = 'Preview unavailable. Please reload.'; });
+// Analytics: lazy, after load and idle, so it never competes with first render. It is a no-op off hashemkayyali.com.
+const startAnalytics=()=>void import('../analytics/tracker').then(m=>m.startTracker()).catch(()=>{});
+addEventListener('load',()=>{(window.requestIdleCallback??((f:()=>void)=>setTimeout(f,1500)))(startAnalytics);},{once:true});

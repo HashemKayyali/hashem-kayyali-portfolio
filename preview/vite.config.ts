@@ -6,6 +6,9 @@ import {readdir,unlink} from 'node:fs/promises';
 import {withheldMedia} from './media-policy';
 import {studioApiPlugin} from '../server/studio/dev-plugin';
 import {selectorKeys} from './css-selector-keys';
+import {handle as analyticsHandle} from '../server/analytics/handler';
+// Dev only: serves GET /api/analytics (aggregates) from the real Supabase project. POSTs from non-production hosts are dropped by the handler.
+const analyticsApi={name:'analytics-api',configureServer(server:any){server.middlewares.use('/api/analytics',async(req:any,res:any)=>{const r=await analyticsHandle(new Request('http://localhost'+req.originalUrl,{method:req.method,headers:{host:'localhost'}}));res.statusCode=r.status;r.headers.forEach((v,k)=>res.setHeader(k,v));res.end(Buffer.from(await r.arrayBuffer()));});}};
 
 const root=path.resolve(import.meta.dirname,'..');
 const safeMedia={name:'v2-public-media-policy',configureServer(server:any){server.middlewares.use((request:any,response:any,next:()=>void)=>{if(withheldMedia(new URL(request.url,'http://localhost').pathname)){response.statusCode=404;response.end();return;}next();});},configurePreviewServer(server:any){server.middlewares.use((request:any,response:any,next:()=>void)=>{if(withheldMedia(new URL(request.url,'http://localhost').pathname)){response.statusCode=404;response.end();return;}next();});},async closeBundle(){
@@ -29,10 +32,10 @@ const previewRoutes={name:'light-burgundy-page-routes',configureServer(server:an
 
 export default defineConfig(({mode})=>({
   root,
-  plugins: [react(),safeMedia,studioApiPlugin({...loadEnv(mode,root,''),...process.env}),previewRoutes],
+  plugins: [react(),safeMedia,studioApiPlugin({...loadEnv(mode,root,''),...process.env}),previewRoutes,analyticsApi],
   // Rules ending in :is(...) are split into indexable selectors (see css-selector-keys.ts).
   css: { postcss: { plugins: [selectorKeys()] } },
   server: { host: '127.0.0.1', port: 5176, strictPort: true },
   preview: { host: '127.0.0.1', port: 4176, strictPort: true },
-  build: { outDir: 'dist-light-preview', rollupOptions: { input: path.resolve(import.meta.dirname, 'index.html'),output:{manualChunks(id){if(id.replaceAll('\\','/').includes('/node_modules/gsap/'))return 'gsap-motion';}} } },
+  build: { outDir: 'dist-light-preview', rollupOptions: { input: {main:path.resolve(import.meta.dirname, 'index.html'),insights:path.resolve(root,'insights/index.html')},output:{manualChunks(id){if(id.replaceAll('\\','/').includes('/node_modules/gsap/'))return 'gsap-motion';}} } },
 }));

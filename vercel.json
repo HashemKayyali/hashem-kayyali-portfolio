@@ -6,6 +6,9 @@
   "functions": {
     "api/studio.ts": {
       "maxDuration": 30
+    },
+    "api/analytics.ts": {
+      "maxDuration": 10
     }
   },
   "redirects": [
@@ -66,6 +69,13 @@
     }
   ],
   "headers": [
+    {
+      "source": "/insights(/.*)?",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow" },
+        { "key": "Cache-Control", "value": "no-cache" }
+      ]
+    },
     {
       "source": "/(.*)",
       "headers": [
