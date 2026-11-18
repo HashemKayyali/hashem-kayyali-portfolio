@@ -20,7 +20,7 @@ await Promise.all(urls.map(async url=>{
  const ogLocale=attr(html,/<meta property="og:locale" content="([^"]+)"/g);if(ogLocale.length!==1||ogLocale[0]!==LOCALES[locale])fail('og:locale '+JSON.stringify(ogLocale));
  const ogUrl=attr(html,/<meta property="og:url" content="([^"]+)"/g);if(ogUrl.length!==1||ogUrl[0]!==expected)fail('og:url '+JSON.stringify(ogUrl));
  const hreflang=attr(html,/hreflang="([^"]+)"/g);if(hreflang.sort().join()!==['ar','de','en','es','fr','x-default'].join())fail('hreflang '+hreflang.join());
- const robots=attr(html,/<meta name="robots" content="([^"]+)"/g);if(robots.length!==1||robots[0]!=='index,follow')fail('robots '+JSON.stringify(robots));
+ const robots=attr(html,/<meta name="robots" content="([^"]+)"/g);if(robots.length!==1||robots[0]!=='index,follow,max-image-preview:large')fail('robots '+JSON.stringify(robots));
  const lang=html.match(/<html lang="([^"]+)" dir="([^"]+)"/);if(!lang||lang[1]!==locale||lang[2]!==(locale==='ar'?'rtl':'ltr'))fail('html lang/dir '+(lang?.slice(1).join('/')));
  const title=attr(html,/<title>([^<]*)<\/title>/g);if(title.length!==1||!title[0].trim())fail('title');else{titles.set(locale+'|'+title[0],[...(titles.get(locale+'|'+title[0])??[]),path]);if(title[0].length>70)notes.push(path+': title '+title[0].length+' chars');}
  const description=attr(html,/<meta name="description" content="([^"]*)"/g);if(description.length!==1||description[0].length<(locale==='ar'?35:50))fail('description '+JSON.stringify(description[0]??''));else{descriptions.set(description[0],[...(descriptions.get(description[0])??[]),path]);if(description[0].length>170)notes.push(path+': description '+description[0].length+' chars');}

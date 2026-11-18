@@ -98,6 +98,10 @@
       ]
     },
     {
+      "source": "/images/hashem-profile.webp",
+      "headers": [{ "key": "Content-Type", "value": "image/jpeg" }]
+    },
+    {
       "source": "/sitemap.xml",
       "headers": [
         {

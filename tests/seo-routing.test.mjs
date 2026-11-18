@@ -21,7 +21,7 @@ test('Every indexable page in every language has a unique title and a 35–160 c
   for(const route of routes(locale)){const data=pageMetadata(route,dictionaries[locale]);
    assert.ok(!titles.has(data.title),`${locale} duplicate title ${data.title}`);titles.add(data.title);
    assert.ok(data.description.length>=35&&data.description.length<=160,`${locale} ${route.page} ${route.project??''}: ${data.description.length}`);
-   assert.equal(data.robots,'index,follow');}}
+   assert.equal(data.robots,'index,follow,max-image-preview:large');}}
 });
 test('Admin, Creative Lab and not-found stay out of search results',()=>{
  for(const route of [{locale:'en',page:'admin'},{locale:'ar',page:'not-found'},{locale:'de',page:'home',experience:'creative'}])assert.equal(pageMetadata(route,dictionaries[route.locale]).robots,'noindex,nofollow');
