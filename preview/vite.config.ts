@@ -9,6 +9,7 @@ import {selectorKeys} from './css-selector-keys';
 import {handle as analyticsHandle} from '../server/analytics/handler';
 // Dev only: serves GET /api/analytics (aggregates) from the real Supabase project. POSTs from non-production hosts are dropped by the handler.
 const analyticsApi={name:'analytics-api',configureServer(server:any){server.middlewares.use('/api/analytics',async(req:any,res:any)=>{const r=await analyticsHandle(new Request('http://localhost'+req.originalUrl,{method:req.method,headers:{host:'localhost'}}));res.statusCode=r.status;r.headers.forEach((v,k)=>res.setHeader(k,v));res.end(Buffer.from(await r.arrayBuffer()));});}};
+import {parsePreviewRoute} from './routes';
 
 const root=path.resolve(import.meta.dirname,'..');
 const safeMedia={name:'v2-public-media-policy',configureServer(server:any){server.middlewares.use((request:any,response:any,next:()=>void)=>{if(withheldMedia(new URL(request.url,'http://localhost').pathname)){response.statusCode=404;response.end();return;}next();});},configurePreviewServer(server:any){server.middlewares.use((request:any,response:any,next:()=>void)=>{if(withheldMedia(new URL(request.url,'http://localhost').pathname)){response.statusCode=404;response.end();return;}next();});},async closeBundle(){
@@ -21,10 +22,15 @@ const safeMedia={name:'v2-public-media-policy',configureServer(server:any){serve
 const LOCALE_PAGE=/^\/(creative\/)?(en|ar|de|fr|es)(\/|$)/,LEGACY_PAGE=/^\/preview\/((?:creative\/)?(?:en|ar|de|fr|es)(?:\/.*)?)$/;
 const routePages=(builtShells:boolean)=>(request:any,response:any,next:()=>void)=>{
  const url=new URL(request.url,'http://localhost'),pathname=url.pathname;
- const redirect=(to:string,status=301)=>{response.statusCode=status;response.setHeader('Location',to+url.search);response.end();};
- if(pathname==='/'||pathname==='/preview'||pathname==='/preview/')return redirect('/en/',pathname==='/'?302:301);
- const legacy=pathname.match(LEGACY_PAGE);if(legacy)return redirect('/'+legacy[1]);
- if(/^\/(en|ar|de|fr|es)$/.test(pathname))return redirect(pathname+'/');
+ const redirect=(to:string,status=308)=>{response.statusCode=status;response.setHeader('Location',to+url.search);response.end();};
+ if(pathname==='/')return redirect('/en/',302);
+ if(pathname==='/preview'||pathname==='/preview/'||(builtShells&&pathname==='/preview/index.html'))return redirect('/en/');
+ const legacy=pathname.match(LEGACY_PAGE);
+ if(legacy)return redirect(('/'+legacy[1]).replace(/\/index\.html$/,'/').replace(/\/?$/,'/'));
+ if(LOCALE_PAGE.test(pathname)&&!pathname.endsWith('/')){
+  if(pathname.endsWith('/index.html'))return redirect(pathname.slice(0,-'index.html'.length));
+  if(parsePreviewRoute(url.origin+pathname).page!=='not-found')return redirect(pathname+'/');
+ }
  if(LOCALE_PAGE.test(pathname)&&request.headers.accept?.includes('text/html')&&!(builtShells&&existsSync(path.join(root,'dist-light-preview',pathname,'index.html'))))request.url='/preview/index.html';
  next();
 };

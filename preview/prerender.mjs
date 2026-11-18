@@ -1,7 +1,7 @@
 import {readFile,writeFile,mkdir,readdir} from 'node:fs/promises';
 import path from 'node:path';
-import {LOCALES,LOCALE_META} from '../i18n/config.ts';
-import {projectAssets} from '../data/projectAssets.ts';
+import {LOCALES,LOCALE_META,SITE_URL} from '../i18n/config.ts';
+import {featuredIds,projectAssets} from '../data/projectAssets.ts';
 import {PAGES,CORE_PAGES,previewUrl} from './routes.ts';
 import {pageMetadata,OG_IMAGE} from './page-metadata.ts';
 import {profile} from '../data/profile.ts';
@@ -10,7 +10,7 @@ import {studioCopy} from './studio-copy.ts';
 import {loadEnv} from 'vite';
 
 const root=path.resolve(import.meta.dirname,'..'),template=await readFile(path.join(root,'dist-light-preview/preview/index.html'),'utf8');
-const siteUrl=process.env.VITE_SITE_URL||loadEnv('production',root,'VITE_').VITE_SITE_URL||'https://hashemkayyali.com';
+const siteUrl=process.env.VITE_SITE_URL||loadEnv('production',root,'VITE_').VITE_SITE_URL||SITE_URL;
 const siteOrigin=new URL(siteUrl).origin;
 const chunks=await readdir(path.join(root,'dist-light-preview/assets'));
 const escape=value=>value.replaceAll('&','&amp;').replaceAll('"','&quot;').replaceAll('<','&lt;').replaceAll('>','&gt;');
@@ -27,13 +27,16 @@ for(const locale of LOCALES){const t=(await import(`../content/locales/${locale}
   const head=`${preload}<style>.seo-shell{max-width:52rem;margin:0 auto;padding:24px 16px;font:16px/1.6 system-ui,sans-serif;color:#d8d8dc;opacity:0;animation:seo-shell-in .3s 2.5s forwards}.seo-shell a{color:inherit}.seo-shell nav a{margin-inline-end:16px}@keyframes seo-shell-in{to{opacity:1}}</style><noscript><style>.seo-shell{opacity:1;animation:none}</style></noscript><link rel="canonical" href="${siteOrigin}${url}"><meta property="og:url" content="${siteOrigin}${url}"><meta property="og:type" content="website"><meta property="og:image" content="${siteOrigin}${OG_IMAGE}"><meta property="og:image:type" content="image/png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Hashem Kayyali — R&amp;D Product Engineer and Software Engineer"><meta property="og:site_name" content="${escape(t.identity.name)}"><meta name="twitter:title" content="${escape(metadata.title)}"><meta name="twitter:description" content="${escape(metadata.description)}"><meta name="twitter:image" content="${siteOrigin}${OG_IMAGE}"><meta name="twitter:image:alt" content="${escape(t.identity.name)}"><meta name="twitter:card" content="summary_large_image"><meta property="og:title" content="${escape(metadata.title)}"><meta property="og:description" content="${escape(metadata.description)}"><meta property="og:locale" content="${LOCALE_META[locale].ogLocale}">${LOCALES.map(other=>`<link data-preview-alternate rel="alternate" hreflang="${other}" href="${siteOrigin}${previewUrl({...route,locale:other})}">`).join('')}<link data-preview-alternate rel="alternate" hreflang="x-default" href="${siteOrigin}${previewUrl({...route,locale:'en'})}">`;
   // Server HTML inside #root (React replaces it on mount): the page's H1, summary and plain links, for crawlers and readers without JavaScript.
   const link=(page,label=pageCopy[locale].nav[page])=>`<a href="${previewUrl({locale,page})}">${escape(label)}</a>`;
-  const projectLinks=`<ul>${projectAssets.map(asset=>`<li><a href="${previewUrl({locale,page:'projects',project:asset.id})}">${escape(t.projects[asset.id].title)}</a></li>`).join('')}</ul>`;
+  const mainLinks=CORE_PAGES.map(page=>link(page)).join(' ');
+  const projectIds=route.page==='home'?featuredIds:route.page==='projects'&&!route.project?projectAssets.map(({id})=>id):[];
+  const projectLinks=projectIds.length?`<ul>${projectIds.map(project=>`<li><a href="${previewUrl({locale,page:'projects',project})}">${escape(t.projects[project].title)}</a></li>`).join('')}</ul>`:'';
   const h1=route.project?t.projects[route.project].title:{home:t.identity.name,about:t.about.title,projects:pageCopy[locale].collection,experience:t.resume.journeyTitle,skills:pageCopy[locale].nav.skills,contact:t.contact.title,gallery:studioCopy[locale].galleryIntro,journal:studioCopy[locale].journalIntro,admin:studioCopy[locale].adminIntro}[route.page];
-  const related={home:['about','projects','experience','skills','contact'],about:['experience','skills','contact'],projects:['skills','experience'],experience:['projects','skills','about'],skills:['projects','experience'],contact:['about','projects']}[route.project?'projects':route.page]??['projects','contact'];
   // Representative portrait as a real, crawlable image (same file the hero preloads, so no extra download); alt from the dictionary.
   const portraitAlt=`${t.identity.name}, ${t.identity.role.split('|').slice(0,2).map(part=>part.trim()).join(' · ')}`;
   const portraitImg=`<img src="/images/hashem-profile.webp" width="720" height="1280" alt="${escape(portraitAlt)}" style="max-width:200px;height:auto">`;
-  const shell=route.experience?'':`<div class="seo-shell"><header>${link('home',t.identity.name)}<nav aria-label="${escape(t.navigation.primaryNavigation)}">${CORE_PAGES.filter(page=>page!=='home').map(page=>link(page)).join(' ')}</nav></header><main><h1>${escape(h1)}</h1>${route.page==='home'?portraitImg:''}<p>${escape(metadata.description)}</p><p>${related.map(page=>link(page)).join(' · ')}</p>${route.page==='projects'&&!route.project?projectLinks:''}</main><footer><nav aria-label="${escape(pageCopy[locale].siteIndex)}">${projectLinks}<p>${link('gallery',studioCopy[locale].gallery)} · ${link('journal',studioCopy[locale].journal)}</p></nav></footer></div>`;
+  const related=route.project?['projects']:{home:['about','projects','experience','skills','contact'],about:['experience','skills','contact'],projects:['skills','experience'],experience:['projects','skills','about'],skills:['projects','experience'],contact:['about','projects']}[route.page]??['projects','contact'];
+  const overview=route.project?`<p>${escape(t.projects[route.project].overview)}</p>`:'';
+  const shell=route.experience?'':`<div class="seo-shell"><header>${link('home',t.identity.name)}<nav aria-label="${escape(t.navigation.primaryNavigation)}">${mainLinks}</nav></header><main><h1>${escape(h1)}</h1>${route.page==='home'?portraitImg:''}<p>${escape(metadata.description)}</p>${overview}${projectLinks}<p>${related.map(page=>link(page)).join(' · ')}</p></main><footer><nav aria-label="${escape(pageCopy[locale].siteIndex)}">${mainLinks}</nav><p>${link('gallery',studioCopy[locale].gallery)} · ${link('journal',studioCopy[locale].journal)}</p></footer></div>`;
   // Structured data on each language home: the site name and the person behind it (facts from the code only).
   const roles=t.identity.role.split('|').map(part=>part.trim()).filter(Boolean);
   const jsonLd=route.page==='home'&&!route.experience?`<script type="application/ld+json">${JSON.stringify({'@context':'https://schema.org','@graph':[

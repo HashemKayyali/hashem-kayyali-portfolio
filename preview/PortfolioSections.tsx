@@ -1,7 +1,6 @@
 import React, { useRef } from 'react';
 import Glyph from './Glyph';
 import { useI18n, format } from '../i18n/useI18n';
-import type { ProjectId } from '../content/types';
 import { projectAssets, isSuppliedCover, type ProjectAsset } from '../data/projectAssets';
 import { PROFILE_IMAGE, RESUME_PDF } from '../data/profile';
 import MotionField from './MotionField';
@@ -75,4 +74,4 @@ export const FeaturedProject: React.FC<{ asset: ProjectAsset; route: PreviewRout
   </article>;
 };
 
-export const featuredIds: ProjectId[] = ['eventies', 'bike-tower', 'basket-beats'];
+export {featuredIds} from '../data/projectAssets';

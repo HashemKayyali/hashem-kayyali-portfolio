@@ -28,8 +28,28 @@
       "permanent": true
     },
     {
+      "source": "/preview/index\\.html",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/preview/:path((?:creative/)?(?:en|ar|de|fr|es)(?:/.*)?)/index\\.html",
+      "destination": "/:path/",
+      "permanent": true
+    },
+    {
+      "source": "/:path((?:creative/)?(?:en|ar|de|fr|es)(?:/.*)?)/index\\.html",
+      "destination": "/:path/",
+      "permanent": true
+    },
+    {
       "source": "/preview/:locale(en|ar|de|fr|es|creative)",
       "destination": "/:locale/",
+      "permanent": true
+    },
+    {
+      "source": "/preview/:locale(en|ar|de|fr|es|creative)/:path(.*[^/])",
+      "destination": "/:locale/:path/",
       "permanent": true
     },
     {

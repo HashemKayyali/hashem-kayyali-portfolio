@@ -1,7 +1,7 @@
 import React,{useRef} from 'react';
 import {ArrowUpRight,ArrowDown} from 'lucide-react';
 import {useI18n} from '../i18n/useI18n';
-import {projectAssets,type ProjectAsset} from '../data/projectAssets';
+import {featuredIds,projectAssets,type ProjectAsset} from '../data/projectAssets';
 import {RESUME_PDF} from '../data/profile';
 import {NavLink} from './PageShell';
 import ProjectMediaSet from './ProjectMediaSet';
@@ -14,7 +14,7 @@ import './engineering-home.css';
 import HomeStory from './HomeStory';
 
 type Props={route:PreviewRoute;navigate:Navigate};
-const projects=['eventies','bike-tower','basket-beats'].map(id=>projectAssets.find(asset=>asset.id===id)!);
+const projects=featuredIds.map(id=>projectAssets.find(asset=>asset.id===id)!);
 const Up=()=> <ArrowUpRight size={20} strokeWidth={1.5} aria-hidden="true"/>;
 
 const Scene:React.FC<{asset:ProjectAsset;index:number}&Props>=({asset,index,route,navigate})=>{

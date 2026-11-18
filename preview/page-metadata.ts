@@ -63,15 +63,19 @@ export function pageMetadata(route:PreviewRoute,t:Dictionary) {
  const robots=route.experience==='creative'||route.page==='admin'||route.page==='not-found'?'noindex,nofollow':'index,follow,max-image-preview:large';
  const seo=!route.project&&route.page in SEO_PAGES[route.locale]?SEO_PAGES[route.locale][route.page as SeoPage]:undefined;
  if(seo)return {title:seo[0],description:clampDescription(seo[1]),robots};
- return {title:route.page==='home'?`${t.identity.name} — ${roles}`:`${title} | ${t.identity.name}`,description:clampDescription(description),robots};
+ const homeRoles=route.locale==='de'?'Software- und F&E-Produktingenieur':roles;
+ return {title:route.page==='home'?`${t.identity.name} — ${homeRoles}`:`${title} | ${t.identity.name}`,description:clampDescription(description),robots};
 }
 export function updatePreviewHead(route:PreviewRoute,t:Dictionary) {
  const data=pageMetadata(route,t);document.title=data.title;
+ let canonical=document.head.querySelector<HTMLLinkElement>('link[rel=canonical]');
+ const siteOrigin=new URL(canonical?.href??location.href).origin;
+ const pageUrl=new URL(previewUrl(route),siteOrigin).href;
  const meta=(name:string,value:string,property=false)=>{const key=property?'property':'name';let element=document.head.querySelector<HTMLMetaElement>(`meta[${key}="${name}"]`);if(!element){element=document.createElement('meta');element.setAttribute(key,name);document.head.append(element);}element.content=value;};
  meta('description',data.description);meta('robots',data.robots);
- meta('og:title',data.title,true);meta('og:description',data.description,true);meta('og:type','website',true);meta('og:locale',LOCALE_META[route.locale].ogLocale,true);meta('og:url',new URL(previewUrl(route),location.origin).href,true);meta('og:image',new URL(OG_IMAGE,location.origin).href,true);meta('og:site_name',t.identity.name,true);meta('twitter:card','summary_large_image');meta('twitter:title',data.title);meta('twitter:description',data.description);meta('twitter:image',new URL(OG_IMAGE,location.origin).href);
+ meta('og:title',data.title,true);meta('og:description',data.description,true);meta('og:type','website',true);meta('og:locale',LOCALE_META[route.locale].ogLocale,true);meta('og:url',pageUrl,true);meta('og:image',new URL(OG_IMAGE,siteOrigin).href,true);meta('og:site_name',t.identity.name,true);meta('twitter:card','summary_large_image');meta('twitter:title',data.title);meta('twitter:description',data.description);meta('twitter:image',new URL(OG_IMAGE,siteOrigin).href);
  document.head.querySelectorAll('link[data-preview-alternate]').forEach(link=>link.remove());
  // Same set as the prerendered shell, including x-default (English).
- for(const locale of [...LOCALES,'x-default' as const]){const link=document.createElement('link');link.rel='alternate';link.hreflang=locale;link.href=new URL(previewUrl({...route,locale:locale==='x-default'?'en':locale}),location.origin).href;link.dataset.previewAlternate='';document.head.append(link);}
- let canonical=document.head.querySelector<HTMLLinkElement>('link[rel=canonical]');if(!canonical){canonical=document.createElement('link');canonical.rel='canonical';document.head.append(canonical);}canonical.href=new URL(previewUrl(route),location.origin).href;
+ for(const locale of [...LOCALES,'x-default' as const]){const link=document.createElement('link');link.rel='alternate';link.hreflang=locale;link.href=new URL(previewUrl({...route,locale:locale==='x-default'?'en':locale}),siteOrigin).href;link.dataset.previewAlternate='';document.head.append(link);}
+ if(!canonical){canonical=document.createElement('link');canonical.rel='canonical';document.head.append(canonical);}canonical.href=pageUrl;
 }

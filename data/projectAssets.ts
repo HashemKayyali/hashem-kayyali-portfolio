@@ -1,6 +1,8 @@
 import type { CategoryKey, LocalizedProject, ProjectId } from '../content/types';
 import type { WarpRamp } from '../types';
 
+export const featuredIds: readonly ProjectId[] = ['eventies', 'bike-tower', 'basket-beats'];
+
 /**
  * Everything about a project that does not change with language: identity,
  * imagery, palette, links, and visibility. Localized copy lives in
