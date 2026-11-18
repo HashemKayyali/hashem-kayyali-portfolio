@@ -29,7 +29,7 @@ await Promise.all(urls.map(async url=>{
  for(const tag of ['og:title','og:description','og:type','og:site_name','twitter:title','twitter:description'])if((html.match(new RegExp(`(property|name)="${tag}"`,'g'))||[]).length!==1)fail(tag+' count');
  const ld=attr(html,/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g);const home=/^\/(en|ar|de|fr|es)\/$/.test(path);
  if(home!==(ld.length===1))fail('JSON-LD presence');
- if(ld[0]){const data=JSON.parse(ld[0]);const types=data['@graph'].map(node=>node['@type']).sort().join();if(types!=='Person,WebSite')fail('JSON-LD types '+types);}
+ if(ld[0]){const data=JSON.parse(ld[0]);const types=data['@graph'].map(node=>node['@type']).sort().join();if(types!=='Person,WebPage,WebSite')fail('JSON-LD types '+types);const page=data['@graph'].find(node=>node['@type']==='WebPage');if(!/hashem-profile.webp$/.test(page?.primaryImageOfPage?.url??''))fail('WebPage.primaryImageOfPage');}
  // Without JavaScript: one H1 and plain links to the five main pages, outside <noscript>.
  const raw=html.replace(/<noscript>[\s\S]*?<\/noscript>/g,'');
  if((raw.match(/<h1[\s>]/g)||[]).length!==1)fail('server HTML needs exactly one <h1>');
