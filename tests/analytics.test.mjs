@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {handle,sourceOf,deviceOf,projectOf} from '../server/analytics/handler.ts';
 import {PRESETS,shift} from '../insights/dates.ts';
 
+process.env.ANALYTICS_INGEST_TOKEN='test-token';
 const id=()=>crypto.randomUUID();
 const body=(o={})=>JSON.stringify({id:id(),v:id(),s:id(),p:'/en/projects/eventies/',r:'',l:'en-US',...o});
 const post=(b,h={})=>handle(new Request('https://hashemkayyali.com/api/analytics',{method:'POST',body:b,headers:{origin:'https://hashemkayyali.com','user-agent':'Mozilla/5.0 (iPhone) Mobile',...h}}));
@@ -18,7 +19,7 @@ test('source, device, project classification',()=>{
 test('collect: valid event reaches the RPC with server-derived fields and no IP',async()=>{
   let seen;
   const res=await withFetch(async(u,o)=>{seen={u:String(u),b:JSON.parse(o.body),h:o.headers};return new Response('true');},()=>post(body(),{'x-vercel-ip-country':'jo','x-forwarded-for':'203.0.113.9'}));
-  assert.equal(res.status,204);assert.match(seen.u,/\/rpc\/track_event$/);
+  assert.equal(res.status,204);assert.match(seen.u,/\/rpc\/track_event$/);assert.equal(seen.b.p_token,'test-token');
   assert.equal(seen.b.p_country,'JO');assert.equal(seen.b.p_device,'mobile');assert.equal(seen.b.p_project,'eventies');assert.equal(seen.b.p_lang,'en');
   assert.ok(!JSON.stringify(seen.b).includes('203.0.113.9'));
 });
@@ -34,6 +35,10 @@ test('collect: invalid payloads are rejected',async()=>{
     for(const b of ['not json',body({id:'x'}),body({p:'/bad path'}),body({p:'https://evil'}),body({p:'/insights'}),body({l:5}),body({r:'x'.repeat(200)})])assert.equal((await post(b)).status,400);
     assert.equal((await post('x'.repeat(2000))).status,413);
   });
+});
+test('collect: without the ingest token nothing is written (fail closed)',async()=>{
+  const t=process.env.ANALYTICS_INGEST_TOKEN;delete process.env.ANALYTICS_INGEST_TOKEN;
+  try{assert.equal((await withFetch(async()=>{throw new Error('db touched');},()=>post(body()))).status,503);}finally{process.env.ANALYTICS_INGEST_TOKEN=t;}
 });
 test('collect: database failure surfaces as 503, never throws',async()=>{
   assert.equal((await withFetch(async()=>{throw new Error('down');},()=>post(body()))).status,503);

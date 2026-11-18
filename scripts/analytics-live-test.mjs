@@ -7,19 +7,16 @@ import {SUPABASE_URL as U,SUPABASE_PUBLISHABLE_KEY as K,PRESENCE_CHANNEL} from '
 const H={apikey:K,authorization:`Bearer ${K}`,'content-type':'application/json'};
 const rpc=(n,b)=>fetch(`${U}/rest/v1/rpc/${n}`,{method:'POST',headers:H,body:JSON.stringify(b)});
 const uid=()=>crypto.randomUUID(),vid=()=>'ffffffff-'+uid().slice(9);
-const ev=(o={})=>({p_id:uid(),p_visitor:vid(),p_session:uid(),p_path:'/en/',p_project:'',p_source:'Direct',p_country:'JO',p_device:'desktop',p_lang:'en',...o});
+const ev=(o={})=>({p_token:'wrong-token',p_id:uid(),p_visitor:vid(),p_session:uid(),p_path:'/en/',p_project:'',p_source:'Direct',p_country:'JO',p_device:'desktop',p_lang:'en',...o});
 const results=[];const t=async(name,fn)=>{try{await fn();results.push(['PASS',name]);}catch(e){results.push(['FAIL',name+' :: '+e.message]);}};
 
 await t('anon cannot read raw table',async()=>{const r=await fetch(`${U}/rest/v1/analytics_events?select=*`,{headers:H});assert.ok([401,403,404].includes(r.status)||(r.ok&&(await r.json()).length===0),'status '+r.status);});
 await t('anon cannot insert raw rows',async()=>{const r=await fetch(`${U}/rest/v1/analytics_events`,{method:'POST',headers:{...H,prefer:'return=minimal'},body:JSON.stringify({id:uid(),day:'2026-01-01',visitor_id:vid(),session_id:uid(),path:'/',source:'x',device:'desktop',lang:'en'})});assert.ok(r.status>=400,'status '+r.status);});
 await t('anon cannot update or delete raw rows',async()=>{for(const m of ['PATCH','DELETE']){const r=await fetch(`${U}/rest/v1/analytics_events?id=neq.00000000-0000-0000-0000-000000000000`,{method:m,headers:H,body:m==='PATCH'?'{"path":"/x"}':undefined});assert.ok(r.status>=400,m+' '+r.status);}});
-await t('events are idempotent by id',async()=>{const e=ev();assert.equal(await (await rpc('track_event',e)).json(),true);assert.equal(await (await rpc('track_event',e)).json(),false);});
+await t('direct anon track_event is forbidden (token-gated; only /api/analytics holds the token)',async()=>{for(const body of [ev(),{...ev(),p_token:''}]){const r=await rpc('track_event',body);assert.ok(!r.ok,'status '+r.status);}const old=await rpc('track_event',{p_id:uid(),p_visitor:vid(),p_session:uid(),p_path:'/',p_project:'',p_source:'x',p_country:'',p_device:'desktop',p_lang:'en'});assert.ok(!old.ok,'legacy signature must not be callable');});
 await t('constraints reject bad input',async()=>{for(const bad of [{p_path:'/x y'},{p_device:'tv'},{p_lang:'EN1'},{p_visitor:'nope'},{p_project:'A B'}])assert.ok(!(await rpc('track_event',ev(bad))).ok,JSON.stringify(bad));});
-await t('session keeps first-touch source',async()=>{const v=vid(),s=uid();await rpc('track_event',ev({p_visitor:v,p_session:s,p_source:'GitHub'}));await rpc('track_event',ev({p_visitor:v,p_session:s,p_source:'Direct'}));
-  const sum=await (await rpc('insights_summary',{p_from:new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Amman'}).format(new Date(Date.now()-30*864e5)),p_to:new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Amman'}).format(new Date())})).json();assert.ok(sum.sources.find(x=>x.k==='GitHub'));});
-await t('per-visitor rate limit (40/min)',async()=>{const v=vid(),s=uid();let ok=0,blocked=0;for(let i=0;i<44;i++){const r=await (await rpc('track_event',ev({p_visitor:v,p_session:s}))).json();r?ok++:blocked++;}assert.equal(ok,40);assert.equal(blocked,4);});
 await t('summary returns only aggregates with expected shape',async()=>{const today=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Amman'}).format(new Date());const r=await rpc('insights_summary',{p_from:today,p_to:today});assert.ok(r.ok);const s=await r.json();
-  for(const k of ['today','week','month','range','series','pages','projects','sources','countries','devices','langs','usage'])assert.ok(k in s,k);assert.ok(s.today.views>=s.today.sessions&&s.today.sessions>=s.today.visitors&&s.today.visitors>0);
+  for(const k of ['today','week','month','range','series','pages','projects','sources','countries','devices','langs','usage'])assert.ok(k in s,k);assert.ok(s.today.views>=s.today.sessions&&s.today.sessions>=s.today.visitors&&s.today.visitors>=0);
   assert.ok(!JSON.stringify(s).includes('visitor_id'));});
 await t('summary rejects reversed and oversized ranges',async()=>{assert.ok(!(await rpc('insights_summary',{p_from:'2026-02-02',p_to:'2026-02-01'})).ok);assert.ok(!(await rpc('insights_summary',{p_from:'2024-01-01',p_to:'2026-01-01'})).ok);});
 await t('no other function is exposed to anon',async()=>{const r=await fetch(`${U}/rest/v1/rpc/pg_database_size`,{method:'POST',headers:H,body:'{}'});assert.ok(!r.ok||false);});

@@ -38,8 +38,10 @@ export async function handle(request:Request):Promise<Response>{
     const {id,v,s,p,r='',l}=b??{};
     if(![id,v,s].every(x=>typeof x==='string'&&UUID.test(x))||typeof p!=='string'||!PATH.test(p)||p.startsWith('/insights')||typeof r!=='string'||r.length>100||typeof l!=='string')return json(400,{error:'invalid'});
     const country=(request.headers.get('x-vercel-ip-country')||'').toUpperCase();
+    // Dedicated write credential (server env only). Without it, fail closed: never write.
+    const token=process.env.ANALYTICS_INGEST_TOKEN;if(!token)return new Response(null,{status:503});
     try{
-      const res=await rpc('track_event',{p_id:id,p_visitor:v,p_session:s,p_path:p,p_project:projectOf(p),p_source:sourceOf(r),p_country:/^[A-Z]{2}$/.test(country)?country:'',p_device:deviceOf(ua),p_lang:(l.slice(0,2).toLowerCase().match(/^[a-z]{2}$/)?.[0])||'en'});
+      const res=await rpc('track_event',{p_token:token,p_id:id,p_visitor:v,p_session:s,p_path:p,p_project:projectOf(p),p_source:sourceOf(r),p_country:/^[A-Z]{2}$/.test(country)?country:'',p_device:deviceOf(ua),p_lang:(l.slice(0,2).toLowerCase().match(/^[a-z]{2}$/)?.[0])||'en'});
       return new Response(null,{status:res.ok?204:503});
     }catch{return new Response(null,{status:503});}
   }

@@ -1,0 +1,4 @@
+-- Applied as "analytics_ingest_token_gate". Adds public.analytics_ingest (RLS, no grants; holds only the SHA-256 of the
+-- ingest token, whose plaintext lives in the Vercel env var ANALYTICS_INGEST_TOKEN) and a 10-argument track_event whose
+-- first argument is that token: wrong/missing token raises 42501. Caps are those of 0003.
+-- Follow-up (applied after the handler deploy): drop function public.track_event(uuid,text,text,text,text,text,text,text,text);
