@@ -1,0 +1,5 @@
+-- Applied to the portfolio project as "analytics_track_event_caps". Adds global per-minute (60) and per-day (5000) caps
+-- so rotating random visitor ids cannot flood the free-plan database (see docs/engineering/ANALYTICS_PHASE_CLOSURE.md).
+-- Full function body: see the live definition; it is 202611180002 plus these two lines:
+--   if (select count(*) from public.analytics_events where ts > now() - interval '1 minute') >= 60 then return false; end if;
+--   if (select count(*) from public.analytics_events where day = (now() at time zone 'Asia/Amman')::date) >= 5000 then return false; end if;
